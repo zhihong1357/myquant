@@ -23,3 +23,23 @@ def test_lead_lag_panel_rejects_duplicate_timestamps():
     })
     with pytest.raises(ValueError, match="unique"):
         lead_lag_panel(frame, source_lags=(1,))
+
+
+def test_lead_lag_panel_rejects_contemporaneous_zero_lag():
+    frame = pd.DataFrame({
+        "timestamp": pd.date_range("2026-01-01", periods=2, freq="D", tz="UTC"),
+        "source_value": [1.0, 2.0],
+        "target_return": [0.0, 0.1],
+    })
+    with pytest.raises(ValueError, match="positive"):
+        lead_lag_panel(frame, source_lags=(0,))
+
+
+def test_lead_lag_panel_supports_custom_timestamp_column():
+    frame = pd.DataFrame({
+        "observed_at": pd.date_range("2026-01-01", periods=2, freq="D", tz="UTC"),
+        "source_value": [1.0, 2.0],
+        "target_return": [0.0, 0.1],
+    })
+    result = lead_lag_panel(frame, source_lags=(1,), timestamp_column="observed_at")
+    assert result.loc[1, "source_lag_1"] == 1.0
