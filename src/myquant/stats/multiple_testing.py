@@ -58,6 +58,7 @@ def adjust_pvalues(
     sorted_adjusted: NDArray[np.float64] = sorted_values.copy()
 
     if method == MultiplicityCorrection.NONE:
+        pass
     elif method == MultiplicityCorrection.BONFERRONI:
         sorted_adjusted = np.minimum(1.0, sorted_values * count)
     elif method == MultiplicityCorrection.HOLM:
