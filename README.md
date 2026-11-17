@@ -57,4 +57,4 @@ mypy src
 
 No profitability claim is made. Live execution is explicitly out of scope.
 
-See [architecture](docs/architecture.md), [research thesis](docs/research-thesis.md), and [roadmap](docs/roadmap.md).
+See [architecture](docs/architecture.md), [research thesis](docs/research-thesis.md), [statistical kernel](docs/statistical-kernel.md), and [roadmap](docs/roadmap.md).
