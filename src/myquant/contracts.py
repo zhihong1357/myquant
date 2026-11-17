@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import StrEnum
 from typing import Annotated
 
@@ -12,9 +12,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 def require_utc(value: datetime) -> datetime:
     if value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("timestamps must be timezone-aware")
-    if value.utcoffset().total_seconds() != 0:
-        return value.astimezone(timezone.utc)
-    return value
+    return value.astimezone(UTC)
 
 
 class StrictContract(BaseModel):
@@ -31,6 +29,12 @@ class HypothesisStatus(StrEnum):
 
 
 class Observation(StrictContract):
+    """One value with separate event, availability, and ingestion clocks.
+
+    available_at may precede event_time for forecasts and scheduled future
+    events. It must not be inferred from event_time.
+    """
+
     schema_version: Annotated[int, Field(ge=1)] = 1
     instrument_id: Annotated[str, Field(min_length=1)]
     venue: Annotated[str, Field(min_length=1)]
@@ -38,18 +42,17 @@ class Observation(StrictContract):
     available_at: datetime
     ingested_at: datetime
     field: Annotated[str, Field(min_length=1)]
-    value: float
+    value: Annotated[float, Field(allow_inf_nan=False)]
     unit: Annotated[str, Field(min_length=1)]
     source_id: Annotated[str, Field(min_length=1)]
+    source_version: Annotated[int, Field(ge=1)] = 1
     revision: Annotated[int, Field(ge=1)] = 1
 
     @model_validator(mode="after")
-    def validate_times(self) -> "Observation":
+    def validate_times(self) -> Observation:
         event = require_utc(self.event_time)
         available = require_utc(self.available_at)
         ingested = require_utc(self.ingested_at)
-        if available < event:
-            raise ValueError("available_at cannot precede event_time")
         if ingested < available:
             raise ValueError("ingested_at cannot precede available_at")
         object.__setattr__(self, "event_time", event)
@@ -72,7 +75,7 @@ class Hypothesis(StrictContract):
     created_at: datetime
 
     @model_validator(mode="after")
-    def validate_created_at(self) -> "Hypothesis":
+    def validate_created_at(self) -> Hypothesis:
         object.__setattr__(self, "created_at", require_utc(self.created_at))
         if not self.universe:
             raise ValueError("universe must contain at least one instrument or market")
@@ -87,12 +90,12 @@ class FeatureRecord(StrictContract):
     instrument_id: Annotated[str, Field(min_length=1)]
     observation_time: datetime
     available_at: datetime
-    value: float
+    value: Annotated[float, Field(allow_inf_nan=False)]
     input_fingerprints: tuple[str, ...]
     config_fingerprint: Annotated[str, Field(min_length=1)]
 
     @model_validator(mode="after")
-    def validate_feature_time(self) -> "FeatureRecord":
+    def validate_feature_time(self) -> FeatureRecord:
         observation = require_utc(self.observation_time)
         available = require_utc(self.available_at)
         if available < observation:

@@ -3,17 +3,19 @@
 ## Stage 0 — Bootstrap and research constitution
 - [x] Create independent repository identity and safety boundary.
 - [x] Define initial cross-market research thesis.
-- [ ] Establish typed data and hypothesis contracts.
-- [ ] Establish append-only experiment ledger.
-- [ ] Add CI and reproducible development environment.
+- [x] Establish typed data and hypothesis contracts.
+- [x] Establish append-only experiment ledger.
+- [x] Add CI and reproducible development environment.
 
 ## Stage 1 — Data and research foundations
-- [ ] Instrument master and market calendars.
-- [ ] Source registry and data licensing metadata.
-- [ ] Immutable raw storage with checksums.
-- [ ] Canonical observations and point-in-time query.
-- [ ] Data quality, missingness and timestamp diagnostics.
-- [ ] Experiment runner and synthetic data factory.
+- [x] Instrument master and market calendars.
+- [x] Source registry and data licensing metadata.
+- [x] Immutable raw storage with checksums.
+- [x] Canonical observations and point-in-time query.
+- [x] Data quality, missingness and timestamp diagnostics (batch-level; expected series must be explicit).
+- [x] Experiment runner with strict JSON outputs and failure receipts.
+- [x] Synthetic null, lead-lag, common-factor and regime-shift data factory.
+- [ ] Hypothesis preregistration registry and lifecycle enforcement.
 
 ## Stage 2 — Statistical research kernel
 - [ ] Return and volatility estimators.

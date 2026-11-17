@@ -1,12 +1,10 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import pytest
 from pydantic import ValidationError
 
 from myquant.contracts import Observation, is_available_at
-
-
-UTC = timezone.utc
 
 
 def make_observation(**overrides):
@@ -31,10 +29,13 @@ def test_observation_rejects_naive_timestamp():
         make_observation(event_time=datetime(2026, 1, 1))
 
 
-def test_observation_rejects_impossible_time_order():
+def test_observation_rejects_ingestion_before_availability():
     now = datetime(2026, 1, 1, tzinfo=UTC)
     with pytest.raises(ValidationError):
-        make_observation(available_at=now - timedelta(seconds=1))
+        make_observation(
+            available_at=now + timedelta(seconds=2),
+            ingested_at=now + timedelta(seconds=1),
+        )
 
 
 def test_pit_uses_available_at_not_event_time():
@@ -42,3 +43,24 @@ def test_pit_uses_available_at_not_event_time():
     decision = datetime(2026, 1, 1, tzinfo=UTC) + timedelta(seconds=1)
     assert not is_available_at(observation, decision)
     assert is_available_at(observation, decision + timedelta(seconds=1))
+
+
+def test_forecast_can_be_available_before_future_event():
+    event_time = datetime(2026, 2, 1, tzinfo=UTC)
+    available_at = datetime(2026, 1, 15, tzinfo=UTC)
+    observation = make_observation(
+        event_time=event_time,
+        available_at=available_at,
+        ingested_at=available_at + timedelta(seconds=1),
+    )
+    assert observation.available_at < observation.event_time
+
+
+def test_timestamps_with_zero_offset_are_normalized_to_utc():
+    london_time = datetime(2026, 1, 1, tzinfo=ZoneInfo("Europe/London"))
+    observation = make_observation(
+        event_time=london_time,
+        available_at=london_time,
+        ingested_at=london_time,
+    )
+    assert observation.event_time.tzinfo == UTC

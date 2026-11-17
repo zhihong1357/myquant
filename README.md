@@ -26,6 +26,18 @@ Its first research thesis is **cross-market expectation transmission**: whether 
 
 The system is designed for multiple horizons: sub-hourly, intraday, daily and multi-day. Data onboarding is staged; "all markets" is an architectural goal, not a claim that every market is already covered.
 
+## Current foundation
+
+- Provider-neutral instruments and timezone-aware trading calendars
+- Versioned data-source registry with explicit research-use permission metadata
+- Immutable content-addressed raw payloads and provenance manifests
+- Immutable Parquet observations with point-in-time revision queries
+- Batch-level data-quality and coverage diagnostics
+- Deterministic synthetic scenarios: null, lead-lag, common-factor and regime-shift
+- Reproducible experiment runner with append-only hash-chained results
+
+The current implementation is a research foundation, not a live market data service or a proven trading system. Hypothesis preregistration enforcement and statistical validation remain future work.
+
 ## Quick start
 
 Requires Python 3.12+.
@@ -35,10 +47,12 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
 pytest
+ruff check .
+mypy src
 ```
 
 ## Project status
 
-The repository is at its bootstrap stage. The initial implementation provides typed research contracts, an append-only hash-chained experiment ledger, and a first cross-market lag-study primitive. No profitability claim is made.
+No profitability claim is made. Live execution is explicitly out of scope.
 
 See [architecture](docs/architecture.md), [research thesis](docs/research-thesis.md), and [roadmap](docs/roadmap.md).
