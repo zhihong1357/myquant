@@ -58,8 +58,8 @@ class ParquetPITStore:
         """Return the latest source revision knowable at decision_time.
 
         Revision resolution is performed independently per instrument, venue,
-        field, event_time and source. Multiple data sources remain separate;
-        callers must not silently average conflicting providers.
+        field, event_time and exact source version. Multiple data sources remain
+        separate; callers must not silently average conflicting providers.
         """
         decision = require_utc(decision_time)
         eligible: list[Observation] = []
@@ -79,7 +79,7 @@ class ParquetPITStore:
                     continue
                 eligible.append(observation)
 
-        latest: dict[tuple[str, str, str, datetime, str], Observation] = {}
+        latest: dict[tuple[str, str, str, datetime, str, int], Observation] = {}
         for observation in eligible:
             key = (
                 observation.instrument_id,
@@ -87,10 +87,20 @@ class ParquetPITStore:
                 observation.field,
                 observation.event_time,
                 observation.source_id,
+                observation.source_version,
             )
             previous = latest.get(key)
-            if previous is None or _revision_order(observation) > _revision_order(previous):
+            if previous is None:
                 latest[key] = observation
+                continue
+            current_order = _revision_order(observation)
+            previous_order = _revision_order(previous)
+            if current_order > previous_order:
+                latest[key] = observation
+            elif current_order == previous_order and observation.value != previous.value:
+                raise ValueError(
+                    "conflicting observations share the same source revision and timestamps"
+                )
 
         return sorted(
             latest.values(),
@@ -99,6 +109,7 @@ class ParquetPITStore:
                 item.instrument_id,
                 item.field,
                 item.source_id,
+                item.source_version,
             ),
         )
 
