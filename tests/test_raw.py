@@ -81,3 +81,23 @@ def test_raw_store_detects_blob_tampering(tmp_path):
     blob.write_bytes(b"tampered")
     with pytest.raises(ValueError, match="checksum"):
         store.read_payload(record.record_id)
+
+
+def test_raw_store_detects_manifest_tampering(tmp_path):
+    import json
+
+    store = RawStore(tmp_path)
+    now = datetime(2026, 1, 1, tzinfo=UTC)
+    record = store.put(
+        b"original",
+        source_id="test-feed",
+        available_at=now,
+        ingested_at=now,
+        content_type="text/plain",
+    )
+    manifest = store.manifest_root / record.record_id[:2] / f"{record.record_id}.json"
+    data = json.loads(manifest.read_text())
+    data["source_id"] = "forged-source"
+    manifest.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="manifest integrity"):
+        store.get_record(record.record_id)
