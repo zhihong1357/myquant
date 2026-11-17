@@ -63,3 +63,20 @@ Do not compare raw returns or hit rates across different horizons without normal
 
 ## Safety boundary
 The initial and foreseeable system is paper-only. No live order-routing module is permitted. The simulator is a research model and must disclose its fill assumptions.
+
+
+## Stage 1 data foundations
+
+- **Instrument master:** canonical provider-neutral instrument IDs. Exchange/provider symbols are separate mappings and must never define the identity of an instrument.
+- **Market calendars:** IANA timezone, weekdays, local session boundaries, holidays and early closes. Overnight sessions are supported. Continuous markets use all seven weekdays and a 00:00-to-00:00 session.
+- **Source registry:** provider, timestamp meaning, nominal delay, attribution and explicit license state. Unknown/restricted/prohibited sources are not approved for research use by default.
+- **Raw store:** byte-preserving, content-addressed blobs plus distinct immutable provenance manifests. A checksum is verified on read; different providers may point to the same payload bytes without losing source identity.
+- **PIT observation store:** immutable Parquet batches. A query at decision time first hides rows with `available_at` later than the decision, then selects the latest revision independently per instrument/venue/field/event/source. Conflicting providers remain separate.
+
+### Timestamp interpretation
+
+`event_time` is the timestamp the observation refers to; it is not necessarily the time the observation became knowable. A forecast or scheduled-event estimate can be published before its future event time. PIT eligibility is determined by `available_at`, while `ingested_at` records when MyQuant received the information.
+
+### Initial implementation limits
+
+The initial Parquet PIT query scans the immutable batch files and resolves revisions in Python. This is correct for small research datasets but is not yet a scalable query engine. Partition pruning, compaction, catalog statistics and concurrent-writer coordination are future work. The local immutable file writer is designed for single-process research ingestion; it is not a distributed object-store transaction protocol.
