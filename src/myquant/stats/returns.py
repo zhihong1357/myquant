@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from math import isfinite, sqrt
+from typing import cast
 
 import numpy as np
 import pandas as pd
@@ -22,7 +23,10 @@ def _validate_time_series(series: pd.Series, *, name: str) -> NDArray[np.float64
         raise ValueError(f"{name} index must not contain duplicate timestamps")
 
     try:
-        values = series.to_numpy(dtype=np.float64, na_value=np.nan)
+        values = cast(
+            NDArray[np.float64],
+            series.to_numpy(dtype=np.float64, na_value=np.nan),
+        )
     except (TypeError, ValueError) as exc:
         raise TypeError(f"{name} values must be numeric") from exc
 
