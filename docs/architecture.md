@@ -107,7 +107,7 @@ The lifecycle event stream is hash-chained and replay-validated against legal st
 
 ## Stage 2B initial statistical kernel
 
-The first statistical slice provides return/volatility estimators, descriptive lead-lag scans, circular block bootstrap for the mean, and Bonferroni/Holm/Benjamini–Hochberg p-value corrections. Method definitions, input requirements and limitations are specified in [statistical-kernel.md](statistical-kernel.md).
+The statistical kernel provides return/volatility estimators, descriptive and factor-controlled lead-lag analysis, OLS/HAC inference, circular block bootstrap, multiple-testing corrections, purged walk-forward validation, paired OOS scoring, and event-study CARs with overlapping-window clusters. Method definitions, input requirements and limitations are specified in [statistical-kernel.md](statistical-kernel.md).
 
 Important boundaries:
 
