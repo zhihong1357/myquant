@@ -4,11 +4,11 @@ This document describes the initial descriptive and inference primitives. They a
 
 ## 1. Return and volatility estimators
 
-- `simple_returns`: (P_t/P_{t-1}-1)
-- `log_returns`: (log(P_t)-log(P_{t-1}))
-- `realized_variance`: (sum_t r_t^2), with no demeaning and no annualization
+- `simple_returns`: `P_t / P_(t-1) - 1`
+- `log_returns`: `ln(P_t) - ln(P_(t-1))`
+- `realized_variance`: `sum(r_t ** 2)`, with no demeaning and no annualization
 - `realized_volatility`: square root of the preceding realized variance
-- `annualized_volatility`: sample standard deviation with (ddof=1), multiplied by (sqrt{periods_per_year})
+- `annualized_volatility`: sample standard deviation with `ddof=1`, multiplied by `sqrt(periods_per_year)`
 
 The two volatility measures answer different questions. The sum-of-squares realized measure accumulates variation over the supplied window; annualized volatility estimates a per-period standard deviation and annualizes it. Do not compare them as though they had identical definitions.
 
