@@ -6,6 +6,7 @@ from collections.abc import Iterable
 from math import isfinite
 
 import numpy as np
+from numpy.typing import NDArray
 from pydantic import Field
 
 from myquant.contracts import StrictContract
@@ -35,7 +36,7 @@ def adjust_pvalues(
     must include every planned test in that family, not only attractive
     results. NONE is permitted only for a single planned test.
     """
-    values = np.asarray(tuple(p_values), dtype=float)
+    values: NDArray[np.float64] = np.asarray(tuple(p_values), dtype=np.float64)
     if values.ndim != 1:
         raise ValueError("p_values must be a one-dimensional sequence")
     if values.size == 0:
@@ -53,22 +54,28 @@ def adjust_pvalues(
 
     count = int(values.size)
     order = np.argsort(values, kind="stable")
-    sorted_values = values[order]
+    sorted_values: NDArray[np.float64] = values[order]
+    sorted_adjusted: NDArray[np.float64] = sorted_values.copy()
 
     if method == MultiplicityCorrection.NONE:
-        sorted_adjusted = sorted_values.copy()
     elif method == MultiplicityCorrection.BONFERRONI:
         sorted_adjusted = np.minimum(1.0, sorted_values * count)
     elif method == MultiplicityCorrection.HOLM:
         multipliers = count - np.arange(count)
-        raw_adjusted = sorted_values * multipliers
+        raw_adjusted: NDArray[np.float64] = np.asarray(
+            sorted_values * multipliers,
+            dtype=np.float64,
+        )
         sorted_adjusted = np.minimum(
             1.0,
             np.maximum.accumulate(raw_adjusted),
         )
     elif method == MultiplicityCorrection.BENJAMINI_HOCHBERG:
         ranks = np.arange(1, count + 1)
-        raw_adjusted = sorted_values * count / ranks
+        raw_adjusted = np.asarray(
+            sorted_values * count / ranks,
+            dtype=np.float64,
+        )
         sorted_adjusted = np.minimum(
             1.0,
             np.minimum.accumulate(raw_adjusted[::-1])[::-1],
