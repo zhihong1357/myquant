@@ -564,7 +564,7 @@ class HypothesisRegistry:
         event = draft.model_copy(update={"event_hash": event_hash})
         self.events_path.parent.mkdir(parents=True, exist_ok=True)
         with self.events_path.open("ab") as stream:
-            stream.write(_canonical_json(event.model_dump(mode="json")) + b"\\n")
+            stream.write(_canonical_json(event.model_dump(mode="json")) + b"\n")
             stream.flush()
             os.fsync(stream.fileno())
         return event
