@@ -8,6 +8,7 @@ from myquant.hypotheses import (
     HypothesisRegistry,
     HypothesisSpec,
     HypothesisState,
+    MultiplicityCorrection,
     SampleWindow,
 )
 
@@ -39,7 +40,7 @@ def make_spec(**overrides):
         "observation_frequency": "daily",
         "horizon_seconds": 86_400,
         "target_definition": "Next session close-to-close MOVE log return",
-        "feature_set": ("vix_return_lag_1", "rates_return_1d"),
+        "feature_set": ("vix_return_lag_1@v1", "rates_return_1d@v1"),
         "model_definition": ("OLS with intercept", "Newey-West HAC standard errors"),
         "fixed_parameters": ("lag=1", "winsorization=none"),
         "benchmark": "Intercept-only historical mean",
@@ -63,6 +64,7 @@ def make_spec(**overrides):
         "minimum_effect_size": 0.01,
         "familywise_alpha": 0.05,
         "multiple_testing_family": "Cross-market volatility transmission v1",
+        "multiple_testing_method": MultiplicityCorrection.NONE,
         "planned_test_count": 1,
         "missing_data_policy": "No forward filling; exclude incomplete paired sessions",
         "acceptance_criteria": (
@@ -210,6 +212,10 @@ def test_time_splits_must_respect_prediction_horizon_purge():
 
 def test_reject_duplicate_features_and_bad_source_version():
     with pytest.raises(ValidationError, match="feature_set entries"):
-        make_spec(feature_set=("vix_return_lag_1", "vix_return_lag_1"))
+        make_spec(feature_set=("vix_return_lag_1@v1", "vix_return_lag_1@v1"))
     with pytest.raises(ValidationError, match="source_versions"):
         make_spec(source_versions=("sample-vix", "sample-move@v1"))
+    with pytest.raises(ValidationError, match="feature_set entries"):
+        make_spec(feature_set=("feature_without_version",))
+    with pytest.raises(ValidationError, match="multiple planned tests"):
+        make_spec(planned_test_count=10)
