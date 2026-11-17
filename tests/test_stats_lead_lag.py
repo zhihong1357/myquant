@@ -83,3 +83,21 @@ def test_scan_rejects_unsynchronized_or_invalid_inputs():
 def test_scan_requires_a_minimum_sample_size():
     with pytest.raises(ValueError, match="at least 3"):
         lead_lag_scan([1.0] * 40, [2.0] * 40, lag_steps=(0,), minimum_observations=2)
+
+
+def test_scan_accepts_numpy_integer_lags():
+    panel = make_transmission_panel(
+        observations=500,
+        lag_steps=3,
+        beta=0.8,
+        noise_scale=0.2,
+        seed=37,
+    )
+    result = lead_lag_scan(
+        panel["source_value"],
+        panel["target_return"],
+        lag_steps=(np.int64(3),),
+    )
+    assert result[0].lag_steps == 3
+    assert result[0].correlation is not None
+    assert result[0].correlation > 0.9
