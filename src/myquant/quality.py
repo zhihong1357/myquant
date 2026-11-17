@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-from collections import Counter
 from collections.abc import Sequence
 from datetime import datetime
 from enum import StrEnum
-from math import ceil
+from math import ceil, isfinite
 
 from pydantic import Field
 
@@ -57,8 +56,14 @@ def inspect_observations(
     expected_series set. Missing rows cannot be interpreted as missing bars
     until the market calendar and expected cadence are known.
     """
-    if max_ingestion_lag_seconds is not None and max_ingestion_lag_seconds < 0:
-        raise ValueError("max_ingestion_lag_seconds must be non-negative")
+    if (
+        max_ingestion_lag_seconds is not None
+        and (
+            not isfinite(max_ingestion_lag_seconds)
+            or max_ingestion_lag_seconds < 0
+        )
+    ):
+        raise ValueError("max_ingestion_lag_seconds must be finite and non-negative")
 
     issues: list[QualityIssue] = []
     if not observations:
