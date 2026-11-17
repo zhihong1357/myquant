@@ -22,6 +22,13 @@ class ExpectedDirection(StrEnum):
     TWO_SIDED = "two_sided"
 
 
+class MultiplicityCorrection(StrEnum):
+    NONE = "none"
+    BONFERRONI = "bonferroni"
+    HOLM = "holm"
+    BENJAMINI_HOCHBERG = "benjamini_hochberg"
+
+
 class HypothesisState(StrEnum):
     REGISTERED = "registered"
     TESTING = "testing"
@@ -86,6 +93,7 @@ class HypothesisSpec(StrictContract):
     minimum_effect_size: float = Field(gt=0, allow_inf_nan=False)
     familywise_alpha: float = Field(gt=0, lt=1, allow_inf_nan=False)
     multiple_testing_family: str = Field(min_length=5)
+    multiple_testing_method: MultiplicityCorrection
     planned_test_count: int = Field(ge=1)
 
     missing_data_policy: str = Field(min_length=8)
@@ -121,12 +129,30 @@ class HypothesisSpec(StrictContract):
             raise ValueError("source_versions entries must be unique")
         if len(set(self.feature_set)) != len(self.feature_set):
             raise ValueError("feature_set entries must be unique")
+        if len(set(self.model_definition)) != len(self.model_definition):
+            raise ValueError("model_definition entries must be unique")
+        if len(set(self.acceptance_criteria)) != len(self.acceptance_criteria):
+            raise ValueError("acceptance_criteria entries must be unique")
+        if len(set(self.rejection_criteria)) != len(self.rejection_criteria):
+            raise ValueError("rejection_criteria entries must be unique")
 
         for source in self.source_versions:
-            if not _valid_source_version(source):
+            if not _valid_versioned_identifier(source):
                 raise ValueError(
                     "source_versions must use the form '<source_id>@v<positive_integer>'"
                 )
+        for feature in self.feature_set:
+            if not _valid_versioned_identifier(feature):
+                raise ValueError(
+                    "feature_set entries must use the form '<feature_id>@v<positive_integer>'"
+                )
+
+        if self.planned_test_count > 1 and (
+            self.multiple_testing_method == MultiplicityCorrection.NONE
+        ):
+            raise ValueError(
+                "multiple planned tests require a predeclared multiple-testing correction"
+            )
         return self
 
 
@@ -177,6 +203,8 @@ class HypothesisRegistry:
     Amendments are allowed only while the previous version is still REGISTERED,
     before any trial has started. Once a version enters TESTING, its contents
     are frozen permanently; a material change requires a new hypothesis ID.
+
+    This is a local single-writer research registry, not a distributed database.
     """
 
     _TRANSITIONS: dict[HypothesisState, frozenset[HypothesisState]] = {
@@ -212,10 +240,16 @@ class HypothesisRegistry:
         """Register v1 or issue a pre-trial amendment as a new immutable version."""
         directory = self.registration_root / spec.hypothesis_id
         existing_versions = self._versions(spec.hypothesis_id)
+        serialized_spec = spec.model_dump(mode="json")
+        spec_fingerprint = hashlib.sha256(
+            _canonical_json(serialized_spec)
+        ).hexdigest()
 
         if not existing_versions:
             if amendment_reason is not None:
-                raise ValueError("amendment_reason is only valid when amending an existing version")
+                raise ValueError(
+                    "amendment_reason is only valid when amending an existing version"
+                )
             version = 1
             supersedes_version = None
         else:
@@ -227,6 +261,8 @@ class HypothesisRegistry:
                     "a hypothesis cannot be amended after testing has started; "
                     "create a new hypothesis ID"
                 )
+            if latest.spec_fingerprint == spec_fingerprint:
+                raise ValueError("amendment does not change the preregistered specification")
             if not amendment_reason or len(amendment_reason.strip()) < 10:
                 raise ValueError(
                     "a pre-trial amendment requires a reason of at least 10 characters"
@@ -235,8 +271,6 @@ class HypothesisRegistry:
             supersedes_version = latest.version
 
         registered_at = datetime.now(UTC)
-        serialized_spec = spec.model_dump(mode="json")
-        spec_fingerprint = hashlib.sha256(_canonical_json(serialized_spec)).hexdigest()
         registration_payload: dict[str, Any] = {
             "schema_version": 1,
             "version": version,
@@ -246,7 +280,9 @@ class HypothesisRegistry:
             "spec": serialized_spec,
             "spec_fingerprint": spec_fingerprint,
         }
-        registration_hash = hashlib.sha256(_canonical_json(registration_payload)).hexdigest()
+        registration_hash = hashlib.sha256(
+            _canonical_json(registration_payload)
+        ).hexdigest()
         registration = HypothesisRegistration(
             **registration_payload,
             registration_hash=registration_hash,
@@ -287,7 +323,11 @@ class HypothesisRegistry:
         version: int | None = None,
     ) -> HypothesisRegistration:
         _validate_hypothesis_id(hypothesis_id)
-        selected_version = version or self.latest_version(hypothesis_id)
+        selected_version = (
+            self.latest_version(hypothesis_id)
+            if version is None
+            else version
+        )
         if selected_version < 1:
             raise ValueError("version must be >= 1")
 
@@ -390,11 +430,12 @@ class HypothesisRegistry:
         return registration
 
     def read_events(self) -> list[HypothesisEvent]:
-        """Read and verify every lifecycle event in the append-only chain."""
+        """Verify the event hash chain and replay legal state transitions."""
         if not self.events_path.exists():
             return []
         events: list[HypothesisEvent] = []
         expected_previous = GENESIS_EVENT_HASH
+        states: dict[tuple[str, int], HypothesisState] = {}
 
         for line_number, raw_line in enumerate(
             self.events_path.read_bytes().splitlines(),
@@ -412,6 +453,26 @@ class HypothesisRegistry:
             event = HypothesisEvent.model_validate(
                 {**raw, "event_hash": supplied_hash}
             )
+
+            key = (event.hypothesis_id, event.version)
+            current_state = states.get(key)
+            if event.from_state != current_state:
+                raise ValueError(
+                    f"invalid lifecycle history at line {line_number}: "
+                    "from_state does not match the prior event"
+                )
+            if current_state is None:
+                if event.to_state != HypothesisState.REGISTERED:
+                    raise ValueError(
+                        f"invalid lifecycle history at line {line_number}: "
+                        "first event must register the hypothesis"
+                    )
+            elif event.to_state not in self._TRANSITIONS[current_state]:
+                raise ValueError(
+                    f"invalid lifecycle transition in event log at line {line_number}"
+                )
+
+            states[key] = event.to_state
             events.append(event)
             expected_previous = supplied_hash
         return events
@@ -458,15 +519,15 @@ class HypothesisRegistry:
         return event
 
 
-def _valid_source_version(value: str) -> bool:
+def _valid_versioned_identifier(value: str) -> bool:
     if "@v" not in value:
         return False
-    source_id, version_text = value.rsplit("@v", maxsplit=1)
-    if not source_id or not version_text.isdigit():
+    identifier, version_text = value.rsplit("@v", maxsplit=1)
+    if not identifier or not version_text.isdigit():
         return False
-    return int(version_text) >= 1 and all(
-        char.isalnum() or char in "._-" for char in source_id
-    )
+    if int(version_text) < 1:
+        return False
+    return all(char.isalnum() or char in "._:-/" for char in identifier)
 
 
 def _validate_hypothesis_id(value: str) -> None:
