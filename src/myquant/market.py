@@ -54,9 +54,11 @@ class Instrument(StrictContract):
 class MarketCalendar(StrictContract):
     """Recurring local sessions plus holidays and date-specific early closes.
 
-    A close time less than or equal to the open time denotes an overnight
-    session. For a continuous 24/7 calendar use all seven weekdays and 00:00
-    for both open and close.
+    Session-day offsets define how the session's local open and close dates
+    relate to its exchange trading-date label. For Sunday-evening CME sessions
+    belonging to Monday's trading date, use open_day_offset=-1 and
+    close_day_offset=0. A close not later than the open on the same date needs
+    an explicit later close_day_offset.
     """
 
     calendar_id: str = Field(min_length=1)
@@ -64,6 +66,8 @@ class MarketCalendar(StrictContract):
     weekdays: tuple[int, ...] = (0, 1, 2, 3, 4)
     regular_open: time
     regular_close: time
+    open_day_offset: int = Field(default=0, ge=-3, le=3)
+    close_day_offset: int = Field(default=0, ge=-3, le=3)
     holidays: tuple[date, ...] = ()
     early_closes: dict[date, time] = Field(default_factory=dict)
 
@@ -84,6 +88,13 @@ class MarketCalendar(StrictContract):
             raise ValueError("weekdays cannot contain duplicates")
         if len(set(self.holidays)) != len(self.holidays):
             raise ValueError("holidays cannot contain duplicates")
+        anchor = date(2000, 1, 3)
+        open_date = anchor + timedelta(days=self.open_day_offset)
+        close_date = anchor + timedelta(days=self.close_day_offset)
+        local_open = datetime.combine(open_date, self.regular_open)
+        local_close = datetime.combine(close_date, self.regular_close)
+        if local_close <= local_open:
+            raise ValueError("close session boundary must be later than open boundary")
         return self
 
     def session_bounds(self, trading_date: date) -> tuple[datetime, datetime] | None:
@@ -92,20 +103,25 @@ class MarketCalendar(StrictContract):
             return None
 
         zone = ZoneInfo(self.timezone_name)
+        open_date = trading_date + timedelta(days=self.open_day_offset)
+        close_date = trading_date + timedelta(days=self.close_day_offset)
         close_time = self.early_closes.get(trading_date, self.regular_close)
-        local_open = datetime.combine(trading_date, self.regular_open, tzinfo=zone)
-        close_date = trading_date
-        if close_time <= self.regular_open:
-            close_date += timedelta(days=1)
+        local_open = datetime.combine(open_date, self.regular_open, tzinfo=zone)
         local_close = datetime.combine(close_date, close_time, tzinfo=zone)
+        if local_close <= local_open:
+            raise ValueError(f"early close creates invalid session for {trading_date}")
         return local_open.astimezone(UTC), local_close.astimezone(UTC)
 
     def is_open(self, instant: datetime) -> bool:
-        """Check whether an aware instant falls inside a regular session."""
+        """Check an aware instant against sessions labelled by trading date."""
         instant_utc = require_utc(instant)
         local_date = instant_utc.astimezone(ZoneInfo(self.timezone_name)).date()
-        for candidate in (local_date - timedelta(days=1), local_date):
-            bounds = self.session_bounds(candidate)
+        candidate_dates = {
+            local_date - timedelta(days=self.open_day_offset),
+            local_date - timedelta(days=self.close_day_offset),
+        }
+        for trading_date in candidate_dates:
+            bounds = self.session_bounds(trading_date)
             if bounds is not None and bounds[0] <= instant_utc < bounds[1]:
                 return True
         return False
