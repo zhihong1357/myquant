@@ -22,32 +22,44 @@ from myquant.stats.multiple_testing import (
     adjust_pvalues,
 )
 from myquant.stats.regression import OLSResult, ols_fit
-from myquant.stats.walk_forward import (\n    FoldForecastMetrics,\n    WalkForwardEvaluation,\n    WalkForwardFold,\n    evaluate_walk_forward_forecasts,\n    purged_walk_forward_splits,\n)\nfrom myquant.stats.returns import (
+from myquant.stats.returns import (
     annualized_volatility,
     log_returns,
     realized_variance,
     realized_volatility,
     simple_returns,
 )
+from myquant.stats.walk_forward import (
+    FoldForecastMetrics,
+    WalkForwardEvaluation,
+    WalkForwardFold,
+    evaluate_walk_forward_forecasts,
+    purged_walk_forward_splits,
+)
 
 __all__ = [
     "AdjustedPValue",
     "BootstrapInterval",
     "BootstrapMeanTest",
-    "FoldForecastMetrics",\n    "HACCoefficient",
+    "FoldForecastMetrics",
+    "HACCoefficient",
     "HACResult",
     "LeadLagCorrelation",
     "OLSResult",
-    "PartialLeadLagResult",\n    "WalkForwardEvaluation",\n    "WalkForwardFold",
-    "adjust_pvalues",\n    "evaluate_walk_forward_forecasts",
+    "PartialLeadLagResult",
+    "WalkForwardEvaluation",
+    "WalkForwardFold",
+    "adjust_pvalues",
     "annualized_volatility",
     "block_bootstrap_mean_ci",
     "block_bootstrap_mean_test",
+    "evaluate_walk_forward_forecasts",
     "lead_lag_scan",
     "log_returns",
     "newey_west_hac",
     "ols_fit",
-    "partial_lead_lag",\n    "purged_walk_forward_splits",
+    "partial_lead_lag",
+    "purged_walk_forward_splits",
     "realized_variance",
     "realized_volatility",
     "simple_returns",
