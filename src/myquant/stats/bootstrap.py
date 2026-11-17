@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from math import isfinite
-from typing import Any
 
 import numpy as np
 from pydantic import Field
