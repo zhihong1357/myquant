@@ -106,8 +106,8 @@ class MarketCalendar(StrictContract):
         open_date = trading_date + timedelta(days=self.open_day_offset)
         close_date = trading_date + timedelta(days=self.close_day_offset)
         close_time = self.early_closes.get(trading_date, self.regular_close)
-        local_open = datetime.combine(open_date, self.regular_open, tzinfo=zone)
-        local_close = datetime.combine(close_date, close_time, tzinfo=zone)
+        local_open = _localize_wall_time(open_date, self.regular_open, zone)
+        local_close = _localize_wall_time(close_date, close_time, zone)
         if local_close <= local_open:
             raise ValueError(f"early close creates invalid session for {trading_date}")
         return local_open.astimezone(UTC), local_close.astimezone(UTC)
@@ -125,3 +125,20 @@ class MarketCalendar(StrictContract):
             if bounds is not None and bounds[0] <= instant_utc < bounds[1]:
                 return True
         return False
+
+
+def _localize_wall_time(day: date, wall_time: time, zone: ZoneInfo) -> datetime:
+    """Attach an IANA zone only when the local wall time is unambiguous."""
+    naive = datetime.combine(day, wall_time)
+    valid: list[datetime] = []
+    for fold in (0, 1):
+        candidate = naive.replace(tzinfo=zone, fold=fold)
+        round_trip = candidate.astimezone(UTC).astimezone(zone)
+        if round_trip.replace(tzinfo=None) == naive:
+            valid.append(candidate)
+    distinct_offsets = {candidate.utcoffset() for candidate in valid}
+    if not valid:
+        raise ValueError(f"nonexistent local session boundary: {naive} in {zone.key}")
+    if len(distinct_offsets) > 1:
+        raise ValueError(f"ambiguous local session boundary: {naive} in {zone.key}")
+    return valid[0]
