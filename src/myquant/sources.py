@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import tempfile
 from enum import StrEnum
 from pathlib import Path
@@ -74,8 +75,7 @@ class SourceRegistry:
     def get(self, source_id: str, *, version: int = 1) -> SourceDefinition:
         if version < 1:
             raise ValueError("version must be >= 1")
-        allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-"
-        if not source_id or any(char not in allowed for char in source_id):
+        if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9._-]+", source_id):
             raise ValueError("invalid source_id")
         path = self.root / source_id / f"v{version}.json"
         return SourceDefinition.model_validate_json(path.read_text(encoding="utf-8"))
