@@ -64,7 +64,7 @@ def make_hypothesis():
         primary_metric="Out-of-sample incremental R-squared",
         expected_direction=ExpectedDirection.POSITIVE,
         minimum_effect_size=0.01,
-        familywise_alpha=0.05,
+        target_error_rate=0.05,
         multiple_testing_family="Cross-market volatility transmission v1",
         multiple_testing_method=MultiplicityCorrection.NONE,
         planned_test_count=1,
@@ -94,7 +94,10 @@ def make_trial(registration, **overrides):
         "data_fingerprint": "a" * 64,
         "config_fingerprint": "b" * 64,
         "code_revision": "abcdef123456",
+        "universe": registration.spec.universe,
+        "observation_frequency": registration.spec.observation_frequency,
         "horizon_seconds": registration.spec.horizon_seconds,
+        "target_definition": registration.spec.target_definition,
         "source_versions": registration.spec.source_versions,
         "feature_set": registration.spec.feature_set,
         "model_definition": registration.spec.model_definition,
@@ -102,7 +105,10 @@ def make_trial(registration, **overrides):
         "cost_model": registration.spec.cost_model,
         "primary_metric": registration.spec.primary_metric,
         "expected_direction": registration.spec.expected_direction.value,
-        "parameters": (TrialParameter(name="lag_steps", value=1),),
+        "parameters": (
+            TrialParameter(name="lag", value=1),
+            TrialParameter(name="winsorization", value="none"),
+        ),
     }
     values.update(overrides)
     return TrialSpec(**values)
@@ -178,7 +184,10 @@ def test_trial_spec_requires_hash_fingerprints():
             data_fingerprint="a" * 64,
             config_fingerprint="b" * 64,
             code_revision="abcdef123456",
+            universe=("equity:us:spy",),
+            observation_frequency="1m",
             horizon_seconds=60,
+            target_definition="Next minute return",
             source_versions=("feed@v1",),
             feature_set=("feature_a@v1",),
             model_definition=("baseline",),
@@ -196,8 +205,8 @@ def test_trial_fingerprint_is_independent_of_trial_id_and_parameter_order(tmp_pa
         make_trial(
             registration,
             parameters=(
-                TrialParameter(name="a", value=1),
-                TrialParameter(name="b", value=2),
+                TrialParameter(name="lag", value=1),
+                TrialParameter(name="winsorization", value="none"),
             ),
         ),
         lambda _spec: {"ok": True},
@@ -207,8 +216,8 @@ def test_trial_fingerprint_is_independent_of_trial_id_and_parameter_order(tmp_pa
             registration,
             trial_id="T0002",
             parameters=(
-                TrialParameter(name="b", value=2),
-                TrialParameter(name="a", value=1),
+                TrialParameter(name="winsorization", value="none"),
+                TrialParameter(name="lag", value=1),
             ),
         ),
         lambda _spec: {"ok": True},
