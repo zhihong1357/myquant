@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import json
-import re
+import os
+import tempfile
 from enum import StrEnum
 from pathlib import Path
 
@@ -58,26 +59,26 @@ class SourceRegistry:
             indent=2,
             ensure_ascii=False,
         ) + "\n"
-        if target.exists():
-            if target.read_text(encoding="utf-8") != payload:
-                raise FileExistsError(f"source version already exists: {target}")
-            return target
         _write_new_file(target, payload.encode("utf-8"))
         return target
 
     def get(self, source_id: str, *, version: int = 1) -> SourceDefinition:
-        if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9._-]+", source_id):
+        if version < 1:
+            raise ValueError("version must be >= 1")
+        if not source_id or any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-" for char in source_id):
             raise ValueError("invalid source_id")
         path = self.root / source_id / f"v{version}.json"
         return SourceDefinition.model_validate_json(path.read_text(encoding="utf-8"))
 
 
 def _write_new_file(target: Path, content: bytes) -> None:
-    """Create a file without replacing an existing path."""
-    import os
-    import tempfile
-
+    """Atomically create a file; identical existing bytes are treated as idempotent."""
     target.parent.mkdir(parents=True, exist_ok=True)
+    if target.exists():
+        if target.read_bytes() == content:
+            return
+        raise FileExistsError(f"immutable path already contains different bytes: {target}")
+
     descriptor, temporary_name = tempfile.mkstemp(dir=target.parent, prefix=".tmp-")
     temporary = Path(temporary_name)
     try:
@@ -88,6 +89,7 @@ def _write_new_file(target: Path, content: bytes) -> None:
         try:
             os.link(temporary, target)
         except FileExistsError:
-            raise
+            if target.read_bytes() != content:
+                raise
     finally:
         temporary.unlink(missing_ok=True)
