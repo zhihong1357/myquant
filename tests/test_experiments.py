@@ -9,6 +9,7 @@ from myquant.hypotheses import (
     HypothesisRegistry,
     HypothesisSpec,
     HypothesisState,
+    MultiplicityCorrection,
     SampleWindow,
 )
 from myquant.registry import read_and_verify
@@ -41,7 +42,7 @@ def make_hypothesis():
         observation_frequency="daily",
         horizon_seconds=86_400,
         target_definition="Next session close-to-close MOVE log return",
-        feature_set=("vix_return_lag_1", "rates_return_1d"),
+        feature_set=("vix_return_lag_1@v1", "rates_return_1d@v1"),
         model_definition=("OLS with intercept", "Newey-West HAC standard errors"),
         fixed_parameters=("lag=1", "winsorization=none"),
         benchmark="Intercept-only historical mean",
@@ -65,6 +66,7 @@ def make_hypothesis():
         minimum_effect_size=0.01,
         familywise_alpha=0.05,
         multiple_testing_family="Cross-market volatility transmission v1",
+        multiple_testing_method=MultiplicityCorrection.NONE,
         planned_test_count=1,
         missing_data_policy="No forward filling; exclude incomplete paired sessions",
         acceptance_criteria=("Holdout incremental R-squared exceeds 0.01",),
@@ -208,7 +210,7 @@ def test_trial_fingerprint_is_independent_of_trial_id_and_dict_key_order(tmp_pat
 def test_runner_refuses_features_not_declared_in_preregistration(tmp_path):
     registry, registration = make_registry(tmp_path)
     runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
-    wrong_trial = make_trial(registration, feature_set=("undeclared_feature",))
+    wrong_trial = make_trial(registration, feature_set=("undeclared_feature@v1",))
 
     with pytest.raises(PermissionError, match="feature_set"):
         runner.run(wrong_trial, lambda _spec: {"score": 0.1})
