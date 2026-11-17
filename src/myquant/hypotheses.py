@@ -91,7 +91,7 @@ class HypothesisSpec(StrictContract):
     primary_metric: str = Field(min_length=5)
     expected_direction: ExpectedDirection
     minimum_effect_size: float = Field(gt=0, allow_inf_nan=False)
-    familywise_alpha: float = Field(gt=0, lt=1, allow_inf_nan=False)
+    target_error_rate: float = Field(gt=0, lt=1, allow_inf_nan=False)
     multiple_testing_family: str = Field(min_length=5)
     multiple_testing_method: MultiplicityCorrection
     planned_test_count: int = Field(ge=1)
@@ -129,6 +129,22 @@ class HypothesisSpec(StrictContract):
             raise ValueError("source_versions entries must be unique")
         if len(set(self.feature_set)) != len(self.feature_set):
             raise ValueError("feature_set entries must be unique")
+        parameter_names: list[str] = []
+        for parameter in self.fixed_parameters:
+            if "=" not in parameter:
+                raise ValueError("fixed_parameters must use the form '<name>=<value>'")
+            name, value = parameter.split("=", maxsplit=1)
+            if not name.strip() or not value.strip():
+                raise ValueError("fixed_parameters require non-empty names and values")
+            parameter_names.append(name.strip())
+        if len(set(parameter_names)) != len(parameter_names):
+            raise ValueError("fixed parameter names must be unique")
+        object.__setattr__(
+            self,
+            "fixed_parameters",
+            tuple(sorted(self.fixed_parameters)),
+        )
+
         if len(set(self.model_definition)) != len(self.model_definition):
             raise ValueError("model_definition entries must be unique")
         if len(set(self.acceptance_criteria)) != len(self.acceptance_criteria):
