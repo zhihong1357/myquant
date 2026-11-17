@@ -96,6 +96,19 @@ class RawStore:
         record = RawPayloadRecord.model_validate_json(path.read_text(encoding="utf-8"))
         if record.record_id != record_id:
             raise ValueError("manifest record_id mismatch")
+        expected_id = hashlib.sha256(
+            _canonical({
+                "payload_sha256": record.payload_sha256,
+                "source_id": record.source_id,
+                "event_time": record.event_time.isoformat() if record.event_time else None,
+                "available_at": record.available_at.isoformat(),
+                "ingested_at": record.ingested_at.isoformat(),
+                "content_type": record.content_type,
+                "byte_length": record.byte_length,
+            })
+        ).hexdigest()
+        if expected_id != record_id:
+            raise ValueError("raw manifest integrity check failed")
         return record
 
     def read_payload(self, record_id: str) -> bytes:
