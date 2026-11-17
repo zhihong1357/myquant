@@ -11,7 +11,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from myquant.contracts import Observation, require_utc
-from myquant.sources import _write_new_file
+from myquant.sources import SourceRegistry, _write_new_file
 
 
 class ParquetPITStore:
@@ -19,15 +19,25 @@ class ParquetPITStore:
 
     Corrections are new rows with higher revision numbers. Old rows are never
     overwritten, so a historical as-of query can recover what was knowable then.
+    Only observations from explicitly research-approved source versions are
+    admitted to the canonical research table.
     """
 
-    def __init__(self, root: str | Path) -> None:
+    def __init__(self, root: str | Path, source_registry: SourceRegistry) -> None:
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True)
+        self.source_registry = source_registry
 
     def write_batch(self, observations: Sequence[Observation]) -> Path:
         if not observations:
             raise ValueError("cannot write an empty observation batch")
+        for source_id, source_version in {
+            (item.source_id, item.source_version) for item in observations
+        }:
+            self.source_registry.require_research_permission(
+                source_id,
+                version=source_version,
+            )
         rows = [item.model_dump(mode="python") for item in observations]
         table = pa.Table.from_pylist(rows)
         sink = pa.BufferOutputStream()
@@ -57,6 +67,10 @@ class ParquetPITStore:
             table = pq.read_table(path)
             for row in table.to_pylist():
                 observation = Observation.model_validate(row)
+                self.source_registry.require_research_permission(
+                    observation.source_id,
+                    version=observation.source_version,
+                )
                 if observation.available_at > decision:
                     continue
                 if instrument_ids is not None and observation.instrument_id not in instrument_ids:
