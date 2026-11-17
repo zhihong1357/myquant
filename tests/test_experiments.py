@@ -180,7 +180,7 @@ def test_trial_spec_requires_hash_fingerprints():
             code_revision="abcdef123456",
             horizon_seconds=60,
             source_versions=("feed@v1",),
-            feature_set=("feature_a",),
+            feature_set=("feature_a@v1",),
             model_definition=("baseline",),
             benchmark="baseline",
             cost_model="cost model",
@@ -189,18 +189,27 @@ def test_trial_spec_requires_hash_fingerprints():
         )
 
 
-def test_trial_fingerprint_is_independent_of_trial_id_and_dict_key_order(tmp_path):
+def test_trial_fingerprint_is_independent_of_trial_id_and_parameter_order(tmp_path):
     registry, registration = make_registry(tmp_path)
     runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
     first = runner.run(
-        make_trial(\n            registration,\n            parameters=(\n                TrialParameter(name="a", value=1),\n                TrialParameter(name="b", value=2),\n            ),\n        ),
+        make_trial(
+            registration,
+            parameters=(
+                TrialParameter(name="a", value=1),
+                TrialParameter(name="b", value=2),
+            ),
+        ),
         lambda _spec: {"ok": True},
     )
     second = runner.run(
         make_trial(
             registration,
             trial_id="T0002",
-            parameters=(\n                TrialParameter(name="b", value=2),\n                TrialParameter(name="a", value=1),\n            ),
+            parameters=(
+                TrialParameter(name="b", value=2),
+                TrialParameter(name="a", value=1),
+            ),
         ),
         lambda _spec: {"ok": True},
     )
@@ -249,8 +258,6 @@ def test_runner_refuses_trials_for_terminal_hypothesis(tmp_path):
             make_trial(registration),
             lambda _spec: {"score": 0.1},
         )
-
-
 
 
 def test_trial_parameter_order_is_canonical_and_deeply_immutable(tmp_path):
