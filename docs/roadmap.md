@@ -27,13 +27,17 @@
 - [ ] Evidence-backed statistical decision records for supported/rejected conclusions.
 
 ## Stage 2B — Statistical research kernel
-- [ ] Return and volatility estimators.
-- [ ] Event studies and lead-lag diagnostics.
-- [ ] Block bootstrap and robust uncertainty.
+- [x] Simple/log returns, realized variance and annualized volatility estimators.
+- [x] Descriptive lead-lag diagnostics with explicit lag direction and synchronized-input contract.
+- [x] Circular block-bootstrap mean confidence intervals and null-mean test.
+- [x] Bonferroni, Holm and Benjamini–Hochberg p-value corrections.
+- [ ] Event-study estimators and clustered event windows.
+- [ ] Common-factor regression, partial lead-lag diagnostics and HAC inference.
 - [ ] Walk-forward validation.
 - [ ] Purging and embargo for overlapping labels.
-- [ ] Multiple-testing controls, PBO and Deflated Sharpe Ratio.
+- [ ] PBO and Deflated Sharpe Ratio.
 - [ ] Calibration and power analysis.
+- [ ] Evidence-backed statistical decision records.
 
 ## Stage 3 — Cross-market transmission research
 - [ ] Synchronized daily panel.
