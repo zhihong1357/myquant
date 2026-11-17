@@ -35,8 +35,10 @@ The system is designed for multiple horizons: sub-hourly, intraday, daily and mu
 - Batch-level data-quality and coverage diagnostics
 - Deterministic synthetic scenarios: null, lead-lag, common-factor and regime-shift
 - Reproducible experiment runner with append-only hash-chained results
+- Immutable hypothesis preregistration with chronological splits, purge gaps and multiple-testing plans
+- Trial enforcement against exact hypothesis versions, data-source versions, feature versions and fixed model parameters
 
-The current implementation is a research foundation, not a live market data service or a proven trading system. Hypothesis preregistration enforcement and statistical validation remain future work.
+The current implementation is a research foundation, not a live market data service or a proven trading system. Statistical validation and evidence-backed strategy decisions remain future work.
 
 ## Quick start
 

@@ -1,33 +1,91 @@
-"""Reproducible experiment execution with immutable trial receipts."""
+"""Reproducible experiment execution bound to preregistered hypotheses."""
 
 from __future__ import annotations
 
 import hashlib
 import json
 from collections.abc import Callable, Mapping
+from math import isfinite
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from myquant.contracts import StrictContract
+from myquant.hypotheses import (
+    ExpectedDirection,
+    HypothesisRegistry,
+    HypothesisSpec,
+)
 from myquant.registry import append_trial, read_and_verify
+
+
+class TrialParameter(StrictContract):
+    """One immutable scalar experiment parameter."""
+
+    name: str = Field(min_length=1)
+    value: str | int | bool | Annotated[float, Field(allow_inf_nan=False)]
+
+    @model_validator(mode="after")
+    def validate_value(self) -> TrialParameter:
+        if isinstance(self.value, float) and not isfinite(self.value):
+            raise ValueError("trial parameter values must be finite")
+        return self
 
 
 class TrialSpec(StrictContract):
     trial_id: str = Field(min_length=5, pattern=r"^T[0-9]{4,}$")
     hypothesis_id: str = Field(pattern=r"^H[0-9]{4,}$")
+    hypothesis_version: int = Field(ge=1)
+    hypothesis_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
     description: str = Field(min_length=8)
+
     seed: int = Field(ge=0)
     data_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
     config_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
     code_revision: str = Field(min_length=7)
-    parameters: dict[str, Any] = Field(default_factory=dict)
+
+    universe: tuple[str, ...] = Field(min_length=1)
+    observation_frequency: str = Field(min_length=2)
+    horizon_seconds: int = Field(gt=0)
+    target_definition: str = Field(min_length=12)
+    source_versions: tuple[str, ...] = Field(min_length=1)
+    feature_set: tuple[str, ...] = Field(min_length=1)
+    model_definition: tuple[str, ...] = Field(min_length=1)
+    benchmark: str = Field(min_length=5)
+    cost_model: str = Field(min_length=5)
+    primary_metric: str = Field(min_length=5)
+    expected_direction: ExpectedDirection
+
+    parameters: tuple[TrialParameter, ...] = ()
+
+    @model_validator(mode="after")
+    def validate_parameters(self) -> TrialSpec:
+        names = [parameter.name for parameter in self.parameters]
+        if len(set(names)) != len(names):
+            raise ValueError("trial parameter names must be unique")
+        object.__setattr__(
+            self,
+            "parameters",
+            tuple(sorted(self.parameters, key=lambda parameter: parameter.name)),
+        )
+        for field_name in (
+            "universe",
+            "source_versions",
+            "feature_set",
+            "model_definition",
+        ):
+            values = getattr(self, field_name)
+            if len(set(values)) != len(values):
+                raise ValueError(f"{field_name} entries must be unique")
+        return self
 
 
 class TrialReceipt(StrictContract):
     trial_id: str
     hypothesis_id: str
+    hypothesis_version: int
+    hypothesis_fingerprint: str
     status: str
     spec_fingerprint: str
     record_hash: str
@@ -38,20 +96,31 @@ Experiment = Callable[[TrialSpec], Mapping[str, Any]]
 
 
 class ExperimentRunner:
-    """Execute one registered trial and record success or failure.
+    """Execute one trial only when it matches the registered research plan.
 
-    This runner does not fit models or decide whether an experiment is valid.
-    It provides deterministic input identity and an append-only execution
-    receipt. Statistical acceptance remains a separate research step.
+    The preregistered hypothesis version is moved into TESTING before the
+    callback is executed. Trial success/failure is appended to the hash-chained
+    trial ledger. The runner does not decide statistical acceptance.
     """
 
-    def __init__(self, ledger_path: str | Path) -> None:
+    def __init__(
+        self,
+        ledger_path: str | Path,
+        hypothesis_registry: HypothesisRegistry,
+    ) -> None:
         self.ledger_path = Path(ledger_path)
+        self.hypothesis_registry = hypothesis_registry
 
     def run(self, spec: TrialSpec, experiment: Experiment) -> TrialReceipt:
         existing = read_and_verify(self.ledger_path)
         if any(record["trial_id"] == spec.trial_id for record in existing):
             raise FileExistsError(f"trial_id already exists: {spec.trial_id}")
+
+        registration = self.hypothesis_registry.get(
+            spec.hypothesis_id,
+            version=spec.hypothesis_version,
+        )
+        self._assert_trial_matches_registration(spec, registration.spec)
 
         serialized_spec = spec.model_dump(mode="json")
         fingerprint_payload = {
@@ -59,14 +128,22 @@ class ExperimentRunner:
             for key, value in serialized_spec.items()
             if key != "trial_id"
         }
-        canonical_spec = _canonical_json(fingerprint_payload)
-        spec_fingerprint = hashlib.sha256(canonical_spec).hexdigest()
+        spec_fingerprint = hashlib.sha256(
+            _canonical_json(fingerprint_payload)
+        ).hexdigest()
+
+        self.hypothesis_registry.assert_runnable(
+            spec.hypothesis_id,
+            spec.hypothesis_version,
+            spec.hypothesis_fingerprint,
+        )
 
         try:
             raw_metrics = experiment(spec)
             metrics = _normalize_json(dict(raw_metrics))
         except Exception as exc:
             failure_record = {
+                "schema_version": 1,
                 "spec": serialized_spec,
                 "spec_fingerprint": spec_fingerprint,
                 "error_type": type(exc).__name__,
@@ -97,11 +174,74 @@ class ExperimentRunner:
         return TrialReceipt(
             trial_id=spec.trial_id,
             hypothesis_id=spec.hypothesis_id,
+            hypothesis_version=spec.hypothesis_version,
+            hypothesis_fingerprint=spec.hypothesis_fingerprint,
             status="completed",
             spec_fingerprint=spec_fingerprint,
             record_hash=record_hash,
             metrics=metrics,
         )
+
+    @staticmethod
+    def _assert_trial_matches_registration(
+        spec: TrialSpec,
+        hypothesis: HypothesisSpec,
+    ) -> None:
+        expected = {
+            "universe": hypothesis.universe,
+            "observation_frequency": hypothesis.observation_frequency,
+            "horizon_seconds": hypothesis.horizon_seconds,
+            "target_definition": hypothesis.target_definition,
+            "source_versions": hypothesis.source_versions,
+            "feature_set": hypothesis.feature_set,
+            "model_definition": hypothesis.model_definition,
+            "benchmark": hypothesis.benchmark,
+            "cost_model": hypothesis.cost_model,
+            "primary_metric": hypothesis.primary_metric,
+            "expected_direction": hypothesis.expected_direction,
+            "seed": hypothesis.random_seed,
+            "parameters": _parse_fixed_parameters(hypothesis.fixed_parameters),
+        }
+        actual = {
+            "universe": spec.universe,
+            "observation_frequency": spec.observation_frequency,
+            "horizon_seconds": spec.horizon_seconds,
+            "target_definition": spec.target_definition,
+            "source_versions": spec.source_versions,
+            "feature_set": spec.feature_set,
+            "model_definition": spec.model_definition,
+            "benchmark": spec.benchmark,
+            "cost_model": spec.cost_model,
+            "primary_metric": spec.primary_metric,
+            "expected_direction": spec.expected_direction,
+            "seed": spec.seed,
+            "parameters": {
+                parameter.name: _parameter_value(parameter.value)
+                for parameter in spec.parameters
+            },
+        }
+        mismatches = [
+            name for name, value in expected.items() if actual[name] != value
+        ]
+        if mismatches:
+            joined = ", ".join(mismatches)
+            raise PermissionError(
+                f"trial does not match preregistered hypothesis fields: {joined}"
+            )
+
+
+def _parse_fixed_parameters(parameters: tuple[str, ...]) -> dict[str, str]:
+    parsed: dict[str, str] = {}
+    for item in parameters:
+        name, value = item.split("=", maxsplit=1)
+        parsed[name.strip()] = value.strip()
+    return parsed
+
+
+def _parameter_value(value: str | int | float | bool) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)
 
 
 def _normalize_json(value: Any) -> Any:
