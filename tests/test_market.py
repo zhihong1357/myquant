@@ -95,3 +95,27 @@ def test_calendar_rejects_close_before_open_without_offset():
             regular_open=time(18, 0),
             regular_close=time(17, 0),
         )
+
+
+def test_calendar_rejects_nonexistent_dst_session_boundary():
+    calendar = MarketCalendar(
+        calendar_id="DST-GAP",
+        timezone_name="America/New_York",
+        weekdays=(6,),
+        regular_open=time(2, 30),
+        regular_close=time(4, 0),
+    )
+    with pytest.raises(ValueError, match="nonexistent local session boundary"):
+        calendar.session_bounds(date(2026, 3, 8))
+
+
+def test_calendar_rejects_ambiguous_dst_session_boundary():
+    calendar = MarketCalendar(
+        calendar_id="DST-FOLD",
+        timezone_name="America/New_York",
+        weekdays=(6,),
+        regular_open=time(1, 30),
+        regular_close=time(3, 0),
+    )
+    with pytest.raises(ValueError, match="ambiguous local session boundary"):
+        calendar.session_bounds(date(2026, 11, 1))
