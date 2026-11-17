@@ -31,6 +31,12 @@ class HypothesisStatus(StrEnum):
 
 
 class Observation(StrictContract):
+    """One value with separate event, availability, and ingestion clocks.
+
+    available_at may precede event_time for forecasts and scheduled future
+    events. It must not be inferred from event_time.
+    """
+
     schema_version: Annotated[int, Field(ge=1)] = 1
     instrument_id: Annotated[str, Field(min_length=1)]
     venue: Annotated[str, Field(min_length=1)]
@@ -48,8 +54,6 @@ class Observation(StrictContract):
         event = require_utc(self.event_time)
         available = require_utc(self.available_at)
         ingested = require_utc(self.ingested_at)
-        if available < event:
-            raise ValueError("available_at cannot precede event_time")
         if ingested < available:
             raise ValueError("ingested_at cannot precede available_at")
         object.__setattr__(self, "event_time", event)
