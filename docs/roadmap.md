@@ -35,8 +35,8 @@
 - [x] Circular block-bootstrap mean confidence intervals and null-mean test.
 - [x] Bonferroni, Holm and Benjamini–Hochberg p-value corrections.
 - [ ] Event-study estimators and clustered event windows.
-- [ ] Walk-forward validation and out-of-sample incremental predictive value.
-- [ ] Purging and embargo for overlapping labels.
+- [x] Purged chronological walk-forward splits with label-overlap removal and pre-test embargo.\n- [x] Paired out-of-sample forecast scoring with incremental OOS R-squared.
+- [x] Purging and embargo for overlapping labels.
 - [ ] PBO and Deflated Sharpe Ratio.
 - [ ] Calibration and power analysis.
 - [ ] Evidence-backed statistical decision records.
