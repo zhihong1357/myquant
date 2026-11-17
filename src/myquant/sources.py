@@ -30,7 +30,9 @@ class SourceDefinition(StrictContract):
     nominal_delay_seconds: int = Field(default=0, ge=0)
     timestamp_basis: str = Field(
         min_length=5,
-        description="Document whether timestamps mean event, publication, exchange, or retrieval time.",
+        description=(
+            "Document whether timestamps mean event, publication, exchange, or retrieval time."
+        ),
     )
 
     def require_research_permission(self) -> None:
@@ -65,7 +67,8 @@ class SourceRegistry:
     def get(self, source_id: str, *, version: int = 1) -> SourceDefinition:
         if version < 1:
             raise ValueError("version must be >= 1")
-        if not source_id or any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-" for char in source_id):
+        allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-"
+        if not source_id or any(char not in allowed for char in source_id):
             raise ValueError("invalid source_id")
         path = self.root / source_id / f"v{version}.json"
         return SourceDefinition.model_validate_json(path.read_text(encoding="utf-8"))
