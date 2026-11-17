@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from datetime import datetime
 from math import erf, isfinite, sqrt
 from numbers import Integral
 
@@ -16,7 +17,7 @@ from myquant.contracts import StrictContract
 class EventWindowObservation(StrictContract):
     """One event's cumulative abnormal return and overlap-cluster identity."""
 
-    event_time: pd.Timestamp
+    event_time: datetime
     cluster_id: int = Field(ge=0)
     window_observations: int = Field(ge=1)
     cumulative_abnormal_return: float = Field(allow_inf_nan=False)
@@ -122,7 +123,6 @@ def event_study(
     width_left = int(pre_event_steps)
     width_right = int(post_event_steps)
 
-    event_cluster_ids: dict[pd.Timestamp, int] = {}
     cluster_members: list[list[tuple[int, pd.Timestamp]]] = []
     current_end = -1
     for position, timestamp in ordered:
@@ -135,7 +135,6 @@ def event_study(
             current_end = max(current_end, window_end)
         cluster_id = len(cluster_members) - 1
         cluster_members[cluster_id].append((position, timestamp))
-        event_cluster_ids[timestamp] = cluster_id
 
     event_results: list[EventWindowObservation] = []
     cluster_results: list[EventClusterResult] = []
@@ -150,7 +149,7 @@ def event_study(
             event_cars.append(car)
             event_results.append(
                 EventWindowObservation(
-                    event_time=timestamp,
+                    event_time=timestamp.to_pydatetime(),
                     cluster_id=cluster_id,
                     window_observations=width_left + width_right + 1,
                     cumulative_abnormal_return=car,
