@@ -15,9 +15,17 @@
 - [x] Data quality, missingness and timestamp diagnostics (batch-level; expected series must be explicit).
 - [x] Experiment runner with strict JSON outputs and failure receipts.
 - [x] Synthetic null, lead-lag, common-factor and regime-shift data factory.
-- [ ] Hypothesis preregistration registry and lifecycle enforcement.
 
-## Stage 2 — Statistical research kernel
+## Stage 2A — Research governance
+- [x] Immutable, versioned hypothesis preregistration.
+- [x] Pre-trial amendments with reason and superseding version.
+- [x] Lock hypothesis version when first trial starts.
+- [x] Hash-chained, replay-validated hypothesis lifecycle events.
+- [x] Bind experiment execution to exact hypothesis version and fingerprint.
+- [x] Verify declared source versions, feature versions, horizon, model, benchmark, cost assumptions, metric, direction and seed.
+- [ ] Evidence-backed statistical decision records for supported/rejected conclusions.
+
+## Stage 2B — Statistical research kernel
 - [ ] Return and volatility estimators.
 - [ ] Event studies and lead-lag diagnostics.
 - [ ] Block bootstrap and robust uncertainty.
