@@ -17,6 +17,7 @@ def _canonical(payload: dict[str, Any]) -> bytes:
         sort_keys=True,
         separators=(",", ":"),
         ensure_ascii=False,
+        allow_nan=False,
     )
     return encoded.encode("utf-8")
 
