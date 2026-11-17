@@ -1,0 +1,97 @@
+"""Immutable Parquet observation batches and point-in-time queries."""
+
+from __future__ import annotations
+
+import hashlib
+from datetime import datetime
+from pathlib import Path
+from typing import Sequence
+
+import pyarrow as pa
+import pyarrow.parquet as pq
+
+from myquant.contracts import Observation, require_utc
+from myquant.sources import _write_new_file
+
+
+class ParquetPITStore:
+    """Append-only observation batches with availability-time filtering.
+
+    Corrections are new rows with higher revision numbers. Old rows are never
+    overwritten, so a historical as-of query can recover what was knowable then.
+    """
+
+    def __init__(self, root: str | Path) -> None:
+        self.root = Path(root)
+        self.root.mkdir(parents=True, exist_ok=True)
+
+    def write_batch(self, observations: Sequence[Observation]) -> Path:
+        if not observations:
+            raise ValueError("cannot write an empty observation batch")
+        rows = [item.model_dump(mode="python") for item in observations]
+        table = pa.Table.from_pylist(rows)
+        sink = pa.BufferOutputStream()
+        pq.write_table(table, sink, compression="zstd", version="2.6")
+        content = sink.getvalue().to_pybytes()
+        digest = hashlib.sha256(content).hexdigest()
+        target = self.root / f"{digest}.parquet"
+        _write_new_file(target, content)
+        return target
+
+    def query_as_of(
+        self,
+        decision_time: datetime,
+        *,
+        instrument_ids: set[str] | None = None,
+        fields: set[str] | None = None,
+    ) -> list[Observation]:
+        """Return the latest source revision knowable at decision_time.
+
+        Revision resolution is performed independently per instrument, venue,
+        field, event_time and source. Multiple data sources remain separate;
+        callers must not silently average conflicting providers.
+        """
+        decision = require_utc(decision_time)
+        eligible: list[Observation] = []
+        for path in sorted(self.root.glob("*.parquet")):
+            table = pq.read_table(path)
+            for row in table.to_pylist():
+                observation = Observation.model_validate(row)
+                if observation.available_at > decision:
+                    continue
+                if instrument_ids is not None and observation.instrument_id not in instrument_ids:
+                    continue
+                if fields is not None and observation.field not in fields:
+                    continue
+                eligible.append(observation)
+
+        latest: dict[tuple[str, str, str, datetime, str], Observation] = {}
+        for observation in eligible:
+            key = (
+                observation.instrument_id,
+                observation.venue,
+                observation.field,
+                observation.event_time,
+                observation.source_id,
+            )
+            previous = latest.get(key)
+            if previous is None or _revision_order(observation) > _revision_order(previous):
+                latest[key] = observation
+
+        return sorted(
+            latest.values(),
+            key=lambda item: (
+                item.event_time,
+                item.instrument_id,
+                item.field,
+                item.source_id,
+            ),
+        )
+
+
+def _revision_order(observation: Observation) -> tuple[int, datetime, datetime]:
+    return (
+        observation.revision,
+        observation.available_at,
+        observation.ingested_at,
+    )
