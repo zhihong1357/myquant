@@ -50,6 +50,7 @@ class Observation(StrictContract):
     value: Annotated[float, Field(allow_inf_nan=False)]
     unit: Annotated[str, Field(min_length=1)]
     source_id: Annotated[str, Field(min_length=1)]
+    source_version: Annotated[int, Field(ge=1)] = 1
     revision: Annotated[int, Field(ge=1)] = 1
 
     @model_validator(mode="after")
