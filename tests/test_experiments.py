@@ -252,8 +252,9 @@ def test_runner_refuses_trials_for_terminal_hypothesis(tmp_path):
 
 
 
-def test_trial_parameter_order_is_canonical_and_deeply_immutable():
-    registry, registration = make_registry(__import__("pathlib").Path("/tmp") / "unused")
+
+def test_trial_parameter_order_is_canonical_and_deeply_immutable(tmp_path):
+    _registry, registration = make_registry(tmp_path)
     first = make_trial(
         registration,
         parameters=(
@@ -274,16 +275,15 @@ def test_trial_parameter_order_is_canonical_and_deeply_immutable():
         first.parameters[0].name = "changed"
 
 
-def test_trial_parameter_rejects_duplicate_names_and_nonfinite_values():
+def test_trial_parameter_rejects_duplicate_names_and_nonfinite_values(tmp_path):
+    _registry, registration = make_registry(tmp_path)
+    payload = make_trial(registration).model_dump()
+    payload["parameters"] = (
+        TrialParameter(name="same", value=1),
+        TrialParameter(name="same", value=2),
+    )
     with pytest.raises(ValidationError, match="must be unique"):
-        TrialSpec(
-            **make_trial(
-                make_registry(__import__("pathlib").Path("/tmp") / "unused")[1]
-            ).model_dump(),
-            parameters=(
-                TrialParameter(name="same", value=1),
-                TrialParameter(name="same", value=2),
-            ),
-        )
+        TrialSpec.model_validate(payload)
+
     with pytest.raises(ValidationError):
         TrialParameter(name="bad", value=float("nan"))
