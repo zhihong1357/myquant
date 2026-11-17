@@ -54,7 +54,12 @@ class ExperimentRunner:
             raise FileExistsError(f"trial_id already exists: {spec.trial_id}")
 
         serialized_spec = spec.model_dump(mode="json")
-        canonical_spec = _canonical_json(serialized_spec)
+        fingerprint_payload = {
+            key: value
+            for key, value in serialized_spec.items()
+            if key != "trial_id"
+        }
+        canonical_spec = _canonical_json(fingerprint_payload)
         spec_fingerprint = hashlib.sha256(canonical_spec).hexdigest()
 
         try:
