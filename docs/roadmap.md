@@ -13,7 +13,9 @@
 - [x] Immutable raw storage with checksums.
 - [x] Canonical observations and point-in-time query.
 - [x] Data quality, missingness and timestamp diagnostics (batch-level; expected series must be explicit).
-- [ ] Experiment runner and synthetic data factory.
+- [x] Experiment runner with strict JSON outputs and failure receipts.
+- [x] Synthetic null, lead-lag, common-factor and regime-shift data factory.
+- [ ] Hypothesis preregistration registry and lifecycle enforcement.
 
 ## Stage 2 — Statistical research kernel
 - [ ] Return and volatility estimators.
