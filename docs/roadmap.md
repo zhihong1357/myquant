@@ -22,7 +22,8 @@
 - [x] Lock hypothesis version when first trial starts.
 - [x] Hash-chained, replay-validated hypothesis lifecycle events.
 - [x] Bind experiment execution to exact hypothesis version and fingerprint.
-- [x] Verify declared source versions, feature versions, horizon, model, benchmark, cost assumptions, metric, direction and seed.
+- [x] Verify universe, observation cadence, target, horizon, source versions, feature versions, fixed parameters, model, benchmark, costs, primary metric, expected direction and seed.
+- [x] Require a declared multiple-testing method and target error rate when multiple tests are planned.
 - [ ] Evidence-backed statistical decision records for supported/rejected conclusions.
 
 ## Stage 2B — Statistical research kernel
