@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from math import isfinite
+from numbers import Integral
 
 import numpy as np
 from pydantic import Field
@@ -46,14 +47,19 @@ def lead_lag_scan(
         raise ValueError("source and target must not be empty")
     if not np.isfinite(source_values).all() or not np.isfinite(target_values).all():
         raise ValueError("source and target must contain only finite observations")
-    if minimum_observations < 3:
-        raise ValueError("minimum_observations must be at least 3")
+    if (
+        isinstance(minimum_observations, bool)
+        or not isinstance(minimum_observations, Integral)
+        or minimum_observations < 3
+    ):
+        raise ValueError("minimum_observations must be an integer of at least 3")
 
-    selected_lags = tuple(lag_steps)
-    if not selected_lags:
+    raw_lags = tuple(lag_steps)
+    if not raw_lags:
         raise ValueError("at least one lag must be supplied")
-    if any(isinstance(lag, bool) or not isinstance(lag, int) for lag in selected_lags):
+    if any(isinstance(lag, bool) or not isinstance(lag, Integral) for lag in raw_lags):
         raise TypeError("lag_steps must contain integers")
+    selected_lags = tuple(int(lag) for lag in raw_lags)
     if any(lag < 0 for lag in selected_lags):
         raise ValueError("lag_steps must be non-negative")
     if len(set(selected_lags)) != len(selected_lags):
