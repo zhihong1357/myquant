@@ -62,7 +62,7 @@ def make_spec(**overrides):
         "primary_metric": "Out-of-sample incremental R-squared",
         "expected_direction": ExpectedDirection.POSITIVE,
         "minimum_effect_size": 0.01,
-        "familywise_alpha": 0.05,
+        "target_error_rate": 0.05,
         "multiple_testing_family": "Cross-market volatility transmission v1",
         "multiple_testing_method": MultiplicityCorrection.NONE,
         "planned_test_count": 1,
