@@ -5,14 +5,32 @@ from __future__ import annotations
 import hashlib
 import json
 from collections.abc import Callable, Mapping
+from math import isfinite
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from myquant.contracts import StrictContract
-from myquant.hypotheses import HypothesisRegistry
+from myquant.hypotheses import (
+    ExpectedDirection,
+    HypothesisRegistry,
+    HypothesisSpec,
+)
 from myquant.registry import append_trial, read_and_verify
+
+
+class TrialParameter(StrictContract):
+    """One immutable scalar experiment parameter."""
+
+    name: str = Field(min_length=1)
+    value: str | int | bool | Annotated[float, Field(allow_inf_nan=False)]
+
+    @model_validator(mode="after")
+    def validate_value(self) -> TrialParameter:
+        if isinstance(self.value, float) and not isfinite(self.value):
+            raise ValueError("trial parameter values must be finite")
+        return self
 
 
 class TrialSpec(StrictContract):
@@ -34,9 +52,25 @@ class TrialSpec(StrictContract):
     benchmark: str = Field(min_length=5)
     cost_model: str = Field(min_length=5)
     primary_metric: str = Field(min_length=5)
-    expected_direction: str = Field(min_length=3)
+    expected_direction: ExpectedDirection
 
-    parameters: dict[str, Any] = Field(default_factory=dict)
+    parameters: tuple[TrialParameter, ...] = ()
+
+    @model_validator(mode="after")
+    def validate_parameters(self) -> TrialSpec:
+        names = [parameter.name for parameter in self.parameters]
+        if len(set(names)) != len(names):
+            raise ValueError("trial parameter names must be unique")
+        object.__setattr__(
+            self,
+            "parameters",
+            tuple(sorted(self.parameters, key=lambda parameter: parameter.name)),
+        )
+        for field_name in ("source_versions", "feature_set", "model_definition"):
+            values = getattr(self, field_name)
+            if len(set(values)) != len(values):
+                raise ValueError(f"{field_name} entries must be unique")
+        return self
 
 
 class TrialReceipt(StrictContract):
@@ -141,7 +175,10 @@ class ExperimentRunner:
         )
 
     @staticmethod
-    def _assert_trial_matches_registration(spec: TrialSpec, hypothesis: Any) -> None:
+    def _assert_trial_matches_registration(
+        spec: TrialSpec,
+        hypothesis: HypothesisSpec,
+    ) -> None:
         expected = {
             "horizon_seconds": hypothesis.horizon_seconds,
             "source_versions": hypothesis.source_versions,
@@ -150,7 +187,7 @@ class ExperimentRunner:
             "benchmark": hypothesis.benchmark,
             "cost_model": hypothesis.cost_model,
             "primary_metric": hypothesis.primary_metric,
-            "expected_direction": hypothesis.expected_direction.value,
+            "expected_direction": hypothesis.expected_direction,
             "seed": hypothesis.random_seed,
         }
         actual = {
