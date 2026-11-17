@@ -45,7 +45,10 @@ class TrialSpec(StrictContract):
     config_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
     code_revision: str = Field(min_length=7)
 
+    universe: tuple[str, ...] = Field(min_length=1)
+    observation_frequency: str = Field(min_length=2)
     horizon_seconds: int = Field(gt=0)
+    target_definition: str = Field(min_length=12)
     source_versions: tuple[str, ...] = Field(min_length=1)
     feature_set: tuple[str, ...] = Field(min_length=1)
     model_definition: tuple[str, ...] = Field(min_length=1)
@@ -66,7 +69,12 @@ class TrialSpec(StrictContract):
             "parameters",
             tuple(sorted(self.parameters, key=lambda parameter: parameter.name)),
         )
-        for field_name in ("source_versions", "feature_set", "model_definition"):
+        for field_name in (
+            "universe",
+            "source_versions",
+            "feature_set",
+            "model_definition",
+        ):
             values = getattr(self, field_name)
             if len(set(values)) != len(values):
                 raise ValueError(f"{field_name} entries must be unique")
@@ -180,7 +188,10 @@ class ExperimentRunner:
         hypothesis: HypothesisSpec,
     ) -> None:
         expected = {
+            "universe": hypothesis.universe,
+            "observation_frequency": hypothesis.observation_frequency,
             "horizon_seconds": hypothesis.horizon_seconds,
+            "target_definition": hypothesis.target_definition,
             "source_versions": hypothesis.source_versions,
             "feature_set": hypothesis.feature_set,
             "model_definition": hypothesis.model_definition,
@@ -189,9 +200,13 @@ class ExperimentRunner:
             "primary_metric": hypothesis.primary_metric,
             "expected_direction": hypothesis.expected_direction,
             "seed": hypothesis.random_seed,
+            "parameters": _parse_fixed_parameters(hypothesis.fixed_parameters),
         }
         actual = {
+            "universe": spec.universe,
+            "observation_frequency": spec.observation_frequency,
             "horizon_seconds": spec.horizon_seconds,
+            "target_definition": spec.target_definition,
             "source_versions": spec.source_versions,
             "feature_set": spec.feature_set,
             "model_definition": spec.model_definition,
@@ -200,6 +215,10 @@ class ExperimentRunner:
             "primary_metric": spec.primary_metric,
             "expected_direction": spec.expected_direction,
             "seed": spec.seed,
+            "parameters": {
+                parameter.name: _parameter_value(parameter.value)
+                for parameter in spec.parameters
+            },
         }
         mismatches = [
             name for name, value in expected.items() if actual[name] != value
@@ -209,6 +228,20 @@ class ExperimentRunner:
             raise PermissionError(
                 f"trial does not match preregistered hypothesis fields: {joined}"
             )
+
+
+def _parse_fixed_parameters(parameters: tuple[str, ...]) -> dict[str, str]:
+    parsed: dict[str, str] = {}
+    for item in parameters:
+        name, value = item.split("=", maxsplit=1)
+        parsed[name.strip()] = value.strip()
+    return parsed
+
+
+def _parameter_value(value: str | int | float | bool) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)
 
 
 def _normalize_json(value: Any) -> Any:
