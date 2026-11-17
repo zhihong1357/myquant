@@ -81,17 +81,27 @@ A hypothesis must be registered before any experiment can run. The immutable spe
 
 - research question, mechanism, alternative and null hypotheses;
 - instrument universe, exact source versions, versioned feature set and prediction target;
-- horizon, model definition, fixed parameters, benchmark and cost assumptions;
+- observation frequency, horizon, model definition, fixed parameters, benchmark and cost assumptions;
 - chronological train, validation and holdout windows;
 - a purge gap no shorter than the forward prediction horizon;
 - minimum observations per split, primary metric, expected direction and minimum effect size;
-- family-wise alpha, planned test count, multiple-testing family and correction method;
+- target error rate, planned test count, multiple-testing family and correction method;
 - missing-data policy, confounders, exclusions and random seed;
 - explicit acceptance and rejection criteria.
 
+### Multiple-testing threshold semantics
+
+The preregistered `target_error_rate` has meaning determined by the selected correction method:
+
+- **Bonferroni / Holm:** it is the target family-wise error rate (FWER, the chance of at least one false positive within the declared test family).
+- **Benjamini–Hochberg:** it is the target false discovery rate (FDR, the expected proportion of false discoveries among rejected hypotheses).
+- **No correction:** allowed only when the preregistered family contains exactly one planned test.
+
+The registry records the intended method and threshold. It does not itself calculate adjusted p-values; the statistical kernel must implement the declared method and report it in the evidence record. Merely declaring a correction method does not mean that the correction has been applied.
+
 The registration receives a canonical fingerprint and immutable versioned snapshot. A pre-trial amendment creates a new version with a reason and supersedes the former version. Once the first trial starts, the version is locked; changing the research design requires a new hypothesis ID.
 
-Each trial carries the hypothesis ID, version and fingerprint. The runner checks that its horizon, sources, features, model, benchmark, cost model, primary metric, expected direction and random seed match the registered specification. It changes the hypothesis state from REGISTERED to TESTING before invoking the experiment callback. Failed experiments remain in the trial ledger.
+Each trial carries the hypothesis ID, version and fingerprint. Before the callback executes, the runner checks that the trial's universe, observation frequency, target, horizon, source versions, feature versions, model, benchmark, cost model, primary metric, expected direction, random seed and named parameters exactly match the preregistered specification. Trial parameters are scalar, sorted and immutable. The runner changes the hypothesis state from REGISTERED to TESTING before invoking the experiment callback. Failed experiments remain in the trial ledger.
 
 The lifecycle event stream is hash-chained and replay-validated against legal state transitions. The runner does not automatically mark hypotheses SUPPORTED or REJECTED. Those decisions must follow a separate statistical evidence and review step; a state label is not proof of predictive value.
 
