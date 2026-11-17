@@ -46,16 +46,35 @@ def test_calendar_holiday_and_early_close():
     assert bounds[1] == datetime(2026, 11, 27, 18, 0, tzinfo=UTC)
 
 
-def test_overnight_session_is_open_after_midnight():
+def test_cme_sunday_evening_belongs_to_monday_trade_date():
     calendar = MarketCalendar(
         calendar_id="CME-OVERNIGHT",
         timezone_name="America/Chicago",
         weekdays=(0, 1, 2, 3, 4),
         regular_open=time(18, 0),
         regular_close=time(17, 0),
+        open_day_offset=-1,
+        close_day_offset=0,
     )
-    instant = datetime(2026, 1, 6, 7, 0, tzinfo=UTC)
-    assert calendar.is_open(instant)
+    monday_bounds = calendar.session_bounds(date(2026, 1, 5))
+    assert monday_bounds is not None
+    assert monday_bounds[0] == datetime(2026, 1, 5, 0, 0, tzinfo=UTC)
+    assert monday_bounds[1] == datetime(2026, 1, 5, 23, 0, tzinfo=UTC)
+    sunday_evening = datetime(2026, 1, 5, 1, 0, tzinfo=UTC)
+    assert calendar.is_open(sunday_evening)
+
+
+def test_24_7_calendar_stays_open_on_weekends():
+    calendar = MarketCalendar(
+        calendar_id="CRYPTO-24-7",
+        timezone_name="UTC",
+        weekdays=(0, 1, 2, 3, 4, 5, 6),
+        regular_open=time(0, 0),
+        regular_close=time(0, 0),
+        open_day_offset=0,
+        close_day_offset=1,
+    )
+    assert calendar.is_open(datetime(2026, 1, 3, 12, 0, tzinfo=UTC))
 
 
 def test_calendar_rejects_unknown_timezone():
@@ -65,4 +84,14 @@ def test_calendar_rejects_unknown_timezone():
             timezone_name="Mars/Olympus",
             regular_open=time(9),
             regular_close=time(16),
+        )
+
+
+def test_calendar_rejects_close_before_open_without_offset():
+    with pytest.raises(ValidationError):
+        MarketCalendar(
+            calendar_id="BROKEN",
+            timezone_name="UTC",
+            regular_open=time(18, 0),
+            regular_close=time(17, 0),
         )
