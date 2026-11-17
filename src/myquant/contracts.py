@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import StrEnum
 from typing import Annotated
 
@@ -13,7 +13,7 @@ def require_utc(value: datetime) -> datetime:
     if value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("timestamps must be timezone-aware")
     if value.utcoffset().total_seconds() != 0:
-        return value.astimezone(timezone.utc)
+        return value.astimezone(UTC)
     return value
 
 
@@ -44,7 +44,7 @@ class Observation(StrictContract):
     revision: Annotated[int, Field(ge=1)] = 1
 
     @model_validator(mode="after")
-    def validate_times(self) -> "Observation":
+    def validate_times(self) -> Observation:
         event = require_utc(self.event_time)
         available = require_utc(self.available_at)
         ingested = require_utc(self.ingested_at)
@@ -72,7 +72,7 @@ class Hypothesis(StrictContract):
     created_at: datetime
 
     @model_validator(mode="after")
-    def validate_created_at(self) -> "Hypothesis":
+    def validate_created_at(self) -> Hypothesis:
         object.__setattr__(self, "created_at", require_utc(self.created_at))
         if not self.universe:
             raise ValueError("universe must contain at least one instrument or market")
@@ -92,7 +92,7 @@ class FeatureRecord(StrictContract):
     config_fingerprint: Annotated[str, Field(min_length=1)]
 
     @model_validator(mode="after")
-    def validate_feature_time(self) -> "FeatureRecord":
+    def validate_feature_time(self) -> FeatureRecord:
         observation = require_utc(self.observation_time)
         available = require_utc(self.available_at)
         if available < observation:
