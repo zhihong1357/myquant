@@ -303,3 +303,36 @@ def test_trial_parameter_rejects_duplicate_names_and_nonfinite_values(tmp_path):
 
     with pytest.raises(ValidationError):
         TrialParameter(name="bad", value=float("nan"))
+
+
+def test_runner_refuses_changed_fixed_parameters_before_testing(tmp_path):
+    registry, registration = make_registry(tmp_path)
+    runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
+    wrong_trial = make_trial(
+        registration,
+        parameters=(
+            TrialParameter(name="lag", value=2),
+            TrialParameter(name="winsorization", value="none"),
+        ),
+    )
+
+    with pytest.raises(PermissionError, match="parameters"):
+        runner.run(wrong_trial, lambda _spec: {"score": 0.1})
+
+    assert registry.get_state("H0001", 1) == HypothesisState.REGISTERED
+    assert not (tmp_path / "trials.jsonl").exists()
+
+
+def test_runner_refuses_changed_target_before_testing(tmp_path):
+    registry, registration = make_registry(tmp_path)
+    runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
+    wrong_trial = make_trial(
+        registration,
+        target_definition="Next five session MOVE return",
+    )
+
+    with pytest.raises(PermissionError, match="target_definition"):
+        runner.run(wrong_trial, lambda _spec: {"score": 0.1})
+
+    assert registry.get_state("H0001", 1) == HypothesisState.REGISTERED
+    assert not (tmp_path / "trials.jsonl").exists()
