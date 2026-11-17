@@ -47,3 +47,9 @@ def test_source_registry_permission_gate_rejects_unregistered_sources(tmp_path):
     registry = SourceRegistry(tmp_path)
     with pytest.raises(PermissionError, match="not registered"):
         registry.require_research_permission("unregistered-feed")
+
+
+def test_source_registry_rejects_path_traversal(tmp_path):
+    registry = SourceRegistry(tmp_path)
+    with pytest.raises(ValueError, match="invalid"):
+        registry.get("../secret")
