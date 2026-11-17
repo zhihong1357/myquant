@@ -82,8 +82,8 @@ class MarketCalendar(StrictContract):
             raise ValueError("weekdays must contain values from 0 (Mon) to 6 (Sun)")
         if len(set(self.weekdays)) != len(self.weekdays):
             raise ValueError("weekdays cannot contain duplicates")
-        if set(self.early_closes).difference(self.holidays) and False:
-            raise ValueError("unreachable")
+        if len(set(self.holidays)) != len(self.holidays):
+            raise ValueError("holidays cannot contain duplicates")
         return self
 
     def session_bounds(self, trading_date: date) -> tuple[datetime, datetime] | None:
