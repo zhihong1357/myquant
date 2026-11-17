@@ -6,9 +6,10 @@ from math import isfinite, sqrt
 
 import numpy as np
 import pandas as pd
+from numpy.typing import NDArray
 
 
-def _validate_time_series(series: pd.Series, *, name: str) -> np.ndarray:
+def _validate_time_series(series: pd.Series, *, name: str) -> NDArray[np.float64]:
     if not isinstance(series, pd.Series):
         raise TypeError(f"{name} must be a pandas Series")
     if not isinstance(series.index, pd.DatetimeIndex):
@@ -21,7 +22,7 @@ def _validate_time_series(series: pd.Series, *, name: str) -> np.ndarray:
         raise ValueError(f"{name} index must not contain duplicate timestamps")
 
     try:
-        values = series.to_numpy(dtype=float, na_value=np.nan)
+        values = series.to_numpy(dtype=np.float64, na_value=np.nan)
     except (TypeError, ValueError) as exc:
         raise TypeError(f"{name} values must be numeric") from exc
 
