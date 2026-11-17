@@ -270,22 +270,28 @@ class HypothesisRegistry:
             version = latest_version + 1
             supersedes_version = latest.version
 
-        registered_at = datetime.now(UTC)
         registration_payload: dict[str, Any] = {
             "schema_version": 1,
             "version": version,
-            "registered_at": registered_at.isoformat(),
+            "registered_at": datetime.now(UTC),
             "supersedes_version": supersedes_version,
             "amendment_reason": amendment_reason,
             "spec": serialized_spec,
             "spec_fingerprint": spec_fingerprint,
         }
-        registration_hash = hashlib.sha256(
-            _canonical_json(registration_payload)
-        ).hexdigest()
-        registration = HypothesisRegistration(
+        draft = HypothesisRegistration(
             **registration_payload,
-            registration_hash=registration_hash,
+            registration_hash=GENESIS_EVENT_HASH,
+        )
+        hash_payload = draft.model_dump(
+            mode="json",
+            exclude={"registration_hash"},
+        )
+        registration_hash = hashlib.sha256(
+            _canonical_json(hash_payload)
+        ).hexdigest()
+        registration = draft.model_copy(
+            update={"registration_hash": registration_hash}
         )
 
         directory.mkdir(parents=True, exist_ok=True)
