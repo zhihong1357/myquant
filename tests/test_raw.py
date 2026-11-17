@@ -1,4 +1,5 @@
 from datetime import UTC, datetime, timedelta
+import json
 
 import pytest
 
@@ -84,8 +85,6 @@ def test_raw_store_detects_blob_tampering(tmp_path):
 
 
 def test_raw_store_detects_manifest_tampering(tmp_path):
-    import json
-
     store = RawStore(tmp_path)
     now = datetime(2026, 1, 1, tzinfo=UTC)
     record = store.put(
