@@ -103,7 +103,7 @@ def _prepare_regression(
 
     return (
         target_values,
-        cast(NDArray[np.float64], design),
+        design,
         tuple(names),
         tuple(coefficient_names),
     )
@@ -135,8 +135,8 @@ def ols_fit(
     if int(rank) != design.shape[1]:
         raise ValueError("design matrix is rank-deficient; predictors are collinear")
 
-    fitted = cast(NDArray[np.float64], design @ coefficients)
-    residuals = cast(NDArray[np.float64], target_values - fitted)
+    fitted = design @ coefficients
+    residuals = target_values - fitted
     residual_sum_squares = float(residuals @ residuals)
 
     if include_intercept:
