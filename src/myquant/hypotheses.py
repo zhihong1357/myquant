@@ -528,24 +528,30 @@ class HypothesisRegistry:
     ) -> HypothesisEvent:
         events = self.read_events()
         previous_hash = events[-1].event_hash if events else GENESIS_EVENT_HASH
-        payload: dict[str, Any] = {
-            "hypothesis_id": hypothesis_id,
-            "version": version,
-            "from_state": from_state.value if from_state else None,
-            "to_state": to_state.value,
-            "reason": reason,
-            "recorded_at": datetime.now(UTC).isoformat(),
-            "previous_hash": previous_hash,
-        }
-        event_hash = hashlib.sha256(_canonical_json(payload)).hexdigest()
-        event = HypothesisEvent(**payload, event_hash=event_hash)
+        draft = HypothesisEvent(
+            hypothesis_id=hypothesis_id,
+            version=version,
+            from_state=from_state,
+            to_state=to_state,
+            reason=reason,
+            recorded_at=datetime.now(UTC),
+            previous_hash=previous_hash,
+            event_hash=GENESIS_EVENT_HASH,
+        )
+        hash_payload = draft.model_dump(
+            mode="json",
+            exclude={"event_hash"},
+        )
+        event_hash = hashlib.sha256(
+            _canonical_json(hash_payload)
+        ).hexdigest()
+        event = draft.model_copy(update={"event_hash": event_hash})
         self.events_path.parent.mkdir(parents=True, exist_ok=True)
         with self.events_path.open("ab") as stream:
-            stream.write(_canonical_json(event.model_dump(mode="json")) + b"\n")
+            stream.write(_canonical_json(event.model_dump(mode="json")) + b"\\n")
             stream.flush()
             os.fsync(stream.fileno())
         return event
-
 
 def _valid_versioned_identifier(value: str) -> bool:
     if "@v" not in value:
