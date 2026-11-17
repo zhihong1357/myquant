@@ -29,11 +29,13 @@
 ## Stage 2B — Statistical research kernel
 - [x] Simple/log returns, realized variance and annualized volatility estimators.
 - [x] Descriptive lead-lag diagnostics with explicit lag direction and synchronized-input contract.
+- [x] OLS regression with full-rank and finite-input validation.
+- [x] Newey-West HAC covariance, standard errors and asymptotic inference.
+- [x] Common-factor controlled partial lead-lag nested-model comparison.
 - [x] Circular block-bootstrap mean confidence intervals and null-mean test.
 - [x] Bonferroni, Holm and Benjamini–Hochberg p-value corrections.
 - [ ] Event-study estimators and clustered event windows.
-- [ ] Common-factor regression, partial lead-lag diagnostics and HAC inference.
-- [ ] Walk-forward validation.
+- [ ] Walk-forward validation and out-of-sample incremental predictive value.
 - [ ] Purging and embargo for overlapping labels.
 - [ ] PBO and Deflated Sharpe Ratio.
 - [ ] Calibration and power analysis.
