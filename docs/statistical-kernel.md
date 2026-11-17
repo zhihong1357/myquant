@@ -84,7 +84,23 @@ Block bootstrap is intended to preserve short-range serial dependence better tha
 
 The function treats the supplied p-values as the complete family. It cannot know whether the caller omitted unsuccessful experiments. The experiment/hypothesis registry and study protocol must define the family before results are inspected. A search over many lags, factors, assets, model variants or bandwidths is a multiple-testing family, not one isolated test.
 
-## 8. Explicit non-goals in this slice
+## 8. Purged walk-forward validation and out-of-sample scoring
+
+`purged_walk_forward_splits` builds chronological, disjoint held-out test windows. Each fold trains only on observations whose decision times precede the test window. For a test window beginning at T, a training sample is purged when its label end time is greater than or equal to T; equality is treated conservatively as overlap.
+
+An optional pre-test embargo removes additional training observations whose decision times fall within the configured duration immediately before T. In this forward-only design, future rows are never training candidates, so embargo is implemented as an extra historical gap before the test window. The optional maximum training size limits the candidate window before purging and embargo are applied. A final shorter test window is retained.
+
+The splitter returns the training, test, purged and embargoed indices for each fold so the exclusions can be audited. Decision timestamps must be timezone-aware, unique and strictly increasing. Label end timestamps must be timezone-aware, aligned one-to-one, and later than their corresponding decision timestamps.
+
+`evaluate_walk_forward_forecasts` compares baseline and augmented predictions on exactly the held-out rows. Its incremental OOS R-squared is:
+
+`1 - SSE_augmented / SSE_baseline`
+
+A positive value means the augmented forecasts reduced squared error relative to the declared baseline. A negative value means they performed worse. When baseline error is zero, the ratio is undefined and returned as null. Fold metrics are also reported, while aggregate error is weighted by the number of held-out observations.
+
+These helpers do not train or tune a model. Callers must fit every model using only that fold's training indices, choose hyperparameters without consulting test outcomes, and supply forecasts generated before observing the held-out target. The splitter also cannot establish whether feature values were actually available at each historical decision time; that remains a point-in-time data-pipeline requirement. Non-overlapping test windows, a predeclared fold schedule, full multiple-testing accounting, and realistic costs remain necessary.
+
+## 9. Explicit non-goals in this slice
 
 Not implemented yet:
 
