@@ -3,7 +3,7 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from myquant.experiments import ExperimentRunner, TrialSpec
+from myquant.experiments import ExperimentRunner, TrialParameter, TrialSpec
 from myquant.hypotheses import (
     ExpectedDirection,
     HypothesisRegistry,
@@ -102,7 +102,7 @@ def make_trial(registration, **overrides):
         "cost_model": registration.spec.cost_model,
         "primary_metric": registration.spec.primary_metric,
         "expected_direction": registration.spec.expected_direction.value,
-        "parameters": {"lag_steps": 1},
+        "parameters": (TrialParameter(name="lag_steps", value=1),),
     }
     values.update(overrides)
     return TrialSpec(**values)
@@ -193,14 +193,14 @@ def test_trial_fingerprint_is_independent_of_trial_id_and_dict_key_order(tmp_pat
     registry, registration = make_registry(tmp_path)
     runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
     first = runner.run(
-        make_trial(registration, parameters={"a": 1, "b": 2}),
+        make_trial(\n            registration,\n            parameters=(\n                TrialParameter(name="a", value=1),\n                TrialParameter(name="b", value=2),\n            ),\n        ),
         lambda _spec: {"ok": True},
     )
     second = runner.run(
         make_trial(
             registration,
             trial_id="T0002",
-            parameters={"b": 2, "a": 1},
+            parameters=(\n                TrialParameter(name="b", value=2),\n                TrialParameter(name="a", value=1),\n            ),
         ),
         lambda _spec: {"ok": True},
     )
@@ -249,3 +249,41 @@ def test_runner_refuses_trials_for_terminal_hypothesis(tmp_path):
             make_trial(registration),
             lambda _spec: {"score": 0.1},
         )
+
+
+
+def test_trial_parameter_order_is_canonical_and_deeply_immutable():
+    registry, registration = make_registry(__import__("pathlib").Path("/tmp") / "unused")
+    first = make_trial(
+        registration,
+        parameters=(
+            TrialParameter(name="b", value=2),
+            TrialParameter(name="a", value=1),
+        ),
+    )
+    second = make_trial(
+        registration,
+        parameters=(
+            TrialParameter(name="a", value=1),
+            TrialParameter(name="b", value=2),
+        ),
+    )
+    assert first.parameters == second.parameters
+    assert tuple(item.name for item in first.parameters) == ("a", "b")
+    with pytest.raises(ValidationError):
+        first.parameters[0].name = "changed"
+
+
+def test_trial_parameter_rejects_duplicate_names_and_nonfinite_values():
+    with pytest.raises(ValidationError, match="must be unique"):
+        TrialSpec(
+            **make_trial(
+                make_registry(__import__("pathlib").Path("/tmp") / "unused")[1]
+            ).model_dump(),
+            parameters=(
+                TrialParameter(name="same", value=1),
+                TrialParameter(name="same", value=2),
+            ),
+        )
+    with pytest.raises(ValidationError):
+        TrialParameter(name="bad", value=float("nan"))
