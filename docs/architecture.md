@@ -64,7 +64,7 @@ Do not compare raw returns or hit rates across different horizons without normal
 ## Safety boundary
 The initial and foreseeable system is paper-only. No live order-routing module is permitted. The simulator is a research model and must disclose its fill assumptions.
 
-## Stage 1 data foundations
+## Stage 1 data and experiment foundations
 
 - **Instrument master:** canonical provider-neutral instrument IDs. Exchange/provider symbols are separate mappings and must never define the identity of an instrument.
 - **Market calendars:** IANA timezone, weekdays, local session boundaries, holidays, early closes, and trading-date offsets. This supports Sunday-evening futures sessions assigned to Monday trade dates. Ambiguous or nonexistent DST wall-clock boundaries are rejected rather than silently guessed.
@@ -72,6 +72,8 @@ The initial and foreseeable system is paper-only. No live order-routing module i
 - **Raw store:** byte-preserving, content-addressed blobs plus distinct immutable provenance manifests. A checksum is verified on read; different providers may point to the same payload bytes without losing source identity.
 - **PIT observation store:** immutable Parquet batches. A query at decision time first hides rows with `available_at` later than the decision, then selects the latest revision independently per instrument/venue/field/event/source-version. Conflicting providers remain separate and ambiguous same-revision collisions are rejected.
 - **Quality diagnostics:** summarize coverage against caller-supplied expected series, duplicates, revision collisions, event/availability ordering and ingestion latency. The system does not infer missing bars from absent rows until expected cadence and market calendar are defined.
+- **Synthetic factory:** deterministic null, direct lead-lag, common-factor and regime-shift panels. Ground-truth columns exist only to verify research code; they must never be used as model predictors.
+- **Experiment runner:** records a unique trial ID, hypothesis ID, seed, code revision, data/config fingerprints, metrics or failure details, and an append-only hash-chain receipt. It does not imply that a trial is statistically valid or that the referenced hypothesis has already passed a preregistration workflow.
 
 ### Timestamp interpretation
 
@@ -79,4 +81,4 @@ The initial and foreseeable system is paper-only. No live order-routing module i
 
 ### Initial implementation limits
 
-The initial Parquet PIT query scans the immutable batch files and resolves revisions in Python. This is correct for small research datasets but is not yet a scalable query engine. Partition pruning, compaction, catalog statistics and concurrent-writer coordination are future work. The local immutable file writer is designed for single-process research ingestion; it is not a distributed object-store transaction protocol. Calendar rules are explicit primitives, not a replacement for official historical exchange calendars and exceptional session notices.
+The initial Parquet PIT query scans the immutable batch files and resolves revisions in Python. This is correct for small research datasets but is not yet a scalable query engine. Partition pruning, compaction, catalog statistics and concurrent-writer coordination are future work. The local immutable file writer and trial ledger are single-writer research components, not distributed transaction protocols. Calendar rules are explicit primitives, not a replacement for official historical exchange calendars and exceptional session notices.
