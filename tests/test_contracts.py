@@ -1,12 +1,9 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from pydantic import ValidationError
 
 from myquant.contracts import Observation, is_available_at
-
-
-UTC = timezone.utc
 
 
 def make_observation(**overrides):
