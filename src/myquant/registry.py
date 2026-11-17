@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -12,11 +12,23 @@ GENESIS_HASH = "0" * 64
 
 
 def _canonical(payload: dict[str, Any]) -> bytes:
-    return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    encoded = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+    return encoded.encode("utf-8")
 
 
-def append_trial(path: str | Path, *, trial_id: str, hypothesis_id: str,
-                 status: str, result: dict[str, Any]) -> str:
+def append_trial(
+    path: str | Path,
+    *,
+    trial_id: str,
+    hypothesis_id: str,
+    status: str,
+    result: dict[str, Any],
+) -> str:
     """Append one immutable trial record and return its record hash."""
     ledger = Path(path)
     ledger.parent.mkdir(parents=True, exist_ok=True)
@@ -31,7 +43,7 @@ def append_trial(path: str | Path, *, trial_id: str, hypothesis_id: str,
         "hypothesis_id": hypothesis_id,
         "status": status,
         "result": result,
-        "recorded_at": datetime.now(timezone.utc).isoformat(),
+        "recorded_at": datetime.now(UTC).isoformat(),
         "previous_hash": previous_hash,
     }
     record_hash = hashlib.sha256(_canonical(payload)).hexdigest()
