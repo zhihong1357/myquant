@@ -1,4 +1,5 @@
 from datetime import UTC, datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import pytest
 from pydantic import ValidationError
@@ -53,3 +54,13 @@ def test_forecast_can_be_available_before_future_event():
         ingested_at=available_at + timedelta(seconds=1),
     )
     assert observation.available_at < observation.event_time
+
+
+def test_timestamps_with_zero_offset_are_normalized_to_utc():
+    london_time = datetime(2026, 1, 1, tzinfo=ZoneInfo("Europe/London"))
+    observation = make_observation(
+        event_time=london_time,
+        available_at=london_time,
+        ingested_at=london_time,
+    )
+    assert observation.event_time.tzinfo == UTC
