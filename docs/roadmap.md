@@ -34,9 +34,10 @@
 - [x] Common-factor controlled partial lead-lag nested-model comparison.
 - [x] Circular block-bootstrap mean confidence intervals and null-mean test.
 - [x] Bonferroni, Holm and Benjamini–Hochberg p-value corrections.
-- [ ] Event-study estimators and clustered event windows.
-- [x] Purged chronological walk-forward splits with label-overlap removal and pre-test embargo.\n- [x] Paired out-of-sample forecast scoring with incremental OOS R-squared.
-- [x] Purging and embargo for overlapping labels.
+- [x] Event-study CAR estimator with explicit expected-return benchmark.
+- [x] Overlapping event-window clustering and cluster-level descriptive inference.
+- [x] Purged chronological walk-forward splits with label-overlap removal and pre-test embargo.
+- [x] Paired out-of-sample forecast scoring with incremental OOS R-squared.
 - [ ] PBO and Deflated Sharpe Ratio.
 - [ ] Calibration and power analysis.
 - [ ] Evidence-backed statistical decision records.
