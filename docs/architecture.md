@@ -16,12 +16,12 @@ MyQuant is an independent research platform for discovering and validating cross
 
 ## Core time semantics
 
-- `event_time`: when the event occurred in the source market.
-- `available_at`: when the information became available to the strategy.
+- `event_time`: when the event occurred in the source market, or the event the observation refers to.
+- `available_at`: when the information became publicly/operationally available to the strategy.
 - `ingested_at`: when MyQuant received and persisted it.
 - `decision_time`: timestamp at which a model is allowed to make a decision.
 
-PIT eligibility is governed by `available_at <= decision_time`, not merely by event time. Corrections and revisions must not overwrite what was known historically; they create new versioned observations.
+PIT eligibility is governed by `available_at <= decision_time`, not merely by event time. Corrections and revisions must not overwrite what was known historically; they create new versioned observations. Historical records preserve their source definition version. `available_at` is not the date MyQuant later downloaded an archive; it must represent the original information availability time when that can be established.
 
 ## Cross-market transmission model
 
@@ -64,19 +64,19 @@ Do not compare raw returns or hit rates across different horizons without normal
 ## Safety boundary
 The initial and foreseeable system is paper-only. No live order-routing module is permitted. The simulator is a research model and must disclose its fill assumptions.
 
-
 ## Stage 1 data foundations
 
 - **Instrument master:** canonical provider-neutral instrument IDs. Exchange/provider symbols are separate mappings and must never define the identity of an instrument.
-- **Market calendars:** IANA timezone, weekdays, local session boundaries, holidays and early closes. Overnight sessions are supported. Continuous markets use all seven weekdays and a 00:00-to-00:00 session.
-- **Source registry:** provider, timestamp meaning, nominal delay, attribution and explicit license state. Unknown/restricted/prohibited sources are not approved for research use by default.
+- **Market calendars:** IANA timezone, weekdays, local session boundaries, holidays, early closes, and trading-date offsets. This supports Sunday-evening futures sessions assigned to Monday trade dates. Ambiguous or nonexistent DST wall-clock boundaries are rejected rather than silently guessed.
+- **Source registry:** provider, timestamp meaning, nominal delay, attribution and explicit license state. Unknown/restricted/prohibited sources are not approved for research use by default. An approved entry requires a documented permission basis; this is an explicit registry assertion, not an automatic legal determination.
 - **Raw store:** byte-preserving, content-addressed blobs plus distinct immutable provenance manifests. A checksum is verified on read; different providers may point to the same payload bytes without losing source identity.
-- **PIT observation store:** immutable Parquet batches. A query at decision time first hides rows with `available_at` later than the decision, then selects the latest revision independently per instrument/venue/field/event/source. Conflicting providers remain separate.
+- **PIT observation store:** immutable Parquet batches. A query at decision time first hides rows with `available_at` later than the decision, then selects the latest revision independently per instrument/venue/field/event/source-version. Conflicting providers remain separate and ambiguous same-revision collisions are rejected.
+- **Quality diagnostics:** summarize coverage against caller-supplied expected series, duplicates, revision collisions, event/availability ordering and ingestion latency. The system does not infer missing bars from absent rows until expected cadence and market calendar are defined.
 
 ### Timestamp interpretation
 
-`event_time` is the timestamp the observation refers to; it is not necessarily the time the observation became knowable. A forecast or scheduled-event estimate can be published before its future event time. PIT eligibility is determined by `available_at`, while `ingested_at` records when MyQuant received the information.
+`event_time` is the timestamp the observation refers to; it is not necessarily the time the observation became knowable. A forecast or scheduled-event estimate can be published before its future event time. PIT eligibility is determined by `available_at`, while `ingested_at` records when MyQuant received the information. The difference `ingested_at - available_at` measures our ingestion delay, not how quickly the market repriced.
 
 ### Initial implementation limits
 
-The initial Parquet PIT query scans the immutable batch files and resolves revisions in Python. This is correct for small research datasets but is not yet a scalable query engine. Partition pruning, compaction, catalog statistics and concurrent-writer coordination are future work. The local immutable file writer is designed for single-process research ingestion; it is not a distributed object-store transaction protocol.
+The initial Parquet PIT query scans the immutable batch files and resolves revisions in Python. This is correct for small research datasets but is not yet a scalable query engine. Partition pruning, compaction, catalog statistics and concurrent-writer coordination are future work. The local immutable file writer is designed for single-process research ingestion; it is not a distributed object-store transaction protocol. Calendar rules are explicit primitives, not a replacement for official historical exchange calendars and exceptional session notices.
