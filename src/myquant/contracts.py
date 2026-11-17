@@ -10,14 +10,9 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 def require_utc(value: datetime) -> datetime:
-    if value.tzinfo is None:
+    if value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("timestamps must be timezone-aware")
-    offset = value.utcoffset()
-    if offset is None:
-        raise ValueError("timestamps must be timezone-aware")
-    if offset.total_seconds() != 0:
-        return value.astimezone(UTC)
-    return value
+    return value.astimezone(UTC)
 
 
 class StrictContract(BaseModel):
