@@ -33,9 +33,10 @@ The system is designed for multiple horizons: sub-hourly, intraday, daily and mu
 - Immutable content-addressed raw payloads and provenance manifests
 - Immutable Parquet observations with point-in-time revision queries
 - Batch-level data-quality and coverage diagnostics
-- Hash-chained experiment ledger
+- Deterministic synthetic scenarios: null, lead-lag, common-factor and regime-shift
+- Reproducible experiment runner with append-only hash-chained results
 
-The current implementation is a research foundation, not a live market data service or a proven trading system. See the roadmap for incomplete areas.
+The current implementation is a research foundation, not a live market data service or a proven trading system. Hypothesis preregistration enforcement and statistical validation remain future work.
 
 ## Quick start
 
