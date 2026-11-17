@@ -19,6 +19,7 @@ class RawPayloadRecord(StrictContract):
     record_id: str = Field(min_length=64, max_length=64)
     payload_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     source_id: str = Field(min_length=2)
+    source_version: int = Field(default=1, ge=1)
     event_time: datetime | None = None
     available_at: datetime
     ingested_at: datetime
@@ -53,6 +54,7 @@ class RawStore:
         source_id: str,
         available_at: datetime,
         content_type: str,
+        source_version: int = 1,
         event_time: datetime | None = None,
         ingested_at: datetime | None = None,
     ) -> RawPayloadRecord:
@@ -63,11 +65,14 @@ class RawStore:
         event = require_utc(event_time) if event_time is not None else None
         if ingested < available:
             raise ValueError("ingested_at cannot precede available_at")
+        if source_version < 1:
+            raise ValueError("source_version must be >= 1")
 
         payload_hash = hashlib.sha256(payload).hexdigest()
         metadata: dict[str, Any] = {
             "payload_sha256": payload_hash,
             "source_id": source_id,
+            "source_version": source_version,
             "event_time": event.isoformat() if event else None,
             "available_at": available.isoformat(),
             "ingested_at": ingested.isoformat(),
@@ -100,6 +105,7 @@ class RawStore:
             _canonical({
                 "payload_sha256": record.payload_sha256,
                 "source_id": record.source_id,
+                "source_version": record.source_version,
                 "event_time": record.event_time.isoformat() if record.event_time else None,
                 "available_at": record.available_at.isoformat(),
                 "ingested_at": record.ingested_at.isoformat(),
