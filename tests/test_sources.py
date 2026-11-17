@@ -10,6 +10,7 @@ def make_source(**overrides):
         "provider": "Example Data",
         "description": "Synthetic source for tests only",
         "license_status": LicenseStatus.APPROVED,
+        "permission_basis": "Synthetic test fixture; no third-party market data is used.",
         "timestamp_basis": "publication timestamp",
     }
     values.update(overrides)
@@ -37,6 +38,12 @@ def test_unknown_source_license_is_not_approved_for_research():
         source.require_research_permission()
 
 
-def test_source_rejects_invalid_timestamp_basis():
+def test_approved_source_requires_permission_basis():
     with pytest.raises(ValidationError):
-        make_source(timestamp_basis="UTC")
+        make_source(permission_basis=None)
+
+
+def test_source_registry_permission_gate_rejects_unregistered_sources(tmp_path):
+    registry = SourceRegistry(tmp_path)
+    with pytest.raises(PermissionError, match="not registered"):
+        registry.require_research_permission("unregistered-feed")
