@@ -44,7 +44,7 @@ class Observation(StrictContract):
     available_at: datetime
     ingested_at: datetime
     field: Annotated[str, Field(min_length=1)]
-    value: float
+    value: Annotated[float, Field(allow_inf_nan=False)]
     unit: Annotated[str, Field(min_length=1)]
     source_id: Annotated[str, Field(min_length=1)]
     revision: Annotated[int, Field(ge=1)] = 1
@@ -91,7 +91,7 @@ class FeatureRecord(StrictContract):
     instrument_id: Annotated[str, Field(min_length=1)]
     observation_time: datetime
     available_at: datetime
-    value: float
+    value: Annotated[float, Field(allow_inf_nan=False)]
     input_fingerprints: tuple[str, ...]
     config_fingerprint: Annotated[str, Field(min_length=1)]
 
