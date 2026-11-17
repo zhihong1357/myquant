@@ -105,6 +105,18 @@ Each trial carries the hypothesis ID, version and fingerprint. Before the callba
 
 The lifecycle event stream is hash-chained and replay-validated against legal state transitions. The runner does not automatically mark hypotheses SUPPORTED or REJECTED. Those decisions must follow a separate statistical evidence and review step; a state label is not proof of predictive value.
 
+## Stage 2B initial statistical kernel
+
+The first statistical slice provides return/volatility estimators, descriptive lead-lag scans, circular block bootstrap for the mean, and Bonferroni/Holm/Benjamini–Hochberg p-value corrections. Method definitions, input requirements and limitations are specified in [statistical-kernel.md](statistical-kernel.md).
+
+Important boundaries:
+
+- Return calculations never forward-fill missing prices.
+- Lead-lag scans require synchronized, equally spaced inputs and define positive lag as source at time t paired with target at t+k. The result is descriptive, not causal.
+- The current block bootstrap uses circular moving blocks and percentile intervals; block length sensitivity must be evaluated.
+- Multiple-testing functions assume the supplied p-values are the complete preregistered family. They cannot detect omitted experiments.
+- No statistical function in this slice changes hypothesis lifecycle state.
+
 ### Timestamp interpretation
 
 `event_time` is the timestamp the observation refers to; it is not necessarily the time the observation became knowable. A forecast or scheduled-event estimate can be published before its future event time. PIT eligibility is determined by `available_at`, while `ingested_at` records when MyQuant received the information. The difference `ingested_at - available_at` measures our ingestion delay, not how quickly the market repriced.
