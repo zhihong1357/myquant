@@ -12,7 +12,7 @@
 - [x] Source registry and data licensing metadata.
 - [x] Immutable raw storage with checksums.
 - [x] Canonical observations and point-in-time query.
-- [ ] Data quality, missingness and timestamp diagnostics.
+- [x] Data quality, missingness and timestamp diagnostics (batch-level; expected series must be explicit).
 - [ ] Experiment runner and synthetic data factory.
 
 ## Stage 2 — Statistical research kernel
