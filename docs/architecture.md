@@ -73,7 +73,27 @@ The initial and foreseeable system is paper-only. No live order-routing module i
 - **PIT observation store:** immutable Parquet batches. A query at decision time first hides rows with `available_at` later than the decision, then selects the latest revision independently per instrument/venue/field/event/source-version. Conflicting providers remain separate and ambiguous same-revision collisions are rejected.
 - **Quality diagnostics:** summarize coverage against caller-supplied expected series, duplicates, revision collisions, event/availability ordering and ingestion latency. The system does not infer missing bars from absent rows until expected cadence and market calendar are defined.
 - **Synthetic factory:** deterministic null, direct lead-lag, common-factor and regime-shift panels. Ground-truth columns exist only to verify research code; they must never be used as model predictors.
-- **Experiment runner:** records a unique trial ID, hypothesis ID, seed, code revision, data/config fingerprints, metrics or failure details, and an append-only hash-chain receipt. It does not imply that a trial is statistically valid or that the referenced hypothesis has already passed a preregistration workflow.
+- **Experiment runner:** records a unique trial ID, hypothesis ID, seed, code revision, data/config fingerprints, metrics or failure details, and an append-only hash-chain receipt. It does not imply that a trial is statistically valid.
+
+## Stage 2A hypothesis preregistration
+
+A hypothesis must be registered before any experiment can run. The immutable specification includes:
+
+- research question, mechanism, alternative and null hypotheses;
+- instrument universe, exact source versions, versioned feature set and prediction target;
+- horizon, model definition, fixed parameters, benchmark and cost assumptions;
+- chronological train, validation and holdout windows;
+- a purge gap no shorter than the forward prediction horizon;
+- minimum observations per split, primary metric, expected direction and minimum effect size;
+- family-wise alpha, planned test count, multiple-testing family and correction method;
+- missing-data policy, confounders, exclusions and random seed;
+- explicit acceptance and rejection criteria.
+
+The registration receives a canonical fingerprint and immutable versioned snapshot. A pre-trial amendment creates a new version with a reason and supersedes the former version. Once the first trial starts, the version is locked; changing the research design requires a new hypothesis ID.
+
+Each trial carries the hypothesis ID, version and fingerprint. The runner checks that its horizon, sources, features, model, benchmark, cost model, primary metric, expected direction and random seed match the registered specification. It changes the hypothesis state from REGISTERED to TESTING before invoking the experiment callback. Failed experiments remain in the trial ledger.
+
+The lifecycle event stream is hash-chained and replay-validated against legal state transitions. The runner does not automatically mark hypotheses SUPPORTED or REJECTED. Those decisions must follow a separate statistical evidence and review step; a state label is not proof of predictive value.
 
 ### Timestamp interpretation
 
@@ -81,4 +101,4 @@ The initial and foreseeable system is paper-only. No live order-routing module i
 
 ### Initial implementation limits
 
-The initial Parquet PIT query scans the immutable batch files and resolves revisions in Python. This is correct for small research datasets but is not yet a scalable query engine. Partition pruning, compaction, catalog statistics and concurrent-writer coordination are future work. The local immutable file writer and trial ledger are single-writer research components, not distributed transaction protocols. Calendar rules are explicit primitives, not a replacement for official historical exchange calendars and exceptional session notices.
+The initial Parquet PIT query scans the immutable batch files and resolves revisions in Python. This is correct for small research datasets but is not yet a scalable query engine. Partition pruning, compaction, catalog statistics and concurrent-writer coordination are future work. The local immutable file writer, hypothesis registry and trial ledger are single-writer research components, not distributed transaction protocols. Calendar rules are explicit primitives, not a replacement for official historical exchange calendars and exceptional session notices.
