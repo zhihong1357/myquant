@@ -238,8 +238,19 @@ class HypothesisRegistry:
         amendment_reason: str | None = None,
     ) -> HypothesisRegistration:
         """Register v1 or issue a pre-trial amendment as a new immutable version."""
+        # Fail closed before creating any new registration if the shared audit
+        # log or any previously registered snapshot is corrupt.
+        existing_events = self.read_events()
         directory = self.registration_root / spec.hypothesis_id
         existing_versions = self._versions(spec.hypothesis_id)
+        registered_event_versions = {
+            (event.hypothesis_id, event.version) for event in existing_events
+        }
+        for existing_version in existing_versions:
+            if (spec.hypothesis_id, existing_version) not in registered_event_versions:
+                raise ValueError(
+                    f"registration v{existing_version} has no lifecycle event"
+                )
         serialized_spec = spec.model_dump(mode="json")
         spec_fingerprint = hashlib.sha256(
             _canonical_json(serialized_spec)
@@ -459,6 +470,17 @@ class HypothesisRegistry:
             event = HypothesisEvent.model_validate(
                 {**raw, "event_hash": supplied_hash}
             )
+            registration_path = (
+                self.registration_root
+                / event.hypothesis_id
+                / f"v{event.version}.json"
+            )
+            if not registration_path.exists():
+                raise ValueError(
+                    f"hypothesis event references missing registration "
+                    f"{event.hypothesis_id} v{event.version}"
+                )
+            self.get(event.hypothesis_id, version=event.version)
 
             key = (event.hypothesis_id, event.version)
             current_state = states.get(key)
