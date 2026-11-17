@@ -22,7 +22,7 @@ from myquant.stats.multiple_testing import (
     adjust_pvalues,
 )
 from myquant.stats.regression import OLSResult, ols_fit
-from myquant.stats.returns import (
+from myquant.stats.walk_forward import (\n    FoldForecastMetrics,\n    WalkForwardEvaluation,\n    WalkForwardFold,\n    evaluate_walk_forward_forecasts,\n    purged_walk_forward_splits,\n)\nfrom myquant.stats.returns import (
     annualized_volatility,
     log_returns,
     realized_variance,
@@ -34,12 +34,12 @@ __all__ = [
     "AdjustedPValue",
     "BootstrapInterval",
     "BootstrapMeanTest",
-    "HACCoefficient",
+    "FoldForecastMetrics",\n    "HACCoefficient",
     "HACResult",
     "LeadLagCorrelation",
     "OLSResult",
-    "PartialLeadLagResult",
-    "adjust_pvalues",
+    "PartialLeadLagResult",\n    "WalkForwardEvaluation",\n    "WalkForwardFold",
+    "adjust_pvalues",\n    "evaluate_walk_forward_forecasts",
     "annualized_volatility",
     "block_bootstrap_mean_ci",
     "block_bootstrap_mean_test",
@@ -47,7 +47,7 @@ __all__ = [
     "log_returns",
     "newey_west_hac",
     "ols_fit",
-    "partial_lead_lag",
+    "partial_lead_lag",\n    "purged_walk_forward_splits",
     "realized_variance",
     "realized_volatility",
     "simple_returns",
