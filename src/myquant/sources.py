@@ -8,7 +8,7 @@ import tempfile
 from enum import StrEnum
 from pathlib import Path
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from myquant.contracts import StrictContract
 
@@ -25,6 +25,7 @@ class SourceDefinition(StrictContract):
     provider: str = Field(min_length=1)
     description: str = Field(min_length=8)
     license_status: LicenseStatus = LicenseStatus.UNKNOWN
+    permission_basis: str | None = None
     terms_url: str | None = None
     attribution: str | None = None
     nominal_delay_seconds: int = Field(default=0, ge=0)
@@ -34,6 +35,12 @@ class SourceDefinition(StrictContract):
             "Document whether timestamps mean event, publication, exchange, or retrieval time."
         ),
     )
+
+    @model_validator(mode="after")
+    def validate_permission_basis(self) -> SourceDefinition:
+        if self.license_status == LicenseStatus.APPROVED and not self.permission_basis:
+            raise ValueError("approved sources require a documented permission_basis")
+        return self
 
     def require_research_permission(self) -> None:
         if self.license_status != LicenseStatus.APPROVED:
@@ -72,6 +79,21 @@ class SourceRegistry:
             raise ValueError("invalid source_id")
         path = self.root / source_id / f"v{version}.json"
         return SourceDefinition.model_validate_json(path.read_text(encoding="utf-8"))
+
+    def require_research_permission(
+        self,
+        source_id: str,
+        *,
+        version: int = 1,
+    ) -> SourceDefinition:
+        try:
+            definition = self.get(source_id, version=version)
+        except FileNotFoundError as exc:
+            raise PermissionError(
+                f"source {source_id!r} version {version} is not registered"
+            ) from exc
+        definition.require_research_permission()
+        return definition
 
 
 def _write_new_file(target: Path, content: bytes) -> None:
