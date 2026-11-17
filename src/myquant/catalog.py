@@ -31,7 +31,13 @@ class MarketCatalog:
             self._path("calendars", calendar_id, version).read_text(encoding="utf-8")
         )
 
-    def _register(self, kind: str, key: str, model: Instrument | MarketCalendar, version: int) -> Path:
+    def _register(
+        self,
+        kind: str,
+        key: str,
+        model: Instrument | MarketCalendar,
+        version: int,
+    ) -> Path:
         path = self._path(kind, key, version)
         payload = model.model_dump_json(indent=2).encode("utf-8") + b"\n"
         _write_new_file(path, payload)
