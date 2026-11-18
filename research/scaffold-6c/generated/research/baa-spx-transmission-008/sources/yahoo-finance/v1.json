@@ -1,0 +1,11 @@
+{
+  "attribution": "TODO",
+  "description": "Yahoo Finance public chart endpoint: daily bars for ^GSPC (S&P 500) as the equity factor. No API key.",
+  "license_status": "unknown",
+  "nominal_delay_seconds": "TODO",
+  "permission_basis": "TODO",
+  "provider": "Yahoo Finance",
+  "source_id": "yahoo-finance",
+  "terms_url": "TODO",
+  "timestamp_basis": "TODO"
+}

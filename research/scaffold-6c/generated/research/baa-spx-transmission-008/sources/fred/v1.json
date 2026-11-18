@@ -1,0 +1,11 @@
+{
+  "attribution": "TODO",
+  "description": "FRED free fredgraph CSV: daily economic series (VIXCLS, VXNCLS, VXTYN, DGS10, BAA10Y, CPIAUCSL). No API key.",
+  "license_status": "unknown",
+  "nominal_delay_seconds": "TODO",
+  "permission_basis": "TODO",
+  "provider": "Federal Reserve Bank of St. Louis (FRED)",
+  "source_id": "fred",
+  "terms_url": "TODO",
+  "timestamp_basis": "TODO"
+}
