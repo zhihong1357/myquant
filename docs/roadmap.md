@@ -59,15 +59,16 @@
 - [x] Trade-based order-flow metrics (bucketed CVD, volume/count imbalance, VWAP, large-trade share, intensity at 1m/5m/1H; descriptive only, no signals; see `docs/microstructure.md` and `research/microstructure-4a/validation_report.md`).
 - [ ] L2 order-book reconstruction where licensed data permits. Snapshot parsing is done in 4a; continuous reconstruction needs a WebSocket stream and a forward recorder (design only in `docs/microstructure.md`), pending a later decision — no recorder, cron or background process is built in this PR.
 - [x] Conservative paper fill model (paper orders with decision/available/arrival clocks, resting-limit fills on opposite-aggressor prints at or through the limit with a last-in-queue rule, crossed-at-arrival taker fills capped at the limit, market fills at the book or first-print fallback, explicit missed-fill accounting; see `docs/execution.md` and `src/myquant/execution/`).
-- [x] Fees, spread, slippage, impact and financing (OKX futures Standard Group fee table verified from OKX's own fee notice, effective 2026-09-09, read 2026-11-18 — Regular 0.02% maker / 0.05% taker; half-spread crossing vs arrival mid; configurable adverse slippage, default 1 bp; linear impact vs top-5 depth, default coefficient 5 bps, uncalibrated; 8-hour funding on the 00:00/08:00/16:00 UTC grid with the rate as an input parameter — no funding-rate series pulled, a documented data gap).
+- [x] Fees, spread, slippage, impact and financing (OKX futures Standard Group fee table verified from OKX's own fee notice, effective 2026-09-09, read 2026-11-18 — Regular 0.02% maker / 0.05% taker; half-spread crossing vs arrival mid; configurable adverse slippage, default 1 bp; linear impact vs top-5 depth, default coefficient 5 bps, uncalibrated; 8-hour funding on the 00:00/08:00/16:00 UTC grid with the rate as an input parameter — no funding-rate series pulled, a documented data gap; the gap was closed in Stage 5a by the historical funding-rate series, see the Stage 5 items below).
 - [x] Latency and stale-data stress tests (order latency scanned 0/100ms/500ms/1s with explicit missed-fill accounting; snapshots usable only within a configurable max age, default 5 s — stale books are unknown, never held; queue-ahead fallback scanned 0/100/1,000 contracts; see `research/microstructure-4b/stress_report.md`).
 
 ## Stage 5 — Portfolio and paper research
-- [ ] Unified prediction contract across horizons.
-- [ ] Risk model and exposure aggregation.
-- [ ] Paper portfolio and reconciliation.
-- [ ] Forward shadow evaluation.
-- [ ] Drift and alpha-decay monitoring.
+- [x] Historical funding-rate series (closes the Stage 4b data gap: OKX `/public/funding-rate-history`, ~93 days, 280 settled rates per instrument for BTC/ETH/SOL, complete grid; `compute_funding_from_series` prices funding at historical rates, no interpolation — see `research/funding-history/funding_report.md` and `docs/portfolio.md`).
+- [x] Unified prediction contract across horizons. (Typed contract with target definitions, horizon, event/available clocks with PIT enforcement and a strict query that refuses not-yet-available predictions, plus a labelled lag-return fixture generator — see `src/myquant/portfolio/predictions.py` and `docs/portfolio.md`.)
+- [x] Risk model and exposure aggregation. (Long/short net/gross notional, concentration, leverage; sample covariance + Ledoit–Wolf shrinkage toward a scaled identity; portfolio volatility; historical-simulation VaR/ES — all descriptive, not predictive; see `src/myquant/portfolio/risk.py` and `docs/portfolio.md`.)
+- [x] Paper portfolio and reconciliation. (Perpetuals cash model, average-cost basis, maker/taker fee split, funding tracked separately, event-sampled equity curve; three-way reconciliation with an independent fill-cash-flow cross-check — residuals at 1e-11..1e-13 USDT on two daily fixtures and a simulator end-to-end tape check; see `src/myquant/portfolio/portfolio.py`, `research/portfolio-5a/validation_report.md` and `docs/portfolio.md`.)
+- [ ] Forward shadow evaluation. (Deferred to Stage 5b: the lab currently has no strategy to shadow-evaluate.)
+- [ ] Drift and alpha-decay monitoring. (Deferred to Stage 5b: same reason — no strategy yet, so there is nothing whose drift to monitor.)
 
 ## Stage 6 — AI research intelligence
 - [ ] Hypothesis planner.

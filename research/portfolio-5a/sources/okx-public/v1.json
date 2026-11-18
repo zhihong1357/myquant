@@ -1,0 +1,11 @@
+{
+    "attribution": "Data: OKX public market data",
+    "description": "OKX public REST market data for USDT-margined perpetual swaps (BTC-USDT-SWAP, ETH-USDT-SWAP, SOL-USDT-SWAP): daily candlesticks (/market/history-candles, bar 1D) and instrument specifications (/public/instruments)",
+    "license_status": "approved",
+    "nominal_delay_seconds": 0,
+    "permission_basis": "Public market data served without authentication by OKX public REST endpoints (/market/history-candles, /public/instruments), used for research only; raw payloads are not redistributed. OKX Terms of Service reviewed 2026-11-18. This registry entry is an explicit research-use assertion, not a legal determination.",
+    "provider": "OKX",
+    "source_id": "okx-public",
+    "terms_url": "https://www.okx.com/help/terms-of-service",
+    "timestamp_basis": "Exchange event time: a 1D candle's ts is its open time (16:00 UTC, i.e. midnight UTC+8); the bar's values are knowable at its close (open + 24h). Only confirmed bars are used."
+}
