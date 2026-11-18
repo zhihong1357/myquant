@@ -22,6 +22,7 @@ from myquant.graph import (
     CostGateVerdict,
     EdgeRecord,
     EdgeStatus,
+    EdgeTestType,
     ForwardSampleRecord,
     GraphRegistry,
     MarketGraph,
@@ -163,6 +164,129 @@ def test_edge_cannot_point_at_itself():
         make_edge(
             "E0001", "crypto:btc-usdt-perp", "crypto:btc-usdt-perp"
         )
+
+
+def test_lead_lag_edge_requires_lag_steps():
+    with pytest.raises(ValidationError, match="needs lag_steps"):
+        make_edge(
+            "E0001",
+            "crypto:btc-usdt-perp",
+            "crypto:eth-usdt-perp",
+            lag_steps=None,
+        )
+
+
+def test_mean_comparison_edge_is_a_self_loop_without_lag_or_partial_r2():
+    edge = make_edge(
+        "E0017",
+        "crypto:btc-usdt-perp",
+        "crypto:btc-usdt-perp",
+        test_type=EdgeTestType.MEAN_COMPARISON,
+        lag_steps=None,
+        partial_r_squared=None,
+        incremental_r_squared=None,
+        method="mean abs log-return comparison, OLS + HAC",
+        common_factor_control=None,
+        holdout_oos_incremental_r_squared=None,
+        holdout_oos_note="No OOS score: level comparison, not a forecast.",
+        cost_gate=None,
+        cost_gate_note="No cost gate: level comparison, not a forecast.",
+    )
+    assert edge.test_type is EdgeTestType.MEAN_COMPARISON
+    assert edge.lag_steps is None
+    assert edge.partial_r_squared is None
+
+
+def test_mean_comparison_edge_rejects_a_lag():
+    with pytest.raises(ValidationError, match="has no lag"):
+        make_edge(
+            "E0017",
+            "crypto:btc-usdt-perp",
+            "crypto:btc-usdt-perp",
+            test_type=EdgeTestType.MEAN_COMPARISON,
+            lag_steps=1,
+            partial_r_squared=None,
+            incremental_r_squared=None,
+        )
+
+
+def test_mean_comparison_edge_rejects_partial_r_squared():
+    with pytest.raises(ValidationError, match="must not carry lead-lag"):
+        make_edge(
+            "E0017",
+            "crypto:btc-usdt-perp",
+            "crypto:btc-usdt-perp",
+            test_type=EdgeTestType.MEAN_COMPARISON,
+            lag_steps=None,
+            partial_r_squared=0.001,
+            incremental_r_squared=None,
+        )
+
+
+def test_mean_comparison_edge_must_be_a_self_loop():
+    with pytest.raises(ValidationError, match="must be a self-loop"):
+        make_edge(
+            "E0017",
+            "crypto:btc-usdt-perp",
+            "crypto:eth-usdt-perp",
+            test_type=EdgeTestType.MEAN_COMPARISON,
+            lag_steps=None,
+            partial_r_squared=None,
+            incremental_r_squared=None,
+        )
+
+
+def test_mermaid_labels_mean_comparison_edges_as_self_loops():
+    nodes = (
+        make_node("crypto:btc-usdt-perp", "BTC"),
+        make_node("crypto:eth-usdt-perp", "ETH"),
+    )
+    edge = make_edge(
+        "E0017",
+        "crypto:btc-usdt-perp",
+        "crypto:btc-usdt-perp",
+        test_type=EdgeTestType.MEAN_COMPARISON,
+        lag_steps=None,
+        partial_r_squared=None,
+        incremental_r_squared=None,
+        coefficient=0.0012,
+        method="mean abs log-return comparison, OLS + HAC",
+        common_factor_control=None,
+        holdout_oos_incremental_r_squared=None,
+        holdout_oos_note="No OOS score.",
+        cost_gate=None,
+        cost_gate_note="No cost gate.",
+    )
+    registry = make_registry(nodes, (edge,), build_candidates(nodes, (edge,)))
+    rendered = render_mermaid(registry)
+    assert "BTC -->|E0017 daily, mean abs-return diff +0.0012" in rendered
+    assert "BTC -->|E0017" in rendered
+
+
+def test_edges_by_filters_on_test_type():
+    nodes = (
+        make_node("crypto:btc-usdt-perp", "BTC"),
+        make_node("crypto:eth-usdt-perp", "ETH"),
+    )
+    lead_lag = make_edge(
+        "E0001", "crypto:btc-usdt-perp", "crypto:eth-usdt-perp"
+    )
+    mean_comparison = make_edge(
+        "E0017",
+        "crypto:btc-usdt-perp",
+        "crypto:btc-usdt-perp",
+        test_type=EdgeTestType.MEAN_COMPARISON,
+        lag_steps=None,
+        partial_r_squared=None,
+        incremental_r_squared=None,
+    )
+    edges = (lead_lag, mean_comparison)
+    registry = make_registry(nodes, edges, build_candidates(nodes, edges))
+    graph = MarketGraph(registry)
+    assert graph.edges_by(test_type=EdgeTestType.MEAN_COMPARISON) == (
+        mean_comparison,
+    )
+    assert graph.edges_by(test_type=EdgeTestType.LEAD_LAG) == (lead_lag,)
 
 
 def test_pending_edge_shape():
@@ -523,35 +647,46 @@ def test_every_holm_family_test_has_an_edge(tmp_path: Path):
         ("btc-eth-001", "research/btc-eth-001/trials.jsonl"),
         ("lowvol-002", "research/lowvol-002/trials.jsonl"),
         ("move-vix-003", "research/move-vix-003/trials.jsonl"),
+        ("options-expiry-004", "research/options-expiry-004/trials.jsonl"),
     ):
-        trial = json.loads((REPO_ROOT / ledger).read_text().splitlines()[0])
-        family = {
-            entry["test"] for entry in trial["result"]["metrics"]["holm"]
-        }
-        registered = {
-            edge.ledger_test_key
-            for edge in graph.edges
-            if edge.status in {EdgeStatus.REJECTED, EdgeStatus.SUPPORTED}
-            and edge.ledger_path == ledger
-        }
-        assert family == registered, study
+        # A ledger may hold more than one trial (study 004 has T0005 and
+        # T0007); failed trials carry no metrics and are skipped.
+        lines = (REPO_ROOT / ledger).read_text().splitlines()
+        for line in lines:
+            trial = json.loads(line)
+            if trial["status"] != "completed":
+                continue
+            family = {
+                entry["test"] for entry in trial["result"]["metrics"]["holm"]
+            }
+            registered = {
+                edge.ledger_test_key
+                for edge in graph.edges
+                if edge.status in {EdgeStatus.REJECTED, EdgeStatus.SUPPORTED}
+                and edge.trial_id == trial["trial_id"]
+            }
+            assert family == registered, (study, trial["trial_id"])
 
 
 def test_edge_numbers_match_the_trial_ledger(tmp_path: Path):
     built_registry, _ = run_builder(tmp_path)
     graph = MarketGraph.from_file(built_registry)
-    ledgers: dict[str, dict] = {}
+    trials: dict[str, dict] = {}
     for ledger in (
         "research/btc-eth-001/trials.jsonl",
         "research/lowvol-002/trials.jsonl",
         "research/move-vix-003/trials.jsonl",
+        "research/options-expiry-004/trials.jsonl",
     ):
-        trial = json.loads((REPO_ROOT / ledger).read_text().splitlines()[0])
-        ledgers[ledger] = trial
+        # Keyed by trial id: a ledger may hold more than one trial.
+        for line in (REPO_ROOT / ledger).read_text().splitlines():
+            trial = json.loads(line)
+            if trial["status"] == "completed":
+                trials[trial["trial_id"]] = trial
     for edge in graph.edges:
         if edge.status not in {EdgeStatus.REJECTED, EdgeStatus.SUPPORTED}:
             continue
-        trial = ledgers[edge.ledger_path]
+        trial = trials[edge.trial_id]
         metrics = trial["result"]["metrics"]
         test_key = edge.ledger_test_key
         assert test_key is not None
@@ -575,17 +710,19 @@ def test_real_graph_summary(tmp_path: Path):
     built_registry, _ = run_builder(tmp_path)
     graph = MarketGraph.from_file(built_registry)
     assert graph.summary() == {
-        "nodes": 9,
-        "edges": 13,
-        "candidates": 68,
+        "nodes": 11,
+        "edges": 18,
+        "candidates": 106,
         "edges_supported": 0,
-        "edges_rejected": 10,
+        "edges_rejected": 15,
         "edges_pending": 1,
         "edges_descriptive": 2,
     }
     assert graph.tested_pairs() == {
         ("crypto:btc-usdt-perp", "crypto:eth-usdt-perp"),
         ("crypto:btc-usdt-perp", "crypto:sol-usdt-perp"),
+        ("crypto:btc-usdt-perp", "crypto:btc-usdt-perp"),
+        ("crypto:eth-usdt-perp", "crypto:eth-usdt-perp"),
         ("index:tyvix", "index:vix"),
         ("index:tyvix", "index:vxn"),
     }
@@ -597,6 +734,32 @@ def test_real_graph_summary(tmp_path: Path):
     assert len(vix_tyvix) == 1
     assert vix_tyvix[0].related_descriptive is not None
     assert "E0013" in vix_tyvix[0].related_descriptive
+
+
+def test_mean_comparison_edges_are_self_loops_without_lead_lag_stats(
+    tmp_path: Path,
+):
+    built_registry, _ = run_builder(tmp_path)
+    graph = MarketGraph.from_file(built_registry)
+    mean_edges = graph.edges_by(test_type=EdgeTestType.MEAN_COMPARISON)
+    assert {edge.edge_id for edge in mean_edges} == {"E0017", "E0018"}
+    for edge in mean_edges:
+        # A level test compares one instrument against itself; it carries
+        # no lag, no partial R-squared, no OOS score and no cost gate.
+        assert edge.source_instrument == edge.target_instrument
+        assert edge.lag_steps is None
+        assert edge.partial_r_squared is None
+        assert edge.incremental_r_squared is None
+        assert edge.holdout_oos_incremental_r_squared is None
+        assert edge.cost_gate is None
+        assert "level comparison" in (edge.holdout_oos_note or "")
+        assert "level comparison" in (edge.cost_gate_note or "")
+    # Mean-comparison self-loops do not create candidates: candidates
+    # are directed pairs between distinct instruments only.
+    assert all(
+        candidate.source_instrument != candidate.target_instrument
+        for candidate in graph.untested_candidates()
+    )
 
 
 def test_pending_edge_sample_comes_from_the_sample_check(tmp_path: Path):

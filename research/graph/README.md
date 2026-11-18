@@ -46,11 +46,16 @@ markers). Commit both files together.
 ## Adding a new study's edges
 
 1. Finish the study first: preregistration, trial ledger, report.
-2. In `build_graph.py`, add the study to `STUDIES` (hypothesis id,
-   registration version, trial id, report path).
+2. In `build_graph.py`, add each trial to `TRIALS` (trial id, study
+   directory, hypothesis id, registration version, report path). The
+   builder is trial-keyed: a study directory may hold more than one
+   trial (study 004 has T0005 and T0007).
 3. Add one `EdgeSpec` per Holm-family test, in ledger order. Give the new
-   edges the next free ids (`E0014`, `E0015`, …) — never reuse or renumber
-   an existing id.
+   edges the next free ids (`E0019`, `E0020`, …) — never reuse or renumber
+   an existing id. If a test is not a lead-lag test (e.g. a
+   mean-comparison level test), set `test_type` accordingly: the builder
+   treats mean-comparison edges as self-loops with no lag, no partial
+   R-squared, no OOS score and no cost gate.
 4. If the study adds instruments, extend `SHORT_LABELS` and make sure the
    study's catalog carries the new instruments.
 5. If the study has a descriptive-only check worth recording, add a
@@ -77,7 +82,10 @@ fails validation.
 Trial-level metrics (holdout OOS R², cost gate) attach to the primary edge
 of each trial only; other edges in the same trial carry a note saying so.
 Attaching a trial-level number to a non-primary edge would imply a
-measurement that was never made.
+measurement that was never made. Mean-comparison trials have no
+trial-level metrics at all (a level comparison is not a forecast and has
+no trading rule to cost), so their edges carry "no OOS score / no cost
+gate" notes instead.
 
 ## Querying
 

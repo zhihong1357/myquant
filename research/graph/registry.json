@@ -22,6 +22,18 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "credit:baa-10y-spread",
       "target_instrument": "index:sp500"
     },
     {
@@ -53,6 +65,18 @@
       "related_descriptive": null,
       "source_instrument": "crypto:btc-usdt-perp",
       "target_instrument": "credit:baa-10y-spread"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:eth-dvol"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -106,6 +130,18 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:eth-usdt-perp",
       "target_instrument": "index:sp500"
     },
     {
@@ -154,6 +190,18 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:sol-usdt-perp",
       "target_instrument": "index:sp500"
     },
     {
@@ -183,6 +231,126 @@
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "credit:baa-10y-spread"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:btc-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:eth-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:sol-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:sp500"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:tyvix"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:vix"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:vxn"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "rates:us-10y-yield"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "credit:baa-10y-spread"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:btc-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:eth-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:sol-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:sp500"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:tyvix"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:vix"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:vxn"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "rates:us-10y-yield"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
       "source_instrument": "index:sp500",
       "target_instrument": "credit:baa-10y-spread"
     },
@@ -203,6 +371,18 @@
       "related_descriptive": null,
       "source_instrument": "index:sp500",
       "target_instrument": "crypto:sol-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:eth-dvol"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -256,6 +436,18 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "index:tyvix",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:tyvix",
       "target_instrument": "index:sp500"
     },
     {
@@ -287,6 +479,18 @@
       "related_descriptive": null,
       "source_instrument": "index:vix",
       "target_instrument": "crypto:sol-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:eth-dvol"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -340,6 +544,18 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "index:vxn",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:vxn",
       "target_instrument": "index:sp500"
     },
     {
@@ -388,6 +604,18 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "rates:us-10y-yield",
       "target_instrument": "index:sp500"
     },
     {
@@ -409,7 +637,7 @@
       "target_instrument": "index:vxn"
     }
   ],
-  "content_hash": "e3e1fb0417cb29621b8cb923ae55761eefdf921b33554593e0a30a68afa7f11f",
+  "content_hash": "1763020cc81ca0642d63f2bb54236fdf494e45d5f2b7114d210e02750fe4de48",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -459,6 +687,7 @@
       "status": "rejected",
       "t_statistic": 0.3614136111674567,
       "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0001",
       "trial_record_hash": "7cf678cdaffae790217827a2b3c3c7b5ab27231972f27edb9407bb1229c8dd1d",
       "verdict_summary": "Hypothesis H0001 REJECTED (trial T0001): this test did not reject (Holm-adjusted p = 1.000); partial R² 0.000109905 below the 0.005 threshold; holdout OOS incremental R² -0.00095; cost gate fail (net daily edge -0.0872%).",
@@ -505,6 +734,7 @@
       "status": "rejected",
       "t_statistic": 0.5338576392114055,
       "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0001",
       "trial_record_hash": "7cf678cdaffae790217827a2b3c3c7b5ab27231972f27edb9407bb1229c8dd1d",
       "verdict_summary": "Hypothesis H0001 REJECTED (trial T0001): this test did not reject (Holm-adjusted p = 1.000, partial R² 0.000376843).",
@@ -551,6 +781,7 @@
       "status": "rejected",
       "t_statistic": -0.16349223479698374,
       "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0001",
       "trial_record_hash": "7cf678cdaffae790217827a2b3c3c7b5ab27231972f27edb9407bb1229c8dd1d",
       "verdict_summary": "Hypothesis H0001 REJECTED (trial T0001): this test did not reject (Holm-adjusted p = 1.000, partial R² 2.51137e-05).",
@@ -606,6 +837,7 @@
       "status": "rejected",
       "t_statistic": 1.8068467082579849,
       "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0002",
       "trial_record_hash": "1240f8d7a520897f5525c3ca8be9dcc1145c32fb8c420e8e8e7497af823d5024",
       "verdict_summary": "Hypothesis H0002 REJECTED (trial T0002): this test did not reject (Holm-adjusted p = 0.283); partial R² 0.00375922 below the 0.005 threshold; holdout OOS incremental R² +0.01041; cost gate fail (net daily edge -0.0596%).",
@@ -650,6 +882,7 @@
       "status": "rejected",
       "t_statistic": 1.0767048953838905,
       "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0002",
       "trial_record_hash": "1240f8d7a520897f5525c3ca8be9dcc1145c32fb8c420e8e8e7497af823d5024",
       "verdict_summary": "Hypothesis H0002 REJECTED (trial T0002): this test did not reject (Holm-adjusted p = 0.845, partial R² 0.00421829).",
@@ -694,6 +927,7 @@
       "status": "rejected",
       "t_statistic": 0.27339865973492333,
       "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0002",
       "trial_record_hash": "1240f8d7a520897f5525c3ca8be9dcc1145c32fb8c420e8e8e7497af823d5024",
       "verdict_summary": "Hypothesis H0002 REJECTED (trial T0002): this test did not reject (Holm-adjusted p = 1.000, partial R² 0.000151393).",
@@ -738,6 +972,7 @@
       "status": "rejected",
       "t_statistic": -0.028814239765010803,
       "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0002",
       "trial_record_hash": "1240f8d7a520897f5525c3ca8be9dcc1145c32fb8c420e8e8e7497af823d5024",
       "verdict_summary": "Hypothesis H0002 REJECTED (trial T0002): this test did not reject (Holm-adjusted p = 1.000, partial R² 2.22713e-06).",
@@ -792,6 +1027,7 @@
       "status": "rejected",
       "t_statistic": -0.2847247030167259,
       "target_instrument": "index:vix",
+      "test_type": "lead_lag",
       "trial_id": "T0004",
       "trial_record_hash": "77f2789ca1ea9540e0f89baede80cad82c8e80c2ea0b8eae39c8b1ba0494375b",
       "verdict_summary": "Hypothesis H0004 REJECTED (trial T0004): this test did not reject (Holm-adjusted p = 1.000); partial R² 3.48403e-05 below the 0.005 threshold; holdout OOS incremental R² -0.00154; cost gate informational (gross daily edge +0.3903%, 95% CI includes zero) — no net edge measurable without VIX futures data.",
@@ -837,6 +1073,7 @@
       "status": "rejected",
       "t_statistic": -0.4261375216101292,
       "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
       "trial_id": "T0004",
       "trial_record_hash": "77f2789ca1ea9540e0f89baede80cad82c8e80c2ea0b8eae39c8b1ba0494375b",
       "verdict_summary": "Hypothesis H0004 REJECTED (trial T0004): this test did not reject (Holm-adjusted p = 1.000, partial R² 0.000102649).",
@@ -884,6 +1121,7 @@
       "status": "rejected",
       "t_statistic": -0.0807828333948254,
       "target_instrument": "index:vix",
+      "test_type": "lead_lag",
       "trial_id": "T0004",
       "trial_record_hash": "77f2789ca1ea9540e0f89baede80cad82c8e80c2ea0b8eae39c8b1ba0494375b",
       "verdict_summary": "Hypothesis H0004 REJECTED (trial T0004): this test did not reject (Holm-adjusted p = 1.000, partial R² 8.59997e-06).",
@@ -933,6 +1171,7 @@
       "status": "pending",
       "t_statistic": null,
       "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": null,
       "trial_record_hash": null,
       "verdict_summary": "Hypothesis H0003 REGISTERED (v1); no trial has run. The trial runs when 60 low-volatility forward rows exist; sample check 2026-11-18: 0/60 low-volatility rows, not ready.",
@@ -980,6 +1219,7 @@
       "status": "descriptive",
       "t_statistic": null,
       "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
       "trial_id": "T0002",
       "trial_record_hash": "1240f8d7a520897f5525c3ca8be9dcc1145c32fb8c420e8e8e7497af823d5024",
       "verdict_summary": "Descriptive only (test C, study 002): Hyperliquid daily BTC→ETH low-volatility subsample. Raw correlation 0.047, factor-controlled coefficient -0.107 (wrong sign). No p-values, not in the test family, no verdict.",
@@ -1027,9 +1267,255 @@
       "status": "descriptive",
       "t_statistic": 2.0022641790788733,
       "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
       "trial_id": "T0004",
       "trial_record_hash": "77f2789ca1ea9540e0f89baede80cad82c8e80c2ea0b8eae39c8b1ba0494375b",
       "verdict_summary": "Descriptive only (reverse placebo, study 003): nominal p = 0.045 is uncorrected and the effect is small (partial R² 0.00176884); treated as noise, not a finding. No verdict.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.035832376979457355,
+      "common_factor_control": "SOL[t] log return",
+      "condition": "expiry-window interaction: BTC[t] x window[t], window = bar-open dates T-3..T (PIT-correct)",
+      "cost_gate": {
+        "bootstrap_p_value": 0.2748625687156422,
+        "ci_lower": -0.0012042691553076689,
+        "ci_upper": 0.00035189818515526846,
+        "days": 683,
+        "gross_daily_edge": -0.0003593334018241835,
+        "net_daily_edge": -0.0004369322305211089,
+        "note": "Sign rule on expiry-window holdout rows only; flat on non-window rows. Net edge averaged over all 683 holdout rows (including 88 expiry-window rows). 0.05% taker fee per side; funding, slippage and market impact ignored.",
+        "verdict": "fail"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "okx-public@v1",
+        "deribit@v1"
+      ],
+      "edge_id": "E0014",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": -0.007719678100280847,
+      "holdout_oos_note": "Expiry-window holdout rows only (the acceptance criterion; 8 folds, 88 rows). All-holdout incremental OOS R² was -0.00067.",
+      "holm_adjusted_p_value": 0.6938231572768055,
+      "hypothesis_id": "H0005",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 8.353012116124603e-05,
+      "lag_steps": 1,
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_interaction",
+      "method": "interaction OLS (BTC[t] x window[t]), Newey-West HAC (max lag 5 daily)",
+      "notes": [],
+      "observations": 2124,
+      "p_value": 0.6938231572768055,
+      "partial_r_squared": 8.365601959676024e-05,
+      "preregistration_fingerprint": "5c9d73af2bd7efae02f7113c1b6f868dc5492efdb24da2d1ccd150f172f7f133",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 2124,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.09102087451487953,
+      "status": "rejected",
+      "t_statistic": -0.3936720798436154,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0005",
+      "trial_record_hash": "644b4221b24643bdf95470bde06b26911727b9281c1de8aafcd5845008bff935",
+      "verdict_summary": "Hypothesis H0005 REJECTED (trial T0005): this test did not reject (Holm-adjusted p = 0.694); partial R² 8.3656e-05 below the 0.005 threshold; holdout OOS incremental R² -0.00772; cost gate fail (net daily edge -0.0437%).",
+      "version": 1
+    },
+    {
+      "coefficient": -0.19070926952869974,
+      "common_factor_control": "SOL[t] log return",
+      "condition": "expiry-window subsample only (bar-open dates T-3..T)",
+      "cost_gate": null,
+      "cost_gate_note": "Trial-level cost gate; applies to the primary test (E0014) only.",
+      "data_sources": [
+        "okx-public@v1",
+        "deribit@v1"
+      ],
+      "edge_id": "E0015",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "Trial-level metric; measured for the primary test (E0014) only.",
+      "holm_adjusted_p_value": 0.33644632580344835,
+      "hypothesis_id": "H0005",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 0.009053738487912133,
+      "lag_steps": 1,
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_window",
+      "method": "partial lead-lag OLS on expiry-window rows only, Newey-West HAC (max lag 5 daily)",
+      "notes": [],
+      "observations": 280,
+      "p_value": 0.11214877526781611,
+      "partial_r_squared": 0.009098962385243119,
+      "preregistration_fingerprint": "5c9d73af2bd7efae02f7113c1b6f868dc5492efdb24da2d1ccd150f172f7f133",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 280,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.12004798674147901,
+      "status": "rejected",
+      "t_statistic": -1.5886086448029189,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0005",
+      "trial_record_hash": "644b4221b24643bdf95470bde06b26911727b9281c1de8aafcd5845008bff935",
+      "verdict_summary": "Hypothesis H0005 REJECTED (trial T0005): this test did not reject (Holm-adjusted p = 0.336, partial R² 0.00909896).",
+      "version": 1
+    },
+    {
+      "coefficient": -0.056022123367451146,
+      "common_factor_control": "SOL[t] log return",
+      "condition": "expiry-window interaction: BTC[t] x window[t], window = bar-open dates T-3..T (PIT-correct)",
+      "cost_gate": null,
+      "cost_gate_note": "Trial-level cost gate; applies to the primary test (E0014) only.",
+      "data_sources": [
+        "okx-public@v1",
+        "deribit@v1"
+      ],
+      "edge_id": "E0016",
+      "forward_sample": null,
+      "frequency": "hourly",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "Trial-level metric; measured for the primary test (E0014) only.",
+      "holm_adjusted_p_value": 0.4663224152039427,
+      "hypothesis_id": "H0005",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 0.00015714449589432355,
+      "lag_steps": 1,
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "hourly_btc_eth_interaction",
+      "method": "interaction OLS (BTC[t] x window[t]), Newey-West HAC (max lag 12 hourly)",
+      "notes": [
+        "Predeclared 1H robustness test."
+      ],
+      "observations": 16438,
+      "p_value": 0.23316120760197134,
+      "partial_r_squared": 0.00015729316457909615,
+      "preregistration_fingerprint": "5c9d73af2bd7efae02f7113c1b6f868dc5492efdb24da2d1ccd150f172f7f133",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "sample": {
+        "first": "2025-01-02T01:00:00Z",
+        "last": "2026-11-17T23:00:00Z",
+        "observations": 16438,
+        "panel_rows": 16439
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.04698836697890212,
+      "status": "rejected",
+      "t_statistic": -1.19225516802074,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0005",
+      "trial_record_hash": "644b4221b24643bdf95470bde06b26911727b9281c1de8aafcd5845008bff935",
+      "verdict_summary": "Hypothesis H0005 REJECTED (trial T0005): this test did not reject (Holm-adjusted p = 0.466, partial R² 0.000157293).",
+      "version": 1
+    },
+    {
+      "coefficient": 1.2603901708849118e-06,
+      "common_factor_control": null,
+      "condition": "expiry-window days vs non-window days (mean daily |log return|); window = bar-open dates T-3..T",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0006 is a volatility-level comparison, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "okx-public@v1",
+        "deribit@v1"
+      ],
+      "edge_id": "E0017",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: level comparison, not a forecast.",
+      "holm_adjusted_p_value": 1.0,
+      "hypothesis_id": "H0006",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "btc_mean_abs_return_comparison",
+      "method": "mean comparison by OLS of |log return| on the window indicator, Newey-West HAC (max lag 10); block-bootstrap CI for the mean difference",
+      "notes": [
+        "Mean-comparison edge, not a transmission edge: it tests whether BTC realized volatility differs inside the expiry window. Effect size is the window/non-window mean |log return| ratio (threshold 1.15)."
+      ],
+      "observations": 2125,
+      "p_value": 0.9993039488153056,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "0c48d2ac4fc37be0d5ba46b530823be332040cf387a2027bb57f45f5e619845f",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 2125,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.0014447870393665765,
+      "status": "rejected",
+      "t_statistic": 0.0008723709007228442,
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0007",
+      "trial_record_hash": "69d75c944b750c9b90a9b08f2f5aa7cb635e2f4bc58ad5c44b966add4f9d480d",
+      "verdict_summary": "Hypothesis H0006 REJECTED (trial T0007): this test did not reject (Holm-adjusted p = 1.000); window/non-window mean |log return| ratio 1.0001 below the 1.15 threshold; mean difference +0.000001 (95% block-bootstrap CI [-0.004740, +0.005052]). No OOS or cost-gate criterion: level comparison, not a forecast.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.0010873977852530667,
+      "common_factor_control": null,
+      "condition": "expiry-window days vs non-window days (mean daily |log return|); window = bar-open dates T-3..T",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0006 is a volatility-level comparison, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "okx-public@v1",
+        "deribit@v1"
+      ],
+      "edge_id": "E0018",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: level comparison, not a forecast.",
+      "holm_adjusted_p_value": 1.0,
+      "hypothesis_id": "H0006",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "eth_mean_abs_return_comparison",
+      "method": "mean comparison by OLS of |log return| on the window indicator, Newey-West HAC (max lag 10); block-bootstrap CI for the mean difference",
+      "notes": [
+        "Mean-comparison edge, not a transmission edge: it tests whether ETH realized volatility differs inside the expiry window."
+      ],
+      "observations": 2125,
+      "p_value": 0.5101458981671017,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "0c48d2ac4fc37be0d5ba46b530823be332040cf387a2027bb57f45f5e619845f",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 2125,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:eth-usdt-perp",
+      "standard_error": 0.0016510482794293894,
+      "status": "rejected",
+      "t_statistic": -0.6586105317458535,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0007",
+      "trial_record_hash": "69d75c944b750c9b90a9b08f2f5aa7cb635e2f4bc58ad5c44b966add4f9d480d",
+      "verdict_summary": "Hypothesis H0006 REJECTED (trial T0007): this test did not reject (Holm-adjusted p = 1.000); window/non-window mean |log return| ratio 0.9590.",
       "version": 1
     }
   ],
@@ -1054,7 +1540,8 @@
       "short_label": "BTC",
       "studies": [
         "btc-eth-001",
-        "lowvol-002"
+        "lowvol-002",
+        "options-expiry-004"
       ]
     },
     {
@@ -1066,7 +1553,8 @@
       "short_label": "ETH",
       "studies": [
         "btc-eth-001",
-        "lowvol-002"
+        "lowvol-002",
+        "options-expiry-004"
       ]
     },
     {
@@ -1078,8 +1566,27 @@
       "short_label": "SOL",
       "studies": [
         "btc-eth-001",
-        "lowvol-002"
+        "lowvol-002",
+        "options-expiry-004"
       ]
+    },
+    {
+      "asset_class": "volatility",
+      "calendar_id": "crypto-24-7",
+      "instrument_id": "index:btc-dvol",
+      "instrument_type": "index",
+      "name": "Deribit Volatility Index (BTC DVOL)",
+      "short_label": "BTC_DVOL",
+      "studies": []
+    },
+    {
+      "asset_class": "volatility",
+      "calendar_id": "crypto-24-7",
+      "instrument_id": "index:eth-dvol",
+      "instrument_type": "index",
+      "name": "Deribit Volatility Index (ETH DVOL)",
+      "short_label": "ETH_DVOL",
+      "studies": []
     },
     {
       "asset_class": "index",
@@ -1169,6 +1676,22 @@
       "study": "move-vix-003",
       "trial_id": "T0004",
       "trial_record_hash": "77f2789ca1ea9540e0f89baede80cad82c8e80c2ea0b8eae39c8b1ba0494375b"
+    },
+    {
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "preregistration_fingerprint": "5c9d73af2bd7efae02f7113c1b6f868dc5492efdb24da2d1ccd150f172f7f133",
+      "registration_path": "research/options-expiry-004/hypotheses/registrations/H0005/v1.json",
+      "study": "options-expiry-004",
+      "trial_id": "T0005",
+      "trial_record_hash": "644b4221b24643bdf95470bde06b26911727b9281c1de8aafcd5845008bff935"
+    },
+    {
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "preregistration_fingerprint": "0c48d2ac4fc37be0d5ba46b530823be332040cf387a2027bb57f45f5e619845f",
+      "registration_path": "research/options-expiry-004/hypotheses/registrations/H0006/v1.json",
+      "study": "options-expiry-004",
+      "trial_id": "T0007",
+      "trial_record_hash": "69d75c944b750c9b90a9b08f2f5aa7cb635e2f4bc58ad5c44b966add4f9d480d"
     }
   ],
   "schema_version": 1

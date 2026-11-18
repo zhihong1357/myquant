@@ -1,0 +1,170 @@
+{
+  "calendar_verification": {
+    "all_checks_passed": true,
+    "constructed_quarterly_expiries": [
+      "2026-12-25",
+      "2027-03-26",
+      "2027-06-25",
+      "2027-09-24"
+    ],
+    "currencies_match": true,
+    "horizon_end": "2027-02-18",
+    "listed_expiry_count": 11,
+    "listed_quarterly_expiries": [
+      "2026-12-25",
+      "2027-03-26",
+      "2027-06-25",
+      "2027-09-24"
+    ],
+    "listing_lead_days": 92,
+    "missing_monthlies_within_listing_lead": [],
+    "monthly_check_passed": true,
+    "quarterly_check_passed": true
+  },
+  "deribit_listings": [
+    {
+      "currency": "BTC",
+      "distinct_expiry_dates": [
+        "2026-11-18",
+        "2026-11-19",
+        "2026-11-20",
+        "2026-11-21",
+        "2026-11-27",
+        "2026-12-04",
+        "2026-12-25",
+        "2027-01-29",
+        "2027-03-26",
+        "2027-06-25",
+        "2027-09-24"
+      ],
+      "expired": false,
+      "instruments": 958
+    },
+    {
+      "currency": "BTC",
+      "distinct_expiry_dates": [
+        "2026-11-17"
+      ],
+      "expired": true,
+      "instruments": 70
+    },
+    {
+      "currency": "ETH",
+      "distinct_expiry_dates": [
+        "2026-11-18",
+        "2026-11-19",
+        "2026-11-20",
+        "2026-11-21",
+        "2026-11-27",
+        "2026-12-04",
+        "2026-12-25",
+        "2027-01-29",
+        "2027-03-26",
+        "2027-06-25",
+        "2027-09-24"
+      ],
+      "expired": false,
+      "instruments": 798
+    },
+    {
+      "currency": "ETH",
+      "distinct_expiry_dates": [
+        "2026-11-17"
+      ],
+      "expired": true,
+      "instruments": 70
+    }
+  ],
+  "dvol_panels": [
+    {
+      "first_point": "2021-03-24T00:00:00+00:00",
+      "instrument_id": "index:btc-dvol",
+      "last_point": "2026-11-17T00:00:00+00:00",
+      "points": 2065
+    },
+    {
+      "first_point": "2021-03-24T00:00:00+00:00",
+      "instrument_id": "index:eth-dvol",
+      "last_point": "2026-11-17T00:00:00+00:00",
+      "points": 2065
+    }
+  ],
+  "expiry_calendar": {
+    "first_expiry": "2021-01-29",
+    "last_expiry": "2026-10-30",
+    "monthly_expiries": 70,
+    "quarterly_expiries": 23,
+    "rule": "last Friday of each calendar month, 08:00 UTC",
+    "sample_end": "2026-11-18",
+    "sample_start": "2021-01-21",
+    "source": "Rule-constructed from the public Deribit rule; verified against listed expiries (calendar_verification) and the official Deribit Contract Introduction Policy. Not pulled from historical contracts: the public API returns only the most recent expired batch."
+  },
+  "fetched_at": "2026-11-18T04:21:25.752566+00:00",
+  "okx_panels": [
+    {
+      "bar": "1D",
+      "candles": 2126,
+      "expected_confirmed_bars": 2126,
+      "first_bar_open": "2021-01-21T16:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1D",
+      "candles": 2126,
+      "expected_confirmed_bars": 2126,
+      "first_bar_open": "2021-01-21T16:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1D",
+      "candles": 2126,
+      "expected_confirmed_bars": 2126,
+      "first_bar_open": "2021-01-21T16:00:00+00:00",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 16440,
+      "expected_confirmed_bars": 16440,
+      "first_bar_open": "2025-01-02T00:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 16440,
+      "expected_confirmed_bars": 16440,
+      "first_bar_open": "2025-01-02T00:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 16440,
+      "expected_confirmed_bars": 16440,
+      "first_bar_open": "2025-01-02T00:00:00+00:00",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    }
+  ],
+  "quality_issues": {
+    "pit-1d": [],
+    "pit-1h": [],
+    "pit-dvol": []
+  },
+  "quality_row_count": {
+    "pit-1d": 31890,
+    "pit-1h": 246600,
+    "pit-dvol": 4130
+  },
+  "study": "options-expiry-004"
+}

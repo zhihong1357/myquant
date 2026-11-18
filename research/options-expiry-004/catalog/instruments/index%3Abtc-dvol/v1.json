@@ -1,0 +1,12 @@
+{
+  "instrument_id": "index:btc-dvol",
+  "asset_class": "volatility",
+  "instrument_type": "index",
+  "name": "Deribit Volatility Index (BTC DVOL)",
+  "quote_currency": "percent",
+  "calendar_id": "crypto-24-7",
+  "metadata": {
+    "deribit_index_name": "btc_vol",
+    "deribit_currency": "BTC"
+  }
+}
