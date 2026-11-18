@@ -263,6 +263,171 @@ def test_mermaid_labels_mean_comparison_edges_as_self_loops():
     assert "BTC -->|E0017" in rendered
 
 
+def test_event_study_edge_is_a_self_loop_without_lag_or_partial_r2():
+    edge = make_edge(
+        "E0019",
+        "index:vix",
+        "index:vix",
+        test_type=EdgeTestType.EVENT_STUDY,
+        lag_steps=None,
+        partial_r_squared=None,
+        incremental_r_squared=None,
+        method="constant-mean event study, CAR[0,+1], cluster inference",
+        common_factor_control=None,
+        holdout_oos_incremental_r_squared=None,
+        holdout_oos_note="No OOS score: event study, not a forecast.",
+        cost_gate=None,
+        cost_gate_note="No cost gate: event study, not a forecast.",
+    )
+    assert edge.test_type is EdgeTestType.EVENT_STUDY
+    assert edge.lag_steps is None
+    assert edge.partial_r_squared is None
+
+
+def test_event_study_edge_rejects_a_lag():
+    with pytest.raises(ValidationError, match="has no lag"):
+        make_edge(
+            "E0019",
+            "index:vix",
+            "index:vix",
+            test_type=EdgeTestType.EVENT_STUDY,
+            lag_steps=1,
+            partial_r_squared=None,
+            incremental_r_squared=None,
+        )
+
+
+def test_event_study_edge_rejects_partial_r_squared():
+    with pytest.raises(ValidationError, match="must not carry lead-lag"):
+        make_edge(
+            "E0019",
+            "index:vix",
+            "index:vix",
+            test_type=EdgeTestType.EVENT_STUDY,
+            lag_steps=None,
+            partial_r_squared=0.001,
+            incremental_r_squared=None,
+        )
+
+
+def test_event_study_edge_must_be_a_self_loop():
+    with pytest.raises(ValidationError, match="must be a self-loop"):
+        make_edge(
+            "E0019",
+            "index:vix",
+            "index:tyvix",
+            test_type=EdgeTestType.EVENT_STUDY,
+            lag_steps=None,
+            partial_r_squared=None,
+            incremental_r_squared=None,
+        )
+
+
+def test_cross_section_edge_is_directed_without_lag_or_partial_r2():
+    edge = make_edge(
+        "E0024",
+        "rates:us-10y-yield",
+        "index:sp500",
+        test_type=EdgeTestType.CROSS_SECTION,
+        lag_steps=None,
+        partial_r_squared=None,
+        incremental_r_squared=None,
+        method="cross-event OLS of SPX CAR on DGS10 CAR, HC0 standard errors",
+        common_factor_control=None,
+        holdout_oos_incremental_r_squared=None,
+        holdout_oos_note="No OOS score: event study, not a forecast.",
+        cost_gate=None,
+        cost_gate_note="No cost gate: event study, not a forecast.",
+    )
+    assert edge.test_type is EdgeTestType.CROSS_SECTION
+    assert edge.lag_steps is None
+    assert edge.partial_r_squared is None
+
+
+def test_cross_section_edge_rejects_a_lag():
+    with pytest.raises(ValidationError, match="has no lag"):
+        make_edge(
+            "E0024",
+            "rates:us-10y-yield",
+            "index:sp500",
+            test_type=EdgeTestType.CROSS_SECTION,
+            lag_steps=1,
+            partial_r_squared=None,
+            incremental_r_squared=None,
+        )
+
+
+def test_cross_section_edge_rejects_partial_r_squared():
+    with pytest.raises(ValidationError, match="must not carry lead-lag"):
+        make_edge(
+            "E0024",
+            "rates:us-10y-yield",
+            "index:sp500",
+            test_type=EdgeTestType.CROSS_SECTION,
+            lag_steps=None,
+            partial_r_squared=0.05,
+            incremental_r_squared=None,
+        )
+
+
+def test_cross_section_edge_rejects_a_self_loop():
+    with pytest.raises(ValidationError, match="cannot point at its own"):
+        make_edge(
+            "E0024",
+            "index:sp500",
+            "index:sp500",
+            test_type=EdgeTestType.CROSS_SECTION,
+            lag_steps=None,
+            partial_r_squared=None,
+            incremental_r_squared=None,
+        )
+
+
+def test_mermaid_labels_event_study_and_cross_section_edges():
+    nodes = (
+        make_node("index:vix", "VIX"),
+        make_node("rates:us-10y-yield", "DGS10"),
+        make_node("index:sp500", "SPX"),
+    )
+    event_edge = make_edge(
+        "E0019",
+        "index:vix",
+        "index:vix",
+        test_type=EdgeTestType.EVENT_STUDY,
+        lag_steps=None,
+        partial_r_squared=None,
+        incremental_r_squared=None,
+        coefficient=-0.03,
+        method="constant-mean event study",
+        common_factor_control=None,
+        holdout_oos_incremental_r_squared=None,
+        holdout_oos_note="No OOS score.",
+        cost_gate=None,
+        cost_gate_note="No cost gate.",
+    )
+    cross_edge = make_edge(
+        "E0024",
+        "rates:us-10y-yield",
+        "index:sp500",
+        test_type=EdgeTestType.CROSS_SECTION,
+        lag_steps=None,
+        partial_r_squared=None,
+        incremental_r_squared=None,
+        coefficient=-0.5,
+        method="cross-event OLS, HC0",
+        common_factor_control=None,
+        holdout_oos_incremental_r_squared=None,
+        holdout_oos_note="No OOS score.",
+        cost_gate=None,
+        cost_gate_note="No cost gate.",
+    )
+    edges = (event_edge, cross_edge)
+    registry = make_registry(nodes, edges, build_candidates(nodes, edges))
+    rendered = render_mermaid(registry)
+    assert "VIX -->|E0019 daily, mean CAR -0.0300" in rendered
+    assert "DGS10 -->|E0024 daily, cross-event slope -0.5000" in rendered
+
+
 def test_edges_by_filters_on_test_type():
     nodes = (
         make_node("crypto:btc-usdt-perp", "BTC"),
@@ -648,6 +813,7 @@ def test_every_holm_family_test_has_an_edge(tmp_path: Path):
         ("lowvol-002", "research/lowvol-002/trials.jsonl"),
         ("move-vix-003", "research/move-vix-003/trials.jsonl"),
         ("options-expiry-004", "research/options-expiry-004/trials.jsonl"),
+        ("fomc-event-study-005", "research/fomc-event-study-005/trials.jsonl"),
     ):
         # A ledger may hold more than one trial (study 004 has T0005 and
         # T0007); failed trials carry no metrics and are skipped.
@@ -677,6 +843,7 @@ def test_edge_numbers_match_the_trial_ledger(tmp_path: Path):
         "research/lowvol-002/trials.jsonl",
         "research/move-vix-003/trials.jsonl",
         "research/options-expiry-004/trials.jsonl",
+        "research/fomc-event-study-005/trials.jsonl",
     ):
         # Keyed by trial id: a ledger may hold more than one trial.
         for line in (REPO_ROOT / ledger).read_text().splitlines():
@@ -711,10 +878,10 @@ def test_real_graph_summary(tmp_path: Path):
     graph = MarketGraph.from_file(built_registry)
     assert graph.summary() == {
         "nodes": 11,
-        "edges": 18,
-        "candidates": 106,
-        "edges_supported": 0,
-        "edges_rejected": 15,
+        "edges": 26,
+        "candidates": 103,
+        "edges_supported": 2,
+        "edges_rejected": 21,
         "edges_pending": 1,
         "edges_descriptive": 2,
     }
@@ -725,7 +892,22 @@ def test_real_graph_summary(tmp_path: Path):
         ("crypto:eth-usdt-perp", "crypto:eth-usdt-perp"),
         ("index:tyvix", "index:vix"),
         ("index:tyvix", "index:vxn"),
+        ("index:vix", "index:vix"),
+        ("index:sp500", "index:sp500"),
+        ("rates:us-10y-yield", "rates:us-10y-yield"),
+        ("credit:baa-10y-spread", "credit:baa-10y-spread"),
+        ("index:tyvix", "index:tyvix"),
+        ("rates:us-10y-yield", "index:sp500"),
+        ("rates:us-10y-yield", "index:vix"),
+        ("rates:us-10y-yield", "credit:baa-10y-spread"),
     }
+    # The first two supported edges: the TYVIX event-window CAR (E0023)
+    # and the BAA10Y cross-event slope (E0026). Both are secondary tests
+    # whose hypotheses were rejected on their primary tests.
+    assert {
+        edge.edge_id
+        for edge in graph.edges_by(status=EdgeStatus.SUPPORTED)
+    } == {"E0023", "E0026"}
     # The reverse-placebo pair stays an untested candidate, with its
     # descriptive check noted.
     vix_tyvix = graph.untested_candidates(
@@ -756,6 +938,63 @@ def test_mean_comparison_edges_are_self_loops_without_lead_lag_stats(
         assert "level comparison" in (edge.cost_gate_note or "")
     # Mean-comparison self-loops do not create candidates: candidates
     # are directed pairs between distinct instruments only.
+    assert all(
+        candidate.source_instrument != candidate.target_instrument
+        for candidate in graph.untested_candidates()
+    )
+
+
+def test_event_study_and_cross_section_edges_carry_no_lead_lag_stats(
+    tmp_path: Path,
+):
+    built_registry, _ = run_builder(tmp_path)
+    graph = MarketGraph.from_file(built_registry)
+    event_edges = graph.edges_by(test_type=EdgeTestType.EVENT_STUDY)
+    assert {edge.edge_id for edge in event_edges} == {
+        "E0019",
+        "E0020",
+        "E0021",
+        "E0022",
+        "E0023",
+    }
+    for edge in event_edges:
+        # An event-window mean-CAR test compares one instrument against
+        # itself; it carries no lag, no partial R-squared, no OOS score
+        # and no cost gate. The effect size (standardized mean CAR)
+        # lives in the verdict text, not in a lead-lag statistic.
+        assert edge.source_instrument == edge.target_instrument
+        assert edge.lag_steps is None
+        assert edge.partial_r_squared is None
+        assert edge.incremental_r_squared is None
+        assert edge.holdout_oos_incremental_r_squared is None
+        assert edge.cost_gate is None
+        assert "event study" in (edge.holdout_oos_note or "")
+        assert "event study" in (edge.cost_gate_note or "")
+        assert "standardized mean CAR" in edge.verdict_summary
+    cross_edges = graph.edges_by(test_type=EdgeTestType.CROSS_SECTION)
+    assert {edge.edge_id for edge in cross_edges} == {
+        "E0024",
+        "E0025",
+        "E0026",
+    }
+    for edge in cross_edges:
+        # A cross-event regression is directed (one instrument's CAR on
+        # another's) but contemporaneous: both CARs cover the same event
+        # window, so there is no lag. The cross-section R-squared lives
+        # in the verdict text, not in a lead-lag statistic.
+        assert edge.source_instrument != edge.target_instrument
+        assert edge.lag_steps is None
+        assert edge.partial_r_squared is None
+        assert edge.incremental_r_squared is None
+        assert edge.holdout_oos_incremental_r_squared is None
+        assert edge.cost_gate is None
+        assert "event study" in (edge.holdout_oos_note or "")
+        assert "event study" in (edge.cost_gate_note or "")
+        assert "R²" in edge.verdict_summary
+    # The primary cross-section verdict carries the split-half result.
+    primary = next(edge for edge in cross_edges if edge.edge_id == "E0024")
+    assert "split-half replication failed" in primary.verdict_summary
+    # Event-study self-loops do not create candidates either.
     assert all(
         candidate.source_instrument != candidate.target_instrument
         for candidate in graph.untested_candidates()

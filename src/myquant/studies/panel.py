@@ -13,6 +13,12 @@ supplies ``bar_seconds``, a return is admitted only when its two closes
 are exactly one bar apart on the clock; a return spanning a gap in the
 instrument's own series is invalidated rather than admitted as a
 multi-bar return.
+
+``level_changes_on_index`` applies the same diff-then-join pattern to
+level changes (yields, spreads): each instrument's changes are computed
+on its own series first and then aligned to a panel's return index, so
+a partial holiday in one leg cannot turn another leg's one-day change
+into a two-day change.
 """
 
 from __future__ import annotations
@@ -122,3 +128,50 @@ def build_synchronized_panel(
         dropped_close_rows=dropped_close_rows,
         dropped_return_rows=dropped_return_rows,
     )
+
+
+def level_changes_on_index(
+    observations: Sequence[Observation],
+    *,
+    instruments: tuple[str, ...],
+    index: pd.DatetimeIndex,
+    field: str = "close",
+    scale: float = 100.0,
+) -> pd.DataFrame:
+    """Per-instrument level changes aligned to a panel's return index.
+
+    Each instrument's changes are computed on its own complete series
+    first (diff-then-join, the same pattern ``build_synchronized_panel``
+    uses for log returns), then aligned to the supplied index. ``scale``
+    converts the level unit: 100.0 turns a yield quoted in percent into
+    basis points. Every index timestamp must have a change available
+    for every instrument, or the call fails: a silently missing change
+    on an event day would corrupt an event study.
+    """
+    if not instruments:
+        raise ValueError("at least one instrument is required")
+    if len(set(instruments)) != len(instruments):
+        raise ValueError("instrument ids must be unique")
+    if index.tz is None:
+        raise ValueError("index must be timezone-aware")
+
+    changes = {
+        instrument_id: _series_for(observations, instrument_id, field).diff()
+        * scale
+        for instrument_id in instruments
+    }
+    aligned = pd.DataFrame(changes).reindex(index)
+    if bool(aligned.isna().any().any()):
+        missing = sorted(
+            {
+                str(timestamp)
+                for timestamp in aligned.index[aligned.isna().any(axis=1)]
+            }
+        )
+        shown = ", ".join(missing[:5])
+        suffix = " ..." if len(missing) > 5 else ""
+        raise ValueError(
+            "level changes are unavailable at some index timestamps: "
+            f"{shown}{suffix}"
+        )
+    return aligned

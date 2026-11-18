@@ -1,0 +1,94 @@
+{
+  "calendar_verification": {
+    "all_checks_passed": true,
+    "annual_counts_match": true,
+    "excluded_meetings": 31,
+    "merges": [
+      [
+        "2003-09-15",
+        "2003-09-16"
+      ]
+    ],
+    "minutes_2020_match": true,
+    "notes": "Calendar extracted from federalreserve.gov: fomchistorical{YYYY}.htm (2003-2020) and fomccalendars.htm (2021 onwards). 2027 meetings are parsed but out of sample. The 2003 schedule press release and the 2020 minutes publication page reproduce the parsed dates exactly.",
+    "press_release_2003_match": true,
+    "scheduled_meetings": 199,
+    "spot_checks_passed": true
+  },
+  "fetched_at": "2026-11-18T05:14:07.765946+00:00",
+  "fetches": [
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:vix",
+      "last_date": "2026-11-16",
+      "missing_values": 187,
+      "rows": 6041
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:tyvix",
+      "last_date": "2020-05-15",
+      "missing_values": 169,
+      "rows": 4363
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "rates:us-10y-yield",
+      "last_date": "2026-11-16",
+      "missing_values": 256,
+      "rows": 5972
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "credit:baa-10y-spread",
+      "last_date": "2026-11-16",
+      "missing_values": 261,
+      "rows": 5967
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:sp500",
+      "last_date": "2026-11-16",
+      "missing_values": 0,
+      "rows": 6007
+    }
+  ],
+  "panel": {
+    "extended": {
+      "close_rows": 5960,
+      "dropped_close_rows": 90,
+      "dropped_return_rows": 91,
+      "first_return_time": "2003-01-03T21:00:00+00:00",
+      "instruments": [
+        "index:vix",
+        "rates:us-10y-yield",
+        "index:sp500",
+        "credit:baa-10y-spread"
+      ],
+      "last_return_time": "2026-11-16T21:00:00+00:00",
+      "return_rows": 5959
+    },
+    "main": {
+      "close_rows": 4331,
+      "dropped_close_rows": 51,
+      "dropped_return_rows": 52,
+      "first_return_time": "2003-01-03T21:00:00+00:00",
+      "instruments": [
+        "index:vix",
+        "index:tyvix",
+        "rates:us-10y-yield",
+        "credit:baa-10y-spread",
+        "index:sp500"
+      ],
+      "last_return_time": "2020-05-15T21:00:00+00:00",
+      "return_rows": 4330
+    }
+  },
+  "quality_issues": {
+    "pit-1d": []
+  },
+  "quality_row_count": {
+    "pit-1d": 28350
+  },
+  "study": "fomc-event-study-005"
+}

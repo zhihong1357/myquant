@@ -411,20 +411,235 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
             "window.",
         ),
     ),
+    # Study 005 (H0007, T0010): 5-test Holm family. Event-study edges:
+    # within-instrument mean-CAR tests around scheduled FOMC statement
+    # days, NOT transmission edges. Self-loops by construction; no lag,
+    # no partial R-squared, no OOS or cost gate. Trial T0008 (the first
+    # H0007 attempt) failed on an over-strict cycle-boundary guard
+    # before any results were computed; the corrected rerun is T0010.
+    EdgeSpec(
+        edge_id="E0019",
+        study="fomc-event-study-005",
+        trial_id="T0010",
+        ledger_test_key="vix_car",
+        source="index:vix",
+        target="index:vix",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); event window [0,+1]; "
+            "n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on log changes, CAR[0,+1], "
+            "cluster-based normal inference (estimation window [-60,-11])"
+        ),
+        control=None,
+        is_primary=True,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=(
+            "Primary test of H0007: the post-announcement volatility "
+            "drop for equity vol. The TYVIX leg (E0023) rejected "
+            "strongly; the VIX drop is much weaker.",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0020",
+        study="fomc-event-study-005",
+        trial_id="T0010",
+        ledger_test_key="spx_car",
+        source="index:sp500",
+        target="index:sp500",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); event window [0,+1]; "
+            "n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on log changes, CAR[0,+1], "
+            "cluster-based normal inference (estimation window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+    ),
+    EdgeSpec(
+        edge_id="E0021",
+        study="fomc-event-study-005",
+        trial_id="T0010",
+        ledger_test_key="dgs10_car",
+        source="rates:us-10y-yield",
+        target="rates:us-10y-yield",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); event window [0,+1]; "
+            "n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on level changes (bp), "
+            "CAR[0,+1], cluster-based normal inference (estimation "
+            "window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=("CAR in basis points of the 10-year yield level change.",),
+    ),
+    EdgeSpec(
+        edge_id="E0022",
+        study="fomc-event-study-005",
+        trial_id="T0010",
+        ledger_test_key="baa10y_car",
+        source="credit:baa-10y-spread",
+        target="credit:baa-10y-spread",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); event window [0,+1]; "
+            "n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on level changes (bp), "
+            "CAR[0,+1], cluster-based normal inference (estimation "
+            "window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=("CAR in basis points of the BAA-10Y spread level change.",),
+    ),
+    EdgeSpec(
+        edge_id="E0023",
+        study="fomc-event-study-005",
+        trial_id="T0010",
+        ledger_test_key="tyvix_car",
+        source="index:tyvix",
+        target="index:tyvix",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); event window [0,+1]; "
+            "n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on log changes, CAR[0,+1], "
+            "cluster-based normal inference (estimation window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=(
+            "Rates implied volatility falls sharply after FOMC "
+            "statements; the effect is present in all three "
+            "policy-cycle splits (descriptive).",
+        ),
+    ),
+    # Study 005 (H0008, T0009): 3-test Holm family. Cross-section
+    # edges: contemporaneous cross-event regressions (target CAR on
+    # DGS10 CAR, one observation per FOMC event). Directed, but the
+    # two CARs are measured over the same event window, so there is no
+    # lag and no lead-lag claim; no partial R-squared, no OOS or cost
+    # gate (the cross-section R-squared goes in the verdict text).
+    EdgeSpec(
+        edge_id="E0024",
+        study="fomc-event-study-005",
+        trial_id="T0009",
+        ledger_test_key="spx_on_dgs10",
+        source="rates:us-10y-yield",
+        target="index:sp500",
+        frequency="daily",
+        condition=(
+            "one observation per scheduled FOMC event (n = 135); CARs "
+            "over the same [0,+1] window"
+        ),
+        method=(
+            "cross-event OLS of SPX CAR[0,+1] on DGS10 CAR[0,+1], "
+            "HC0 standard errors (Newey-West max lag 0)"
+        ),
+        control=None,
+        is_primary=True,
+        panel_key="daily",
+        test_type=EdgeTestType.CROSS_SECTION,
+        notes=(
+            "Primary test of H0008. The DGS10 CAR is a proxy for the "
+            "policy surprise, not the surprise itself: no free federal "
+            "funds futures surprise series exists.",
+            "Split-half replication (chronological, 67/68 events) is a "
+            "verdict criterion; both halves' slopes were positive.",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0025",
+        study="fomc-event-study-005",
+        trial_id="T0009",
+        ledger_test_key="vix_on_dgs10",
+        source="rates:us-10y-yield",
+        target="index:vix",
+        frequency="daily",
+        condition=(
+            "one observation per scheduled FOMC event (n = 135); CARs "
+            "over the same [0,+1] window"
+        ),
+        method=(
+            "cross-event OLS of VIX CAR[0,+1] on DGS10 CAR[0,+1], "
+            "HC0 standard errors (Newey-West max lag 0)"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.CROSS_SECTION,
+    ),
+    EdgeSpec(
+        edge_id="E0026",
+        study="fomc-event-study-005",
+        trial_id="T0009",
+        ledger_test_key="baa10y_on_dgs10",
+        source="rates:us-10y-yield",
+        target="credit:baa-10y-spread",
+        frequency="daily",
+        condition=(
+            "one observation per scheduled FOMC event (n = 135); CARs "
+            "over the same [0,+1] window"
+        ),
+        method=(
+            "cross-event OLS of BAA10Y CAR[0,+1] on DGS10 CAR[0,+1], "
+            "HC0 standard errors (Newey-West max lag 0)"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.CROSS_SECTION,
+        notes=(
+            "BAA10Y contains -DGS10 by definition (spread = BAA yield "
+            "minus 10-year yield), so the slope is (beta_BAA - 1): BAA "
+            "yields move about 72% as much as Treasury yields in the "
+            "event window. The slope and R-squared are not comparable "
+            "to a clean two-asset transmission test.",
+        ),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
 # registration version, report path). A study directory may hold more
-# than one trial (study 004 has T0005 and T0007 in one directory).
+# than one trial (study 004 has T0005 and T0007 in one directory;
+# study 005 has T0010 and T0009).
 # T0006 is absent by design: the first H0006 attempt ran as T0006 and
 # failed inside the experiment (a bootstrap-weights bug, recorded as a
-# failed trial in the ledger); the corrected rerun is T0007.
+# failed trial in the ledger); the corrected rerun is T0007. T0008 is
+# absent for the same reason: the first H0007 attempt ran as T0008 and
+# failed inside the experiment (an over-strict cycle-boundary guard,
+# recorded as a failed trial in the ledger); the corrected rerun is
+# T0010.
 TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0001", "btc-eth-001", "H0001", 1, "docs/studies/btc-eth-transmission-001.md"),
     ("T0002", "lowvol-002", "H0002", 1, "docs/studies/lowvol-transmission-002.md"),
     ("T0004", "move-vix-003", "H0004", 2, "docs/studies/move-vix-transmission-003.md"),
     ("T0005", "options-expiry-004", "H0005", 1, "docs/studies/options-expiry-004.md"),
     ("T0007", "options-expiry-004", "H0006", 1, "docs/studies/options-expiry-004.md"),
+    ("T0010", "fomc-event-study-005", "H0007", 1, "docs/studies/fomc-event-study-005.md"),
+    ("T0009", "fomc-event-study-005", "H0008", 1, "docs/studies/fomc-event-study-005.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -834,6 +1049,149 @@ def _mean_comparison_secondary_verdict(
     )
 
 
+def _event_study_primary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    threshold: float,
+    *,
+    supported: bool,
+) -> str:
+    """Verdict text for an event-study primary edge.
+
+    No OOS or cost-gate clause: an event study is not a forecast. The
+    effect size is the standardized mean CAR (threshold 0.3, negative
+    direction for the volatility legs).
+    """
+    verdict = "SUPPORTED" if supported else "REJECTED"
+    if holm_p < 0.05:
+        p_part = f"this test rejected (Holm-adjusted p = {holm_p:.3f})"
+    else:
+        p_part = f"this test did not reject (Holm-adjusted p = {holm_p:.3f})"
+    std_car = test["standardized_mean_car"]
+    if std_car <= -threshold:
+        effect_part = (
+            f"standardized mean CAR {std_car:.4f} at or below "
+            f"the -{threshold:.2f} threshold"
+        )
+    else:
+        effect_part = (
+            f"standardized mean CAR {std_car:.4f} above "
+            f"the -{threshold:.2f} threshold"
+        )
+    return (
+        f"Hypothesis {data.hypothesis_id} {verdict} "
+        f"(trial {data.trial_id}): {p_part}; {effect_part}; mean CAR "
+        f"{test['coefficient']:+.6f} over [0,+1] (n = "
+        f"{test['observations']} events). No OOS or cost-gate "
+        "criterion: event study, not a forecast."
+    )
+
+
+def _event_study_secondary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    *,
+    hypothesis_supported: bool,
+    test_rejected: bool,
+) -> str:
+    """Verdict text for an event-study secondary edge."""
+    hypothesis_verdict = "SUPPORTED" if hypothesis_supported else "REJECTED"
+    effect_part = (
+        f"standardized mean CAR {test['standardized_mean_car']:.4f}"
+    )
+    if test_rejected:
+        test_part = f"this test rejected (Holm-adjusted p = {holm_p:.3f})"
+    else:
+        test_part = f"this test did not reject (Holm-adjusted p = {holm_p:.3f})"
+    if not hypothesis_supported and not test_rejected:
+        return (
+            f"Hypothesis {data.hypothesis_id} REJECTED "
+            f"(trial {data.trial_id}): {test_part}; {effect_part}."
+        )
+    return (
+        f"Hypothesis {data.hypothesis_id} {hypothesis_verdict} "
+        f"(trial {data.trial_id}): {test_part}; {effect_part}; the "
+        "hypothesis verdict is decided by the primary test "
+        f"({data.primary_edge_id})."
+    )
+
+
+def _cross_section_primary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    threshold: float,
+    split_half: dict,
+    *,
+    supported: bool,
+) -> str:
+    """Verdict text for a cross-section primary edge.
+
+    No OOS or cost-gate clause: an event study is not a forecast. The
+    effect size is the cross-event R-squared; the split-half
+    replication is the out-of-sample-style criterion.
+    """
+    verdict = "SUPPORTED" if supported else "REJECTED"
+    if holm_p < 0.05:
+        p_part = f"this test rejected (Holm-adjusted p = {holm_p:.3f})"
+    else:
+        p_part = f"this test did not reject (Holm-adjusted p = {holm_p:.3f})"
+    r_squared = test["r_squared"]
+    if r_squared >= threshold:
+        r2_part = f"R² {r_squared:.4f} at or above the {threshold:.2f} threshold"
+    else:
+        r2_part = f"R² {r_squared:.4f} below the {threshold:.2f} threshold"
+    first = split_half["first_half"]
+    second = split_half["second_half"]
+    if split_half["replicated"]:
+        split_part = (
+            "split-half replication passed (both halves' slopes "
+            f"negative and significant: {first['coefficient']:+.6f}, "
+            f"{second['coefficient']:+.6f})"
+        )
+    else:
+        split_part = (
+            "split-half replication failed (first-half slope "
+            f"{first['coefficient']:+.6f}, second-half slope "
+            f"{second['coefficient']:+.6f})"
+        )
+    return (
+        f"Hypothesis {data.hypothesis_id} {verdict} "
+        f"(trial {data.trial_id}): {p_part}; {r2_part}; {split_part}. "
+        "No OOS or cost-gate criterion: event study, not a forecast."
+    )
+
+
+def _cross_section_secondary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    *,
+    hypothesis_supported: bool,
+    test_rejected: bool,
+) -> str:
+    """Verdict text for a cross-section secondary edge."""
+    hypothesis_verdict = "SUPPORTED" if hypothesis_supported else "REJECTED"
+    effect_part = f"R² {test['r_squared']:.4f}"
+    if test_rejected:
+        test_part = f"this test rejected (Holm-adjusted p = {holm_p:.3f})"
+    else:
+        test_part = f"this test did not reject (Holm-adjusted p = {holm_p:.3f})"
+    if not hypothesis_supported and not test_rejected:
+        return (
+            f"Hypothesis {data.hypothesis_id} REJECTED "
+            f"(trial {data.trial_id}): {test_part}; {effect_part}."
+        )
+    return (
+        f"Hypothesis {data.hypothesis_id} {hypothesis_verdict} "
+        f"(trial {data.trial_id}): {test_part}; {effect_part}; the "
+        "hypothesis verdict is decided by the primary test "
+        f"({data.primary_edge_id})."
+    )
+
+
 def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
     assert spec.ledger_test_key is not None
     test = data.metrics["tests"][spec.ledger_test_key]
@@ -842,9 +1200,14 @@ def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
     hypothesis_supported = bool(data.metrics["verdict"]["supported"])
     test_rejected = bool(holm_entry["reject"])
     is_mean_comparison = spec.test_type is EdgeTestType.MEAN_COMPARISON
+    is_event_study = spec.test_type is EdgeTestType.EVENT_STUDY
+    is_cross_section = spec.test_type is EdgeTestType.CROSS_SECTION
+    # Mean comparisons, event studies and cross-section regressions are
+    # not forecasts: no lag, no OOS score, no cost gate.
+    is_level_test = is_mean_comparison or is_event_study or is_cross_section
     lag = (
         None
-        if is_mean_comparison
+        if is_level_test
         else int(_fixed_parameter(data.registration["spec"], "lag"))
     )
     if spec.is_primary:
@@ -867,6 +1230,41 @@ def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
             verdict = _mean_comparison_primary_verdict(
                 data, test, holm_p, threshold, supported=hypothesis_supported
             )
+        elif is_event_study:
+            oos_value, oos_note = None, (
+                "No OOS score: event study, not a forecast."
+            )
+            cost_gate, cost_note = None, (
+                f"No cost gate: {data.hypothesis_id} is an event study, "
+                "not a forecast; there is no trading rule to cost."
+            )
+            threshold = float(
+                _fixed_parameter(
+                    data.registration["spec"], "standardized_effect_threshold"
+                )
+            )
+            verdict = _event_study_primary_verdict(
+                data, test, holm_p, threshold, supported=hypothesis_supported
+            )
+        elif is_cross_section:
+            oos_value, oos_note = None, (
+                "No OOS score: event study, not a forecast."
+            )
+            cost_gate, cost_note = None, (
+                f"No cost gate: {data.hypothesis_id} is an event study, "
+                "not a forecast; there is no trading rule to cost."
+            )
+            threshold = float(
+                _fixed_parameter(data.registration["spec"], "r_squared_threshold")
+            )
+            verdict = _cross_section_primary_verdict(
+                data,
+                test,
+                holm_p,
+                threshold,
+                data.metrics["split_half"],
+                supported=hypothesis_supported,
+            )
         else:
             oos_value, oos_note = _trial_level_oos(data)
             cost_gate = _trial_level_cost(data)
@@ -888,6 +1286,16 @@ def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
                 f"No cost gate: {data.hypothesis_id} is a volatility-level "
                 "comparison, not a forecast; there is no trading rule to cost."
             )
+        elif is_level_test:
+            # Event studies and cross-section regressions have no OOS
+            # score or cost gate at all, for the same reason.
+            oos_value, oos_note = None, (
+                "No OOS score: event study, not a forecast."
+            )
+            cost_gate, cost_note = None, (
+                f"No cost gate: {data.hypothesis_id} is an event study, "
+                "not a forecast; there is no trading rule to cost."
+            )
         else:
             oos_value, oos_note = None, (
                 "Trial-level metric; measured for the primary test "
@@ -899,6 +1307,18 @@ def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
             )
         if is_mean_comparison:
             verdict = _mean_comparison_secondary_verdict(
+                data, test, holm_p,
+                hypothesis_supported=hypothesis_supported,
+                test_rejected=test_rejected,
+            )
+        elif is_event_study:
+            verdict = _event_study_secondary_verdict(
+                data, test, holm_p,
+                hypothesis_supported=hypothesis_supported,
+                test_rejected=test_rejected,
+            )
+        elif is_cross_section:
+            verdict = _cross_section_secondary_verdict(
                 data, test, holm_p,
                 hypothesis_supported=hypothesis_supported,
                 test_rejected=test_rejected,
@@ -1230,6 +1650,8 @@ def build_registry(repo_root: Path) -> GraphRegistry:
         _provenance(trials["T0004"]),
         _provenance(trials["T0005"]),
         _provenance(trials["T0007"]),
+        _provenance(trials["T0010"]),
+        _provenance(trials["T0009"]),
     )
     content_hash = compute_content_hash(
         schema_version=1,
@@ -1283,6 +1705,10 @@ def _condition_short(edge: EdgeRecord) -> str:
         return "—"
     if edge.status is EdgeStatus.PENDING:
         return "low-vol forward"
+    if edge.test_type is EdgeTestType.EVENT_STUDY:
+        return "FOMC event window"
+    if edge.test_type is EdgeTestType.CROSS_SECTION:
+        return "FOMC cross-event"
     if edge.test_type is EdgeTestType.MEAN_COMPARISON:
         return "expiry window (mean |r|)"
     if "expiry" in edge.condition:
@@ -1346,6 +1772,18 @@ def render_doc_section(registry: GraphRegistry) -> str:
         if edge.test_type is EdgeTestType.MEAN_COMPARISON
         and edge.status in {EdgeStatus.SUPPORTED, EdgeStatus.REJECTED}
     )
+    n_event = sum(
+        1
+        for edge in registry.edges
+        if edge.test_type is EdgeTestType.EVENT_STUDY
+        and edge.status in {EdgeStatus.SUPPORTED, EdgeStatus.REJECTED}
+    )
+    n_cross = sum(
+        1
+        for edge in registry.edges
+        if edge.test_type is EdgeTestType.CROSS_SECTION
+        and edge.status in {EdgeStatus.SUPPORTED, EdgeStatus.REJECTED}
+    )
     if summary["edges_supported"] == 0:
         null_sentence = (
             f"**Every tested edge so far is a null.** All {n_tested} "
@@ -1357,6 +1795,16 @@ def render_doc_section(registry: GraphRegistry) -> str:
             null_sentence += (
                 f", and the {n_mean} expiry-window volatility-level "
                 f"{plural} null too"
+            )
+        if n_event:
+            null_sentence += (
+                f", and the {n_event} FOMC event-window CAR tests "
+                "were null too"
+            )
+        if n_cross:
+            null_sentence += (
+                f", and the {n_cross} cross-event slope tests "
+                "were null too"
             )
         null_sentence += (
             ". That is the graph's most important information right now "
@@ -1383,14 +1831,16 @@ def render_doc_section(registry: GraphRegistry) -> str:
         "| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |"
     )
     labels = {node.instrument_id: node.short_label for node in registry.nodes}
+    type_labels = {
+        EdgeTestType.LEAD_LAG: "lead-lag",
+        EdgeTestType.MEAN_COMPARISON: "mean-comp",
+        EdgeTestType.EVENT_STUDY: "event-study",
+        EdgeTestType.CROSS_SECTION: "cross-sect",
+    }
     for edge in registry.edges:
         pair = f"{labels[edge.source_instrument]} → {labels[edge.target_instrument]}"
         trial = edge.trial_id or "—"
-        type_label = (
-            "mean-comp"
-            if edge.test_type is EdgeTestType.MEAN_COMPARISON
-            else "lead-lag"
-        )
+        type_label = type_labels[edge.test_type]
         lines.append(
             f"| {edge.edge_id} | {pair} | {edge.frequency} | {type_label} | "
             f"{_condition_short(edge)} | {edge.hypothesis_id} "
@@ -1418,9 +1868,11 @@ def render_doc_section(registry: GraphRegistry) -> str:
         "Solid arrows are tested edges; dashed arrows are pending or "
         "descriptive. Labels show the edge id, frequency, coefficient, "
         "Holm-adjusted p-value (tested edges) and status. "
-        "Mean-comparison edges are self-loops labelled with the mean "
-        "difference; they are within-instrument level tests, not "
-        "transmission claims."
+        "Mean-comparison and event-study edges are self-loops labelled "
+        "with the mean difference and the mean CAR respectively; they "
+        "are within-instrument level tests, not transmission claims. "
+        "Cross-section edges are directed but contemporaneous (both "
+        "CARs over the same event window), not lead-lag claims."
     )
     lines.append("")
     lines.append("### Untested candidates")
