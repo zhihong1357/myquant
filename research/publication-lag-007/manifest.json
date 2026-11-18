@@ -1,0 +1,357 @@
+{
+  "cache_root": "data/cache/publication-lag-007",
+  "calendar_validation": {
+    "cpi": {
+      "first_release": "2021-01-13",
+      "last_release": "2026-12-10",
+      "releases": 71,
+      "source": "research/macro-windows-006/cpi_calendar.json"
+    },
+    "fomc": {
+      "first_statement": "2003-01-29",
+      "last_statement": "2027-11-17",
+      "scheduled_meetings": 199,
+      "source": "research/fomc-event-study-005/fomc_calendar.json"
+    }
+  },
+  "fetched_at": "2026-11-18T06:38:21.309273+00:00",
+  "fetches": [
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "VIXCLS",
+      "instrument_id": "index:vix",
+      "last_date": "2020-05-15",
+      "missing_values": 158,
+      "observation_rows": 4374,
+      "payload_sha256": "51828c28c93ed961bbe19fce5e1e3cd88bc4f08a05e44174f293cb426c4acb5c",
+      "pit_parquet": "fbd3c12ecd3f9675606e67b93734d6ab126289defeb5c34b718c57acab8dccf6.parquet",
+      "pit_parquet_sha256": "fbd3c12ecd3f9675606e67b93734d6ab126289defeb5c34b718c57acab8dccf6",
+      "pit_store": "pit-1d",
+      "record_id": "36874bfbae01edaace678b61df28378199cd0f901246d8ba8d4bdc04de1ed960",
+      "rows": 4374,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VXTYN&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "VXTYN",
+      "instrument_id": "index:tyvix",
+      "last_date": "2020-05-15",
+      "missing_values": 169,
+      "observation_rows": 4363,
+      "payload_sha256": "643ec650255c43b1c3b033215e6314ddbff5972b515f0f3a7931805f07f5bbef",
+      "pit_parquet": "fa291ddaa800da261d5e5b6ccde4f1a285706e1dc35e595ba70050ee53284a9e.parquet",
+      "pit_parquet_sha256": "fa291ddaa800da261d5e5b6ccde4f1a285706e1dc35e595ba70050ee53284a9e",
+      "pit_store": "pit-1d",
+      "record_id": "d6a272a304e97af2d09ff0c6edee3e2e78727c66da55ea266d2469daa37c1164",
+      "rows": 4363,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "DGS10",
+      "instrument_id": "rates:us-10y-yield",
+      "last_date": "2020-05-15",
+      "missing_values": 185,
+      "observation_rows": 4347,
+      "payload_sha256": "bbbf691acefeba9b15f94b510f77caea91701d52361493a517b7e8ce1cf5f797",
+      "pit_parquet": "ff220ceb328cae4da4ea2b0ebd9d0614f6f6f7fe9008339f61e83a503461ac7b.parquet",
+      "pit_parquet_sha256": "ff220ceb328cae4da4ea2b0ebd9d0614f6f6f7fe9008339f61e83a503461ac7b",
+      "pit_store": "pit-1d",
+      "record_id": "f6f87fc0cdf4860facfa97903173e0bbc9cec526770b95f3167e0f0bc3a232cd",
+      "rows": 4347,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "BAA10Y",
+      "instrument_id": "credit:baa-10y-spread",
+      "last_date": "2020-05-15",
+      "missing_values": 186,
+      "observation_rows": 4346,
+      "payload_sha256": "d1ece261b762652c4df92f1f85ba4c476065cc85e0e2033b3d421461fbdb7357",
+      "pit_parquet": "3aba8b61579430dea43fc8cb3e0c9fb39218e1e174ca4db3c4bc2da7468a511b.parquet",
+      "pit_parquet_sha256": "3aba8b61579430dea43fc8cb3e0c9fb39218e1e174ca4db3c4bc2da7468a511b",
+      "pit_store": "pit-1d",
+      "record_id": "3cf556078c4c6b4edb94fcbb11d942efe47c5bc76c711fdb7fb0db1a229805b7",
+      "rows": 4346,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL&cosd=2020-11-01&coed=2026-11-30",
+      "first_date": "2020-11-01",
+      "fred_series": "CPIAUCSL",
+      "instrument_id": "macro:cpi-mom",
+      "last_date": "2026-10-01",
+      "missing_values": 1,
+      "observation_rows": 71,
+      "payload_sha256": "0e7b143bfc700b42a2c79de2a6618f0f3ccb998322093648a2269f67b755d3dd",
+      "pit_parquet": "c130be1d8ebf04813c537c68f1c03ba062cea3dacc1167cf029939fbb43b1b56.parquet",
+      "pit_parquet_sha256": "c130be1d8ebf04813c537c68f1c03ba062cea3dacc1167cf029939fbb43b1b56",
+      "pit_store": "pit-1d",
+      "record_id": "9854621bec08d1546c00ce603ec3abc924408c37e02119686411db9ffe022ab1",
+      "rows": 71,
+      "window_end": "2026-11-30",
+      "window_start": "2020-11-01"
+    },
+    {
+      "endpoint": "https://query2.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1=1041465600&period2=1795046400&interval=1d",
+      "first_date": "2003-01-02",
+      "instrument_id": "index:sp500",
+      "last_date": "2026-11-17",
+      "missing_values": 0,
+      "observation_rows": 6008,
+      "payload_sha256": "9de286e03e5bff03bc95bbd637bfdf1caff56b873107498a035283f9f5700a85",
+      "pit_parquet": "aa64eb49cd9d890d245b4fc9dc5d1244265df1ef5c332ea154c7906543dad37e.parquet",
+      "pit_parquet_sha256": "aa64eb49cd9d890d245b4fc9dc5d1244265df1ef5c332ea154c7906543dad37e",
+      "pit_store": "pit-1d",
+      "record_id": "7932c26d691c470090513c5408dc93b2f3e062d1b051aece99ed65e78631dcf5",
+      "rows": 6008,
+      "window_end": "2026-11-18",
+      "window_start": "2003-01-02",
+      "yahoo_long_name": "S&P 500",
+      "yahoo_symbol": "^GSPC"
+    },
+    {
+      "bar": "1D",
+      "candles": 2146,
+      "endpoint": "https://www.okx.com/api/v5/market/history-candles",
+      "expected_confirmed_bars": 2146,
+      "first_bar_open": "2021-01-01T16:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bar_opens": [],
+      "missing_bars": 0,
+      "observation_rows": 10730,
+      "okx_inst_id": "BTC-USDT-SWAP",
+      "pages": [
+        {
+          "payload_sha256": "2ba95b364b525123ae841be4880180b7a9316d5bafa3440a8c22b6b30e1521cb",
+          "record_id": "340b481447320c6f9d44af681fa33aecb157a532c01c61051090442d01d095cd",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1795017600000&limit=100"
+        },
+        {
+          "payload_sha256": "820217e86451325eb2488f971895cb5f12724f942826d84d0fa5dc2fd32e6c44",
+          "record_id": "9594d04228fa21490a7ecd77de5923ec777d982b640a0f3844a68e7070449844",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1786377600000&limit=100"
+        },
+        {
+          "payload_sha256": "36dcda0bbe7d1ccb21a10e8365c2af33b207f119362993d1ddeed064d49f2a05",
+          "record_id": "7a925daab8046f08ce8be1ad9054543138a4ae0ccac5cedba61d74ba53db1f7e",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1777737600000&limit=100"
+        },
+        {
+          "payload_sha256": "89b46ae099a85e01858583e3813981e02eab9103bdb293a701022ae3e746e2ec",
+          "record_id": "0dc92b4c07c7e0d94f417ea9554e9d796dd4fd28042ed0aace43e36b761c5c22",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1769097600000&limit=100"
+        },
+        {
+          "payload_sha256": "939f29658f49cff4876921a94614355351d3cfcddcd1b0e68a1a6991c4c642df",
+          "record_id": "fd86b7fe7f5b323094004e768042b31aed6f7e9e9d9029eeb3edd6be658e25d2",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1760457600000&limit=100"
+        },
+        {
+          "payload_sha256": "05c81f3ea0a36880fb55663ab845c36023b244283b8e961aefae0f2601cc9c8b",
+          "record_id": "85eab513e177ff8f7bce36b398dddf5017225b70e2a5a4b22f122af85098256f",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1751817600000&limit=100"
+        },
+        {
+          "payload_sha256": "a8486e58ad16fbb80bf7ea3238e0571b770e58b24e55efe437d6edf883aea7a4",
+          "record_id": "10fe3ff664fea195d3095477ba766e75da2cc4b57742ebe7d743942f29b4c669",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1743177600000&limit=100"
+        },
+        {
+          "payload_sha256": "03e5d1af6378bc3b83b553fc087adf6c0ea6218b9817182e17cdc2417710c479",
+          "record_id": "b90571c5892e79f5f66534b81cd63a10bfa2f67cd96d616dee018dd86d8f5cfa",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1734537600000&limit=100"
+        },
+        {
+          "payload_sha256": "f820315114fa4f6a3a26186300849875b5b9471c760a3d8be93784a5cfd3bf2c",
+          "record_id": "244d8d94151c3ebe77f2bd1da72d82ca16dfc834852fa5529d1630c3b15d52fd",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1725897600000&limit=100"
+        },
+        {
+          "payload_sha256": "1cf9f9115178f8c33a8a84c3aeb52da7eb555e5d207326712cc02d3af33735e3",
+          "record_id": "e8348eb3161841806c1799c2afdfe24aba6ec0dc9b44e3d6c60ac10c3bad43d1",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1717257600000&limit=100"
+        },
+        {
+          "payload_sha256": "5fd97f9aaaa84a13468e25a0b91129f240ce39c850035253d841179eda139d19",
+          "record_id": "b45bc7e91fba1fa086fa054f130827cafa3cbd6a6f2de796b9c1fd5ce994b45d",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1708617600000&limit=100"
+        },
+        {
+          "payload_sha256": "c671f5cfa2ed9eb6ff37f39d768119ea5bee9add49d5be928a0da7a494876e24",
+          "record_id": "017d6cf56c6bee9b734d2ba1d45f2d0acb1289913361e7684926cc685b03eb86",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1699977600000&limit=100"
+        },
+        {
+          "payload_sha256": "2845ac3608fff5d68044f43affd19059ace927d92c274e09141506dc47cee6c0",
+          "record_id": "24f3e10d67e28a16970673f847c460d49edca8040c31957548dbca3bb188f397",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1691337600000&limit=100"
+        },
+        {
+          "payload_sha256": "b636e9214609318c29814edd88fde14dace753796a8ad9ee59cb0793b84cb4b6",
+          "record_id": "fabd3db6a467914e91f51310f3e53feecf4d9efed018a6f870a0d8c67b75c3b7",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1682697600000&limit=100"
+        },
+        {
+          "payload_sha256": "42534e4e842066b1a6fe984a543e6fc64544c5619e1974a75b99f84b93219473",
+          "record_id": "cc26619a3dd31d5536e3bec3df492963e0fcba32b65fdddacd64c94eedc66e6f",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1674057600000&limit=100"
+        },
+        {
+          "payload_sha256": "94760c129b315d68e9bc217a9424647af0608de4a362ce2d1ec15c510d093b1e",
+          "record_id": "c912280086cfae7802cbcf7a7cac01fa52872e50230f471f008035737145542f",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1665417600000&limit=100"
+        },
+        {
+          "payload_sha256": "033ee755d67d84a71acf8e19063da0240c05f732b20e6797c7b78d552906e5fc",
+          "record_id": "e9ca5b4f955390c3bfd76b2874d162a91539f383b766f93d6ce2395236d1dfe2",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1656777600000&limit=100"
+        },
+        {
+          "payload_sha256": "aa5fa847126e9e1fc4343eed5b02b4a996607ede8ee08c99482af359b9f7c1e5",
+          "record_id": "20fd4a40322c28f09e30ae523b434d9aa80df43766af2fdb8124dd9fc95fdebd",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1648137600000&limit=100"
+        },
+        {
+          "payload_sha256": "3cf6b5a3d463ce879ae5cd193bec9739316013f23b0592a87d9261675eb16e23",
+          "record_id": "cd929544873c7fb4b931120c1552651c49417f3f1372f99d167b96a12c591a8f",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1639497600000&limit=100"
+        },
+        {
+          "payload_sha256": "352ad82a698587425b9e036753f866bf648d962e68f0bd169d249bce25bd9eca",
+          "record_id": "b34b044a69ece996de5218e6ba7a297ac1cd2b0f67317f83193b15f849071a87",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1630857600000&limit=100"
+        },
+        {
+          "payload_sha256": "b19a29e7b0deb46bb691c975e83b7fa60ea4ed308cb6b723605e0f034c68fa84",
+          "record_id": "332e3b90b272c924af580dc9facdc1e127b2d3379f2041738c72b234ef46447c",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1622217600000&limit=100"
+        },
+        {
+          "payload_sha256": "10e41dba9a0c987386d08a9c337b0c66cbe544af11b8aa4e443b3f363abc5bcf",
+          "record_id": "5eeb2949d94f2153000a47d27fa483e891a6d2737b5e9d0cda69b40eb142f5df",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1613577600000&limit=100"
+        }
+      ],
+      "pit_parquet": "fa7f3e6029406d5ea855ebb6e492d15bf13d60a928c40f68beb253c1af73468f.parquet",
+      "pit_parquet_sha256": "fa7f3e6029406d5ea855ebb6e492d15bf13d60a928c40f68beb253c1af73468f",
+      "pit_store": "pit-okx-1d",
+      "window_end": "2026-11-18T16:00:00+00:00",
+      "window_start": "2021-01-01T16:00:00+00:00"
+    }
+  ],
+  "fred_lag_check": {
+    "consistent_with_lag_steps": 1,
+    "fetched_at": "2026-11-18T06:38:21.309273+00:00",
+    "most_recent_trading_day": "2026-11-17",
+    "notes": "Both series' last available date is the most recent trading day or the one before it, consistent with next-business-day posting (N=1). Whether it is the most recent day or the previous one depends on whether this fetch ran before or after FRED's morning posting.",
+    "previous_trading_day": "2026-11-16",
+    "series": {
+      "DGS10": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+        "last_available_date": "2026-11-16",
+        "payload_sha256": "f41f4abe378278e0a8c74e42d54bf5763955eddd353e81cd8895dd359c5ce4a6",
+        "record_id": "98c3f430e8ba08f076c4eb931eaa4b90166eaf341b32dcec1b9b0810062244d8",
+        "rows": 16203
+      },
+      "VIXCLS": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
+        "last_available_date": "2026-11-16",
+        "payload_sha256": "f446df921245c3998246c77c05218dd3d59db15c2dc6b24f14ff94d00ffb9653",
+        "record_id": "6e1f30f7507091dfebaee81a144bd9ba7a20c25eb3137bc8f0ef2de5afec7218",
+        "rows": 9318
+      }
+    },
+    "today_us_eastern": "2026-11-18"
+  },
+  "panel": {
+    "cpi_monthly": {
+      "first_date": "2020-11-01",
+      "instrument": "macro:cpi-mom",
+      "last_date": "2026-10-01",
+      "rows": 71
+    },
+    "h0011": {
+      "close_rows": 4331,
+      "dropped_close_rows": 51,
+      "dropped_return_rows": 52,
+      "first_return_time": "2003-01-03T21:00:00+00:00",
+      "instruments": [
+        "index:vix",
+        "index:tyvix",
+        "rates:us-10y-yield",
+        "credit:baa-10y-spread",
+        "index:sp500"
+      ],
+      "last_return_time": "2020-05-15T21:00:00+00:00",
+      "return_rows": 4330
+    },
+    "h0012_btc": {
+      "close_rows": 2146,
+      "dropped_close_rows": 0,
+      "dropped_return_rows": 1,
+      "first_return_time": "2021-01-02T16:00:00+00:00",
+      "instruments": [
+        "crypto:btc-usdt-perp"
+      ],
+      "last_return_time": "2026-11-16T16:00:00+00:00",
+      "return_rows": 2145
+    },
+    "h0012_spx": {
+      "close_rows": 1476,
+      "dropped_close_rows": 0,
+      "dropped_return_rows": 1,
+      "first_return_time": "2021-01-05T21:00:00+00:00",
+      "instruments": [
+        "index:sp500"
+      ],
+      "last_return_time": "2026-11-17T21:00:00+00:00",
+      "return_rows": 1475
+    }
+  },
+  "quality": {
+    "pit-1d": {
+      "event_time_max": "2026-11-17T21:00:00+00:00",
+      "event_time_min": "2003-01-02T21:00:00+00:00",
+      "issues": [],
+      "missing_expected_series": [],
+      "row_count": 23509,
+      "unique_instrument_count": 6,
+      "unique_series_count": 6
+    },
+    "pit-okx-1d": {
+      "event_time_max": "2026-11-16T16:00:00+00:00",
+      "event_time_min": "2021-01-01T16:00:00+00:00",
+      "issues": [],
+      "missing_expected_series": [],
+      "row_count": 10730,
+      "unique_instrument_count": 1,
+      "unique_series_count": 5
+    }
+  },
+  "sources": [
+    {
+      "source_id": "fred",
+      "version": 1
+    },
+    {
+      "source_id": "yahoo-finance",
+      "version": 1
+    },
+    {
+      "source_id": "okx-public",
+      "version": 1
+    }
+  ],
+  "study": "publication-lag-007"
+}

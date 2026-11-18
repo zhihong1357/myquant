@@ -1,0 +1,11 @@
+{
+  "attribution": "Source: U.S. Bureau of Labor Statistics",
+  "description": "BLS public Consumer Price Index release schedule: Schedule of Selected Releases annual pages (bls.gov/schedule/{YYYY}/), the current CPI schedule page (bls.gov/schedule/news_release/cpi.htm), the archived CPI news releases page (bls.gov/bls/news-release/cpi.htm) and the 2025 shutdown impact FAQ",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public release schedule data published by the Bureau of Labor Statistics, free to use; the pages require no API key. Used for research only; raw payloads are not redistributed. BLS returns HTTP 403 to direct programmatic requests, so the calendar was transcribed from the schedule pages via text fetch and cross-checked (see research/macro-windows-006/cpi_calendar.json). This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "U.S. Bureau of Labor Statistics",
+  "source_id": "bls",
+  "terms_url": "https://www.bls.gov/",
+  "timestamp_basis": "CPI release dates are public in advance (the annual schedule is announced months ahead); every release is 08:30 Eastern Time (12:30 UTC in daylight saving time, 13:30 UTC in standard time), always before the 16:00 ET close, so a release on date D is knowable at the close of D."
+}

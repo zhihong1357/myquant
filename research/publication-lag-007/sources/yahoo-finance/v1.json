@@ -1,0 +1,11 @@
+{
+  "attribution": "Data: Yahoo Finance",
+  "description": "Yahoo Finance public chart endpoint (query2.finance.yahoo.com) daily bars for the S&P 500 index (^GSPC)",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public market data served without authentication by Yahoo's chart endpoint, used for research only; raw payloads are not redistributed. Yahoo Terms of Service reviewed 2026-11-18. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "Yahoo Finance",
+  "source_id": "yahoo-finance",
+  "terms_url": "https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html",
+  "timestamp_basis": "Daily bars timestamped at the market open (09:30 ET); the trading date is derived in America/New_York and the close is recorded at 21:00 UTC, matching the FRED convention. Yahoo market data is knowable at the close and carries no publication lag in this study."
+}
