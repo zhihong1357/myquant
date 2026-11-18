@@ -1,0 +1,88 @@
+{
+  "audit_notes": [
+    "Power: observed partial R^2 0.00010 vs MDE 0.00532 at n=1468 (80% power, alpha 0.05) \u2014 the design was underpowered for an effect of the observed size; the null result rules out large effects, not small ones."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (3 of 3 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": {
+      "costs_applied": 0.0,
+      "days": 470,
+      "gross_daily_edge": 0.0002933361444898209,
+      "gross_edge_bootstrap_p_value": 0.42278860569715143,
+      "gross_edge_ci_lower": -0.0004579641250611481,
+      "gross_edge_ci_upper": 0.00098532393747442,
+      "kind": "cost_gate_informational",
+      "note": "Informational only: no costs applied. The S&P 500 index is not directly tradable and no free SPX futures or ETF price series is used. Not a verdict criterion.",
+      "sign_accuracy": 0.5361702127659574
+    },
+    "family_tests": [
+      {
+        "edge_id": "E0037",
+        "holm_adjusted_p_value": 0.7548740391336041,
+        "raw_p_value": 0.7548740391336041,
+        "reject": false,
+        "test_key": "spx_daily"
+      },
+      {
+        "edge_id": "E0038",
+        "holm_adjusted_p_value": 0.05304546582475029,
+        "raw_p_value": 0.01768182194158343,
+        "reject": false,
+        "test_key": "spx_release_day"
+      },
+      {
+        "edge_id": "E0039",
+        "holm_adjusted_p_value": 0.16909619607107185,
+        "raw_p_value": 0.08454809803553592,
+        "reject": false,
+        "test_key": "btc_daily"
+      }
+    ],
+    "holdout_oos": {
+      "all_oos_incremental_r_squared": -0.010854533093370256,
+      "holdout_oos_incremental_r_squared": -0.0003362377537479144
+    },
+    "primary_test": {
+      "coefficient": -0.037402090072185715,
+      "observations": 1468,
+      "p_value": 0.7548740391336041,
+      "partial_r_squared": 0.00010223875705747534,
+      "standard_error": 0.11979437994650124,
+      "t_statistic": -0.31221907145301014,
+      "test_key": "spx_daily",
+      "test_type": "lead_lag",
+      "within_study_holm_adjusted_p_value": 0.7548740391336041,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2021-01-05T21:00:00Z",
+      "last": "2026-11-17T21:00:00Z",
+      "observations": 1468,
+      "panel_rows": 1475
+    },
+    "verdict_criteria": {
+      "holdout_oos_incremental_r_squared_above_0": false,
+      "holm_adjusted_primary_p_below_0.05": false,
+      "primary_partial_r_squared_at_least_0.005": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0012",
+  "hypothesis_version": 1,
+  "ledger_path": "research/publication-lag-007/trials.jsonl",
+  "ledger_test_key": "spx_daily",
+  "limitations": [
+    "The CPI step changes only on release days, so the effective sample is much smaller than the daily row count.",
+    "CPIAUCSL is current vintage, not as-released values; the release-day subsample is hypothesis-generating only."
+  ],
+  "preregistration_fingerprint": "8526ef1ce9d5620463668319c9d3e7b0b31293dd524f157e90032207fccdc6e5",
+  "primary_edge_id": "E0037",
+  "record_id": "DR-H0012",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/publication-lag-007.md",
+  "schema_version": 1,
+  "study": "publication-lag-007",
+  "trial_id": "T0015",
+  "trial_record_hash": "6d757217ecab7b2e573ba8260579fc08bf643e22ce3a4ba7b3cd53f9eb6e9976"
+}

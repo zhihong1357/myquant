@@ -1,0 +1,79 @@
+{
+  "audit_notes": [
+    "Lab-wide family correction (36 tested edges): Holm adjusted p 0.09279 (not significant), BH adjusted p 0.02088 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Power: observed Cohen's d 0.2844 vs MDE 0.2675, observed mean ratio 1.2976 vs MDE 1.2799 (n=116/2009, 80% power, alpha 0.05)."
+  ],
+  "conclusion": "SUPPORTED",
+  "conclusion_scope": "Secondary edge of a SUPPORTED hypothesis: significant within the study's preregistered Holm family.",
+  "edge_id": "E0031",
+  "evidence": {
+    "cost_gate": null,
+    "family_tests": [
+      {
+        "edge_id": "E0030",
+        "holm_adjusted_p_value": 0.009817680267895559,
+        "raw_p_value": 0.009817680267895559,
+        "reject": true,
+        "test_key": "btc_mean_abs_return_comparison"
+      },
+      {
+        "edge_id": "E0031",
+        "holm_adjusted_p_value": 0.005799298077856636,
+        "raw_p_value": 0.002899649038928318,
+        "reject": true,
+        "test_key": "eth_mean_abs_return_comparison"
+      }
+    ],
+    "holdout_oos": null,
+    "lab_wide": {
+      "bh_adjusted_p_value": 0.020877473080283888,
+      "bh_significant": true,
+      "family_size": 36,
+      "holm_adjusted_p_value": 0.09278876924570617,
+      "holm_significant": false
+    },
+    "primary_test": {
+      "bootstrap_ci_lower": 0.000716936584729881,
+      "bootstrap_ci_upper": 0.015152420198722007,
+      "coefficient": 0.007723255692795755,
+      "effect_ratio": 1.2975889941608958,
+      "mean_nonwindow": 0.025952759827603263,
+      "mean_window": 0.03367601552039902,
+      "nonwindow_observations": 2009,
+      "p_value": 0.002899649038928318,
+      "standard_error": 0.0025932796795113634,
+      "t_statistic": 2.978180777728919,
+      "test_key": "eth_mean_abs_return_comparison",
+      "test_type": "mean_comparison",
+      "window_observations": 116,
+      "within_study_holm_adjusted_p_value": 0.005799298077856636,
+      "within_study_holm_reject": true
+    },
+    "sample": {
+      "first": "2021-01-22T16:00:00Z",
+      "last": "2026-11-16T16:00:00Z",
+      "observations": 2125,
+      "panel_rows": 2125
+    },
+    "verdict_criteria": {
+      "btc_effect_ratio_at_least_1.15": true,
+      "holm_adjusted_btc_p_below_0.05": true
+    },
+    "verdict_supported": true
+  },
+  "hypothesis_id": "H0010",
+  "hypothesis_version": 1,
+  "ledger_path": "research/macro-windows-006/trials.jsonl",
+  "ledger_test_key": "eth_mean_abs_return_comparison",
+  "limitations": [
+    "A level effect on known event days, not a forecast or a trading signal; no surprise measure exists (release-day effect, not surprise effect)."
+  ],
+  "preregistration_fingerprint": "a10ddda9553151ecaff7afc57394f1cc1674ce0733b8b663d6e878872a471656",
+  "record_id": "DR-E0031",
+  "record_type": "supported_edge",
+  "report_path": "docs/studies/macro-windows-006.md",
+  "schema_version": 1,
+  "study": "macro-windows-006",
+  "trial_id": "T0012",
+  "trial_record_hash": "4b0dd1cce4fbe6e15849ba3ef80355d60591afdf9f3c0913f7cea8bf2681cb8d"
+}

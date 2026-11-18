@@ -1,0 +1,514 @@
+{
+  "calibration": {
+    "bootstrap_coverage_ar1_0.3": {
+      "autocorrelation": 0.3,
+      "block_length": 10,
+      "confidence_level": 0.95,
+      "coverage": 0.9333333333333333,
+      "covered": 140,
+      "monte_carlo_se": 0.02036700308869262,
+      "observations": 2125,
+      "replications": 150,
+      "resamples": 500,
+      "seed": 2026
+    },
+    "bootstrap_coverage_iid": {
+      "autocorrelation": 0.0,
+      "block_length": 10,
+      "confidence_level": 0.95,
+      "coverage": 0.96,
+      "covered": 144,
+      "monte_carlo_se": 0.016000000000000007,
+      "observations": 2125,
+      "replications": 150,
+      "resamples": 500,
+      "seed": 2026
+    },
+    "hac_size_ar1_0.3": {
+      "alpha": 0.05,
+      "autocorrelation": 0.3,
+      "max_hac_lag": 5,
+      "monte_carlo_se": 0.011639775556255371,
+      "observations": 1414,
+      "rejection_rate": 0.0575,
+      "rejections": 23,
+      "replications": 400,
+      "seed": 2026
+    },
+    "hac_size_iid": {
+      "alpha": 0.05,
+      "autocorrelation": 0.0,
+      "max_hac_lag": 5,
+      "monte_carlo_se": 0.01115165346484547,
+      "observations": 1414,
+      "rejection_rate": 0.0525,
+      "rejections": 21,
+      "replications": 400,
+      "seed": 2026
+    },
+    "holm_fwer_correlated_0.3": {
+      "alpha": 0.05,
+      "correlation": 0.3,
+      "families_with_rejection": 198,
+      "family_size": 36,
+      "family_wise_error_rate": 0.0396,
+      "monte_carlo_se": 0.0027579644667761766,
+      "replications": 5000,
+      "seed": 2026
+    },
+    "holm_fwer_independent": {
+      "alpha": 0.05,
+      "correlation": 0.0,
+      "families_with_rejection": 252,
+      "family_size": 36,
+      "family_wise_error_rate": 0.0504,
+      "monte_carlo_se": 0.0030938597253269257,
+      "replications": 5000,
+      "seed": 2026
+    }
+  },
+  "lab_wide_audit": {
+    "alpha": 0.05,
+    "bh_expected_false_discoveries_upper_bound": 0.25,
+    "bh_rejections_all_edges": 5,
+    "bh_survivors": 5,
+    "expected_false_positives_uncorrected": 1.8,
+    "family_size": 36,
+    "holm_rejections_all_edges": 4,
+    "holm_survivors": 4,
+    "per_study": [
+      {
+        "bh_survivors": 0,
+        "holm_survivors": 0,
+        "max_holm_adjusted_p_supported": null,
+        "min_holm_adjusted_p_supported": null,
+        "study": "btc-eth-001",
+        "supported_edges": 0,
+        "tested_edges": 3
+      },
+      {
+        "bh_survivors": 2,
+        "holm_survivors": 2,
+        "max_holm_adjusted_p_supported": 0.0057450580168058145,
+        "min_holm_adjusted_p_supported": 3.525249975266931e-07,
+        "study": "fomc-event-study-005",
+        "supported_edges": 2,
+        "tested_edges": 8
+      },
+      {
+        "bh_survivors": 0,
+        "holm_survivors": 0,
+        "max_holm_adjusted_p_supported": null,
+        "min_holm_adjusted_p_supported": null,
+        "study": "lowvol-002",
+        "supported_edges": 0,
+        "tested_edges": 4
+      },
+      {
+        "bh_survivors": 1,
+        "holm_survivors": 0,
+        "max_holm_adjusted_p_supported": 0.30434808830476234,
+        "min_holm_adjusted_p_supported": 0.09278876924570617,
+        "study": "macro-windows-006",
+        "supported_edges": 2,
+        "tested_edges": 5
+      },
+      {
+        "bh_survivors": 0,
+        "holm_survivors": 0,
+        "max_holm_adjusted_p_supported": null,
+        "min_holm_adjusted_p_supported": null,
+        "study": "move-vix-003",
+        "supported_edges": 0,
+        "tested_edges": 3
+      },
+      {
+        "bh_survivors": 0,
+        "holm_survivors": 0,
+        "max_holm_adjusted_p_supported": null,
+        "min_holm_adjusted_p_supported": null,
+        "study": "options-expiry-004",
+        "supported_edges": 0,
+        "tested_edges": 5
+      },
+      {
+        "bh_survivors": 2,
+        "holm_survivors": 2,
+        "max_holm_adjusted_p_supported": 0.0482479955188323,
+        "min_holm_adjusted_p_supported": 3.745036680768976e-08,
+        "study": "publication-lag-007",
+        "supported_edges": 2,
+        "tested_edges": 8
+      }
+    ],
+    "raw_rejections_at_alpha": 8,
+    "registry_content_hash": "3d0515bd4fa1f7c3922d10a4e1cbb805b4cba3e6ccbd630f26b6973704ec4ae0",
+    "storey_pi0_lambda_0.5": 1.0,
+    "supported_edges": [
+      {
+        "bh_adjusted_p_value": 1.8129857015658501e-07,
+        "bh_significant": true,
+        "edge_id": "E0023",
+        "holm_adjusted_p_value": 3.525249975266931e-07,
+        "holm_significant": true,
+        "hypothesis_id": "H0007",
+        "raw_p_value": 1.0072142786476945e-08,
+        "study": "fomc-event-study-005",
+        "test_type": "event_study",
+        "trial_id": "T0010"
+      },
+      {
+        "bh_adjusted_p_value": 0.0020276675353432284,
+        "bh_significant": true,
+        "caveat": "Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md.",
+        "edge_id": "E0026",
+        "holm_adjusted_p_value": 0.0057450580168058145,
+        "holm_significant": true,
+        "hypothesis_id": "H0008",
+        "raw_p_value": 0.0001689722946119357,
+        "study": "fomc-event-study-005",
+        "test_type": "cross_section",
+        "trial_id": "T0009"
+      },
+      {
+        "bh_adjusted_p_value": 0.05890608160737335,
+        "bh_significant": false,
+        "bootstrap_ci_lower": -0.00022417664645229594,
+        "bootstrap_ci_upper": 0.010362448703954627,
+        "caveat": "Bootstrap-marginal: the HAC test is significant, but the block-bootstrap 95% CI for the mean difference just includes zero. The ETH leg (E0031) is significant by both methods.",
+        "edge_id": "E0030",
+        "holm_adjusted_p_value": 0.30434808830476234,
+        "holm_significant": false,
+        "hypothesis_id": "H0010",
+        "raw_p_value": 0.009817680267895559,
+        "study": "macro-windows-006",
+        "test_type": "mean_comparison",
+        "trial_id": "T0012"
+      },
+      {
+        "bh_adjusted_p_value": 0.020877473080283888,
+        "bh_significant": true,
+        "edge_id": "E0031",
+        "holm_adjusted_p_value": 0.09278876924570617,
+        "holm_significant": false,
+        "hypothesis_id": "H0010",
+        "raw_p_value": 0.002899649038928318,
+        "study": "macro-windows-006",
+        "test_type": "mean_comparison",
+        "trial_id": "T0012"
+      },
+      {
+        "bh_adjusted_p_value": 3.745036680768976e-08,
+        "bh_significant": true,
+        "edge_id": "E0032",
+        "holm_adjusted_p_value": 3.745036680768976e-08,
+        "holm_significant": true,
+        "hypothesis_id": "H0011",
+        "raw_p_value": 1.0402879668802711e-09,
+        "study": "publication-lag-007",
+        "test_type": "event_study",
+        "trial_id": "T0013"
+      },
+      {
+        "bh_adjusted_p_value": 0.013158544232408809,
+        "bh_significant": true,
+        "edge_id": "E0033",
+        "holm_adjusted_p_value": 0.0482479955188323,
+        "holm_significant": true,
+        "hypothesis_id": "H0011",
+        "raw_p_value": 0.0014620604702676454,
+        "study": "publication-lag-007",
+        "test_type": "event_study",
+        "trial_id": "T0013"
+      }
+    ],
+    "supported_total": 6
+  },
+  "overfitting": {
+    "dsr_note": "Illustrative grid, Gaussian moments (skew 0, excess kurtosis 0). No lab strategy-return series exists, so no lab-real-data DSR is computed.",
+    "dsr_reference_table": [
+      {
+        "dsr_by_trials": {
+          "1": 0.6826715437304844,
+          "10": 0.13587058700658383,
+          "100": 0.019946688703266782
+        },
+        "observations": 252,
+        "sharpe_ratio_annualized": 0.4762352359916263,
+        "sharpe_ratio_daily": 0.03
+      },
+      {
+        "dsr_by_trials": {
+          "1": 0.8284341434310705,
+          "10": 0.2655759558910627,
+          "100": 0.05682043230322588
+        },
+        "observations": 1000,
+        "sharpe_ratio_annualized": 0.4762352359916263,
+        "sharpe_ratio_daily": 0.03
+      },
+      {
+        "dsr_by_trials": {
+          "1": 0.8288738467122111,
+          "10": 0.26649157698239884,
+          "100": 0.05721345632104356
+        },
+        "observations": 252,
+        "sharpe_ratio_annualized": 0.9524704719832526,
+        "sharpe_ratio_daily": 0.06
+      },
+      {
+        "dsr_by_trials": {
+          "1": 0.970934796014538,
+          "10": 0.6260956574340523,
+          "100": 0.2631659826663635
+        },
+        "observations": 1000,
+        "sharpe_ratio_annualized": 0.9524704719832526,
+        "sharpe_ratio_daily": 0.06
+      },
+      {
+        "dsr_by_trials": {
+          "1": 0.9429868610243624,
+          "10": 0.5038599025625745,
+          "100": 0.17259810726810978
+        },
+        "observations": 252,
+        "sharpe_ratio_annualized": 1.5874507866387546,
+        "sharpe_ratio_daily": 0.1
+      },
+      {
+        "dsr_by_trials": {
+          "1": 0.9991915033756518,
+          "10": 0.9431920361406154,
+          "100": 0.7351695966455046
+        },
+        "observations": 1000,
+        "sharpe_ratio_annualized": 1.5874507866387546,
+        "sharpe_ratio_daily": 0.1
+      }
+    ],
+    "pbo_note": "Synthetic validation scenarios (800 periods, 16 strategies). No lab strategy-return series exists, so no lab-real-data PBO is computed.",
+    "pbo_scenarios": {
+      "clean_persistent_edge": {
+        "combinations": 70,
+        "combinations_sampled": false,
+        "combinations_total": 70,
+        "groups": 8,
+        "mean_relative_rank": 0.9411764705882352,
+        "median_relative_rank": 0.9411764705882353,
+        "observations": 800,
+        "pbo": 0.0,
+        "seed": 1,
+        "strategies": 16
+      },
+      "pure_noise": {
+        "combinations": 12870,
+        "combinations_sampled": false,
+        "combinations_total": 12870,
+        "groups": 16,
+        "mean_relative_rank": 0.45705013940308054,
+        "median_relative_rank": 0.47058823529411764,
+        "observations": 800,
+        "pbo": 0.5338772338772338,
+        "seed": 1,
+        "strategies": 16
+      },
+      "sign_flipping_overfit": {
+        "combinations": 70,
+        "combinations_sampled": false,
+        "combinations_total": 70,
+        "groups": 8,
+        "mean_relative_rank": 0.11680672268907562,
+        "median_relative_rank": 0.058823529411764705,
+        "observations": 800,
+        "pbo": 1.0,
+        "seed": 1,
+        "strategies": 16
+      }
+    }
+  },
+  "power": {
+    "alpha": 0.05,
+    "cross_section_r_squared": {
+      "edge_id": "E0024",
+      "hypothesis_id": "H0008",
+      "mde_r_squared": 0.054945336280868076,
+      "observations": 135,
+      "observed_coefficient": 0.00011738285112419084,
+      "observed_r_squared": 0.005714659904412223,
+      "trial_id": "T0009"
+    },
+    "event_study_car": [
+      {
+        "edge_id": "E0019",
+        "hypothesis_id": "H0007",
+        "mde_standardized_mean_car": 0.21400168279054138,
+        "observations": 135,
+        "observed_standardized_mean_car": -0.15068455311467216,
+        "role": "primary",
+        "trial_id": "T0010"
+      },
+      {
+        "edge_id": "E0023",
+        "hypothesis_id": "H0007",
+        "mde_standardized_mean_car": 0.21400168279054138,
+        "observations": 135,
+        "observed_standardized_mean_car": -0.4828971210838664,
+        "role": "secondary",
+        "trial_id": "T0010"
+      },
+      {
+        "edge_id": "E0032",
+        "hypothesis_id": "H0011",
+        "mde_standardized_mean_car": 0.21400168279054138,
+        "observations": 135,
+        "observed_standardized_mean_car": -0.5156565761431623,
+        "role": "primary",
+        "trial_id": "T0013"
+      },
+      {
+        "edge_id": "E0033",
+        "hypothesis_id": "H0011",
+        "mde_standardized_mean_car": 0.21400168279054138,
+        "observations": 135,
+        "observed_standardized_mean_car": -0.25609922433859056,
+        "role": "secondary",
+        "trial_id": "T0013"
+      }
+    ],
+    "lead_lag_partial_r_squared": [
+      {
+        "edge_id": "E0001",
+        "hypothesis_id": "H0001",
+        "mde_coefficient": 0.19516212681203915,
+        "mde_partial_r_squared": 0.005520192649316948,
+        "observations": 1414,
+        "observed_coefficient": 0.025176549532828104,
+        "observed_partial_r_squared": 0.00010990546273016321,
+        "trial_id": "T0001"
+      },
+      {
+        "edge_id": "E0004",
+        "hypothesis_id": "H0002",
+        "mde_coefficient": 0.3437552167098168,
+        "mde_partial_r_squared": 0.0068798592642495575,
+        "observations": 1133,
+        "observed_coefficient": 0.22170054929722913,
+        "observed_partial_r_squared": 0.0037592235722866065,
+        "trial_id": "T0002"
+      },
+      {
+        "edge_id": "E0008",
+        "hypothesis_id": "H0004",
+        "mde_coefficient": 0.09191110295907229,
+        "mde_partial_r_squared": 0.0018106466804513129,
+        "observations": 4327,
+        "observed_coefficient": -0.00934091218242084,
+        "observed_partial_r_squared": 3.484028991192486e-05,
+        "trial_id": "T0004"
+      },
+      {
+        "edge_id": "E0014",
+        "hypothesis_id": "H0005",
+        "mde_coefficient": 0.2550027365806019,
+        "mde_partial_r_squared": 0.003681724257737793,
+        "observations": 2124,
+        "observed_coefficient": -0.035832376979457355,
+        "observed_partial_r_squared": 8.365601959676024e-05,
+        "trial_id": "T0005"
+      },
+      {
+        "edge_id": "E0027",
+        "hypothesis_id": "H0009",
+        "mde_coefficient": 0.3625123191497732,
+        "mde_partial_r_squared": 0.003681724257737793,
+        "observations": 2124,
+        "observed_coefficient": 0.00029048848616874457,
+        "observed_partial_r_squared": 3.081259166245943e-09,
+        "trial_id": "T0011"
+      },
+      {
+        "edge_id": "E0037",
+        "hypothesis_id": "H0012",
+        "mde_coefficient": 0.33561416407112654,
+        "mde_partial_r_squared": 0.0053182137020437205,
+        "observations": 1468,
+        "observed_coefficient": -0.037402090072185715,
+        "observed_partial_r_squared": 0.00010223875705747534,
+        "trial_id": "T0015"
+      }
+    ],
+    "mean_comparison": [
+      {
+        "bootstrap_ci_lower": -0.004739932787518319,
+        "bootstrap_ci_upper": 0.005051504136977218,
+        "edge_id": "E0017",
+        "hypothesis_id": "H0006",
+        "label": "BTC expiry windows",
+        "mde_cohens_d": 0.1796826332574515,
+        "mde_mean_ratio": 1.2036336801114786,
+        "nonwindow_observations": 1845,
+        "observed_cohens_d": 5.595043106510809e-05,
+        "observed_mean_ratio": 1.0000634084216993,
+        "trial_id": "T0007",
+        "window_observations": 280
+      },
+      {
+        "bootstrap_ci_lower": -0.0068596265330056385,
+        "bootstrap_ci_upper": 0.005174825634944482,
+        "edge_id": "E0018",
+        "hypothesis_id": "H0006",
+        "label": "ETH expiry windows",
+        "mde_cohens_d": 0.1796826332574515,
+        "mde_mean_ratio": 1.1744330401534715,
+        "nonwindow_observations": 1845,
+        "observed_cohens_d": -0.0422406835494709,
+        "observed_mean_ratio": 0.9589934168031826,
+        "trial_id": "T0007",
+        "window_observations": 280
+      },
+      {
+        "bootstrap_ci_lower": -0.00022417664645229594,
+        "bootstrap_ci_upper": 0.010362448703954627,
+        "edge_id": "E0030",
+        "hypothesis_id": "H0010",
+        "label": "BTC macro windows",
+        "mde_cohens_d": 0.26752498076303577,
+        "mde_mean_ratio": 1.2717122394701748,
+        "nonwindow_observations": 2009,
+        "observed_cohens_d": 0.24657437445164904,
+        "observed_mean_ratio": 1.250433717580785,
+        "trial_id": "T0012",
+        "window_observations": 116
+      },
+      {
+        "bootstrap_ci_lower": 0.000716936584729881,
+        "bootstrap_ci_upper": 0.015152420198722007,
+        "edge_id": "E0031",
+        "hypothesis_id": "H0010",
+        "label": "ETH macro windows",
+        "mde_cohens_d": 0.26752498076303577,
+        "mde_mean_ratio": 1.2799430220451713,
+        "nonwindow_observations": 2009,
+        "observed_cohens_d": 0.28438819212767746,
+        "observed_mean_ratio": 1.2975889941608958,
+        "trial_id": "T0012",
+        "window_observations": 116
+      }
+    ],
+    "power_simulation_check": {
+      "alpha": 0.05,
+      "beta": 0.0745039215353843,
+      "beta_at_mde": 0.0745039215353843,
+      "empirical_power": 0.79,
+      "max_hac_lag": 5,
+      "monte_carlo_se": 0.028801041647829335,
+      "observations": 1414,
+      "rejections": 158,
+      "replications": 200,
+      "seed": 2026
+    },
+    "target_power": 0.8
+  }
+}

@@ -24,7 +24,7 @@
 - [x] Bind experiment execution to exact hypothesis version and fingerprint.
 - [x] Verify universe, observation cadence, target, horizon, source versions, feature versions, fixed parameters, model, benchmark, costs, primary metric, expected direction and seed.
 - [x] Require a declared multiple-testing method and target error rate when multiple tests are planned.
-- [ ] Evidence-backed statistical decision records for supported/rejected conclusions.
+- [x] Evidence-backed statistical decision records for supported/rejected conclusions. (15 records: 6 supported-edge + 9 rejected-hypothesis, generated from the trial ledgers, the registry and the Stage 2B audit summary by `research/decision-records/build_decision_records.py`, drift- and ledger-verified; see `research/decision-records/`.)
 
 ## Stage 2B — Statistical research kernel
 - [x] Simple/log returns, realized variance and annualized volatility estimators.
@@ -38,9 +38,9 @@
 - [x] Overlapping event-window clustering and cluster-level descriptive inference.
 - [x] Purged chronological walk-forward splits with label-overlap removal and pre-test embargo.
 - [x] Paired out-of-sample forecast scoring with incremental OOS R-squared.
-- [ ] PBO and Deflated Sharpe Ratio.
-- [ ] Calibration and power analysis.
-- [ ] Evidence-backed statistical decision records.
+- [x] PBO and Deflated Sharpe Ratio. (Bailey et al. CSCV PBO and Bailey & López de Prado DSR in `src/myquant/stats/overfitting.py`, validated on synthetic scenarios — PBO 0.0 clean / ~0.5 noise / 1.0 overfit; no lab-real-data application, because the lab has no stored strategy-return series — stated, not forced; see `research/statistical-audit-2b/report.md` §4 and `docs/statistical-kernel.md` §10.)
+- [x] Calibration and power analysis. (HAC size, block-bootstrap coverage and Holm FWER simulations in `src/myquant/stats/calibration.py`; analytic MDEs plus a simulation check in `src/myquant/stats/power.py`; lab-wide audit in `research/statistical-audit-2b/` — under lab-wide correction 4 of 6 supported edges remain significant (Holm) and 5 of 6 (BH), expected false positives 1.8 vs 8 raw rejections; the lead-lag partial-R² MDE at n = 1,414 is 0.0055, essentially the lab's 0.005 threshold, and every observed lead-lag effect sits below its MDE; see `docs/statistical-kernel.md` §11–12.)
+- [x] Evidence-backed statistical decision records. (Same 15 records as the Stage 2A item; see `research/decision-records/`.)
 
 ## Stage 3 — Cross-market transmission research
 - [x] Synchronized daily panel.

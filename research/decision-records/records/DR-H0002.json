@@ -1,0 +1,98 @@
+{
+  "audit_notes": [
+    "Power: observed partial R^2 0.00376 vs MDE 0.00688 at n=1133 (80% power, alpha 0.05) \u2014 the design was underpowered for an effect of the observed size; the null result rules out large effects, not small ones."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (3 of 4 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": {
+      "days": 318,
+      "flips": 77,
+      "gross_daily_edge": -0.0003316852588194524,
+      "kind": "cost_gate",
+      "lowvol_days": 193,
+      "net_daily_edge": -0.0005958362022156791,
+      "net_edge_bootstrap_p_value": 0.7201399300349826,
+      "net_edge_ci_lower": -0.003863603303542177,
+      "net_edge_ci_upper": 0.0027045803977351407,
+      "total_cost": 0.08400000000000002
+    },
+    "family_tests": [
+      {
+        "edge_id": "E0004",
+        "holm_adjusted_p_value": 0.28314473469230644,
+        "raw_p_value": 0.07078618367307661,
+        "reject": false,
+        "test_key": "daily_btc_sol_interaction"
+      },
+      {
+        "edge_id": "E0005",
+        "holm_adjusted_p_value": 0.8448363740005851,
+        "raw_p_value": 0.2816121246668617,
+        "reject": false,
+        "test_key": "daily_btc_sol_lowvol"
+      },
+      {
+        "edge_id": "E0006",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.784546782932984,
+        "reject": false,
+        "test_key": "hourly_btc_eth_interaction"
+      },
+      {
+        "edge_id": "E0007",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.9770127439056899,
+        "reject": false,
+        "test_key": "hourly_btc_eth_lowvol"
+      }
+    ],
+    "holdout_oos": {
+      "all_oos_incremental_r_squared": 0.0006723480004130478,
+      "holdout_oos_incremental_r_squared": 0.011261699773801648,
+      "lowvol_holdout_oos_incremental_r_squared": 0.010411337202367754
+    },
+    "primary_test": {
+      "coefficient": 0.22170054929722913,
+      "observations": 1133,
+      "p_value": 0.07078618367307661,
+      "partial_r_squared": 0.0037592235722866065,
+      "standard_error": 0.12270025358762993,
+      "t_statistic": 1.8068467082579849,
+      "test_key": "daily_btc_sol_interaction",
+      "test_type": "lead_lag",
+      "within_study_holm_adjusted_p_value": 0.28314473469230644,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2023-01-02T16:00:00Z",
+      "last": "2026-11-16T16:00:00Z",
+      "observations": 1133,
+      "panel_rows": 1415
+    },
+    "verdict_criteria": {
+      "a1_partial_r_squared_at_least_0.005": false,
+      "holm_adjusted_a1_p_below_0.05": false,
+      "lowvol_holdout_oos_incremental_r_squared_above_0": true,
+      "net_daily_edge_after_costs_positive": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0002",
+  "hypothesis_version": 1,
+  "ledger_path": "research/lowvol-002/trials.jsonl",
+  "ledger_test_key": "daily_btc_sol_interaction",
+  "limitations": [
+    "The regime rule is trailing-volatility based; other regime definitions were not tested.",
+    "The low-volatility subsample is a subset of the daily panel; power there is lower than in the full sample."
+  ],
+  "preregistration_fingerprint": "08b43b7d4769885f86e37007783ece903b42eec772783a6124b14032b06a82df",
+  "primary_edge_id": "E0004",
+  "record_id": "DR-H0002",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/lowvol-transmission-002.md",
+  "schema_version": 1,
+  "study": "lowvol-002",
+  "trial_id": "T0002",
+  "trial_record_hash": "1240f8d7a520897f5525c3ca8be9dcc1145c32fb8c420e8e8e7497af823d5024"
+}

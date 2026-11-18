@@ -1,0 +1,91 @@
+{
+  "audit_notes": [
+    "Power: observed partial R^2 0.00000 vs MDE 0.00368 at n=2124 (80% power, alpha 0.05) \u2014 the design was underpowered for an effect of the observed size; the null result rules out large effects, not small ones."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (4 of 4 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": {
+      "days": 683,
+      "flips": 0,
+      "gross_daily_edge": -0.00016239098444761224,
+      "kind": "cost_gate",
+      "net_daily_edge": -0.00021656375165112618,
+      "net_edge_bootstrap_p_value": 0.4877561219390305,
+      "net_edge_ci_lower": -0.0008814932209297585,
+      "net_edge_ci_upper": 0.0003831260842318336,
+      "total_cost": 0.037000000000000005,
+      "window_days": 37
+    },
+    "family_tests": [
+      {
+        "edge_id": "E0027",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.9982087768740697,
+        "reject": false,
+        "test_key": "daily_btc_eth_interaction"
+      },
+      {
+        "edge_id": "E0028",
+        "holm_adjusted_p_value": 0.3615231416244011,
+        "raw_p_value": 0.12050771387480036,
+        "reject": false,
+        "test_key": "daily_btc_eth_window"
+      },
+      {
+        "edge_id": "E0029",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.5803591136379237,
+        "reject": false,
+        "test_key": "hourly_btc_eth_interaction"
+      }
+    ],
+    "holdout_oos": {
+      "all_oos_incremental_r_squared": -0.0018850282488998005,
+      "holdout_oos_incremental_r_squared": -0.0007320048061396633,
+      "window_holdout_oos_incremental_r_squared": -0.011562042177683862
+    },
+    "primary_test": {
+      "coefficient": 0.00029048848616874457,
+      "observations": 2124,
+      "p_value": 0.9982087768740697,
+      "partial_r_squared": 3.081259166245943e-09,
+      "standard_error": 0.1293954282761195,
+      "t_statistic": 0.0022449671525400835,
+      "test_key": "daily_btc_eth_interaction",
+      "test_type": "lead_lag",
+      "within_study_holm_adjusted_p_value": 1.0,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2021-01-22T16:00:00Z",
+      "last": "2026-11-16T16:00:00Z",
+      "observations": 2124,
+      "panel_rows": 2125
+    },
+    "verdict_criteria": {
+      "a_partial_r_squared_at_least_0.005": false,
+      "holm_adjusted_a_p_below_0.05": false,
+      "net_daily_edge_after_costs_positive": false,
+      "window_holdout_oos_incremental_r_squared_above_0": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0009",
+  "hypothesis_version": 1,
+  "ledger_path": "research/macro-windows-006/trials.jsonl",
+  "ledger_test_key": "daily_btc_eth_interaction",
+  "limitations": [
+    "The union window mixes FOMC and CPI days, whose interactions have opposite signs (see the study report descriptives); the union primary is an exact zero by cancellation.",
+    "Release-day effect, not surprise effect: no consensus data was used."
+  ],
+  "preregistration_fingerprint": "0e1ec3d3768c5da2b044c531e624857eee53be2939ee9e8ac0adc3d3fdf0b94e",
+  "primary_edge_id": "E0027",
+  "record_id": "DR-H0009",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/macro-windows-006.md",
+  "schema_version": 1,
+  "study": "macro-windows-006",
+  "trial_id": "T0011",
+  "trial_record_hash": "af641748117fe8fe3077fab5bd5f56ff082e6fafd6b913b704cc5c5a9f69e186"
+}

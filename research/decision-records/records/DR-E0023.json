@@ -1,0 +1,98 @@
+{
+  "audit_notes": [
+    "Lab-wide family correction (36 tested edges): Holm adjusted p 3.525e-07 (significant), BH adjusted p 1.813e-07 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Power: |observed standardized mean CAR| 0.4829 vs MDE 0.2140 at n=135 (80% power, alpha 0.05, one-sided) \u2014 the effect sits above the detection limit of the design."
+  ],
+  "conclusion": "SUPPORTED",
+  "conclusion_scope": "Secondary edge within its study's preregistered Holm family. The hypothesis itself was REJECTED on its primary test; this record covers only this edge, which was significant within the family.",
+  "edge_id": "E0023",
+  "evidence": {
+    "cost_gate": null,
+    "family_tests": [
+      {
+        "edge_id": "E0019",
+        "holm_adjusted_p_value": 0.1599620103450956,
+        "raw_p_value": 0.0399905025862739,
+        "reject": false,
+        "test_key": "vix_car"
+      },
+      {
+        "edge_id": "E0020",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.6342554696490699,
+        "reject": false,
+        "test_key": "spx_car"
+      },
+      {
+        "edge_id": "E0021",
+        "holm_adjusted_p_value": 0.8833996142126782,
+        "raw_p_value": 0.29446653807089274,
+        "reject": false,
+        "test_key": "dgs10_car"
+      },
+      {
+        "edge_id": "E0022",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.5928041663021921,
+        "reject": false,
+        "test_key": "baa10y_car"
+      },
+      {
+        "edge_id": "E0023",
+        "holm_adjusted_p_value": 5.0360713932384726e-08,
+        "raw_p_value": 1.0072142786476945e-08,
+        "reject": true,
+        "test_key": "tyvix_car"
+      }
+    ],
+    "holdout_oos": null,
+    "lab_wide": {
+      "bh_adjusted_p_value": 1.8129857015658501e-07,
+      "bh_significant": true,
+      "family_size": 36,
+      "holm_adjusted_p_value": 3.525249975266931e-07,
+      "holm_significant": true
+    },
+    "primary_test": {
+      "coefficient": -0.03811195530617821,
+      "direction": "less",
+      "observations": 135,
+      "p_value": 1.0072142786476945e-08,
+      "standard_error": 0.006792657701818309,
+      "standardized_mean_car": -0.4828971210838664,
+      "t_statistic": -5.610757523667963,
+      "test_key": "tyvix_car",
+      "test_type": "event_study",
+      "within_study_holm_adjusted_p_value": 5.0360713932384726e-08,
+      "within_study_holm_reject": true
+    },
+    "sample": {
+      "first": "2003-01-03T21:00:00Z",
+      "last": "2020-05-15T21:00:00Z",
+      "observations": 135,
+      "panel_rows": 4330
+    },
+    "verdict_criteria": {
+      "holm_adjusted_primary_p_below_0.05": false,
+      "primary_standardized_mean_car_at_most_minus_0.3": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0007",
+  "hypothesis_version": 1,
+  "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+  "ledger_test_key": "tyvix_car",
+  "limitations": [
+    "TYVIX is Treasury-futures price volatility, not the MOVE yield-volatility index; the substitution is documented in the study report.",
+    "The sample ends with the TYVIX series (see evidence.sample); the post-2020 hiking cycle is not covered.",
+    "A significant CAR is an event response, not a tradable signal."
+  ],
+  "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+  "record_id": "DR-E0023",
+  "record_type": "supported_edge",
+  "report_path": "docs/studies/fomc-event-study-005.md",
+  "schema_version": 1,
+  "study": "fomc-event-study-005",
+  "trial_id": "T0010",
+  "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56"
+}

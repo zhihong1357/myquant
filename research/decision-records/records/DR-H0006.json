@@ -1,0 +1,72 @@
+{
+  "audit_notes": [
+    "Power: observed Cohen's d 0.0001 vs MDE 0.1797, observed mean ratio 1.0001 vs MDE 1.2036 (n=280/1845, 80% power, alpha 0.05)."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (2 of 2 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": null,
+    "family_tests": [
+      {
+        "edge_id": "E0017",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.9993039488153056,
+        "reject": false,
+        "test_key": "btc_mean_abs_return_comparison"
+      },
+      {
+        "edge_id": "E0018",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.5101458981671017,
+        "reject": false,
+        "test_key": "eth_mean_abs_return_comparison"
+      }
+    ],
+    "holdout_oos": null,
+    "primary_test": {
+      "bootstrap_ci_lower": -0.004739932787518319,
+      "bootstrap_ci_upper": 0.005051504136977218,
+      "coefficient": 1.2603901708849118e-06,
+      "effect_ratio": 1.0000634084216993,
+      "mean_nonwindow": 0.019877330756850744,
+      "mean_window": 0.019878591147021632,
+      "nonwindow_observations": 1845,
+      "p_value": 0.9993039488153056,
+      "standard_error": 0.0014447870393665765,
+      "t_statistic": 0.0008723709007228442,
+      "test_key": "btc_mean_abs_return_comparison",
+      "test_type": "mean_comparison",
+      "window_observations": 280,
+      "within_study_holm_adjusted_p_value": 1.0,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2021-01-22T16:00:00Z",
+      "last": "2026-11-16T16:00:00Z",
+      "observations": 2125,
+      "panel_rows": 2125
+    },
+    "verdict_criteria": {
+      "btc_effect_ratio_at_least_1.15": false,
+      "holm_adjusted_btc_p_below_0.05": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0006",
+  "hypothesis_version": 1,
+  "ledger_path": "research/options-expiry-004/trials.jsonl",
+  "ledger_test_key": "btc_mean_abs_return_comparison",
+  "limitations": [
+    "The point estimate is zero but the confidence interval is wide (see evidence); a moderate effect is not disproven, only unsupported by this sample.",
+    "Same expiry-window proxy limitation as H0005."
+  ],
+  "preregistration_fingerprint": "0c48d2ac4fc37be0d5ba46b530823be332040cf387a2027bb57f45f5e619845f",
+  "primary_edge_id": "E0017",
+  "record_id": "DR-H0006",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/options-expiry-004.md",
+  "schema_version": 1,
+  "study": "options-expiry-004",
+  "trial_id": "T0007",
+  "trial_record_hash": "69d75c944b750c9b90a9b08f2f5aa7cb635e2f4bc58ad5c44b966add4f9d480d"
+}

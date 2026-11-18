@@ -1,0 +1,83 @@
+{
+  "audit_notes": [
+    "Lab-wide family correction (36 tested edges): Holm adjusted p 0.005745 (significant), BH adjusted p 0.002028 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Known caveat (from the study report): Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md."
+  ],
+  "conclusion": "SUPPORTED",
+  "conclusion_scope": "Secondary edge within its study's preregistered Holm family. The hypothesis itself was REJECTED on its primary test; this record covers only this edge, which was significant within the family.",
+  "edge_id": "E0026",
+  "evidence": {
+    "cost_gate": null,
+    "family_tests": [
+      {
+        "edge_id": "E0024",
+        "holm_adjusted_p_value": 0.7262425610107872,
+        "raw_p_value": 0.7262425610107872,
+        "reject": false,
+        "test_key": "spx_on_dgs10"
+      },
+      {
+        "edge_id": "E0025",
+        "holm_adjusted_p_value": 0.393384753801202,
+        "raw_p_value": 0.196692376900601,
+        "reject": false,
+        "test_key": "vix_on_dgs10"
+      },
+      {
+        "edge_id": "E0026",
+        "holm_adjusted_p_value": 0.0005069168838358071,
+        "raw_p_value": 0.0001689722946119357,
+        "reject": true,
+        "test_key": "baa10y_on_dgs10"
+      }
+    ],
+    "holdout_oos": null,
+    "lab_wide": {
+      "bh_adjusted_p_value": 0.0020276675353432284,
+      "bh_significant": true,
+      "family_size": 36,
+      "holm_adjusted_p_value": 0.0057450580168058145,
+      "holm_significant": true
+    },
+    "primary_test": {
+      "coefficient": -0.28425950492503244,
+      "observations": 135,
+      "p_value": 0.0001689722946119357,
+      "r_squared": 0.25699901770390843,
+      "standard_error": 0.07557301109921823,
+      "t_statistic": -3.761389162485984,
+      "test_key": "baa10y_on_dgs10",
+      "test_type": "cross_section",
+      "within_study_holm_adjusted_p_value": 0.0005069168838358071,
+      "within_study_holm_reject": true
+    },
+    "sample": {
+      "first": "2003-01-03T21:00:00Z",
+      "last": "2020-05-15T21:00:00Z",
+      "observations": 135,
+      "panel_rows": 4330
+    },
+    "verdict_criteria": {
+      "holm_adjusted_primary_p_below_0.05": false,
+      "primary_r_squared_at_least_0.05": false,
+      "split_half_replicated": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0008",
+  "hypothesis_version": 1,
+  "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+  "ledger_test_key": "baa10y_on_dgs10",
+  "limitations": [
+    "Partly mechanical by the definition of BAA10Y (see audit_notes): the slope is (beta_BAA - 1) by construction, not a clean transmission estimate.",
+    "The hypothesis H0008 itself was REJECTED on its primary test; this edge is a secondary finding within the family."
+  ],
+  "preregistration_fingerprint": "f76d5b6075672990d3462715e48a9109d062c99fa837bd4d03ef7d9daec7582b",
+  "record_id": "DR-E0026",
+  "record_type": "supported_edge",
+  "report_path": "docs/studies/fomc-event-study-005.md",
+  "schema_version": 1,
+  "study": "fomc-event-study-005",
+  "trial_id": "T0009",
+  "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af"
+}
