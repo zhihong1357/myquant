@@ -8,7 +8,7 @@ from datetime import UTC, datetime, timedelta
 import pytest
 
 from myquant.contracts import Observation
-from myquant.studies.panel import build_synchronized_panel
+from myquant.studies.panel import build_synchronized_panel, level_changes_on_index
 
 DAY = timedelta(days=1)
 T0 = datetime(2026, 1, 1, 16, 0, tzinfo=UTC)
@@ -139,4 +139,56 @@ def test_panel_rejects_empty_panel() -> None:
         build_synchronized_panel(
             observations,
             instruments=("crypto:btc-usdt-perp", "crypto:eth-usdt-perp"),
+        )
+
+
+def test_level_changes_diff_then_join_after_partial_holiday() -> None:
+    # The rate leg trades every day; the equity leg is missing on day 2
+    # (a partial holiday). The panel's return index is days 1 and 3.
+    # Diff-then-join gives the rate leg's true one-day change on day 3
+    # (2.30 - 2.20); join-then-diff would give the two-day change
+    # (2.30 - 2.10) instead.
+    observations = [
+        *_closes("rates:us-10y-yield", [2.00, 2.10, 2.20, 2.30]),
+        *_closes("index:sp500", [10.0, 11.0, 12.0, 13.0], skip={2}),
+    ]
+    panel = build_synchronized_panel(
+        observations,
+        instruments=("rates:us-10y-yield", "index:sp500"),
+    )
+    assert panel.row_count == 2
+    changes = level_changes_on_index(
+        observations,
+        instruments=("rates:us-10y-yield",),
+        index=panel.returns.index,
+    )
+    assert changes["rates:us-10y-yield"].iloc[0] == pytest.approx(10.0)
+    assert changes["rates:us-10y-yield"].iloc[1] == pytest.approx(10.0)
+
+
+def test_level_changes_scale_and_missing_timestamps() -> None:
+    observations = [
+        *_closes("rates:us-10y-yield", [2.00, 2.10, 2.20]),
+        *_closes("index:sp500", [10.0, 11.0, 12.0]),
+    ]
+    panel = build_synchronized_panel(
+        observations,
+        instruments=("rates:us-10y-yield", "index:sp500"),
+    )
+    raw = level_changes_on_index(
+        observations,
+        instruments=("rates:us-10y-yield",),
+        index=panel.returns.index,
+        scale=1.0,
+    )
+    assert raw["rates:us-10y-yield"].iloc[0] == pytest.approx(0.10)
+    # The first close has no prior close, so no change exists there.
+    import pandas as pd
+
+    bad_index = pd.DatetimeIndex([panel.closes.index[0]])
+    with pytest.raises(ValueError, match="unavailable at some index timestamps"):
+        level_changes_on_index(
+            observations,
+            instruments=("rates:us-10y-yield",),
+            index=bad_index,
         )

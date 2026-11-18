@@ -580,12 +580,6 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "rates:us-10y-yield",
-      "target_instrument": "credit:baa-10y-spread"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
-      "source_instrument": "rates:us-10y-yield",
       "target_instrument": "crypto:btc-usdt-perp"
     },
     {
@@ -616,19 +610,7 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "rates:us-10y-yield",
-      "target_instrument": "index:sp500"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
-      "source_instrument": "rates:us-10y-yield",
       "target_instrument": "index:tyvix"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
-      "source_instrument": "rates:us-10y-yield",
-      "target_instrument": "index:vix"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -637,7 +619,7 @@
       "target_instrument": "index:vxn"
     }
   ],
-  "content_hash": "1763020cc81ca0642d63f2bb54236fdf494e45d5f2b7114d210e02750fe4de48",
+  "content_hash": "9705376210fb855bbc39ef9c8510fd6f0aa2e5296ef13434460ed0890166787e",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -1517,6 +1499,395 @@
       "trial_record_hash": "69d75c944b750c9b90a9b08f2f5aa7cb635e2f4bc58ad5c44b966add4f9d480d",
       "verdict_summary": "Hypothesis H0006 REJECTED (trial T0007): this test did not reject (Holm-adjusted p = 1.000); window/non-window mean |log return| ratio 0.9590.",
       "version": 1
+    },
+    {
+      "coefficient": -0.015517379813770384,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); event window [0,+1]; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0007 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0019",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.1599620103450956,
+      "hypothesis_id": "H0007",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "vix_car",
+      "method": "constant-mean event study on log changes, CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "Primary test of H0007: the post-announcement volatility drop for equity vol. The TYVIX leg (E0023) rejected strongly; the VIX drop is much weaker."
+      ],
+      "observations": 135,
+      "p_value": 0.0399905025862739,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "index:vix",
+      "standard_error": 0.00886304127150421,
+      "status": "rejected",
+      "t_statistic": -1.7507962942314967,
+      "target_instrument": "index:vix",
+      "test_type": "event_study",
+      "trial_id": "T0010",
+      "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56",
+      "verdict_summary": "Hypothesis H0007 REJECTED (trial T0010): this test did not reject (Holm-adjusted p = 0.160); standardized mean CAR -0.1507 above the -0.30 threshold; mean CAR -0.015517 over [0,+1] (n = 135 events). No OOS or cost-gate criterion: event study, not a forecast.",
+      "version": 1
+    },
+    {
+      "coefficient": 0.0006693574991539838,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); event window [0,+1]; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0007 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0020",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 1.0,
+      "hypothesis_id": "H0007",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "spx_car",
+      "method": "constant-mean event study on log changes, CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [],
+      "observations": 135,
+      "p_value": 0.6342554696490699,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "index:sp500",
+      "standard_error": 0.0014069645257081995,
+      "status": "rejected",
+      "t_statistic": 0.4757458250889878,
+      "target_instrument": "index:sp500",
+      "test_type": "event_study",
+      "trial_id": "T0010",
+      "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56",
+      "verdict_summary": "Hypothesis H0007 REJECTED (trial T0010): this test did not reject (Holm-adjusted p = 1.000); standardized mean CAR 0.0409.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.949925925925926,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); event window [0,+1]; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0007 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0021",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.8833996142126782,
+      "hypothesis_id": "H0007",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "dgs10_car",
+      "method": "constant-mean event study on level changes (bp), CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "CAR in basis points of the 10-year yield level change."
+      ],
+      "observations": 135,
+      "p_value": 0.29446653807089274,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "rates:us-10y-yield",
+      "standard_error": 0.9060949049309378,
+      "status": "rejected",
+      "t_statistic": -1.0483735431646963,
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "event_study",
+      "trial_id": "T0010",
+      "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56",
+      "verdict_summary": "Hypothesis H0007 REJECTED (trial T0010): this test did not reject (Holm-adjusted p = 0.883); standardized mean CAR -0.0902.",
+      "version": 1
+    },
+    {
+      "coefficient": 0.2717037037037032,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); event window [0,+1]; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0007 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0022",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 1.0,
+      "hypothesis_id": "H0007",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "baa10y_car",
+      "method": "constant-mean event study on level changes (bp), CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "CAR in basis points of the BAA-10Y spread level change."
+      ],
+      "observations": 135,
+      "p_value": 0.5928041663021921,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "credit:baa-10y-spread",
+      "standard_error": 0.5080692981546626,
+      "status": "rejected",
+      "t_statistic": 0.5347768595554719,
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "event_study",
+      "trial_id": "T0010",
+      "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56",
+      "verdict_summary": "Hypothesis H0007 REJECTED (trial T0010): this test did not reject (Holm-adjusted p = 1.000); standardized mean CAR 0.0460.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.03811195530617821,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); event window [0,+1]; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0007 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0023",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 5.0360713932384726e-08,
+      "hypothesis_id": "H0007",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "tyvix_car",
+      "method": "constant-mean event study on log changes, CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "Rates implied volatility falls sharply after FOMC statements; the effect is present in all three policy-cycle splits (descriptive)."
+      ],
+      "observations": 135,
+      "p_value": 1.0072142786476945e-08,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "index:tyvix",
+      "standard_error": 0.006792657701818309,
+      "status": "supported",
+      "t_statistic": -5.610757523667963,
+      "target_instrument": "index:tyvix",
+      "test_type": "event_study",
+      "trial_id": "T0010",
+      "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56",
+      "verdict_summary": "Hypothesis H0007 REJECTED (trial T0010): this test rejected (Holm-adjusted p = 0.000); standardized mean CAR -0.4829; the hypothesis verdict is decided by the primary test (E0019).",
+      "version": 1
+    },
+    {
+      "coefficient": 0.00011738285112419084,
+      "common_factor_control": null,
+      "condition": "one observation per scheduled FOMC event (n = 135); CARs over the same [0,+1] window",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0008 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0024",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.7262425610107872,
+      "hypothesis_id": "H0008",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "spx_on_dgs10",
+      "method": "cross-event OLS of SPX CAR[0,+1] on DGS10 CAR[0,+1], HC0 standard errors (Newey-West max lag 0)",
+      "notes": [
+        "Primary test of H0008. The DGS10 CAR is a proxy for the policy surprise, not the surprise itself: no free federal funds futures surprise series exists.",
+        "Split-half replication (chronological, 67/68 events) is a verdict criterion; both halves' slopes were positive."
+      ],
+      "observations": 135,
+      "p_value": 0.7262425610107872,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "f76d5b6075672990d3462715e48a9109d062c99fa837bd4d03ef7d9daec7582b",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "rates:us-10y-yield",
+      "standard_error": 0.00019515404259904157,
+      "status": "rejected",
+      "t_statistic": 0.6014881862599311,
+      "target_instrument": "index:sp500",
+      "test_type": "cross_section",
+      "trial_id": "T0009",
+      "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af",
+      "verdict_summary": "Hypothesis H0008 REJECTED (trial T0009): this test did not reject (Holm-adjusted p = 0.726); R² 0.0057 below the 0.05 threshold; split-half replication failed (first-half slope +0.000045, second-half slope +0.000316). No OOS or cost-gate criterion: event study, not a forecast.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.0012324735318178226,
+      "common_factor_control": null,
+      "condition": "one observation per scheduled FOMC event (n = 135); CARs over the same [0,+1] window",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0008 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0025",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.393384753801202,
+      "hypothesis_id": "H0008",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "vix_on_dgs10",
+      "method": "cross-event OLS of VIX CAR[0,+1] on DGS10 CAR[0,+1], HC0 standard errors (Newey-West max lag 0)",
+      "notes": [],
+      "observations": 135,
+      "p_value": 0.196692376900601,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "f76d5b6075672990d3462715e48a9109d062c99fa837bd4d03ef7d9daec7582b",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "rates:us-10y-yield",
+      "standard_error": 0.0009546416885425405,
+      "status": "rejected",
+      "t_statistic": -1.2910325901432718,
+      "target_instrument": "index:vix",
+      "test_type": "cross_section",
+      "trial_id": "T0009",
+      "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af",
+      "verdict_summary": "Hypothesis H0008 REJECTED (trial T0009): this test did not reject (Holm-adjusted p = 0.393); R² 0.0159.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.28425950492503244,
+      "common_factor_control": null,
+      "condition": "one observation per scheduled FOMC event (n = 135); CARs over the same [0,+1] window",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0008 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0026",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.0005069168838358071,
+      "hypothesis_id": "H0008",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "baa10y_on_dgs10",
+      "method": "cross-event OLS of BAA10Y CAR[0,+1] on DGS10 CAR[0,+1], HC0 standard errors (Newey-West max lag 0)",
+      "notes": [
+        "BAA10Y contains -DGS10 by definition (spread = BAA yield minus 10-year yield), so the slope is (beta_BAA - 1): BAA yields move about 72% as much as Treasury yields in the event window. The slope and R-squared are not comparable to a clean two-asset transmission test."
+      ],
+      "observations": 135,
+      "p_value": 0.0001689722946119357,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "f76d5b6075672990d3462715e48a9109d062c99fa837bd4d03ef7d9daec7582b",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4330
+      },
+      "source_instrument": "rates:us-10y-yield",
+      "standard_error": 0.07557301109921823,
+      "status": "supported",
+      "t_statistic": -3.761389162485984,
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "cross_section",
+      "trial_id": "T0009",
+      "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af",
+      "verdict_summary": "Hypothesis H0008 REJECTED (trial T0009): this test rejected (Holm-adjusted p = 0.001); R² 0.2570; the hypothesis verdict is decided by the primary test (E0024).",
+      "version": 1
     }
   ],
   "nodes": [
@@ -1528,6 +1899,7 @@
       "name": "Moody's Seasoned Baa Corporate Bond Yield Relative to 10-Year Treasury (BAA10Y)",
       "short_label": "BAA10Y",
       "studies": [
+        "fomc-event-study-005",
         "move-vix-003"
       ]
     },
@@ -1596,6 +1968,7 @@
       "name": "S&P 500 Index",
       "short_label": "SPX",
       "studies": [
+        "fomc-event-study-005",
         "move-vix-003"
       ]
     },
@@ -1607,6 +1980,7 @@
       "name": "CBOE/CBOT 10-Year Treasury Note Volatility Index (TYVIX)",
       "short_label": "TYVIX",
       "studies": [
+        "fomc-event-study-005",
         "move-vix-003"
       ]
     },
@@ -1618,6 +1992,7 @@
       "name": "CBOE Volatility Index (VIX)",
       "short_label": "VIX",
       "studies": [
+        "fomc-event-study-005",
         "move-vix-003"
       ]
     },
@@ -1640,6 +2015,7 @@
       "name": "Market Yield on US Treasury Securities at 10 Years (DGS10)",
       "short_label": "DGS10",
       "studies": [
+        "fomc-event-study-005",
         "move-vix-003"
       ]
     }
@@ -1692,6 +2068,22 @@
       "study": "options-expiry-004",
       "trial_id": "T0007",
       "trial_record_hash": "69d75c944b750c9b90a9b08f2f5aa7cb635e2f4bc58ad5c44b966add4f9d480d"
+    },
+    {
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+      "registration_path": "research/fomc-event-study-005/hypotheses/registrations/H0007/v1.json",
+      "study": "fomc-event-study-005",
+      "trial_id": "T0010",
+      "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56"
+    },
+    {
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "preregistration_fingerprint": "f76d5b6075672990d3462715e48a9109d062c99fa837bd4d03ef7d9daec7582b",
+      "registration_path": "research/fomc-event-study-005/hypotheses/registrations/H0008/v1.json",
+      "study": "fomc-event-study-005",
+      "trial_id": "T0009",
+      "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af"
     }
   ],
   "schema_version": 1
