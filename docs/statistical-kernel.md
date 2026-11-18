@@ -100,14 +100,23 @@ A positive value means the augmented forecasts reduced squared error relative to
 
 These helpers do not train or tune a model. Callers must fit every model using only that fold's training indices, choose hyperparameters without consulting test outcomes, and supply forecasts generated before observing the held-out target. The splitter also cannot establish whether feature values were actually available at each historical decision time; that remains a point-in-time data-pipeline requirement. Non-overlapping test windows, a predeclared fold schedule, full multiple-testing accounting, and realistic costs remain necessary.
 
-## 9. Explicit non-goals in this slice
+## 9. Event studies and clustered event windows
+
+`event_study(returns, events, pre_event_steps, post_event_steps, expected_returns=...)` calculates cumulative abnormal returns (CARs) over an inclusive event window. Event times must exactly match a timezone-aware, unique, ascending return index, and each complete window must fit inside the sample. Window offsets are observation counts, not inferred calendar durations.
+
+When `expected_returns` is supplied, abnormal returns are actual minus expected returns on an exactly matching index. If omitted, the zero-return benchmark is used, so the result is cumulative raw return rather than a market-model abnormal return. The function does not estimate expected returns or a market model; benchmark construction and PIT validity belong to the caller.
+
+Events whose inclusive windows overlap are joined into connected overlap clusters. The function first calculates each event CAR, then averages event CARs within each cluster. Its overall mean and standard error use cluster means as the inference units, avoiding the false assumption that overlapping event windows are independent. The two-sided p-value uses an asymptotic normal reference and is omitted when fewer than two clusters exist. This is a conservative descriptive adjustment, not a full event-level cluster-robust regression or randomization test; results can be sensitive to cluster composition and event dependence beyond the chosen window.
+
+The caller must define the event universe, event timestamps, event window, expected-return model, confounder exclusions, and complete multiple-testing family before inspecting results. Scheduled macro releases must use their actual publication/availability timestamps, not merely the economic period they describe. Unscheduled events and overlapping macro announcements require explicit classification rather than automatic causal attribution.
+
+## 10. Explicit non-goals in this slice
 
 Not implemented yet:
 
-- event-study estimators and clustered event windows;
-- walk-forward validation and out-of-sample incremental R-squared;
-- purging and embargo for overlapping labels;
 - PBO, Deflated Sharpe Ratio and power analysis;
-- calibration, effect-size evidence records and statistical lifecycle decisions.
+- calibration, effect-size evidence records and statistical lifecycle decisions;
+- market-model estimation and multi-factor expected-return estimation inside the event-study function;
+- event-level clustered regression, randomization inference and calendar-aware window construction.
 
 No function in this kernel changes a hypothesis to SUPPORTED or REJECTED. These estimators are research diagnostics. A candidate relationship must still survive pre-registered tests, a complete multiple-testing correction, walk-forward evaluation, data-availability checks and realistic trading costs before it can be considered a potential strategy.

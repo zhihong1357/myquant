@@ -6,6 +6,12 @@ from myquant.stats.bootstrap import (
     block_bootstrap_mean_ci,
     block_bootstrap_mean_test,
 )
+from myquant.stats.event_study import (
+    EventClusterResult,
+    EventStudyResult,
+    EventWindowObservation,
+    event_study,
+)
 from myquant.stats.hac import (
     HACCoefficient,
     HACResult,
@@ -41,6 +47,9 @@ __all__ = [
     "AdjustedPValue",
     "BootstrapInterval",
     "BootstrapMeanTest",
+    "EventClusterResult",
+    "EventStudyResult",
+    "EventWindowObservation",
     "FoldForecastMetrics",
     "HACCoefficient",
     "HACResult",
@@ -54,6 +63,7 @@ __all__ = [
     "block_bootstrap_mean_ci",
     "block_bootstrap_mean_test",
     "evaluate_walk_forward_forecasts",
+    "event_study",
     "lead_lag_scan",
     "log_returns",
     "newey_west_hac",
