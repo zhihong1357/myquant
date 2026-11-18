@@ -18,7 +18,8 @@ trial run for it.
 - **Out of scope (Stage 4b and later):** the conservative paper fill
   model, fees/spread/slippage/impact/financing, latency and stale-data
   stress tests, and continuous L2 reconstruction. 4a parses snapshots;
-  it does not reconstruct the continuous book.
+  it does not reconstruct the continuous book. (The fill model and
+  cost layer are now built in Stage 4b — see `docs/execution.md`.)
 
 ## Data sources (verified live, 2026-11-18)
 
@@ -277,4 +278,5 @@ The fill model (Stage 4b) consumes this layer as follows:
   fill a resting paper order, and how much), the fee schedule
   (maker/taker by VIP level), the spread-crossing assumption, the
   slippage/impact model, and the latency assumption (order-to-book
-  delay). None of those are fixed here.
+  delay). None of those are fixed here. (All five are now decided in
+  Stage 4b — see `docs/execution.md`.)

@@ -58,9 +58,9 @@
 - [x] Trade and quote normalization (OKX trades/books/ticker adapter, canonical `Trade` and `BookSnapshot` records; see `docs/microstructure.md`). OKX `/market/history-trades` reaches back ~90 days (oldest retrievable trade 2026-08-20, found by bisection), but at ~40 trades/s the full window is ~3M pages and effectively unpullable; the validation dataset is two complete UTC hours (2026-11-18 05:00–07:00 UTC) plus book snapshots before and after.
 - [x] Trade-based order-flow metrics (bucketed CVD, volume/count imbalance, VWAP, large-trade share, intensity at 1m/5m/1H; descriptive only, no signals; see `docs/microstructure.md` and `research/microstructure-4a/validation_report.md`).
 - [ ] L2 order-book reconstruction where licensed data permits. Snapshot parsing is done in 4a; continuous reconstruction needs a WebSocket stream and a forward recorder (design only in `docs/microstructure.md`), pending a later decision — no recorder, cron or background process is built in this PR.
-- [ ] Conservative paper fill model.
-- [ ] Fees, spread, slippage, impact and financing.
-- [ ] Latency and stale-data stress tests.
+- [x] Conservative paper fill model (paper orders with decision/available/arrival clocks, resting-limit fills on opposite-aggressor prints at or through the limit with a last-in-queue rule, crossed-at-arrival taker fills capped at the limit, market fills at the book or first-print fallback, explicit missed-fill accounting; see `docs/execution.md` and `src/myquant/execution/`).
+- [x] Fees, spread, slippage, impact and financing (OKX futures Standard Group fee table verified from OKX's own fee notice, effective 2026-09-09, read 2026-11-18 — Regular 0.02% maker / 0.05% taker; half-spread crossing vs arrival mid; configurable adverse slippage, default 1 bp; linear impact vs top-5 depth, default coefficient 5 bps, uncalibrated; 8-hour funding on the 00:00/08:00/16:00 UTC grid with the rate as an input parameter — no funding-rate series pulled, a documented data gap).
+- [x] Latency and stale-data stress tests (order latency scanned 0/100ms/500ms/1s with explicit missed-fill accounting; snapshots usable only within a configurable max age, default 5 s — stale books are unknown, never held; queue-ahead fallback scanned 0/100/1,000 contracts; see `research/microstructure-4b/stress_report.md`).
 
 ## Stage 5 — Portfolio and paper research
 - [ ] Unified prediction contract across horizons.
