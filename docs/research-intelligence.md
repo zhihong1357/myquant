@@ -662,3 +662,182 @@ originally used hypothesis id H0013 — the next real lab id —
 for its placeholder spec; it now uses H9001, mirroring T9001,
 so no validation fingerprint can ever be confused with a real
 H0013 registration.
+
+## 4. Adversarial reviewer (6d)
+
+### What the reviewer is (and is not)
+
+The reviewer is a read-only study auditor: it runs a set of
+checks over one study or the whole lab and returns a verdict
+(PASS / FAIL / UNVERIFIED / NOTE) plus located evidence for
+each. It is the lab's own review discipline — re-derive the
+numbers, check the bindings, compare the report against the
+ledger — written as code, so a future study can be audited the
+same way the first seven were.
+
+It is not a study: it registers no hypothesis, runs no trial,
+fetches no market data and makes no alpha claim. It is not a
+fixer: when it finds a real problem in an existing study, it
+reports the problem and leaves the study untouched — the fix is
+a separate delivery decision. It is not a judge of economics:
+it checks internal consistency (does the record agree with its
+preregistration, its ledger, its report?), not whether a study
+was worth doing.
+
+### Verdict semantics
+
+- **PASS**: the check ran and the record satisfies it.
+- **FAIL**: the check ran and the record violates it, with
+  located evidence (file, record hash, expected vs actual).
+- **UNVERIFIED**: the check could not be performed — data not
+  retained, value not locatable, prerequisite unreadable. This
+  is **not** a pass. "No problem found" and "could not check"
+  are different outcomes and the reviewer never conflates them.
+- **NOTE**: informational only; the check never fails (MDE
+  annotations from the 2B audit).
+
+The reviewer is **read-only**: it reads study directories,
+registries, ledgers, reports, the audit summary and the PIT
+cache, and writes only its own review report under
+`research/review-6d/`. The runner loads ledgers fail-closed: if
+a ledger cannot be verified, the checks that need its records
+are reported UNVERIFIED ("ledger unreadable") rather than run
+on untrusted records. The review is deterministic for a fixed
+timestamp — the timestamp is an input parameter, and re-runs
+reproduce the report byte-identically.
+
+### Checks
+
+| check | what it verifies | evidence on failure |
+| --- | --- | --- |
+| `ledger_chain` | each study's `trials.jsonl` hash chain, via the repo's own `read_and_verify` (no home-grown hash logic) | the verification error |
+| `ledger_anchor` | the ledger against its anchor file (truncation detection — the chain alone cannot catch deleted trailing records) | the anchor mismatch; absent anchor → UNVERIFIED |
+| `registry_events` | the hypothesis registry's lifecycle-event chain and transition legality, via `HypothesisRegistry.read_events` | the verification error |
+| `prereg_binding` | per trial (completed and failed): the trial's hypothesis fingerprint matches the registered spec fingerprint; the research plan matches the preregistration (via the runner's own matcher, so the reviewer applies exactly the definition of "matches" the runner enforces); the record's spec fingerprint matches the stored spec | expected vs recorded fingerprint, or the plan mismatch |
+| `multiple_testing` | per completed trial: the recorded Holm family has exactly the planned test count; every recorded raw p-value matches its test's p-value; every adjusted p-value and reject flag recomputes with the repo's `adjust_pvalues` (tolerance 1e-9) | recorded vs recomputed value |
+| `verdict_consistency` | per completed trial: `supported` equals the conjunction of the recorded criteria; the Holm-adjusted primary p-value criterion and the primary effect criterion re-derive from the metrics and the spec's thresholds | the contradicting criterion and values |
+| `hypothesis_state` | per tested hypothesis version: the registry's lifecycle state (SUPPORTED/REJECTED) matches the latest completed trial's verdict | state vs verdict |
+| `trial_sequence` | lab-wide: trial IDs form a contiguous sequence from T0001, except T0003 (reserved for the preregistered H0003 forward test, not yet run); the known failed trials T0006/T0008/T0014 are present with status `failed` | the missing or duplicated ID |
+| `report_ledger` | per study report: 52 rules locate results-table rows by label and compare the numeric columns against the ledger within the rounding tolerance implied by the report's stated precision | report vs ledger value and tolerance |
+| `pit_spot_check` | per study: every retained PIT observation satisfies `available_at >= event_time` (scoped to historical market-data observations; forecasts legitimately differ) | the violating observation; no retained data → UNVERIFIED |
+| `power_note` | per completed trial: the 2B audit's MDE entry for the primary test, restated next to the trial (informational; an underpowered null is a recorded limitation, not a defect) | — |
+
+Two conventions the checks rely on, both verified against the
+current lab and stated here so a future deviation is visible:
+the primary test of a trial is the first entry of its recorded
+Holm family (`metrics["holm"][0]` — true for all 11 completed
+trials, and the report check independently confirms each
+primary test's identity from the report tables); and the
+verdict criteria keys follow the patterns
+`holm_adjusted_*_p_below_<alpha>`,
+`partial_r_squared_at_least_<t>` / `r_squared_at_least_<t>` /
+`standardized_mean_car_at_most_minus_<t>` /
+`effect_ratio_at_least_<t>`.
+
+### Validation results
+
+From `research/review-6d/validation_report.md` (review at
+2026-11-18T23:30Z; re-runs with the same timestamp reproduce
+all three outputs byte-identically):
+
+**Full-lab review — 94 checks: 75 PASS, 0 FAIL, 8 UNVERIFIED,
+11 NOTE.** Every ledger chain verifies; every trial binds to
+its preregistration (14 records, completed and failed); every
+multiple-testing adjustment recomputes (11 completed trials);
+every verdict re-derives; every lifecycle state agrees; the
+trial-ID sequence is complete with T0003 reserved and all
+three failed trials recorded. The 52 report rules verified
+all 52 rows, across 336 compared numeric cells.
+
+**The reviewer's first run found three real discrepancies —
+and they were fixed, not just reported.** The first run
+(2026-11-19T07:30Z) came back 72 PASS / 3 FAIL / 8 UNVERIFIED
+/ 11 NOTE, all three FAILs report–ledger discrepancies.
+Each was independently confirmed against the raw ledger and
+report files (not taken on the reviewer's word), then
+corrected in the same delivery — five numbers in three
+reports — and the re-run above is clean. None changes any
+verdict or conclusion — all are in the fifth or sixth decimal
+of null results — but each was a genuine disagreement, and
+the reviewer caught real errors in the lab's own records on
+its first run. That is the loop the tool exists for:
+
+1. **Study 003** (3 rows): the "incr R²" column duplicated the
+   partial R² column instead of the ledger's
+   `incremental_r_squared` (R²_full − R²_base). Daily row:
+   report 0.000035, ledger incremental 0.000034; weekly row:
+   report 0.0000086, ledger incremental 0.0000083; weekly
+   no-factor row: report 0.0000086, ledger incremental
+   0.0000084. The other three rows agree at the displayed
+   precision. The mapping is confirmed, not assumed: studies
+   002 and 006 show distinct partial and incremental values
+   that both match their ledgers (e.g. 002 A1: 0.00376 vs
+   0.00374; 006 B: 0.02123 vs 0.02099), and the kernel defines
+   the two quantities differently. The 003 author copied the
+   partial column into the incremental column.
+2. **Study 004** (1 row): the ETH mean-comparison bootstrap CI
+   upper bound read 0.00518 in the report; the ledger value
+   0.0051748 rounds to 0.00517 — a one-unit-in-the-last-place
+   transcription slip. The interval includes zero either way.
+3. **Study 007** (1 row): the DGS10 lagged-CAR standard error
+   read 0.785383 in the report; the ledger value 0.78538236
+   rounds to 0.785382 — a one-unit-in-the-last-place
+   transcription slip. The z-statistic and p-value are
+   unaffected at the displayed precision.
+
+**The eight UNVERIFIEDs are seven PIT checks and one anchor.**
+Studies 001–007 retain no PIT parquet locally, so their PIT
+discipline is currently unverified, not verified — the absence
+of data is not evidence of discipline. Study 005 has no
+`trials.jsonl.anchor`, so truncation of its ledger cannot be
+ruled out by the anchor (only the trial-ID sequence check
+would notice, and only if the deleted record's ID left a gap).
+
+**Adversarial fixtures — 6/6 caught.** Six deliberately
+broken fixtures in tmp dirs, each isolating one violation
+with a valid hash chain except where the violation is the
+chain itself: a tampered ledger record (chain breaks), a
+trial fingerprint that does not match the preregistration, a
+changed adjusted p-value, a verdict flag contradicting its
+criteria, a synthetic panel with `available_at` before
+`event_time`, and the failed trial T0006 deleted from its
+ledger. Every fixture FAILs with the correct reason.
+
+**Rounding-margin diagnostic.** For the 336 compared numeric
+cells, |report − ledger| / rounding-tolerance: the highest
+passing ratio is 0.990 (a correctly rounded value near its
+rounding boundary — expected, since rounding residuals spread
+uniformly in [0, 1]); no cell falls outside tolerance. On the
+first run, before the three discrepancies above were fixed,
+the four failing numeric cells sat at 1.17–5.10, a separate
+population from the passing cells — evidence the tolerance
+is not tuned to pass.
+
+### Limitations
+
+- **Report coverage is table-bound**: only the 52
+  results-table rows with explicit rules are checked. Prose
+  numbers, descriptive split tables and the verdict-criteria
+  tables are not mechanically compared; a discrepancy there
+  would not be caught. Adding a rule is a one-line change in
+  `tables.py`, but each rule's row label and column mapping
+  must be quoted from the report, not guessed.
+- **The primary test is the first Holm-family entry** (see
+  above). A future trial that orders its family differently
+  would be misread by the verdict check.
+- **PIT coverage depends on retained data**: the check runs
+  only where parquet batches still exist. The seven study
+  caches are gone, so the lab's PIT discipline is currently
+  unverified.
+- **Truncation needs anchors**: study 005 has no anchor file
+  (see above). A future study that ships without an anchor
+  has the same gap.
+- **The reviewer trusts the registry's own verification**:
+  registration and event-log integrity come from the repo's
+  `HypothesisRegistry` code, not from an independent
+  reimplementation. A bug shared by the registry and the
+  reviewer would be invisible to both. The reviewer does
+  independently recompute the things it can — adjusted
+  p-values, verdicts, spec fingerprints — but the hash-chain
+  primitive itself is reused by design, not re-derived.
+
