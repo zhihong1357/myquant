@@ -1,0 +1,88 @@
+{
+  "bar": "1D",
+  "cache_root": "data/cache/portfolio-5a",
+  "endpoint": "/market/history-candles",
+  "expected_bars_per_instrument": 49,
+  "fetch_finished_at": "2026-11-18T19:05:10.961667+00:00",
+  "fetch_started_at": "2026-11-18T19:05:06.808541+00:00",
+  "instruments": {
+    "BTC-USDT-SWAP": {
+      "candle_count": 49,
+      "candle_pages": [
+        {
+          "byte_length": 10540,
+          "payload_sha256": "a6dd741031771263398193911564d438771503c34f6e95c75fcc3be5267c7a61",
+          "record_id": "25e45930cd112030e5ef6a3c3b8ba8381964445854ad34bcb544b8e763e42d56",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1795017600000&limit=100"
+        }
+      ],
+      "contract_type": "linear",
+      "contract_value": "0.01",
+      "first_close_price": 84132.7,
+      "first_open": "2026-09-30T16:00:00+00:00",
+      "instruments_payload_sha256": "1a6eeb4c4cc625067010d0110718feaee4a6f03becc60f661b800acb4f5ac4e2",
+      "instruments_record_id": "8bd6c0f0de5be345d55f6a4804aa71651658a18cb399f3b800ab9c3c16881409",
+      "last_close": "2026-11-18T16:00:00+00:00",
+      "last_close_price": 63100.7,
+      "last_open": "2026-11-17T16:00:00+00:00",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "state": "live",
+      "tick_size": "0.1"
+    },
+    "ETH-USDT-SWAP": {
+      "candle_count": 49,
+      "candle_pages": [
+        {
+          "byte_length": 10743,
+          "payload_sha256": "e28b355885295b693934a0d597e9b626e66db38556069466ab73848bffa59770",
+          "record_id": "2083565415a256e569d5020e24e8c2600ff83650cbb43a4a4b0be94a3e5e20fc",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1795017600000&limit=100"
+        }
+      ],
+      "contract_type": "linear",
+      "contract_value": "0.1",
+      "first_close_price": 2681.27,
+      "first_open": "2026-09-30T16:00:00+00:00",
+      "instruments_payload_sha256": "5e5de901b73c7236f43fff8e6086cacac133d7d8cdbd02a7c229d865dbde784c",
+      "instruments_record_id": "7dbeb39bef16cc59cb965aa2a720ccf072f0b9f7052ab0081c8fee296c2a1359",
+      "last_close": "2026-11-18T16:00:00+00:00",
+      "last_close_price": 1767.62,
+      "last_open": "2026-11-17T16:00:00+00:00",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "state": "live",
+      "tick_size": "0.01"
+    },
+    "SOL-USDT-SWAP": {
+      "candle_count": 49,
+      "candle_pages": [
+        {
+          "byte_length": 10003,
+          "payload_sha256": "e46bde9ec01aa0e856e6df6841ce74e9fd658d56a7ff2abcf687fc33b01509f8",
+          "record_id": "3ce0d1d9181d24f766c3592cffe1953beb9cd898e6385655196a659d6c0d6232",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=SOL-USDT-SWAP&bar=1D&after=1795017600000&limit=100"
+        }
+      ],
+      "contract_type": "linear",
+      "contract_value": "1",
+      "first_close_price": 117.32,
+      "first_open": "2026-09-30T16:00:00+00:00",
+      "instruments_payload_sha256": "5b19e03d6285f0020570dfbb9ca3e31b4cbae091caad8ae6ef25c566b244f50a",
+      "instruments_record_id": "25deca2089538cba1bbd166c6804a3656687e26d1c81ddf07a9c0706c793138c",
+      "last_close": "2026-11-18T16:00:00+00:00",
+      "last_close_price": 73.42,
+      "last_open": "2026-11-17T16:00:00+00:00",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "state": "live",
+      "tick_size": "0.01"
+    }
+  },
+  "instruments_endpoint": "/public/instruments",
+  "note": "Daily bars open at 16:00 UTC (midnight UTC+8). The window covers 2026-10-01 to 2026-11-18 in UTC+8 terms; the first bar opens 2026-09-30T16:00Z and the last closes 2026-11-18T16:00Z.",
+  "source_id": "okx-public",
+  "source_version": 1,
+  "window_end": "2026-11-18T16:00:00+00:00",
+  "window_start": "2026-09-30T16:00:00+00:00"
+}

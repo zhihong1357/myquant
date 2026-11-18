@@ -1,0 +1,168 @@
+{
+  "cache_root": "data/cache/funding-history",
+  "current_endpoint": "/public/funding-rate",
+  "endpoint": "/public/funding-rate-history",
+  "fetch_finished_at": "2026-11-18T18:57:58.725668+00:00",
+  "fetch_started_at": "2026-11-18T18:57:47.469474+00:00",
+  "instruments": {
+    "BTC-USDT-SWAP": {
+      "current_rate": {
+        "current_funding_rate": 5.1004228973e-05,
+        "current_funding_time": "2026-11-19T00:00:00+00:00",
+        "current_payload_sha256": "cc3bc478a7fa51ea62f8546cd76bd39e37b0a3134a1a3f5acc71a6a946a82c4f",
+        "current_record_id": "7610f66f4ad7add135510f3450f4d8b222bb60e1c50c69ac3441b94db5b61a69",
+        "history_row_at_prev_settlement": 6.34843947535e-05,
+        "max_funding_rate": 0.00375,
+        "min_funding_rate": -0.00375,
+        "next_funding_time": "2026-11-19T08:00:00+00:00",
+        "prev_funding_time": "2026-11-18T16:00:00+00:00",
+        "settled_funding_rate": 6.34843947535e-05,
+        "settled_rate_matches_history": true
+      },
+      "first_settlement": "2026-08-17T16:00:00+00:00",
+      "formula_types": [
+        "withRate"
+      ],
+      "last_settlement": "2026-11-18T16:00:00+00:00",
+      "methods": [
+        "current_period"
+      ],
+      "page_count": 4,
+      "pages": [
+        {
+          "byte_length": 19046,
+          "payload_sha256": "8fe378b839a8fea8731cce3d6cbedbc0bd3a9154ef84363a95664286bacf77a9",
+          "record_id": "af941d254beaebb66a42b207b8effba5820020885d98e5f656df65d72243a104",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=BTC-USDT-SWAP&limit=100"
+        },
+        {
+          "byte_length": 19504,
+          "payload_sha256": "3765feb778f15d51101e6a682ce9787fa8dbebd18b139b2c44da82bacac3ba84",
+          "record_id": "bf88550c91a68e29268fe53ccdc6c6822a8dfe25ab60f34154a3c1e3b94dafc9",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=BTC-USDT-SWAP&limit=100&after=1792166400000"
+        },
+        {
+          "byte_length": 15428,
+          "payload_sha256": "d51848e85de15317a1b055b7009990e88bdbc4454f40e8423a904738d96d371e",
+          "record_id": "9392d487cf29f20f42d301a60d1032898c5c3e1759fef30ff5f00a7660413d4f",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=BTC-USDT-SWAP&limit=100&after=1789286400000"
+        },
+        {
+          "byte_length": 31,
+          "payload_sha256": "fc24d69479edbb84f22c7d5bd4525349734056ad3baf7a5adf7e553f68c06a3a",
+          "record_id": "2960a0b51a025c645a81b8113d7acc612df8a18c85422a073ecff9f800b96b27",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=BTC-USDT-SWAP&limit=100&after=1786982400000"
+        }
+      ],
+      "rate_count": 280,
+      "rate_not_equal_realized_count": 0
+    },
+    "ETH-USDT-SWAP": {
+      "current_rate": {
+        "current_funding_rate": -4.39314200562e-05,
+        "current_funding_time": "2026-11-19T00:00:00+00:00",
+        "current_payload_sha256": "dceb1bc1ee5ec6a7616ac1fbbb0a110e0d336becee775d6cbdd51a871802f42b",
+        "current_record_id": "2c8a417c97993baeb6a71a3e836c0f2ad16fd2a66031f9f802ab60150c2bbc12",
+        "history_row_at_prev_settlement": -3.48074717455e-05,
+        "max_funding_rate": 0.0075,
+        "min_funding_rate": -0.0075,
+        "next_funding_time": "2026-11-19T08:00:00+00:00",
+        "prev_funding_time": "2026-11-18T16:00:00+00:00",
+        "settled_funding_rate": -3.48074717455e-05,
+        "settled_rate_matches_history": true
+      },
+      "first_settlement": "2026-08-17T16:00:00+00:00",
+      "formula_types": [
+        "withRate"
+      ],
+      "last_settlement": "2026-11-18T16:00:00+00:00",
+      "methods": [
+        "current_period"
+      ],
+      "page_count": 4,
+      "pages": [
+        {
+          "byte_length": 19562,
+          "payload_sha256": "885617a5ea720b288560730c0b8248672df0032b89a65b8913be8e818df050f0",
+          "record_id": "2437b9f4ca42865f8808bc70c99728ae0a26054306bccb854ceb0cf681559426",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=ETH-USDT-SWAP&limit=100"
+        },
+        {
+          "byte_length": 19646,
+          "payload_sha256": "66770f3a34effe207bb644981a902c77c554194b8c80bbc4fd93d845e5b1832d",
+          "record_id": "c6a8a23be68c9db02baf7325c2a8bc90d8f075c585eddc6facaac75f3fa73a96",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=ETH-USDT-SWAP&limit=100&after=1792166400000"
+        },
+        {
+          "byte_length": 15254,
+          "payload_sha256": "2c12b390f97d44ee583f49bbc9eea2a8e023f7eff5f46b73bebd0b633116187b",
+          "record_id": "44c1e3b8e6a3930a0e06e933b3ca11b1a166eca62e447cab6e1217e2337939a3",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=ETH-USDT-SWAP&limit=100&after=1789286400000"
+        },
+        {
+          "byte_length": 31,
+          "payload_sha256": "fc24d69479edbb84f22c7d5bd4525349734056ad3baf7a5adf7e553f68c06a3a",
+          "record_id": "9c17e65fb956882005bb797f89c404e9d6cf9789e1a24bd6abc9a5cb5f5131ee",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=ETH-USDT-SWAP&limit=100&after=1786982400000"
+        }
+      ],
+      "rate_count": 280,
+      "rate_not_equal_realized_count": 0
+    },
+    "SOL-USDT-SWAP": {
+      "current_rate": {
+        "current_funding_rate": 1.64700114185e-05,
+        "current_funding_time": "2026-11-19T00:00:00+00:00",
+        "current_payload_sha256": "8f0fbbc16df1d7560f8edabf0b8bb0681c81d4cb9cc18a8d0f3d387849054cdf",
+        "current_record_id": "10aaf8654adcae933e499f6fc21ab9ce3947d7b4cac48b53a63309bdfafe8723",
+        "history_row_at_prev_settlement": 3.75909433805e-05,
+        "max_funding_rate": 0.0075,
+        "min_funding_rate": -0.0075,
+        "next_funding_time": "2026-11-19T08:00:00+00:00",
+        "prev_funding_time": "2026-11-18T16:00:00+00:00",
+        "settled_funding_rate": 3.75909433805e-05,
+        "settled_rate_matches_history": true
+      },
+      "first_settlement": "2026-08-17T16:00:00+00:00",
+      "formula_types": [
+        "withRate"
+      ],
+      "last_settlement": "2026-11-18T16:00:00+00:00",
+      "methods": [
+        "current_period"
+      ],
+      "page_count": 4,
+      "pages": [
+        {
+          "byte_length": 19338,
+          "payload_sha256": "d419286d5183d65858b351df22059fc6f2eea16db27220f64690ecec2ca80c81",
+          "record_id": "6939f341971125f81ccbe2f5298c518259456408d5a0316a7a573968d57cd673",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=SOL-USDT-SWAP&limit=100"
+        },
+        {
+          "byte_length": 19242,
+          "payload_sha256": "aa5dc5883db9d49d1e08825d2dafe5a0c3fe097abc2c46c06c80a7b5d0c244ff",
+          "record_id": "3b08c46d073f0f551a606adf76d3b303cb111680a4d4e969e329b2d46b2d0586",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=SOL-USDT-SWAP&limit=100&after=1792166400000"
+        },
+        {
+          "byte_length": 15358,
+          "payload_sha256": "a2c2d35928b51de518478129cd8b75d099ab78c05d16c343d9560da969d8b87d",
+          "record_id": "22b08ea6746182202fc28dacc41ab071e271316ca559a6ae0ec204726df336c2",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=SOL-USDT-SWAP&limit=100&after=1789286400000"
+        },
+        {
+          "byte_length": 31,
+          "payload_sha256": "fc24d69479edbb84f22c7d5bd4525349734056ad3baf7a5adf7e553f68c06a3a",
+          "record_id": "d09b9faa70882c508dc3bcbeffc99c4d6c692c191b98f608743e2905db05a3a5",
+          "url": "https://www.okx.com/api/v5/public/funding-rate-history?instId=SOL-USDT-SWAP&limit=100&after=1786982400000"
+        }
+      ],
+      "rate_count": 280,
+      "rate_not_equal_realized_count": 0
+    }
+  },
+  "note": "The manifest's own SHA-256 is not reproducible across pulls: it embeds fetch timestamps. The fetched data is reproducible while the window stays inside the endpoint's ~93-day depth (oldest rows 2026-08-17 as of 2026-11-19).",
+  "source_id": "okx-public",
+  "source_version": 1
+}
