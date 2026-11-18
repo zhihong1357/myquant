@@ -1,0 +1,11 @@
+{
+  "calendar_id": "us-equity",
+  "close_day_offset": "TODO",
+  "early_closes": {},
+  "holidays": [],
+  "open_day_offset": "TODO",
+  "regular_close": "TODO",
+  "regular_open": "TODO",
+  "timezone_name": "TODO",
+  "weekdays": "TODO"
+}

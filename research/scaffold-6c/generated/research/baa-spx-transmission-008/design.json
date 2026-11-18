@@ -1,0 +1,83 @@
+{
+  "acceptance_criteria": [
+    "Holm-adjusted primary p-value below 0.05",
+    "Primary partial R-squared at least 0.005",
+    "Holdout out-of-sample incremental R-squared above 0",
+    "Net daily edge after the round-trip taker cost is positive (TODO: confirm the tradable instrument and fee schedule)"
+  ],
+  "alternative_hypothesis": "Lagged BAA10Y returns explain a positive, out-of-sample component of next day SPX returns beyond the target's own history and the common-factor control.",
+  "benchmark": "TODO",
+  "cost_assumptions": [
+    "TODO"
+  ],
+  "cost_model": "TODO",
+  "design_note": "Fill every TODO, then run preregister.py. Nothing in this file is registered until that script succeeds; the scaffold chose none of these values.",
+  "exclusions": [
+    "TODO"
+  ],
+  "expected_direction": "TODO",
+  "feature_set": [
+    "TODO"
+  ],
+  "fixed_parameters": [
+    "TODO"
+  ],
+  "holdout_window": {
+    "end": "TODO",
+    "start": "TODO"
+  },
+  "horizon_seconds": 86400,
+  "hypothesis_id": "H9001",
+  "known_confounders": [
+    "TODO"
+  ],
+  "mechanism": "TODO",
+  "minimum_effect_size": 0.005,
+  "minimum_holdout_observations": "TODO",
+  "minimum_train_observations": "TODO",
+  "minimum_validation_observations": "TODO",
+  "missing_data_policy": "No forward filling; drop incomplete synchronized rows and report the dropped count",
+  "model_definition": [
+    "Partial lead-lag OLS with Newey-West HAC standard errors",
+    "TODO: robustness checks (frequency, subsample, venue)"
+  ],
+  "multiple_testing_family": "TODO",
+  "multiple_testing_method": "holm",
+  "null_hypothesis": "Lagged BAA10Y returns have no incremental predictive value for next day SPX returns over the target's own history and the common-factor control.",
+  "observation_frequency": "daily",
+  "planned_test_count": "TODO",
+  "primary_metric": "Partial R-squared of lag-1 BAA10Y return in the daily BAA10Y->SPX partial lead-lag regression",
+  "purge_gap_note": "The purge gap equals the horizon (the minimum the validator allows). Raise it if the design needs a longer embargo; never lower it.",
+  "purge_gap_seconds": 86400,
+  "random_seed": "TODO",
+  "rejection_criteria": [
+    "Primary test fails any acceptance criterion",
+    "TODO: state the verdict rule for secondary tests"
+  ],
+  "research_question": "Does the lagged BAA10Y return contain incremental information about the next day SPX return, beyond the target's own history and a common-factor control?",
+  "slug": "baa-spx-transmission-008",
+  "source_instrument": "credit:baa-10y-spread",
+  "source_versions": [
+    "fred@v1",
+    "yahoo-finance@v1"
+  ],
+  "study_number": 8,
+  "target_definition": "daily log return of SPX at t+1; predictor is the daily log return of BAA10Y at t",
+  "target_error_rate": 0.05,
+  "target_instrument": "index:sp500",
+  "test_type": "lead_lag",
+  "title": "TODO",
+  "train_window": {
+    "end": "TODO",
+    "start": "TODO"
+  },
+  "trial_id": "T9001",
+  "universe": [
+    "credit:baa-10y-spread",
+    "index:sp500"
+  ],
+  "validation_window": {
+    "end": "TODO",
+    "start": "TODO"
+  }
+}

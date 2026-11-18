@@ -442,3 +442,183 @@ flat-map shape.
 - The DVOL provisional-point exclusion depends on the probe
   date: a probe run without `as_of` counts the current day's row
   as the latest point. The probe script always passes it.
+
+## 3. Experiment/code assistant (6c)
+
+`src/myquant/scaffolding/` generates the standard study directory
+for a new study: README, design, preregister/fetch/run_trial
+skeletons, contract stubs, a parked planner draft, and a report
+template. Validation: `research/scaffold-6c/validate_scaffold.py`
+(offline, deterministic), report in
+`research/scaffold-6c/validation_report.md`, an as-generated
+inspection copy (TODOs intact) in `research/scaffold-6c/generated/`.
+
+### What the scaffold is (and is not)
+
+The scaffold wires structure. It does not design: the generated
+`run_trial.py` carries explicit TODO markers for every study-specific
+design decision (regression settings, acceptance criteria,
+window/sample definitions), and the scaffold never picks a
+threshold, a window, or a test. Thresholds and criteria come from
+the study spec, written verbatim. The scaffold does not start a
+study either: after generation, no hypothesis is registered, no
+trial has run, no data has been pulled — the directory contains no
+`trials.jsonl`, no `manifest.json`, no panel. A study starts when
+its hypothesis is registered, not when its directory is generated.
+
+### Inputs
+
+Two ways to specify a study:
+
+- A `StudySpec` (pydantic `StrictContract`): study number and slug,
+  hypothesis id, source/target instruments, test type (lead-lag,
+  mean comparison, event study, cross-section), frequency (daily,
+  1h, monthly), source ids, universe, calendar ids, the minimum
+  effect size, and the acceptance criteria. Mean-comparison and
+  event-study specs must be self-loops (source == target);
+  lead-lag and cross-section specs must have distinct instruments.
+  Instrument ids must already satisfy the catalog contract's
+  pattern, so a bad id is refused at spec time.
+- A 6a preregistration draft (`spec_from_planner_draft`): the
+  draft's known fields (pair, suggested test, frequency, lab
+  threshold, estimated joint sample, templated question and
+  hypotheses) map onto a spec, and its TODO fields stay TODO —
+  never silently filled. Source ids and calendar ids are explicit
+  parameters, not derived from the draft: the draft's
+  `source_versions` are descriptive strings, not ids, and the
+  mapping never guesses an id from prose.
+
+### Generated files
+
+For a spec, `generate()` writes (13 files for the BAA10Y→SPX
+validation case):
+
+- `README.md` — question, design, data, results; all TODO.
+- `spec.json` — the scaffold spec, sorted JSON.
+- `design.json` — the preregistration design. Filled fields come
+  from the spec (or, for the purge gap, from the spec horizon:
+  the purge gap equals the horizon, the minimum the validator
+  allows). Every other design decision is a literal `"TODO"`.
+- `preregister.py` — reads `design.json`, scans it and the stubs
+  for TODOs, and refuses to register while any remain, listing
+  exactly what is missing by JSON path. When TODO-free it builds
+  the `HypothesisSpec` through the repo's real validation and
+  registers through the repo's `HypothesisRegistry` (fingerprint,
+  immutable v1 snapshot, hash-chained event). No scaffold-side
+  registration machinery exists.
+- `fetch_data.py` — fetches the registered sample window
+  ([train start, holdout end)) into a RawStore and a PIT store,
+  and writes a manifest and a panel summary (counts only). Each
+  instrument's source is inferred from its catalog metadata key
+  (`fred_series`, `yahoo_symbol`, `okx_inst_id`,
+  `deribit_currency`, `hyperliquid_coin`); an instrument with no
+  known key — or several — is refused. Implemented fetchers call
+  the repo's real adapter APIs (OKX, FRED, Yahoo, Deribit DVOL,
+  Hyperliquid); sources without an adapter helper (Fiscal Data,
+  Federal Reserve, BLS) and frequencies an adapter cannot serve
+  are TODO fetchers that fail fast before any fetch.
+- `run_trial.py` — loads the panel, runs the primary test for the
+  spec's test type, adjusts the (single-test) family, and records
+  the verdict through the `ExperimentRunner`. The verdict covers
+  the primary criterion only; the walk-forward OOS evaluation and
+  the cost gate are stub functions, not wired in. Design hooks
+  (`condition_mask`, `load_events`, `load_event_cars`) raise
+  `NotImplementedError` until the researcher defines them. The
+  mean-comparison test carries the study 004/006 bootstrap
+  cross-check (the OLS coefficient must equal the weighted-series
+  mean — the guard that caught the T0006 weights bug).
+- `sources/<id>/v1.json` stubs — provider and description from the
+  6b registry; everything else TODO, license `"unknown"` until the
+  researcher sets `"approved"` with a permission basis. Only
+  `SourceDefinition` fields appear, so a filled stub is a valid
+  contract.
+- `catalog/instruments/<id>/v1.json` and
+  `catalog/calendars/<id>/v1.json` stubs — same convention.
+- `hypotheses/registrations/<HID>/draft.json` — the planner-draft
+  format JSON, parked. The registry only globs `v*.json`, so the
+  draft is invisible to it: it is not a registration.
+- `docs/studies/<slug>.md` — the report template.
+
+### Guards
+
+The generator refuses rather than guesses: an unknown source id
+(not in the caller-supplied known-source mapping), an existing
+target directory, an existing report, or a target that does not
+sit directly under `research/` all raise `ScaffoldError` and write
+nothing. Generation is deterministic: the same spec, known sources
+and source metadata always produce byte-identical files — no
+generation timestamps, sorted file and JSON-key order.
+
+### Validation results
+
+From `research/scaffold-6c/validation_report.md` (planner template
+BAA10Y→SPX, rank 1, daily lead-lag; hypothesis id H9001 and trial id
+T9001 are synthetic wiring-test ids, deliberately never lab ids —
+the next real hypothesis id is H0013):
+
+- (a) The unfilled scaffold's `preregister.py` exits 1 listing 51
+  missing items by JSON path. With a minimal design filled in
+  (values mirror the committed study 003/005 contracts; mechanism
+  and cost text marked as wiring placeholders), it registers H9001
+  as v1: fingerprint
+  `30c355bc3934e445f4d2e38d9404a514835728f2beda2321765e41c87f279c5e`
+  (recomputed independently from the registered spec, matches).
+- (b) The generated Python files pass ruff and mypy strict for all
+  four test types (12 files). mypy runs with `MYPYPATH=src`
+  because the installed `myquant` package carries no `py.typed`
+  marker; one study at a time, because all four share filenames
+  and mypy rejects duplicate modules. Note the bar is stricter
+  than the repo's own study scripts: study 001's `run_trial.py`
+  has 2 pre-existing strict errors under the same invocation.
+- (c) The same spec generated twice: 13 files, all byte-identical.
+- (d) All three guards refuse: existing directory, unknown source
+  id, unknown test type.
+- (e) The generated `run_trial.py` runs end to end in a tmp git
+  repo on a fixed-seed synthetic panel (seed 1234, 500 daily bars,
+  independent random walks): 499 return rows, trial T9001
+  completed, 1 ledger record verified with `read_and_verify`,
+  primary test 498 observations, coefficient 0.074561, p 0.1483,
+  partial R² 0.004470, verdict False. Conclusion: the wiring
+  works. The numbers claim nothing — independent walks have no
+  transmission by construction.
+
+### Limitations
+
+- One test type (lead-lag) was wired end to end. The other three
+  types were generated and lint-checked, but their design hooks
+  raise `NotImplementedError` until a researcher defines them —
+  no wiring run exists for them yet.
+- The synthetic panel is Gaussian daily noise with a simplified
+  PIT convention (`available_at` = `event_time`); it validates
+  machinery, not market behaviour.
+- The fetch skeleton was not run against live endpoints in
+  validation (no real data was fetched by design). Its fetchers
+  mirror the adapters' real APIs and the fetch flows of studies
+  001/003/005, but the first real fetch of a scaffolded study is
+  still untested ground.
+- The planner-draft mapping covers the 6a draft format only. A
+  draft with an unknown test type, a non-two-instrument universe,
+  or a non-draft flag is refused, not repaired.
+- The scaffold knows nothing about economics and does not try:
+  it cannot tell a sensible study from a nonsensical one. That
+  judgement stays with the researcher — which is the point.
+
+### Independent review
+
+The validation was re-run from a clean checkout and reproduced
+the report exactly except the three wall-clock values (report
+timestamp, registration hash, ledger record hash). The synthetic
+wiring numbers were recomputed independently in plain numpy (no
+repo imports: the panel regenerated from seed 1234, the partial
+lead-lag OLS and the Bartlett Newey-West HAC re-derived from
+first principles): 498 observations, coefficient 0.074561,
+p 0.1483, partial R² 0.004470, verdict False — all match. The
+study-001 comparison was also checked directly: 001's
+`run_trial.py` has exactly 2 pre-existing strict errors under
+the same mypy invocation (an `arg-type` at line 203 and an
+`operator` at line 579), so the scaffold's stricter bar is a
+real difference, not a claim. One review fix: the validation
+originally used hypothesis id H0013 — the next real lab id —
+for its placeholder spec; it now uses H9001, mirroring T9001,
+so no validation fingerprint can ever be confused with a real
+H0013 registration.
