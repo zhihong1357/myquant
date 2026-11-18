@@ -1,0 +1,89 @@
+{
+  "audit_notes": [
+    "Power: observed partial R^2 0.00011 vs MDE 0.00552 at n=1414 (80% power, alpha 0.05) \u2014 the design was underpowered for an effect of the observed size; the null result rules out large effects, not small ones."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (4 of 4 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": {
+      "days": 318,
+      "flips": 150,
+      "gross_daily_edge": -0.0003970775771753617,
+      "kind": "cost_gate",
+      "net_daily_edge": -0.0008719203444709597,
+      "net_edge_bootstrap_p_value": 0.656671664167916,
+      "net_edge_ci_lower": -0.004407524871467431,
+      "net_edge_ci_upper": 0.0027696361064478217,
+      "total_cost": 0.15100000000000002
+    },
+    "family_tests": [
+      {
+        "edge_id": "E0001",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.7177902744418998,
+        "reject": false,
+        "test_key": "daily_btc_eth"
+      },
+      {
+        "edge_id": "E0002",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.5934400317744482,
+        "reject": false,
+        "test_key": "daily_btc_sol"
+      },
+      {
+        "edge_id": "E0003",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.8701308866282107,
+        "reject": false,
+        "test_key": "hourly_btc_eth"
+      }
+    ],
+    "holdout_oos": {
+      "all_oos_incremental_r_squared": -0.0021183544109724117,
+      "holdout_oos_incremental_r_squared": -0.000953863561724555
+    },
+    "primary_test": {
+      "coefficient": 0.025176549532828104,
+      "observations": 1414,
+      "p_value": 0.7177902744418998,
+      "partial_r_squared": 0.00010990546273016321,
+      "standard_error": 0.06966132086586758,
+      "t_statistic": 0.3614136111674567,
+      "test_key": "daily_btc_eth",
+      "test_type": "lead_lag",
+      "within_study_holm_adjusted_p_value": 1.0,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2023-01-02T16:00:00Z",
+      "last": "2026-11-16T16:00:00Z",
+      "observations": 1414,
+      "panel_rows": 1415
+    },
+    "verdict_criteria": {
+      "holdout_oos_incremental_r_squared_above_0": false,
+      "holm_adjusted_primary_p_below_0.05": false,
+      "net_daily_edge_after_costs_positive": false,
+      "primary_partial_r_squared_at_least_0.005": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0001",
+  "hypothesis_version": 1,
+  "ledger_path": "research/btc-eth-001/trials.jsonl",
+  "ledger_test_key": "daily_btc_eth",
+  "limitations": [
+    "The primary test is daily frequency; the 1H robustness leg is also null (see evidence.family_tests).",
+    "Same-day comovement is strong (see the study report descriptives); the rejection is about overnight carryover, not about same-day transmission."
+  ],
+  "preregistration_fingerprint": "1938d1bd8e5aef94c938ef0576987fa42f6d0f02649cd4955cb432511a21d008",
+  "primary_edge_id": "E0001",
+  "record_id": "DR-H0001",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/btc-eth-transmission-001.md",
+  "schema_version": 1,
+  "study": "btc-eth-001",
+  "trial_id": "T0001",
+  "trial_record_hash": "7cf678cdaffae790217827a2b3c3c7b5ab27231972f27edb9407bb1229c8dd1d"
+}

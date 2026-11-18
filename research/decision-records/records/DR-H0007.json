@@ -1,0 +1,89 @@
+{
+  "audit_notes": [
+    "Power: |observed standardized mean CAR| 0.1507 vs MDE 0.2140 at n=135 (80% power, alpha 0.05, one-sided) \u2014 the effect sits below the detection limit of the design."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (2 of 2 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": null,
+    "family_tests": [
+      {
+        "edge_id": "E0019",
+        "holm_adjusted_p_value": 0.1599620103450956,
+        "raw_p_value": 0.0399905025862739,
+        "reject": false,
+        "test_key": "vix_car"
+      },
+      {
+        "edge_id": "E0020",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.6342554696490699,
+        "reject": false,
+        "test_key": "spx_car"
+      },
+      {
+        "edge_id": "E0021",
+        "holm_adjusted_p_value": 0.8833996142126782,
+        "raw_p_value": 0.29446653807089274,
+        "reject": false,
+        "test_key": "dgs10_car"
+      },
+      {
+        "edge_id": "E0022",
+        "holm_adjusted_p_value": 1.0,
+        "raw_p_value": 0.5928041663021921,
+        "reject": false,
+        "test_key": "baa10y_car"
+      },
+      {
+        "edge_id": "E0023",
+        "holm_adjusted_p_value": 5.0360713932384726e-08,
+        "raw_p_value": 1.0072142786476945e-08,
+        "reject": true,
+        "test_key": "tyvix_car"
+      }
+    ],
+    "holdout_oos": null,
+    "primary_test": {
+      "coefficient": -0.015517379813770384,
+      "direction": "less",
+      "observations": 135,
+      "p_value": 0.0399905025862739,
+      "standard_error": 0.00886304127150421,
+      "standardized_mean_car": -0.15068455311467216,
+      "t_statistic": -1.7507962942314967,
+      "test_key": "vix_car",
+      "test_type": "event_study",
+      "within_study_holm_adjusted_p_value": 0.1599620103450956,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2003-01-03T21:00:00Z",
+      "last": "2020-05-15T21:00:00Z",
+      "observations": 135,
+      "panel_rows": 4330
+    },
+    "verdict_criteria": {
+      "holm_adjusted_primary_p_below_0.05": false,
+      "primary_standardized_mean_car_at_most_minus_0.3": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0007",
+  "hypothesis_version": 1,
+  "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+  "ledger_test_key": "vix_car",
+  "limitations": [
+    "DGS10 is a proxy for the policy surprise; no free fed-funds-futures surprise series exists.",
+    "FRED publication lag was not modelled in this study; study 007 closed that limitation."
+  ],
+  "preregistration_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+  "primary_edge_id": "E0019",
+  "record_id": "DR-H0007",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/fomc-event-study-005.md",
+  "schema_version": 1,
+  "study": "fomc-event-study-005",
+  "trial_id": "T0010",
+  "trial_record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56"
+}

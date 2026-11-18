@@ -1,0 +1,91 @@
+{
+  "audit_notes": [
+    "Power: observed partial R^2 0.00008 vs MDE 0.00368 at n=2124 (80% power, alpha 0.05) \u2014 the design was underpowered for an effect of the observed size; the null result rules out large effects, not small ones."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (4 of 4 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": {
+      "days": 683,
+      "flips": 31,
+      "gross_daily_edge": -0.0003593334018241835,
+      "kind": "cost_gate",
+      "net_daily_edge": -0.0004369322305211089,
+      "net_edge_bootstrap_p_value": 0.2748625687156422,
+      "net_edge_ci_lower": -0.0012042691553076689,
+      "net_edge_ci_upper": 0.00035189818515526846,
+      "total_cost": 0.053000000000000005,
+      "window_days": 88
+    },
+    "family_tests": [
+      {
+        "edge_id": "E0014",
+        "holm_adjusted_p_value": 0.6938231572768055,
+        "raw_p_value": 0.6938231572768055,
+        "reject": false,
+        "test_key": "daily_btc_eth_interaction"
+      },
+      {
+        "edge_id": "E0015",
+        "holm_adjusted_p_value": 0.33644632580344835,
+        "raw_p_value": 0.11214877526781611,
+        "reject": false,
+        "test_key": "daily_btc_eth_window"
+      },
+      {
+        "edge_id": "E0016",
+        "holm_adjusted_p_value": 0.4663224152039427,
+        "raw_p_value": 0.23316120760197134,
+        "reject": false,
+        "test_key": "hourly_btc_eth_interaction"
+      }
+    ],
+    "holdout_oos": {
+      "all_oos_incremental_r_squared": -0.0021292899185128,
+      "holdout_oos_incremental_r_squared": -0.0006688829025456311,
+      "window_holdout_oos_incremental_r_squared": -0.007719678100280847
+    },
+    "primary_test": {
+      "coefficient": -0.035832376979457355,
+      "observations": 2124,
+      "p_value": 0.6938231572768055,
+      "partial_r_squared": 8.365601959676024e-05,
+      "standard_error": 0.09102087451487953,
+      "t_statistic": -0.3936720798436154,
+      "test_key": "daily_btc_eth_interaction",
+      "test_type": "lead_lag",
+      "within_study_holm_adjusted_p_value": 0.6938231572768055,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2021-01-22T16:00:00Z",
+      "last": "2026-11-16T16:00:00Z",
+      "observations": 2124,
+      "panel_rows": 2125
+    },
+    "verdict_criteria": {
+      "a_partial_r_squared_at_least_0.005": false,
+      "holm_adjusted_a_p_below_0.05": false,
+      "net_daily_edge_after_costs_positive": false,
+      "window_holdout_oos_incremental_r_squared_above_0": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0005",
+  "hypothesis_version": 1,
+  "ledger_path": "research/options-expiry-004/trials.jsonl",
+  "ledger_test_key": "daily_btc_eth_interaction",
+  "limitations": [
+    "The expiry window is a proxy for dealer-hedging intensity, not a measure of dealer gamma; no dealer-position data exists in the public sources used.",
+    "The expiry calendar is rule-constructed (last Friday of month); a historical rule change cannot be ruled out from public data."
+  ],
+  "preregistration_fingerprint": "5c9d73af2bd7efae02f7113c1b6f868dc5492efdb24da2d1ccd150f172f7f133",
+  "primary_edge_id": "E0014",
+  "record_id": "DR-H0005",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/options-expiry-004.md",
+  "schema_version": 1,
+  "study": "options-expiry-004",
+  "trial_id": "T0005",
+  "trial_record_hash": "644b4221b24643bdf95470bde06b26911727b9281c1de8aafcd5845008bff935"
+}

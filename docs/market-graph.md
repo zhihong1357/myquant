@@ -9,9 +9,9 @@ descriptively only). An edge is a hypothesis, not a causal chain — the
 architecture's rule from the start. The graph records what was measured,
 never what the market "is".
 
-## The headline: transmission is null everywhere tested; macro-window volatility and two event-study findings stand
+## The headline: transmission is null everywhere tested; macro-window volatility and four event-study findings stand
 
-All 28 family tests across the six completed studies are in the graph.
+All 36 family tests across the seven completed studies are in the graph.
 No lag-1 transmission was found for any tested pair, frequency or regime
 condition:
 
@@ -21,14 +21,16 @@ condition:
 - TYVIX → VIX and TYVIX → VXN, daily and weekly (study 003);
 - no expiry-window volatility uplift for BTC or ETH (study 004, H0006);
 - no FOMC event-window response for VIX, SPX, DGS10 or BAA10Y, and no
-  cross-event rates → equity transmission (study 005).
+  cross-event rates → equity transmission (study 005);
+- no next-day SPX response to the latest published CPI MoM
+  (study 007, H0012).
 
 The naive scans agree in both markets: same-day co-movement is strong
 (BTC/ETH lag-0 correlation 0.811; TYVIX/VIX 0.362) and the lag-1
 correlation is near zero. Information moves within the day, not across
 days — in crypto perpetuals and in rates/equity volatility alike.
 
-Four edges rejected their nulls. Two are study 006's H0010 family —
+Six edges rejected their nulls. Two are study 006's H0010 family —
 the lab's first supported hypothesis: realized volatility is higher on
 macro release days for BTC (ratio 1.2504, Holm p = 0.0098, E0030) and
 ETH (ratio 1.2976, Holm p = 0.0058, E0031) — a level effect on known
@@ -40,9 +42,13 @@ event-window CARs co-move with DGS10 CARs across events (E0026) —
 though the second is partly mechanical, since the spread contains the
 10-year yield by definition. Both study 005 hypotheses were rejected
 on their primary tests; the supported edges are live findings with
-their caveats on the edge notes, not rescues.
+their caveats on the edge notes, not rescues. Two are study 007's
+lagged event-study legs: the TYVIX drop after FOMC statements survives
+a one-trading-day FRED publication lag (E0032), and the lagged VIX leg
+is significant too, because the day +1 rebound drops out of the lagged
+window (E0033).
 
-That pattern — nulls almost everywhere, four narrow findings — is the
+That pattern — nulls almost everywhere, six narrow findings — is the
 graph's most important information right now. It is what stops the next
 study from re-testing the same edges, and it is the baseline any future
 positive result has to beat.

@@ -116,13 +116,156 @@ Events whose inclusive windows overlap are joined into connected overlap cluster
 
 The caller must define the event universe, event timestamps, event window, expected-return model, confounder exclusions, and complete multiple-testing family before inspecting results. Scheduled macro releases must use their actual publication/availability timestamps, not merely the economic period they describe. Unscheduled events and overlapping macro announcements require explicit classification rather than automatic causal attribution.
 
-## 10. Explicit non-goals in this slice
+## 10. Backtest-overfitting diagnostics: PBO and Deflated Sharpe Ratio
+
+`src/myquant/stats/overfitting.py` implements two diagnostics from
+Bailey, Borwein, López de Prado and Zhu for the question "how much of
+this backtest's Sharpe ratio is selection bias?".
+
+**Deflated Sharpe Ratio (DSR)** — Bailey & López de Prado (2014), "The
+Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest
+Overfitting and Non-Normality", *Journal of Portfolio Management*
+40(5). Given an observed Sharpe ratio SR̂ estimated from T
+observations, with return skewness γ₃ and excess kurtosis κ, after
+selecting the best of N independent trials:
+
+`Var[SR̂] = (1 + ½·SR̂² − γ₃·SR̂ + (κ/4)·SR̂²) / (T − 1)`
+
+`E[max SR̂ | H₀] = √(1/(T−1)) · ((1−γ)·Φ⁻¹(1 − 1/N) + γ·Φ⁻¹(1 − 1/(N·e)))`
+
+with γ = 0.5772 (Euler–Mascheroni), and
+
+`DSR = Φ((SR̂ − E[max SR̂ | H₀]) / √Var[SR̂])`.
+
+`deflated_sharpe_ratio` takes the Sharpe ratio and moments directly;
+`deflated_sharpe_ratio_from_returns` estimates them from a return
+series. DSR is a probability in [0, 1]: the probability that the true
+Sharpe ratio is positive after deflating for selection over N trials
+and for non-normality. Bailey & López de Prado suggest DSR ≥ 0.95 as
+the threshold for claiming skill. The Sharpe ratio and T must use
+consistent units (a per-period Sharpe with T in periods, or an
+annualized Sharpe with T in years). With N = 1 there is no selection,
+so E[max SR̂ | H₀] = 0.
+
+**Probability of Backtest Overfitting (PBO)** — Bailey, Borwein, López
+de Prado & Zhu (2014/2017), "The Probability of Backtest Overfitting",
+*Journal of Computational Finance* 20(5).
+`probability_of_backtest_overfitting` runs combinatorially symmetric
+cross-validation (CSCV): split the sample into S contiguous groups (S
+even); for each of the C(S, S/2) ways to choose half the groups as
+in-sample, select the strategy with the best in-sample Sharpe ratio
+and record its out-of-sample rank ω = rank/(N+1). PBO is the fraction
+of splits with ω < 0.5. PBO near 0 means the in-sample-optimal
+strategy reliably stays good out-of-sample (a persistent edge); near
+0.5 is what pure noise produces; near 1 means the in-sample edge
+systematically reverses out-of-sample — the signature of overfitting.
+Strategy performance is the per-period Sharpe ratio computed from
+group sufficient statistics, so all splits are cheap even for S = 16
+(12,870 splits); above `max_combinations` a fixed-seed random subset
+of distinct splits is used instead.
+
+Neither diagnostic proves the absence of overfitting. A low PBO or a
+high DSR says the observed edge survives *these* corrections; a
+misspecified trial count, non-stationary returns, or a strategy set
+chosen after seeing the data can still mislead. DSR assumes the N
+trials are independent (or that N is the *effective* number of
+independent trials) and that the normal approximation to the
+distribution of SR̂ holds. PBO measures the *procedure*
+(select-the-best on this data), not any single strategy.
+
+**Applicability to this lab.** The seven completed studies are
+hypothesis tests, not strategy backtests, and the cost gates keep
+aggregate statistics only, so the lab has no stored strategy-return
+series to feed PBO/DSR. Both methods are validated on synthetic data
+with known ground truth (see `tests/test_stats_overfitting.py` and
+`research/statistical-audit-2b/report.md` §4) and are ready to use
+when the lab does have strategy-return series; no lab-real-data
+PBO/DSR is computed or claimed.
+
+The normal quantile function both methods need is implemented in
+`src/myquant/stats/_normal.py` (Acklam's rational approximation plus
+one Halley refinement step, near machine precision) because the kernel
+depends only on NumPy, pandas, pydantic and pyarrow — there is no
+SciPy dependency.
+
+## 11. Calibration
+
+`src/myquant/stats/calibration.py` checks the lab's testing procedures
+against known nulls, using the synthetic factory
+(`make_transmission_panel`) where it fits and direct AR(1) generation
+where it does not (the factory has no autocorrelated null scenario).
+Every rate is reported with its Monte Carlo standard error,
+√(p(1−p)/R), so a deviation from the nominal level is judged against
+simulation noise rather than eyeballed.
+
+- `calibrate_hac_size`: empirical size of the lead-lag HAC t-test
+  (`partial_lead_lag`, lag 1) on NULL panels — iid Gaussian, and AR(1)
+  with φ = 0.3 — at the lab's daily sample size. The HAC p-value is
+  asymptotic, so the question is whether the nominal 5% level holds
+  at n ~ 1,400.
+- `calibrate_bootstrap_coverage`: empirical coverage of
+  `block_bootstrap_mean_ci` on series with known mean zero, iid and
+  AR(1) with φ = 0.3. Block-bootstrap coverage is approximate and
+  block-length sensitive; a shortfall is reported honestly.
+- `calibrate_holm_fwer`: empirical family-wise error rate of Holm
+  correction on families of null p-values, independent (uniform) and
+  equicorrelated (Gaussian copula, ρ = 0.3). Holm controls FWER under
+  arbitrary dependence, so both variants should stay at or below the
+  nominal level; the correlated variant is the informative one for the
+  lab, whose tests reuse the same data.
+
+A calibration result describes the *procedure*, not any single study:
+a well-calibrated procedure can still produce a false positive on one
+real dataset, and a miscalibrated one does not retroactively
+invalidate a study's preregistered verdict. Measured values at
+audit-scale replication counts are in
+`research/statistical-audit-2b/report.md` §2.
+
+## 12. Power analysis: minimum detectable effects
+
+`src/myquant/stats/power.py` computes the minimum detectable effect
+(MDE): the smallest true effect a design can detect with a given power
+(default 80%) at a given significance level (default α = 0.05). The
+MDE is a property of the *design* — sample size, noise level, test
+direction — not an observed conclusion. An observed effect below the
+MDE means the design was underpowered for an effect of that size, not
+that the effect does not exist.
+
+All formulas use the normal approximation to the noncentral t
+distribution: for a two-sided test, the required noncentrality is
+λ = z_{1−α/2} + z_{power} (2.80 at α = 0.05, power 0.80); for a
+one-sided test, λ = z_{1−α} + z_{power} (2.49). The approximation is
+accurate at the lab's sample sizes (n ≥ 100).
+
+- **Lead-lag OLS** (`mde_partial_r_squared`, `mde_coefficient`): for a
+  single-coefficient F-test, partial R² = t²/(t² + df), so with
+  t = λ and df ≈ n, MDE(R²_partial) = λ²/(λ² + n); the coefficient
+  MDE is λ × SE(β̂). At n = 1,414 the partial-R² MDE is 0.0055 —
+  essentially the lab's preregistered 0.005 effect-size threshold, so
+  the threshold is the detection limit of the design.
+- **Event-study CAR** (`mde_standardized_mean`): for a one-sample mean
+  of n events, MDE = λ/√n. One-sided by default because the lab's
+  primary CAR tests are one-sided (direction "less"). At n = 135 the
+  one-sided MDE is 0.214.
+- **Mean comparison** (`mde_cohens_d`, `mde_mean_ratio`): Cohen's d
+  MDE is λ·√(1/n₁ + 1/n₂); the effect-ratio form used by the lab
+  follows as 1 + λ·SE(diff)/mean_base.
+
+`simulate_lead_lag_power` checks the analytic MDE by simulation:
+panels from the factory's SOURCE_LEADS_TARGET scenario at a true
+coefficient equal to the MDE should reject at about the claimed power.
+At n = 1,414 the measured power at the MDE coefficient is 0.79 ± 0.03
+(200 replications), confirming the normal approximation at this sample
+size. The full MDE tables, juxtaposed with the observed effects of
+each study, are in `research/statistical-audit-2b/report.md` §3.
+
+## 13. Explicit non-goals in this slice
 
 Not implemented yet:
 
-- PBO, Deflated Sharpe Ratio and power analysis;
-- calibration, effect-size evidence records and statistical lifecycle decisions;
 - market-model estimation and multi-factor expected-return estimation inside the event-study function;
 - event-level clustered regression, randomization inference and calendar-aware window construction.
+
+Implemented in Stage 2B (previously listed here): PBO and Deflated Sharpe Ratio (§10), calibration (§11) and power analysis (§12); effect-size evidence records live in `research/decision-records/` (15 records, generated from the trial ledgers and the registry, drift- and ledger-verified), and the lab-wide statistical audit in `research/statistical-audit-2b/`.
 
 No function in this kernel changes a hypothesis to SUPPORTED or REJECTED. These estimators are research diagnostics. A candidate relationship must still survive pre-registered tests, a complete multiple-testing correction, walk-forward evaluation, data-availability checks and realistic trading costs before it can be considered a potential strategy.

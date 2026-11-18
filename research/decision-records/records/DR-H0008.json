@@ -1,0 +1,75 @@
+{
+  "audit_notes": [
+    "Power: observed R^2 0.0057 vs MDE 0.0549 at n=135 (80% power, alpha 0.05)."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (3 of 3 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": null,
+    "family_tests": [
+      {
+        "edge_id": "E0024",
+        "holm_adjusted_p_value": 0.7262425610107872,
+        "raw_p_value": 0.7262425610107872,
+        "reject": false,
+        "test_key": "spx_on_dgs10"
+      },
+      {
+        "edge_id": "E0025",
+        "holm_adjusted_p_value": 0.393384753801202,
+        "raw_p_value": 0.196692376900601,
+        "reject": false,
+        "test_key": "vix_on_dgs10"
+      },
+      {
+        "edge_id": "E0026",
+        "holm_adjusted_p_value": 0.0005069168838358071,
+        "raw_p_value": 0.0001689722946119357,
+        "reject": true,
+        "test_key": "baa10y_on_dgs10"
+      }
+    ],
+    "holdout_oos": null,
+    "primary_test": {
+      "coefficient": 0.00011738285112419084,
+      "observations": 135,
+      "p_value": 0.7262425610107872,
+      "r_squared": 0.005714659904412223,
+      "standard_error": 0.00019515404259904157,
+      "t_statistic": 0.6014881862599311,
+      "test_key": "spx_on_dgs10",
+      "test_type": "cross_section",
+      "within_study_holm_adjusted_p_value": 0.7262425610107872,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2003-01-03T21:00:00Z",
+      "last": "2020-05-15T21:00:00Z",
+      "observations": 135,
+      "panel_rows": 4330
+    },
+    "verdict_criteria": {
+      "holm_adjusted_primary_p_below_0.05": false,
+      "primary_r_squared_at_least_0.05": false,
+      "split_half_replicated": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0008",
+  "hypothesis_version": 1,
+  "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+  "ledger_test_key": "spx_on_dgs10",
+  "limitations": [
+    "DGS10 is a proxy for the policy surprise; no free fed-funds-futures surprise series exists.",
+    "Split-half replication failed: both halves have the wrong sign."
+  ],
+  "preregistration_fingerprint": "f76d5b6075672990d3462715e48a9109d062c99fa837bd4d03ef7d9daec7582b",
+  "primary_edge_id": "E0024",
+  "record_id": "DR-H0008",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/fomc-event-study-005.md",
+  "schema_version": 1,
+  "study": "fomc-event-study-005",
+  "trial_id": "T0009",
+  "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af"
+}

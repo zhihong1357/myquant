@@ -1,0 +1,98 @@
+{
+  "audit_notes": [
+    "Lab-wide family correction (36 tested edges): Holm adjusted p 0.04825 (significant), BH adjusted p 0.01316 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Power: |observed standardized mean CAR| 0.2561 vs MDE 0.2140 at n=135 (80% power, alpha 0.05, one-sided) \u2014 the effect sits above the detection limit of the design."
+  ],
+  "conclusion": "SUPPORTED",
+  "conclusion_scope": "Secondary edge of a SUPPORTED hypothesis: significant within the study's preregistered Holm family.",
+  "edge_id": "E0033",
+  "evidence": {
+    "cost_gate": null,
+    "family_tests": [
+      {
+        "edge_id": "E0032",
+        "holm_adjusted_p_value": 5.201439834401356e-09,
+        "raw_p_value": 1.0402879668802711e-09,
+        "reject": true,
+        "test_key": "tyvix_lagged_car"
+      },
+      {
+        "edge_id": "E0033",
+        "holm_adjusted_p_value": 0.005848241881070582,
+        "raw_p_value": 0.0014620604702676454,
+        "reject": true,
+        "test_key": "vix_lagged_car"
+      },
+      {
+        "edge_id": "E0034",
+        "holm_adjusted_p_value": 0.4023106222820503,
+        "raw_p_value": 0.13410354076068343,
+        "reject": false,
+        "test_key": "dgs10_lagged_car"
+      },
+      {
+        "edge_id": "E0035",
+        "holm_adjusted_p_value": 0.4351127654724056,
+        "raw_p_value": 0.2175563827362028,
+        "reject": false,
+        "test_key": "baa10y_lagged_car"
+      },
+      {
+        "edge_id": "E0036",
+        "holm_adjusted_p_value": 0.6342554696490699,
+        "raw_p_value": 0.6342554696490699,
+        "reject": false,
+        "test_key": "spx_car"
+      }
+    ],
+    "holdout_oos": null,
+    "lab_wide": {
+      "bh_adjusted_p_value": 0.013158544232408809,
+      "bh_significant": true,
+      "family_size": 36,
+      "holm_adjusted_p_value": 0.0482479955188323,
+      "holm_significant": true
+    },
+    "primary_test": {
+      "coefficient": -0.024379808923705018,
+      "direction": "less",
+      "observations": 135,
+      "p_value": 0.0014620604702676454,
+      "standard_error": 0.008193230068808689,
+      "standardized_mean_car": -0.25609922433859056,
+      "t_statistic": -2.9756040925199954,
+      "test_key": "vix_lagged_car",
+      "test_type": "event_study",
+      "within_study_holm_adjusted_p_value": 0.005848241881070582,
+      "within_study_holm_reject": true
+    },
+    "sample": {
+      "first": "2003-01-06T21:00:00Z",
+      "last": "2020-05-15T21:00:00Z",
+      "observations": 135,
+      "panel_rows": 4329
+    },
+    "verdict_criteria": {
+      "holm_adjusted_primary_p_below_0.05": true,
+      "primary_standardized_mean_car_at_most_minus_0.3": true
+    },
+    "verdict_supported": true
+  },
+  "hypothesis_id": "H0011",
+  "hypothesis_version": 1,
+  "ledger_path": "research/publication-lag-007/trials.jsonl",
+  "ledger_test_key": "vix_lagged_car",
+  "limitations": [
+    "The sample ends with the TYVIX series (see evidence.sample); the post-2020 hiking cycle is not covered.",
+    "The FRED publication lag was verified for the present only and is assumed constant over the historical sample.",
+    "The lagged VIX CAR is significant only because the lagged window excludes the day-+1 rebound (see the study report); the unlagged VIX CAR was not significant."
+  ],
+  "preregistration_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+  "record_id": "DR-E0033",
+  "record_type": "supported_edge",
+  "report_path": "docs/studies/publication-lag-007.md",
+  "schema_version": 1,
+  "study": "publication-lag-007",
+  "trial_id": "T0013",
+  "trial_record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23"
+}
