@@ -1,0 +1,68 @@
+{
+  "fetched_at": "2026-11-18T00:54:40.280835+00:00",
+  "panels": [
+    {
+      "bar": "1D",
+      "candles": 1416,
+      "expected_confirmed_bars": 1416,
+      "first_bar_open": "2023-01-01T16:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1D",
+      "candles": 1416,
+      "expected_confirmed_bars": 1416,
+      "first_bar_open": "2023-01-01T16:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1D",
+      "candles": 1416,
+      "expected_confirmed_bars": 1416,
+      "first_bar_open": "2023-01-01T16:00:00+00:00",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 2160,
+      "expected_confirmed_bars": 2160,
+      "first_bar_open": "2026-08-20T00:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 2160,
+      "expected_confirmed_bars": 2160,
+      "first_bar_open": "2026-08-20T00:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 2160,
+      "expected_confirmed_bars": 2160,
+      "first_bar_open": "2026-08-20T00:00:00+00:00",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    }
+  ],
+  "quality_issues": {
+    "pit-1d": [],
+    "pit-1h": []
+  },
+  "quality_row_count": {
+    "pit-1d": 21240,
+    "pit-1h": 32400
+  },
+  "study": "btc-eth-001"
+}

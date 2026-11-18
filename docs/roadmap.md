@@ -43,7 +43,8 @@
 - [ ] Evidence-backed statistical decision records.
 
 ## Stage 3 — Cross-market transmission research
-- [ ] Synchronized daily panel.
+- [x] Synchronized daily panel.
+- [x] First empirical study: BTC/ETH perpetual transmission (H0001, trial T0001 — rejected, no lag-1 evidence; see `docs/studies/btc-eth-transmission-001.md`). Per the user's decision, Stage 3's first study follows the crypto-perpetual direction; MOVE/VIX/VXN remains a planned item below.
 - [ ] Market graph and edge registry.
 - [ ] MOVE/VIX/VXN conditional repricing study.
 - [ ] Rates-credit-equity-options event studies.

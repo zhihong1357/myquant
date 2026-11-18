@@ -39,6 +39,7 @@ The system is designed for multiple horizons: sub-hourly, intraday, daily and mu
 - Trial enforcement against exact hypothesis versions, data-source versions, feature versions and fixed model parameters
 - OLS regression, Newey-West HAC inference and common-factor controlled partial lead-lag diagnostics
 - Purged chronological walk-forward splits, auditable embargo/purge indices and paired out-of-sample forecast scoring
+- OKX public REST source adapter (standard library only) and synchronized multi-instrument panels; first real-data study (BTC/ETH perpetual transmission, H0001) completed and rejected — see `docs/studies/btc-eth-transmission-001.md`
 
 The current implementation is a research foundation, not a live market data service or a proven trading system. Statistical validation and evidence-backed strategy decisions remain future work.
 
