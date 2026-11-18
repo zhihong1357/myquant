@@ -55,9 +55,9 @@
 - [x] Publication-lag-aware positioning study (H0011, trial T0013 — supported: the FOMC TYVIX event response survives a one-trading-day FRED publication lag, lagged CAR −0.0302, Holm p = 5.2e-09, standardized −0.516, the lab's second supported hypothesis; the lagged VIX leg is significant too because the day +1 rebound drops out of the lagged window; H0012, trial T0015 — rejected: the latest published CPI MoM does not predict next-day SPX returns, coef −0.0374, Holm p = 0.755, partial R² 0.00010, holdout OOS −0.00034; the naive reference-month alignment matches PIT on the daily tests and inflates only the release-day subsample; see `docs/studies/publication-lag-007.md`). FRED posts day-t values the next business day (verified by behaviour before preregistration: VIXCLS/DGS10 fetched 2026-11-18 end 2026-11-16); the CPI step predictor takes only 69 distinct values over 2021–2026. Trial T0014 failed on the skipped-release guard before any results were computed; the corrected trial re-ran as T0015.
 
 ## Stage 4 — Microstructure and execution realism
-- [ ] Trade and quote normalization.
-- [ ] Trade-based order-flow metrics.
-- [ ] L2 order-book reconstruction where licensed data permits.
+- [x] Trade and quote normalization (OKX trades/books/ticker adapter, canonical `Trade` and `BookSnapshot` records; see `docs/microstructure.md`). OKX `/market/history-trades` reaches back ~90 days (oldest retrievable trade 2026-08-20, found by bisection), but at ~40 trades/s the full window is ~3M pages and effectively unpullable; the validation dataset is two complete UTC hours (2026-11-18 05:00–07:00 UTC) plus book snapshots before and after.
+- [x] Trade-based order-flow metrics (bucketed CVD, volume/count imbalance, VWAP, large-trade share, intensity at 1m/5m/1H; descriptive only, no signals; see `docs/microstructure.md` and `research/microstructure-4a/validation_report.md`).
+- [ ] L2 order-book reconstruction where licensed data permits. Snapshot parsing is done in 4a; continuous reconstruction needs a WebSocket stream and a forward recorder (design only in `docs/microstructure.md`), pending a later decision — no recorder, cron or background process is built in this PR.
 - [ ] Conservative paper fill model.
 - [ ] Fees, spread, slippage, impact and financing.
 - [ ] Latency and stale-data stress tests.
