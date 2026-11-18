@@ -619,7 +619,7 @@
       "target_instrument": "index:vxn"
     }
   ],
-  "content_hash": "9705376210fb855bbc39ef9c8510fd6f0aa2e5296ef13434460ed0890166787e",
+  "content_hash": "0ed515b5edd47c1a9251169cb3a4ccd9a57e6b058898acb176fbf8dbfce2921c",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -1888,6 +1888,261 @@
       "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af",
       "verdict_summary": "Hypothesis H0008 REJECTED (trial T0009): this test rejected (Holm-adjusted p = 0.001); R² 0.2570; the hypothesis verdict is decided by the primary test (E0024).",
       "version": 1
+    },
+    {
+      "coefficient": 0.00029048848616874457,
+      "common_factor_control": "SOL[t] log return",
+      "condition": "macro-window interaction: BTC[t] x window[t], window = FOMC statement days + CPI release days, one OKX daily bar per event (PIT-correct)",
+      "cost_gate": {
+        "bootstrap_p_value": 0.4877561219390305,
+        "ci_lower": -0.0008814932209297585,
+        "ci_upper": 0.0003831260842318336,
+        "days": 683,
+        "gross_daily_edge": -0.00016239098444761224,
+        "net_daily_edge": -0.00021656375165112618,
+        "note": "Sign rule on macro-window holdout rows only; flat on non-window rows. Net edge averaged over all 683 holdout rows (including 37 macro-window rows). 0.05% taker fee per side; funding, slippage and market impact ignored.",
+        "verdict": "fail"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "okx-public@v1",
+        "federalreserve@v1",
+        "bls@v1",
+        "fiscaldata@v1"
+      ],
+      "edge_id": "E0027",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": -0.011562042177683862,
+      "holdout_oos_note": "Macro-window holdout rows only (the acceptance criterion; 8 folds, 37 rows). All-holdout incremental OOS R² was -0.00073.",
+      "holm_adjusted_p_value": 1.0,
+      "hypothesis_id": "H0009",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 3.0766220682210133e-09,
+      "lag_steps": 1,
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_interaction",
+      "method": "interaction OLS (BTC[t] x window[t]), Newey-West HAC (max lag 5 daily)",
+      "notes": [],
+      "observations": 2124,
+      "p_value": 0.9982087768740697,
+      "partial_r_squared": 3.081259166245943e-09,
+      "preregistration_fingerprint": "0e1ec3d3768c5da2b044c531e624857eee53be2939ee9e8ac0adc3d3fdf0b94e",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 2124,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.1293954282761195,
+      "status": "rejected",
+      "t_statistic": 0.0022449671525400835,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0011",
+      "trial_record_hash": "af641748117fe8fe3077fab5bd5f56ff082e6fafd6b913b704cc5c5a9f69e186",
+      "verdict_summary": "Hypothesis H0009 REJECTED (trial T0011): this test did not reject (Holm-adjusted p = 1.000); partial R² 3.08126e-09 below the 0.005 threshold; holdout OOS incremental R² -0.01156; cost gate fail (net daily edge -0.0217%).",
+      "version": 1
+    },
+    {
+      "coefficient": -0.32113408847977865,
+      "common_factor_control": "SOL[t] log return",
+      "condition": "macro-window subsample only (FOMC statement days + CPI release days)",
+      "cost_gate": null,
+      "cost_gate_note": "Trial-level cost gate; applies to the primary test (E0027) only.",
+      "data_sources": [
+        "okx-public@v1",
+        "federalreserve@v1",
+        "bls@v1",
+        "fiscaldata@v1"
+      ],
+      "edge_id": "E0028",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "Trial-level metric; measured for the primary test (E0027) only.",
+      "holm_adjusted_p_value": 0.3615231416244011,
+      "hypothesis_id": "H0009",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 0.020992046579464185,
+      "lag_steps": 1,
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_window",
+      "method": "partial lead-lag OLS on macro-window rows only, Newey-West HAC (max lag 5 daily)",
+      "notes": [],
+      "observations": 116,
+      "p_value": 0.12050771387480036,
+      "partial_r_squared": 0.02123185965028686,
+      "preregistration_fingerprint": "0e1ec3d3768c5da2b044c531e624857eee53be2939ee9e8ac0adc3d3fdf0b94e",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 116,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.20683019491129367,
+      "status": "rejected",
+      "t_statistic": -1.5526460661003012,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0011",
+      "trial_record_hash": "af641748117fe8fe3077fab5bd5f56ff082e6fafd6b913b704cc5c5a9f69e186",
+      "verdict_summary": "Hypothesis H0009 REJECTED (trial T0011): this test did not reject (Holm-adjusted p = 0.362, partial R² 0.0212319).",
+      "version": 1
+    },
+    {
+      "coefficient": -0.03513291912440269,
+      "common_factor_control": "SOL[t] log return",
+      "condition": "macro-window interaction: BTC[t] x window[t], window = FOMC statement days + CPI release days, one OKX daily bar per event (PIT-correct)",
+      "cost_gate": null,
+      "cost_gate_note": "Trial-level cost gate; applies to the primary test (E0027) only.",
+      "data_sources": [
+        "okx-public@v1",
+        "federalreserve@v1",
+        "bls@v1",
+        "fiscaldata@v1"
+      ],
+      "edge_id": "E0029",
+      "forward_sample": null,
+      "frequency": "hourly",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "Trial-level metric; measured for the primary test (E0027) only.",
+      "holm_adjusted_p_value": 1.0,
+      "hypothesis_id": "H0009",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 3.1837881674823265e-05,
+      "lag_steps": 1,
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "hourly_btc_eth_interaction",
+      "method": "interaction OLS (BTC[t] x window[t]), Newey-West HAC (max lag 12 hourly)",
+      "notes": [
+        "Predeclared 1H robustness test."
+      ],
+      "observations": 16438,
+      "p_value": 0.5803591136379237,
+      "partial_r_squared": 3.186800233524774e-05,
+      "preregistration_fingerprint": "0e1ec3d3768c5da2b044c531e624857eee53be2939ee9e8ac0adc3d3fdf0b94e",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "sample": {
+        "first": "2025-01-02T01:00:00Z",
+        "last": "2026-11-17T23:00:00Z",
+        "observations": 16438,
+        "panel_rows": 16439
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.06354755949187385,
+      "status": "rejected",
+      "t_statistic": -0.552860242082079,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0011",
+      "trial_record_hash": "af641748117fe8fe3077fab5bd5f56ff082e6fafd6b913b704cc5c5a9f69e186",
+      "verdict_summary": "Hypothesis H0009 REJECTED (trial T0011): this test did not reject (Holm-adjusted p = 1.000, partial R² 3.1868e-05).",
+      "version": 1
+    },
+    {
+      "coefficient": 0.00491086035866923,
+      "common_factor_control": null,
+      "condition": "macro-window days vs non-window days (mean daily |log return|); window = FOMC statement days + CPI release days",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0010 is a volatility-level comparison, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "okx-public@v1",
+        "federalreserve@v1",
+        "bls@v1",
+        "fiscaldata@v1"
+      ],
+      "edge_id": "E0030",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: level comparison, not a forecast.",
+      "holm_adjusted_p_value": 0.009817680267895559,
+      "hypothesis_id": "H0010",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "btc_mean_abs_return_comparison",
+      "method": "mean comparison by OLS of |log return| on the window indicator, Newey-West HAC (max lag 10); block-bootstrap CI for the mean difference",
+      "notes": [
+        "Mean-comparison edge, not a transmission edge: it tests whether BTC realized volatility differs inside the macro window. Effect size is the window/non-window mean |log return| ratio (threshold 1.15)."
+      ],
+      "observations": 2125,
+      "p_value": 0.009817680267895559,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "a10ddda9553151ecaff7afc57394f1cc1674ce0733b8b663d6e878872a471656",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 2125,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.0019018232362291983,
+      "status": "supported",
+      "t_statistic": 2.582185486599764,
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0012",
+      "trial_record_hash": "4b0dd1cce4fbe6e15849ba3ef80355d60591afdf9f3c0913f7cea8bf2681cb8d",
+      "verdict_summary": "Hypothesis H0010 SUPPORTED (trial T0012): this test rejected (Holm-adjusted p = 0.010); window/non-window mean |log return| ratio 1.2504 at or above the 1.15 threshold; mean difference +0.004911 (95% block-bootstrap CI [-0.000224, +0.010362]). No OOS or cost-gate criterion: level comparison, not a forecast.",
+      "version": 1
+    },
+    {
+      "coefficient": 0.007723255692795755,
+      "common_factor_control": null,
+      "condition": "macro-window days vs non-window days (mean daily |log return|); window = FOMC statement days + CPI release days",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0010 is a volatility-level comparison, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "okx-public@v1",
+        "federalreserve@v1",
+        "bls@v1",
+        "fiscaldata@v1"
+      ],
+      "edge_id": "E0031",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: level comparison, not a forecast.",
+      "holm_adjusted_p_value": 0.005799298077856636,
+      "hypothesis_id": "H0010",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "eth_mean_abs_return_comparison",
+      "method": "mean comparison by OLS of |log return| on the window indicator, Newey-West HAC (max lag 10); block-bootstrap CI for the mean difference",
+      "notes": [
+        "Mean-comparison edge, not a transmission edge: it tests whether ETH realized volatility differs inside the macro window."
+      ],
+      "observations": 2125,
+      "p_value": 0.002899649038928318,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "a10ddda9553151ecaff7afc57394f1cc1674ce0733b8b663d6e878872a471656",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "sample": {
+        "first": "2021-01-22T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 2125,
+        "panel_rows": 2125
+      },
+      "source_instrument": "crypto:eth-usdt-perp",
+      "standard_error": 0.0025932796795113634,
+      "status": "supported",
+      "t_statistic": 2.978180777728919,
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0012",
+      "trial_record_hash": "4b0dd1cce4fbe6e15849ba3ef80355d60591afdf9f3c0913f7cea8bf2681cb8d",
+      "verdict_summary": "Hypothesis H0010 SUPPORTED (trial T0012): this test rejected (Holm-adjusted p = 0.006); window/non-window mean |log return| ratio 1.2976; the hypothesis verdict is decided by the primary test (E0030).",
+      "version": 1
     }
   ],
   "nodes": [
@@ -1913,6 +2168,7 @@
       "studies": [
         "btc-eth-001",
         "lowvol-002",
+        "macro-windows-006",
         "options-expiry-004"
       ]
     },
@@ -1926,6 +2182,7 @@
       "studies": [
         "btc-eth-001",
         "lowvol-002",
+        "macro-windows-006",
         "options-expiry-004"
       ]
     },
@@ -1939,6 +2196,7 @@
       "studies": [
         "btc-eth-001",
         "lowvol-002",
+        "macro-windows-006",
         "options-expiry-004"
       ]
     },
@@ -2084,6 +2342,22 @@
       "study": "fomc-event-study-005",
       "trial_id": "T0009",
       "trial_record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af"
+    },
+    {
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "preregistration_fingerprint": "0e1ec3d3768c5da2b044c531e624857eee53be2939ee9e8ac0adc3d3fdf0b94e",
+      "registration_path": "research/macro-windows-006/hypotheses/registrations/H0009/v1.json",
+      "study": "macro-windows-006",
+      "trial_id": "T0011",
+      "trial_record_hash": "af641748117fe8fe3077fab5bd5f56ff082e6fafd6b913b704cc5c5a9f69e186"
+    },
+    {
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "preregistration_fingerprint": "a10ddda9553151ecaff7afc57394f1cc1674ce0733b8b663d6e878872a471656",
+      "registration_path": "research/macro-windows-006/hypotheses/registrations/H0010/v1.json",
+      "study": "macro-windows-006",
+      "trial_id": "T0012",
+      "trial_record_hash": "4b0dd1cce4fbe6e15849ba3ef80355d60591afdf9f3c0913f7cea8bf2681cb8d"
     }
   ],
   "schema_version": 1
