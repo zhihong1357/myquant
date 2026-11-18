@@ -73,7 +73,7 @@
 Stage 5 is complete: prediction contract, risk model, paper portfolio, funding history, shadow evaluation and drift monitoring are all in place. The lab still has no real strategy to run through them.
 
 ## Stage 6 — AI research intelligence
-- [ ] Hypothesis planner.
+- [x] Hypothesis planner — ranks the 123 untested candidate pairs by explicit criteria (supported-edge adjacency, verified data availability, MDE power feasibility) with a hard anti-retest guard and preregistration draft templates (99 ranked, 24 unrankable, top-10 a 34-way tie at 1.00, weight-invariant); see `docs/research-intelligence.md` §1 and `research/planner-6a/validation_report.md`.
 - [ ] Evidence and source analyst.
 - [ ] Experiment/code assistant.
 - [ ] Adversarial reviewer.
