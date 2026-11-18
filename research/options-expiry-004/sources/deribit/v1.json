@@ -1,0 +1,11 @@
+{
+  "attribution": "Data: Deribit public market data",
+  "description": "Deribit public REST option instrument listings (get_instruments, listed and recently expired) and DVOL volatility index data (get_volatility_index_data) for BTC and ETH",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public market data served without authentication by Deribit public REST endpoints (/public/get_instruments, /public/get_volatility_index_data), used for research only; raw payloads are not redistributed. Deribit Terms of Service and API documentation reviewed 2026-11-18. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "Deribit",
+  "source_id": "deribit",
+  "terms_url": "https://www.deribit.com/pages/terms",
+  "timestamp_basis": "Instrument expiration_timestamp is the settlement moment in UTC milliseconds (08:00 UTC on the expiry date). DVOL daily points are timestamped at 00:00 UTC; a daily point's close becomes knowable at the next day's 00:00 UTC."
+}

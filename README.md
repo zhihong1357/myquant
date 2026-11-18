@@ -41,7 +41,8 @@ The system is designed for multiple horizons: sub-hourly, intraday, daily and mu
 - Purged chronological walk-forward splits, auditable embargo/purge indices and paired out-of-sample forecast scoring
 - OKX and Hyperliquid public REST source adapters (standard library only) and synchronized multi-instrument panels; first real-data study (BTC/ETH perpetual transmission, H0001) completed and rejected — see `docs/studies/btc-eth-transmission-001.md`; second study (low-volatility regime-conditional transmission, H0002) completed and rejected — see `docs/studies/lowvol-transmission-002.md`
 - FRED public CSV and Yahoo Finance chart adapters (standard library only); third real-data study (MOVE/VIX/VXN conditional repricing, H0004, using TYVIX via FRED VXTYN as the rates-volatility measure) completed and rejected — see `docs/studies/move-vix-transmission-003.md`
-- Market graph and edge registry generated from the trial ledgers (9 nodes, 10 tested edges — all rejected — plus 1 pending forward test, 2 descriptive checks and 68 untested candidate pairs) — see `docs/market-graph.md` and `research/graph/registry.json`
+- Deribit public REST adapter (standard library only) and a rule-constructed options-expiry calendar (last Friday of month, 08:00 UTC, verified against listed contracts and Deribit documentation); fourth real-data study (options-expiry window volatility and transmission, H0005/H0006) completed and rejected — see `docs/studies/options-expiry-004.md`
+- Market graph and edge registry generated from the trial ledgers (11 nodes, 15 tested edges — all rejected — plus 1 pending forward test, 2 descriptive checks and 106 untested candidate pairs) — see `docs/market-graph.md` and `research/graph/registry.json`
 
 The current implementation is a research foundation, not a live market data service or a proven trading system. Statistical validation and evidence-backed strategy decisions remain future work.
 

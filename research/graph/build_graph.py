@@ -32,6 +32,7 @@ from myquant.graph import (  # noqa: E402
     CostGateVerdict,
     EdgeRecord,
     EdgeStatus,
+    EdgeTestType,
     ForwardSampleRecord,
     GraphRegistry,
     MarketGraph,
@@ -65,6 +66,10 @@ SHORT_LABELS = {
     "index:sp500": "SPX",
     "rates:us-10y-yield": "DGS10",
     "credit:baa-10y-spread": "BAA10Y",
+    # Underscores, not spaces or hyphens: short labels double as Mermaid
+    # node ids, which must be alphanumeric plus underscores.
+    "index:btc-dvol": "BTC_DVOL",
+    "index:eth-dvol": "ETH_DVOL",
 }
 
 
@@ -78,6 +83,7 @@ class EdgeSpec:
 
     edge_id: str
     study: str
+    trial_id: str
     ledger_test_key: str | None  # None for the pending + descriptive edges
     source: str
     target: str
@@ -87,6 +93,7 @@ class EdgeSpec:
     control: str | None
     is_primary: bool
     panel_key: str  # daily | hourly | weekly | hyperliquid
+    test_type: EdgeTestType = EdgeTestType.LEAD_LAG
     data_sources: tuple[str, ...] | None = None
     notes: tuple[str, ...] = ()
 
@@ -111,6 +118,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0001",
         study="btc-eth-001",
+        trial_id="T0001",
         ledger_test_key="daily_btc_eth",
         source="crypto:btc-usdt-perp",
         target="crypto:eth-usdt-perp",
@@ -124,6 +132,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0002",
         study="btc-eth-001",
+        trial_id="T0001",
         ledger_test_key="daily_btc_sol",
         source="crypto:btc-usdt-perp",
         target="crypto:sol-usdt-perp",
@@ -141,6 +150,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0003",
         study="btc-eth-001",
+        trial_id="T0001",
         ledger_test_key="hourly_btc_eth",
         source="crypto:btc-usdt-perp",
         target="crypto:eth-usdt-perp",
@@ -156,6 +166,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0004",
         study="lowvol-002",
+        trial_id="T0002",
         ledger_test_key="daily_btc_sol_interaction",
         data_sources=("okx-public@v1",),
         source="crypto:btc-usdt-perp",
@@ -173,6 +184,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0005",
         study="lowvol-002",
+        trial_id="T0002",
         ledger_test_key="daily_btc_sol_lowvol",
         data_sources=("okx-public@v1",),
         source="crypto:btc-usdt-perp",
@@ -190,6 +202,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0006",
         study="lowvol-002",
+        trial_id="T0002",
         ledger_test_key="hourly_btc_eth_interaction",
         data_sources=("okx-public@v1",),
         source="crypto:btc-usdt-perp",
@@ -207,6 +220,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0007",
         study="lowvol-002",
+        trial_id="T0002",
         ledger_test_key="hourly_btc_eth_lowvol",
         data_sources=("okx-public@v1",),
         source="crypto:btc-usdt-perp",
@@ -225,6 +239,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0008",
         study="move-vix-003",
+        trial_id="T0004",
         ledger_test_key="daily_tyvix_vix",
         source="index:tyvix",
         target="index:vix",
@@ -241,6 +256,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0009",
         study="move-vix-003",
+        trial_id="T0004",
         ledger_test_key="daily_tyvix_vxn",
         source="index:tyvix",
         target="index:vxn",
@@ -257,6 +273,7 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
     EdgeSpec(
         edge_id="E0010",
         study="move-vix-003",
+        trial_id="T0004",
         ledger_test_key="weekly_tyvix_vix",
         source="index:tyvix",
         target="index:vix",
@@ -271,14 +288,148 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
         panel_key="weekly",
         notes=("Predeclared weekly robustness test.",),
     ),
+    # Study 004 (H0005, T0005): 3-test Holm family. Expiry window = OKX
+    # bar-open dates T-3..T for monthly expiry T (last Friday of the
+    # month, settlement 08:00 UTC); the window indicator is known at the
+    # bar's open because the calendar is public in advance.
+    EdgeSpec(
+        edge_id="E0014",
+        study="options-expiry-004",
+        trial_id="T0005",
+        ledger_test_key="daily_btc_eth_interaction",
+        source="crypto:btc-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="daily",
+        condition=(
+            "expiry-window interaction: BTC[t] x window[t], window = "
+            "bar-open dates T-3..T (PIT-correct)"
+        ),
+        method=(
+            "interaction OLS (BTC[t] x window[t]), Newey-West HAC "
+            "(max lag 5 daily)"
+        ),
+        control="SOL[t] log return",
+        is_primary=True,
+        panel_key="daily",
+    ),
+    EdgeSpec(
+        edge_id="E0015",
+        study="options-expiry-004",
+        trial_id="T0005",
+        ledger_test_key="daily_btc_eth_window",
+        source="crypto:btc-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="daily",
+        condition=(
+            "expiry-window subsample only (bar-open dates T-3..T)"
+        ),
+        method=(
+            "partial lead-lag OLS on expiry-window rows only, "
+            "Newey-West HAC (max lag 5 daily)"
+        ),
+        control="SOL[t] log return",
+        is_primary=False,
+        panel_key="daily",
+    ),
+    EdgeSpec(
+        edge_id="E0016",
+        study="options-expiry-004",
+        trial_id="T0005",
+        ledger_test_key="hourly_btc_eth_interaction",
+        source="crypto:btc-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="hourly",
+        condition=(
+            "expiry-window interaction: BTC[t] x window[t], window = "
+            "bar-open dates T-3..T (PIT-correct)"
+        ),
+        method=(
+            "interaction OLS (BTC[t] x window[t]), Newey-West HAC "
+            "(max lag 12 hourly)"
+        ),
+        control="SOL[t] log return",
+        is_primary=False,
+        panel_key="hourly",
+        notes=("Predeclared 1H robustness test.",),
+    ),
+    # Study 004 (H0006, T0007): 2-test Holm family. Mean-comparison
+    # edges: within-instrument level tests (window vs non-window mean
+    # daily |log return|), NOT transmission edges. Self-loops by
+    # construction; no lag, no partial R-squared, no OOS or cost gate.
+    EdgeSpec(
+        edge_id="E0017",
+        study="options-expiry-004",
+        trial_id="T0007",
+        ledger_test_key="btc_mean_abs_return_comparison",
+        source="crypto:btc-usdt-perp",
+        target="crypto:btc-usdt-perp",
+        frequency="daily",
+        condition=(
+            "expiry-window days vs non-window days (mean daily "
+            "|log return|); window = bar-open dates T-3..T"
+        ),
+        method=(
+            "mean comparison by OLS of |log return| on the window "
+            "indicator, Newey-West HAC (max lag 10); block-bootstrap "
+            "CI for the mean difference"
+        ),
+        control=None,
+        is_primary=True,
+        panel_key="daily",
+        test_type=EdgeTestType.MEAN_COMPARISON,
+        notes=(
+            "Mean-comparison edge, not a transmission edge: it tests "
+            "whether BTC realized volatility differs inside the expiry "
+            "window. Effect size is the window/non-window mean |log "
+            "return| ratio (threshold 1.15).",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0018",
+        study="options-expiry-004",
+        trial_id="T0007",
+        ledger_test_key="eth_mean_abs_return_comparison",
+        source="crypto:eth-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="daily",
+        condition=(
+            "expiry-window days vs non-window days (mean daily "
+            "|log return|); window = bar-open dates T-3..T"
+        ),
+        method=(
+            "mean comparison by OLS of |log return| on the window "
+            "indicator, Newey-West HAC (max lag 10); block-bootstrap "
+            "CI for the mean difference"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.MEAN_COMPARISON,
+        notes=(
+            "Mean-comparison edge, not a transmission edge: it tests "
+            "whether ETH realized volatility differs inside the expiry "
+            "window.",
+        ),
+    ),
 )
 
-# study -> (hypothesis id, registration version, trial id, report path)
-STUDIES = {
-    "btc-eth-001": ("H0001", 1, "T0001", "docs/studies/btc-eth-transmission-001.md"),
-    "lowvol-002": ("H0002", 1, "T0002", "docs/studies/lowvol-transmission-002.md"),
-    "move-vix-003": ("H0004", 2, "T0004", "docs/studies/move-vix-transmission-003.md"),
-}
+# One entry per trial: (trial id, study directory, hypothesis id,
+# registration version, report path). A study directory may hold more
+# than one trial (study 004 has T0005 and T0007 in one directory).
+# T0006 is absent by design: the first H0006 attempt ran as T0006 and
+# failed inside the experiment (a bootstrap-weights bug, recorded as a
+# failed trial in the ledger); the corrected rerun is T0007.
+TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
+    ("T0001", "btc-eth-001", "H0001", 1, "docs/studies/btc-eth-transmission-001.md"),
+    ("T0002", "lowvol-002", "H0002", 1, "docs/studies/lowvol-transmission-002.md"),
+    ("T0004", "move-vix-003", "H0004", 2, "docs/studies/move-vix-transmission-003.md"),
+    ("T0005", "options-expiry-004", "H0005", 1, "docs/studies/options-expiry-004.md"),
+    ("T0007", "options-expiry-004", "H0006", 1, "docs/studies/options-expiry-004.md"),
+)
+
+STUDY_DIRS: tuple[str, ...] = tuple(
+    dict.fromkeys(study for _, study, _, _, _ in TRIALS)
+)
 
 # Descriptive-only edges (never in a test family, no verdict).
 DESCRIPTIVE_NOTES = {
@@ -341,8 +492,14 @@ def _fixed_parameter(spec: dict, name: str) -> str:
     raise ValueError(f"fixed parameter {name} not found in preregistration")
 
 
-def _load_study(repo_root: Path, study: str) -> StudyData:
-    hypothesis_id, version, trial_id, report_path = STUDIES[study]
+def _load_trial(
+    repo_root: Path,
+    trial_id: str,
+    study: str,
+    hypothesis_id: str,
+    version: int,
+    report_path: str,
+) -> StudyData:
     trial = _read_trial(repo_root, study, trial_id)
     registration, registration_path = _read_registration(
         repo_root, study, hypothesis_id, version
@@ -359,7 +516,7 @@ def _load_study(repo_root: Path, study: str) -> StudyData:
     primary = next(
         spec.edge_id
         for spec in EDGE_SPECS
-        if spec.study == study and spec.is_primary
+        if spec.trial_id == trial_id and spec.is_primary
     )
     return StudyData(
         study=study,
@@ -376,9 +533,11 @@ def _load_study(repo_root: Path, study: str) -> StudyData:
     )
 
 
-def _load_nodes(repo_root: Path, studies: dict[str, StudyData]) -> tuple[NodeRecord, ...]:
+def _load_nodes(
+    repo_root: Path, trials: dict[str, StudyData]
+) -> tuple[NodeRecord, ...]:
     catalogs: dict[str, dict] = {}
-    for study in STUDIES:
+    for study in STUDY_DIRS:
         instruments = repo_root / "research" / study / "catalog" / "instruments"
         for version_file in sorted(instruments.glob("*/v1.json")):
             record = _read_json(version_file)
@@ -387,9 +546,13 @@ def _load_nodes(repo_root: Path, studies: dict[str, StudyData]) -> tuple[NodeRec
     for instrument_id in sorted(catalogs):
         record = catalogs[instrument_id]
         member_of = tuple(
-            study
-            for study, data in studies.items()
-            if instrument_id in data.registration["spec"]["universe"]
+            sorted(
+                {
+                    data.study
+                    for data in trials.values()
+                    if instrument_id in data.registration["spec"]["universe"]
+                }
+            )
         )
         nodes.append(
             NodeRecord(
@@ -416,14 +579,29 @@ def _sample(metrics: dict, panel_key: str, observations: int) -> SampleRecord:
 
 
 def _trial_level_oos(data: StudyData) -> tuple[float, str]:
-    """Holdout OOS incremental R² for the primary test, per study."""
+    """Holdout OOS incremental R² for the primary test, per trial."""
+    if "walk_forward" not in data.metrics:
+        raise ValueError(
+            f"trial {data.trial_id} has no walk-forward evaluation; "
+            "its primary edge cannot carry an OOS score"
+        )
     walk_forward = data.metrics["walk_forward"]
-    if data.study == "lowvol-002":
+    if data.trial_id == "T0002":
         value = walk_forward["lowvol_holdout_oos_incremental_r_squared"]
         note = (
             "Low-volatility holdout rows only (the acceptance criterion; "
             f"{walk_forward['lowvol_holdout_folds']} folds, "
             f"{walk_forward['lowvol_holdout_test_rows']} rows). "
+            "All-holdout incremental OOS R² was "
+            f"{walk_forward['holdout_oos_incremental_r_squared']:+.5f}."
+        )
+        return value, note
+    if data.trial_id == "T0005":
+        value = walk_forward["window_holdout_oos_incremental_r_squared"]
+        note = (
+            "Expiry-window holdout rows only (the acceptance criterion; "
+            f"{walk_forward['window_holdout_folds']} folds, "
+            f"{walk_forward['window_holdout_test_rows']} rows). "
             "All-holdout incremental OOS R² was "
             f"{walk_forward['holdout_oos_incremental_r_squared']:+.5f}."
         )
@@ -438,8 +616,8 @@ def _trial_level_oos(data: StudyData) -> tuple[float, str]:
 
 
 def _trial_level_cost(data: StudyData) -> CostGateRecord:
-    """Cost gate for the primary test, per study."""
-    if data.study == "move-vix-003":
+    """Cost gate for the primary test, per trial."""
+    if data.trial_id == "T0004":
         gate = data.metrics["cost_gate_informational"]
         return CostGateRecord(
             verdict=CostGateVerdict.INFORMATIONAL,
@@ -456,12 +634,20 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
             ),
         )
     gate = data.metrics["cost_gate"]
-    if data.study == "lowvol-002":
+    if data.trial_id == "T0002":
         note = (
             "Sign rule on low-volatility holdout rows only; flat on "
             "high-volatility rows. Net edge averaged over all "
             f"{gate['days']} holdout rows (including {gate['lowvol_days']} "
             "low-volatility rows). 0.05% taker fee per side; funding, "
+            "slippage and market impact ignored."
+        )
+    elif data.trial_id == "T0005":
+        note = (
+            "Sign rule on expiry-window holdout rows only; flat on "
+            "non-window rows. Net edge averaged over all "
+            f"{gate['days']} holdout rows (including {gate['window_days']} "
+            "expiry-window rows). 0.05% taker fee per side; funding, "
             "slippage and market impact ignored."
         )
     else:
@@ -485,55 +671,244 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
     )
 
 
-def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
-    assert spec.ledger_test_key is not None
-    test = data.metrics["tests"][spec.ledger_test_key]
-    holm = {
-        entry["test"]: entry["adjusted_p_value"]
-        for entry in data.metrics["holm"]
-    }
-    holm_p = holm[spec.ledger_test_key]
-    lag = int(_fixed_parameter(data.registration["spec"], "lag"))
-    if spec.is_primary:
-        oos_value, oos_note = _trial_level_oos(data)
-        cost_gate = _trial_level_cost(data)
-        cost_note = None
-        if cost_gate.verdict is CostGateVerdict.INFORMATIONAL:
-            verdict = (
-                f"Hypothesis {data.hypothesis_id} REJECTED "
-                f"(trial {data.trial_id}): this test did not reject "
-                f"(Holm-adjusted p = {holm_p:.3f}); partial R² "
-                f"{test['partial_r_squared']:.6g} below the 0.005 "
-                f"threshold; holdout OOS incremental R² "
-                f"{oos_value:+.5f}; cost gate informational (gross daily "
-                f"edge {cost_gate.gross_daily_edge:+.4%}, 95% CI includes "
-                "zero) — no net edge measurable without VIX futures data."
-            )
-        else:
-            verdict = (
-                f"Hypothesis {data.hypothesis_id} REJECTED "
-                f"(trial {data.trial_id}): this test did not reject "
-                f"(Holm-adjusted p = {holm_p:.3f}); partial R² "
-                f"{test['partial_r_squared']:.6g} below the 0.005 "
-                f"threshold; holdout OOS incremental R² "
-                f"{oos_value:+.5f}; cost gate {cost_gate.verdict.value} "
-                f"(net daily edge {cost_gate.net_daily_edge:+.4%})."
-            )
+def _holm_entry(data: StudyData, test_key: str) -> dict:
+    for entry in data.metrics["holm"]:
+        if entry["test"] == test_key:
+            return entry
+    raise ValueError(f"trial {data.trial_id} has no Holm entry for {test_key}")
+
+
+def _lead_lag_primary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    oos_value: float,
+    cost_gate: CostGateRecord,
+    *,
+    supported: bool,
+) -> str:
+    """Verdict text for a lead-lag primary edge, from the actual numbers.
+
+    The rejected wording reproduces the established sentences exactly
+    when the facts match (test did not reject, partial R² below
+    threshold); each clause is conditional so the text stays factual
+    when only some criteria fail.
+    """
+    verdict = "SUPPORTED" if supported else "REJECTED"
+    if holm_p < 0.05:
+        p_part = f"this test rejected (Holm-adjusted p = {holm_p:.3f})"
     else:
-        oos_value, oos_note = None, (
-            "Trial-level metric; measured for the primary test "
-            f"({data.primary_edge_id}) only."
+        p_part = f"this test did not reject (Holm-adjusted p = {holm_p:.3f})"
+    partial_r2 = test["partial_r_squared"]
+    if partial_r2 is not None and partial_r2 >= 0.005:
+        r2_part = f"partial R² {partial_r2:.6g} at or above the 0.005 threshold"
+    elif partial_r2 is None:
+        r2_part = "partial R² unavailable"
+    else:
+        r2_part = f"partial R² {partial_r2:.6g} below the 0.005 threshold"
+    oos_part = f"holdout OOS incremental R² {oos_value:+.5f}"
+    if cost_gate.verdict is CostGateVerdict.INFORMATIONAL:
+        return (
+            f"Hypothesis {data.hypothesis_id} {verdict} "
+            f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
+            "cost gate informational (gross daily "
+            f"edge {cost_gate.gross_daily_edge:+.4%}, 95% CI includes "
+            "zero) — no net edge measurable without VIX futures data."
         )
-        cost_gate, cost_note = None, (
-            "Trial-level cost gate; applies to the primary test "
-            f"({data.primary_edge_id}) only."
-        )
-        verdict = (
+    return (
+        f"Hypothesis {data.hypothesis_id} {verdict} "
+        f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
+        f"cost gate {cost_gate.verdict.value} "
+        f"(net daily edge {cost_gate.net_daily_edge:+.4%})."
+    )
+
+
+def _lead_lag_secondary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    *,
+    hypothesis_supported: bool,
+    test_rejected: bool,
+) -> str:
+    """Verdict text for a lead-lag secondary edge.
+
+    When the hypothesis was rejected and the test did not reject, this
+    reproduces the established sentence exactly. Otherwise the text
+    separates the test outcome from the hypothesis verdict (decided by
+    the primary test).
+    """
+    hypothesis_verdict = "SUPPORTED" if hypothesis_supported else "REJECTED"
+    if not hypothesis_supported and not test_rejected:
+        return (
             f"Hypothesis {data.hypothesis_id} REJECTED "
             f"(trial {data.trial_id}): this test did not reject "
             f"(Holm-adjusted p = {holm_p:.3f}, partial R² "
             f"{test['partial_r_squared']:.6g})."
         )
+    if test_rejected:
+        test_part = (
+            f"this test rejected (Holm-adjusted p = {holm_p:.3f}, "
+            f"partial R² {test['partial_r_squared']:.6g})"
+        )
+    else:
+        test_part = (
+            f"this secondary test did not reject "
+            f"(Holm-adjusted p = {holm_p:.3f}, partial R² "
+            f"{test['partial_r_squared']:.6g})"
+        )
+    return (
+        f"Hypothesis {data.hypothesis_id} {hypothesis_verdict} "
+        f"(trial {data.trial_id}): {test_part}; the hypothesis verdict "
+        f"is decided by the primary test ({data.primary_edge_id})."
+    )
+
+
+def _mean_comparison_primary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    threshold: float,
+    *,
+    supported: bool,
+) -> str:
+    """Verdict text for a mean-comparison primary edge.
+
+    No OOS or cost-gate clause: a level comparison is not a forecast.
+    The effect size is the window/non-window mean |log return| ratio.
+    """
+    verdict = "SUPPORTED" if supported else "REJECTED"
+    if holm_p < 0.05:
+        p_part = f"this test rejected (Holm-adjusted p = {holm_p:.3f})"
+    else:
+        p_part = f"this test did not reject (Holm-adjusted p = {holm_p:.3f})"
+    ratio = test["effect_ratio"]
+    if ratio >= threshold:
+        ratio_part = (
+            f"window/non-window mean |log return| ratio {ratio:.4f} "
+            f"at or above the {threshold:.2f} threshold"
+        )
+    else:
+        ratio_part = (
+            f"window/non-window mean |log return| ratio {ratio:.4f} "
+            f"below the {threshold:.2f} threshold"
+        )
+    return (
+        f"Hypothesis {data.hypothesis_id} {verdict} "
+        f"(trial {data.trial_id}): {p_part}; {ratio_part}; mean "
+        f"difference {test['coefficient']:+.6f} (95% block-bootstrap CI "
+        f"[{test['bootstrap_ci_lower']:+.6f}, "
+        f"{test['bootstrap_ci_upper']:+.6f}]). No OOS or cost-gate "
+        "criterion: level comparison, not a forecast."
+    )
+
+
+def _mean_comparison_secondary_verdict(
+    data: StudyData,
+    test: dict,
+    holm_p: float,
+    *,
+    hypothesis_supported: bool,
+    test_rejected: bool,
+) -> str:
+    """Verdict text for a mean-comparison secondary edge."""
+    hypothesis_verdict = "SUPPORTED" if hypothesis_supported else "REJECTED"
+    ratio_part = (
+        f"window/non-window mean |log return| ratio "
+        f"{test['effect_ratio']:.4f}"
+    )
+    if test_rejected:
+        test_part = f"this test rejected (Holm-adjusted p = {holm_p:.3f})"
+    else:
+        test_part = f"this test did not reject (Holm-adjusted p = {holm_p:.3f})"
+    if not hypothesis_supported and not test_rejected:
+        return (
+            f"Hypothesis {data.hypothesis_id} REJECTED "
+            f"(trial {data.trial_id}): {test_part}; {ratio_part}."
+        )
+    return (
+        f"Hypothesis {data.hypothesis_id} {hypothesis_verdict} "
+        f"(trial {data.trial_id}): {test_part}; {ratio_part}; the "
+        "hypothesis verdict is decided by the primary test "
+        f"({data.primary_edge_id})."
+    )
+
+
+def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
+    assert spec.ledger_test_key is not None
+    test = data.metrics["tests"][spec.ledger_test_key]
+    holm_entry = _holm_entry(data, spec.ledger_test_key)
+    holm_p = holm_entry["adjusted_p_value"]
+    hypothesis_supported = bool(data.metrics["verdict"]["supported"])
+    test_rejected = bool(holm_entry["reject"])
+    is_mean_comparison = spec.test_type is EdgeTestType.MEAN_COMPARISON
+    lag = (
+        None
+        if is_mean_comparison
+        else int(_fixed_parameter(data.registration["spec"], "lag"))
+    )
+    if spec.is_primary:
+        status = (
+            EdgeStatus.SUPPORTED if hypothesis_supported else EdgeStatus.REJECTED
+        )
+        if is_mean_comparison:
+            oos_value, oos_note = None, (
+                "No OOS score: level comparison, not a forecast."
+            )
+            cost_gate, cost_note = None, (
+                f"No cost gate: {data.hypothesis_id} is a volatility-level "
+                "comparison, not a forecast; there is no trading rule to cost."
+            )
+            threshold = float(
+                _fixed_parameter(
+                    data.registration["spec"], "effect_ratio_threshold"
+                )
+            )
+            verdict = _mean_comparison_primary_verdict(
+                data, test, holm_p, threshold, supported=hypothesis_supported
+            )
+        else:
+            oos_value, oos_note = _trial_level_oos(data)
+            cost_gate = _trial_level_cost(data)
+            cost_note = None
+            verdict = _lead_lag_primary_verdict(
+                data, test, holm_p, oos_value, cost_gate,
+                supported=hypothesis_supported,
+            )
+    else:
+        status = EdgeStatus.SUPPORTED if test_rejected else EdgeStatus.REJECTED
+        if is_mean_comparison:
+            # Level comparisons have no OOS score or cost gate at all, so
+            # the generic "measured for the primary test only" notes would
+            # mislead: the primary has none either.
+            oos_value, oos_note = None, (
+                "No OOS score: level comparison, not a forecast."
+            )
+            cost_gate, cost_note = None, (
+                f"No cost gate: {data.hypothesis_id} is a volatility-level "
+                "comparison, not a forecast; there is no trading rule to cost."
+            )
+        else:
+            oos_value, oos_note = None, (
+                "Trial-level metric; measured for the primary test "
+                f"({data.primary_edge_id}) only."
+            )
+            cost_gate, cost_note = None, (
+                "Trial-level cost gate; applies to the primary test "
+                f"({data.primary_edge_id}) only."
+            )
+        if is_mean_comparison:
+            verdict = _mean_comparison_secondary_verdict(
+                data, test, holm_p,
+                hypothesis_supported=hypothesis_supported,
+                test_rejected=test_rejected,
+            )
+        else:
+            verdict = _lead_lag_secondary_verdict(
+                data, test, holm_p,
+                hypothesis_supported=hypothesis_supported,
+                test_rejected=test_rejected,
+            )
     notes = list(spec.notes)
     if spec.edge_id == "E0004":
         a2 = data.metrics["tests"]["daily_btc_sol_lowvol"]
@@ -546,7 +921,8 @@ def _build_tested_edge(spec: EdgeSpec, data: StudyData) -> EdgeRecord:
         )
     return EdgeRecord(
         edge_id=spec.edge_id,
-        status=EdgeStatus.REJECTED,
+        status=status,
+        test_type=spec.test_type,
         source_instrument=spec.source,
         target_instrument=spec.target,
         frequency=spec.frequency,
@@ -789,18 +1165,18 @@ def _check_family_coverage(data: StudyData) -> None:
     mapped = {
         spec.ledger_test_key
         for spec in EDGE_SPECS
-        if spec.study == data.study and spec.ledger_test_key is not None
+        if spec.trial_id == data.trial_id and spec.ledger_test_key is not None
     }
     missing = family - mapped
     if missing:
         raise ValueError(
-            f"{data.study}: Holm-family tests without an edge spec: "
+            f"{data.trial_id}: Holm-family tests without an edge spec: "
             f"{sorted(missing)} — extend EDGE_SPECS before rebuilding"
         )
     unknown = mapped - set(data.metrics["tests"])
     if unknown:
         raise ValueError(
-            f"{data.study}: edge specs without a ledger test: {sorted(unknown)}"
+            f"{data.trial_id}: edge specs without a ledger test: {sorted(unknown)}"
         )
 
 
@@ -817,16 +1193,21 @@ def _provenance(data: StudyData) -> ProvenanceRecord:
 
 def build_registry(repo_root: Path) -> GraphRegistry:
     """Build the full registry from the studies' committed artifacts."""
-    studies = {study: _load_study(repo_root, study) for study in STUDIES}
-    for data in studies.values():
+    trials = {
+        trial_id: _load_trial(
+            repo_root, trial_id, study, hypothesis_id, version, report_path
+        )
+        for trial_id, study, hypothesis_id, version, report_path in TRIALS
+    }
+    for data in trials.values():
         _check_family_coverage(data)
-    nodes = _load_nodes(repo_root, studies)
+    nodes = _load_nodes(repo_root, trials)
     edges: list[EdgeRecord] = []
     for spec in EDGE_SPECS:
-        edges.append(_build_tested_edge(spec, studies[spec.study]))
-    edges.append(_build_pending_edge(repo_root, studies["lowvol-002"]))
-    edges.append(_build_cross_venue_edge(studies["lowvol-002"]))
-    edges.append(_build_reverse_placebo_edge(studies["move-vix-003"]))
+        edges.append(_build_tested_edge(spec, trials[spec.trial_id]))
+    edges.append(_build_pending_edge(repo_root, trials["T0002"]))
+    edges.append(_build_cross_venue_edge(trials["T0002"]))
+    edges.append(_build_reverse_placebo_edge(trials["T0004"]))
     edges.sort(key=lambda edge: edge.edge_id)
     edge_tuple = tuple(edges)
     candidates = build_candidates(
@@ -836,8 +1217,8 @@ def build_registry(repo_root: Path) -> GraphRegistry:
         repo_root, "lowvol-002", "H0003", 1
     )
     provenance = (
-        _provenance(studies["btc-eth-001"]),
-        _provenance(studies["lowvol-002"]),
+        _provenance(trials["T0001"]),
+        _provenance(trials["T0002"]),
         ProvenanceRecord(
             study="lowvol-002",
             trial_id=None,
@@ -846,7 +1227,9 @@ def build_registry(repo_root: Path) -> GraphRegistry:
             registration_path=h0003_path,
             preregistration_fingerprint=h0003_registration["spec_fingerprint"],
         ),
-        _provenance(studies["move-vix-003"]),
+        _provenance(trials["T0004"]),
+        _provenance(trials["T0005"]),
+        _provenance(trials["T0007"]),
     )
     content_hash = compute_content_hash(
         schema_version=1,
@@ -900,6 +1283,14 @@ def _condition_short(edge: EdgeRecord) -> str:
         return "—"
     if edge.status is EdgeStatus.PENDING:
         return "low-vol forward"
+    if edge.test_type is EdgeTestType.MEAN_COMPARISON:
+        return "expiry window (mean |r|)"
+    if "expiry" in edge.condition:
+        if "interaction" in edge.condition:
+            return "expiry-window interaction"
+        if "subsample" in edge.condition:
+            return "expiry-window subsample"
+        return "expiry window"
     if "interaction" in edge.condition:
         return "low-vol interaction"
     if "subsample" in edge.condition:
@@ -941,31 +1332,67 @@ def render_doc_section(registry: GraphRegistry) -> str:
     lines.append(f"| DESCRIPTIVE checks (no verdict) | {summary['edges_descriptive']} |")
     lines.append(f"| Untested candidate pairs | {summary['candidates']} |")
     lines.append("")
-    lines.append(
-        "**Every tested edge so far is a null.** All "
-        f"{summary['edges_rejected']} family tests across three studies "
-        "failed to reject: no lag-1 transmission was found in any tested "
-        "configuration. That is the graph's most important information "
-        "right now — it records where transmission was looked for and not "
-        "found, which is what stops the next study from re-testing the "
-        "same edges."
+    n_studies = len(
+        {
+            entry.study
+            for entry in registry.provenance
+            if entry.trial_id is not None
+        }
     )
+    n_tested = summary["edges_rejected"] + summary["edges_supported"]
+    n_mean = sum(
+        1
+        for edge in registry.edges
+        if edge.test_type is EdgeTestType.MEAN_COMPARISON
+        and edge.status in {EdgeStatus.SUPPORTED, EdgeStatus.REJECTED}
+    )
+    if summary["edges_supported"] == 0:
+        null_sentence = (
+            f"**Every tested edge so far is a null.** All {n_tested} "
+            f"family tests across {n_studies} studies failed to reject: "
+            "no lag-1 transmission was found in any tested configuration"
+        )
+        if n_mean:
+            plural = "comparisons were" if n_mean > 1 else "comparison was"
+            null_sentence += (
+                f", and the {n_mean} expiry-window volatility-level "
+                f"{plural} null too"
+            )
+        null_sentence += (
+            ". That is the graph's most important information right now "
+            "— it records where effects were looked for and not found, "
+            "which is what stops the next study from re-testing the "
+            "same edges."
+        )
+    else:
+        null_sentence = (
+            f"**{summary['edges_supported']} of {n_tested} tested edges "
+            "rejected their null.** The supported edges are the graph's "
+            "live findings; every other tested edge is a null that stops "
+            "the next study from re-testing the same configuration."
+        )
+    lines.append(null_sentence)
     lines.append("")
     lines.append("### Edges")
     lines.append("")
     lines.append(
-        "| Edge | Source → Target | Freq | Condition | Hypothesis / trial "
+        "| Edge | Source → Target | Freq | Type | Condition | Hypothesis / trial "
         "| Coef | Holm p | Partial R² | Holdout OOS R² | Status |"
     )
     lines.append(
-        "| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |"
+        "| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |"
     )
     labels = {node.instrument_id: node.short_label for node in registry.nodes}
     for edge in registry.edges:
         pair = f"{labels[edge.source_instrument]} → {labels[edge.target_instrument]}"
         trial = edge.trial_id or "—"
+        type_label = (
+            "mean-comp"
+            if edge.test_type is EdgeTestType.MEAN_COMPARISON
+            else "lead-lag"
+        )
         lines.append(
-            f"| {edge.edge_id} | {pair} | {edge.frequency} | "
+            f"| {edge.edge_id} | {pair} | {edge.frequency} | {type_label} | "
             f"{_condition_short(edge)} | {edge.hypothesis_id} "
             f"v{edge.hypothesis_version} / {trial} | "
             f"{_fmt_float(edge.coefficient)} | {_fmt_p(edge.holm_adjusted_p_value)} | "
@@ -990,7 +1417,10 @@ def render_doc_section(registry: GraphRegistry) -> str:
     lines.append(
         "Solid arrows are tested edges; dashed arrows are pending or "
         "descriptive. Labels show the edge id, frequency, coefficient, "
-        "Holm-adjusted p-value (tested edges) and status."
+        "Holm-adjusted p-value (tested edges) and status. "
+        "Mean-comparison edges are self-loops labelled with the mean "
+        "difference; they are within-instrument level tests, not "
+        "transmission claims."
     )
     lines.append("")
     lines.append("### Untested candidates")
