@@ -1,0 +1,213 @@
+{
+  "cache_root": "data/cache/lowvol-002",
+  "fetched_at": "2026-11-18T01:32:02.550025+00:00",
+  "fetches": [
+    {
+      "bar": "1d",
+      "candles": 1361,
+      "endpoint": "https://api.hyperliquid.xyz/info",
+      "excluded_unclosed": 0,
+      "excluded_zero_trade": 56,
+      "expected_confirmed_bars": 1417,
+      "first_bar_open": "2023-02-26T00:00:00+00:00",
+      "hyperliquid_coin": "BTC",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-17T00:00:00+00:00",
+      "missing_bar_opens": [],
+      "missing_bars": 0,
+      "observation_rows": 6805,
+      "pages": [
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "36de44241b1cc71aa48dc99ec926280535895c91a2518ad54990f2e2f0b3242a",
+          "record_id": "ba527200abe94a54275e1365fa8ab73fd5223528aad1c8852e7817416d1c4b0a",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"BTC\",\"interval\":\"1d\",\"startTime\":1672531200000,\"endTime\":1704067200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "c7c0943f42abd49e8040cbe5c9cd99c554dc7685b3713bcf5efa04b937bcd42e",
+          "record_id": "025469f53d10f7055db6d22a7da8c4c4c9dabba79a65e7386d8f9aee182f595e",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"BTC\",\"interval\":\"1d\",\"startTime\":1704067200000,\"endTime\":1735603200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "5eca23376442111efa3b3f7d74c39209bf79532b174c699b79973ce92c215390",
+          "record_id": "6d86652083035ca57fff1ccaa0083566d00bae3795749d22d69682983afb8193",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"BTC\",\"interval\":\"1d\",\"startTime\":1735603200000,\"endTime\":1767139200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "6d4fbfe37466f1c50bb7959a7ca16732d05163612bcc8a935c684edb4f543e65",
+          "record_id": "ca8dd6b5cd10ed3ad4b23c2375036dcf094746f3212883feb3a33ae691bc79e9",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"BTC\",\"interval\":\"1d\",\"startTime\":1767139200000,\"endTime\":1794960000000}}"
+        }
+      ],
+      "pit_parquet": "e0e78f259dda626c9d011dd325d1693f02337789dd897c560f139b29c6d4dfee.parquet",
+      "pit_parquet_sha256": "e0e78f259dda626c9d011dd325d1693f02337789dd897c560f139b29c6d4dfee",
+      "pit_store": "pit-1d-hl",
+      "window_end": "2026-11-18T00:00:00+00:00",
+      "window_start": "2023-01-01T00:00:00+00:00"
+    },
+    {
+      "bar": "1d",
+      "candles": 1361,
+      "endpoint": "https://api.hyperliquid.xyz/info",
+      "excluded_unclosed": 0,
+      "excluded_zero_trade": 56,
+      "expected_confirmed_bars": 1417,
+      "first_bar_open": "2023-02-26T00:00:00+00:00",
+      "hyperliquid_coin": "ETH",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-17T00:00:00+00:00",
+      "missing_bar_opens": [],
+      "missing_bars": 0,
+      "observation_rows": 6805,
+      "pages": [
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "e98e59f1569986617f692ee2e0a076a4c84f34093b4ea394f2e57949adf57860",
+          "record_id": "bf176685e56769eb4b726847c2099e031141703a58ed1b196eb38dc4227d2d72",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"ETH\",\"interval\":\"1d\",\"startTime\":1672531200000,\"endTime\":1704067200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "aa3ca0aae0390c4bbeabf162cf24fb062d0f57af5fdfe36c2df8a4627d3e5b27",
+          "record_id": "22e8046cab26c9f67e575fe053a417d436c241d1c5bc976ff112736b69b8e0dc",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"ETH\",\"interval\":\"1d\",\"startTime\":1704067200000,\"endTime\":1735603200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "7578e849febd85ac93588954e8a08e7729151ec95f07a69bf9ce701febc6fec1",
+          "record_id": "ce7975550796d8d673184bc9c0f6610dc84db3dc6683aab170651bb1eb6436b2",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"ETH\",\"interval\":\"1d\",\"startTime\":1735603200000,\"endTime\":1767139200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "5f8105ea2da16ddb51bec7d4d432b05c98dc780a23897d3b29cadca03e737e17",
+          "record_id": "6a80b3b9724638de61e08a527aadc239c70bff7c83cbaa2c4629c623ba284ca0",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"ETH\",\"interval\":\"1d\",\"startTime\":1767139200000,\"endTime\":1794960000000}}"
+        }
+      ],
+      "pit_parquet": "25975e0f15bc432a2e6d34b2b7eadb3fdfb9774fb32c38d5ebf014be4eff1864.parquet",
+      "pit_parquet_sha256": "25975e0f15bc432a2e6d34b2b7eadb3fdfb9774fb32c38d5ebf014be4eff1864",
+      "pit_store": "pit-1d-hl",
+      "window_end": "2026-11-18T00:00:00+00:00",
+      "window_start": "2023-01-01T00:00:00+00:00"
+    },
+    {
+      "bar": "1d",
+      "candles": 1355,
+      "endpoint": "https://api.hyperliquid.xyz/info",
+      "excluded_unclosed": 0,
+      "excluded_zero_trade": 62,
+      "expected_confirmed_bars": 1417,
+      "first_bar_open": "2023-03-04T00:00:00+00:00",
+      "hyperliquid_coin": "SOL",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-17T00:00:00+00:00",
+      "missing_bar_opens": [],
+      "missing_bars": 0,
+      "observation_rows": 6775,
+      "pages": [
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "86015c7b0aee55d0a335f180bf723759cf02470a2d2d406b5dcc7e5745b6ccd1",
+          "record_id": "3ac3c9f96f44507799fb3d0494793dd19de38c6220787aaeb87e2ea9fd3a43c9",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"SOL\",\"interval\":\"1d\",\"startTime\":1672531200000,\"endTime\":1704067200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "c8351c8c426c3e076cfc60961a2b635d8d51c944e304493aca228c26f704b42e",
+          "record_id": "a4c24d9ca0fec2b24432edf9211460dbafb09ce5bd36f14c4ecf3848b049adad",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"SOL\",\"interval\":\"1d\",\"startTime\":1704067200000,\"endTime\":1735603200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "14090d31adda8a008ccb1353b4f527a3d1272e7d236b4403f7ed06d7c5583604",
+          "record_id": "dad1b62dadab86c5c3d2aa91d7654d72c8ede9bf2f67deab1d4edb10c67fc9df",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"SOL\",\"interval\":\"1d\",\"startTime\":1735603200000,\"endTime\":1767139200000}}"
+        },
+        {
+          "endpoint": "https://api.hyperliquid.xyz/info",
+          "payload_sha256": "64afa61088861970c8ea68a8dc9f83262bd40f165bb2962336d113f6a10c3897",
+          "record_id": "bc923c4e1eadd0b14195585009f04e1dc268eda7d15b09a8be03fada64c9f5fc",
+          "request_body": "{\"type\":\"candleSnapshot\",\"req\":{\"coin\":\"SOL\",\"interval\":\"1d\",\"startTime\":1767139200000,\"endTime\":1794960000000}}"
+        }
+      ],
+      "pit_parquet": "ec4e8d17e12a3377b36226b5fd8e9fcf8b6a3f0e16903cd77f478843bf2ace84.parquet",
+      "pit_parquet_sha256": "ec4e8d17e12a3377b36226b5fd8e9fcf8b6a3f0e16903cd77f478843bf2ace84",
+      "pit_store": "pit-1d-hl",
+      "window_end": "2026-11-18T00:00:00+00:00",
+      "window_start": "2023-01-01T00:00:00+00:00"
+    }
+  ],
+  "okx_inputs": {
+    "cache_root": "data/cache/btc-eth-001",
+    "fetched_at": "2026-11-18T01:29:26.945513+00:00",
+    "fetches": [
+      {
+        "bar": "1D",
+        "candles": 1416,
+        "first_bar_open": "2023-01-01T16:00:00+00:00",
+        "instrument_id": "crypto:btc-usdt-perp",
+        "last_bar_open": "2026-11-16T16:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1D",
+        "candles": 1416,
+        "first_bar_open": "2023-01-01T16:00:00+00:00",
+        "instrument_id": "crypto:eth-usdt-perp",
+        "last_bar_open": "2026-11-16T16:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1D",
+        "candles": 1416,
+        "first_bar_open": "2023-01-01T16:00:00+00:00",
+        "instrument_id": "crypto:sol-usdt-perp",
+        "last_bar_open": "2026-11-16T16:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1H",
+        "candles": 2160,
+        "first_bar_open": "2026-08-20T00:00:00+00:00",
+        "instrument_id": "crypto:btc-usdt-perp",
+        "last_bar_open": "2026-11-17T23:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1H",
+        "candles": 2160,
+        "first_bar_open": "2026-08-20T00:00:00+00:00",
+        "instrument_id": "crypto:eth-usdt-perp",
+        "last_bar_open": "2026-11-17T23:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1H",
+        "candles": 2160,
+        "first_bar_open": "2026-08-20T00:00:00+00:00",
+        "instrument_id": "crypto:sol-usdt-perp",
+        "last_bar_open": "2026-11-17T23:00:00+00:00",
+        "missing_bars": 0
+      }
+    ],
+    "manifest_sha256": "03a125f619957510c24e8742bf151387a846273432b17d861e09d67638dd9973"
+  },
+  "quality": {
+    "pit-1d-hl": {
+      "event_time_max": "2026-11-17T00:00:00+00:00",
+      "event_time_min": "2023-02-26T00:00:00+00:00",
+      "issues": [],
+      "missing_expected_series": [],
+      "row_count": 20385,
+      "unique_instrument_count": 3,
+      "unique_series_count": 15
+    }
+  },
+  "source_id": "hyperliquid-public",
+  "source_version": 1,
+  "study": "lowvol-002"
+}

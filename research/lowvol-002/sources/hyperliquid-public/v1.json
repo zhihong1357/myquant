@@ -1,0 +1,11 @@
+{
+  "attribution": "Data: Hyperliquid public market data",
+  "description": "Hyperliquid public REST candleSnapshot for BTC/ETH/SOL perpetuals (daily bars)",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public market data served without authentication by Hyperliquid's public /info endpoint (candleSnapshot), used for research only; raw payloads are not redistributed. Hyperliquid Terms of Service reviewed 2026-11-18. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "Hyperliquid",
+  "source_id": "hyperliquid-public",
+  "terms_url": "https://app.hyperliquid.xyz/terms",
+  "timestamp_basis": "Exchange event time: candle open time in UTC milliseconds; a candle's values become knowable at its close (open + bar duration). Daily bars open at 00:00 UTC."
+}
