@@ -536,22 +536,93 @@ def test_real_ranking_counts_and_top() -> None:
         inputs.fomc_statement_dates,
         inputs.decision_records,
     )
-    assert len(result.ranked) == 99
+    assert len(result.ranked) == 111
     assert len(result.excluded) == 0
-    assert len(result.unrankable) == 24
+    assert len(result.unrankable) == 12
     top = result.ranked[0]
     assert top.source_instrument == "credit:baa-10y-spread"
     assert top.target_instrument == "index:sp500"
     assert top.total == 1.0
-    # Every unrankable pair involves TYVIX or VXN (pre-2021 panels).
+    # Every unrankable pair involves TYVIX (discontinued 2020-05-15)
+    # against a post-2020-only node. VXN was re-fetched past 2020
+    # (see research/planner-6a/vxn_refresh.json); its 12 pairs are
+    # ranked now.
     assert all(
-        c.source_instrument in {"index:tyvix", "index:vxn"}
-        or c.target_instrument in {"index:tyvix", "index:vxn"}
+        c.source_instrument == "index:tyvix"
+        or c.target_instrument == "index:tyvix"
         for c in result.unrankable
     )
-    # The top tier is a 34-way tie at 1.00.
-    assert sum(1 for c in result.ranked if c.total == 1.0) == 34
-    # Cross-section pairs cannot reach the top tier (power 0).
+    # The top tier is a 35-way tie at 1.00.
+    assert sum(1 for c in result.ranked if c.total == 1.0) == 35
+    # Cross-section pairs: 7, all DGS10-sourced. One reaches the top
+    # tier — DGS10->VXN, whose overlap window now runs to 2026 (188
+    # FOMC events, MDE below the 0.05 threshold); the other six have
+    # power 0.
     cross = [c for c in result.ranked if c.test_type is EdgeTestType.CROSS_SECTION]
     assert len(cross) == 7
-    assert all(c.power == 0.0 for c in cross)
+    powered = [c for c in cross if c.power == 1.0]
+    assert len(powered) == 1
+    assert powered[0].source_instrument == "rates:us-10y-yield"
+    assert powered[0].target_instrument == "index:vxn"
+    assert powered[0].total == 1.0
+    assert powered[0].joint_n == 188
+    assert all(
+        c.power == 0.0
+        for c in cross
+        if (c.source_instrument, c.target_instrument)
+        != ("rates:us-10y-yield", "index:vxn")
+    )
+    # The 12 recovered VXN pairs are all ranked, all with power 0:
+    # the daily pairs' joint-n estimates (1,422-1,470) sit just
+    # under the sample size the 0.005 lead-lag threshold needs
+    # (MDEs 0.00531-0.00549); the monthly VXN->CPI pair has 72
+    # months (MDE 0.0983).
+    post_2020 = {
+        "crypto:btc-usdt-perp",
+        "crypto:eth-usdt-perp",
+        "crypto:sol-usdt-perp",
+        "index:btc-dvol",
+        "index:eth-dvol",
+        "macro:cpi-mom",
+    }
+    recovered = [
+        c
+        for c in result.ranked
+        if "index:vxn" in (c.source_instrument, c.target_instrument)
+        and (
+            c.source_instrument in post_2020
+            or c.target_instrument in post_2020
+        )
+    ]
+    assert len(recovered) == 12
+    assert all(c.power == 0.0 for c in recovered)
+
+
+def test_vxn_availability_matches_refresh_manifest() -> None:
+    """The VXN availability node agrees with the refresh manifest.
+
+    The refresh script writes both files; this test guards against
+    a hand edit drifting one away from the other. Offline: it reads
+    committed files only.
+    """
+    planner_dir = REPO_ROOT / "research" / "planner-6a"
+    manifest = json.loads((planner_dir / "vxn_refresh.json").read_text())
+    availability = json.loads(
+        (planner_dir / "data_availability.json").read_text()
+    )
+    vxn = next(
+        p
+        for p in availability["panels"]
+        if p["instrument_id"] == "index:vxn"
+    )
+    full = manifest["full_series"]
+    assert vxn["rows"] == full["rows"]
+    assert vxn["first"] == full["first_date"]
+    assert vxn["last"] == full["last_date"]
+    assert "vxn_refresh.json" in vxn["verified_by"]
+    # The overlap segment of the new pull matches the study-003
+    # manifest aggregates exactly (aggregate-level check; see the
+    # refresh manifest for the method and its limitation).
+    assert manifest["overlap_check"]["matches_study_003_manifest"] is True
+    assert manifest["overlap_check"]["rows"] == 4372
+    assert manifest["overlap_check"]["missing_values"] == 161

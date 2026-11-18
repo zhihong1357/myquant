@@ -67,7 +67,7 @@
   ],
   "research_question": "Does the lagged BAA10Y return contain incremental information about the next day VXN return, beyond the target's own history and a common-factor control?",
   "sample_period": {
-    "estimated_joint_rows": 4341,
+    "estimated_joint_rows": 5967,
     "estimated_joint_rows_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
     "note": "Estimated from the verified per-node panels; confirm the exact joint row count when the panel is built."
   },

@@ -299,16 +299,29 @@ def main() -> None:
     ]
     for candidate in default.unrankable:
         lines.append(f"- {_pair(candidate)}: {candidate.reason}")
+    all_tyvix = all(
+        "index:tyvix" in (c.source_instrument, c.target_instrument)
+        for c in default.unrankable
+    )
+    if all_tyvix:
+        unrankable_note = (
+            f"All {len(default.unrankable)} unrankable pairs are TYVIX "
+            "against post-2020-only nodes (crypto perpetuals, DVOL, "
+            "CPI): the TYVIX panel ends 2020-05-15 (discontinued) "
+            "while the crypto/DVOL/CPI panels start in 2021 — there "
+            "is no overlapping window to test on. TYVIX cannot be "
+            "extended. VXN was re-fetched past 2020 (see "
+            "`vxn_refresh.json`); its 12 pairs moved from unrankable "
+            "to ranked."
+        )
+    else:
+        unrankable_note = (
+            f"{len(default.unrankable)} pairs are unrankable; see the "
+            "list above for the per-pair reasons."
+        )
     lines += [
         "",
-        "All 24 unrankable pairs are TYVIX/VXN against post-2020-only "
-        "nodes (crypto perpetuals, DVOL, CPI): the TYVIX panel ends "
-        "2020-05-15 (discontinued) and the VXN panel is verified only "
-        "through 2020-05-15, while the crypto/DVOL/CPI panels start "
-        "in 2021 — there is no overlapping window to test on. "
-        "Re-fetching VXN past 2020 (the series continues on FRED) "
-        "would make 12 of these pairs rankable; TYVIX cannot be "
-        "extended.",
+        unrankable_note,
         "",
         "## Weight sensitivity",
         "",
@@ -325,20 +338,91 @@ def main() -> None:
             f"{', '.join(entry['left']) if entry['left'] else 'none'}",
             "",
         ]
+    top_tier_count = tiers.get(1.0, 0)
+    invariant = all(
+        entry["intersection_with_default"] == SHORTLIST_SIZE
+        for entry in sensitivity
+    )
+    if invariant:
+        sensitivity_conclusion = (
+            "Conclusion: the top-10 is weight-invariant in this run. "
+            f"The {top_tier_count} pairs in the top tier saturate all "
+            "three components, so they score 1.00 under any weights, "
+            "and the top-10 is the same lexicographic slice of that "
+            "tier under every weighting. The weights only reorder the "
+            "lower tiers (under adjacency-heavy weights the "
+            "adjacency-1/power-0 tier outranks the "
+            "adjacency-0.5/power-1 tier; under power-heavy weights "
+            "it is the other way round). The ranking's discriminating "
+            "power is limited by its coarse components — a finer "
+            "power component (e.g. a continuous MDE margin) would be "
+            f"needed to break the {top_tier_count}-way tie, and that "
+            "is a design decision for a later planner version, not "
+            "something to smuggle in here."
+        )
+    else:
+        sensitivity_conclusion = (
+            "Conclusion: the top-10 is not weight-invariant in this "
+            "run (see the intersections above). The top tier holds "
+            f"only {top_tier_count} pairs at 1.00, so the lower tiers "
+            "— which the weights reorder — fill the rest of the "
+            "shortlist."
+        )
+    cross = [
+        c for c in default.ranked if c.mechanism.value == "cross-section"
+    ]
+    cross_threshold = cross[0].mde_threshold if cross else 0.05
+    cross_top = [c for c in cross if c.total == 1.0]
+    cross_rest = [c for c in cross if c.total != 1.0]
+
+    def _mde_text(pairs) -> str:
+        distinct = sorted(
+            {(c.joint_n, c.mde) for c in pairs if c.joint_n and c.mde}
+        )
+        return ", ".join(f"MDE {mde:.4f} at {n} events" for n, mde in distinct)
+
+    vol_level_note = (
+        "Vol-level, event-response and regime-conditional labels do "
+        "not occur among candidates: level and event-response tests "
+        "are self-loops (never candidates) and regime-conditional "
+        "designs are follow-ups, not first tests."
+    )
+    if cross_top and cross_rest:
+        top_text = "; ".join(
+            f"{_pair(c)} (rank {c.rank}, {c.joint_n} events, "
+            f"MDE {c.mde:.4f})"
+            for c in cross_top
+        )
+        rest_lo = min(c.rank for c in cross_rest)
+        rest_hi = max(c.rank for c in cross_rest)
+        cross_note = (
+            f"Cross-section pairs ({len(cross)}, all DGS10-sourced): "
+            f"{len(cross_top)} "
+            f"{'reaches' if len(cross_top) == 1 else 'reach'} "
+            f"the top tier — {top_text} — "
+            f"while the other {len(cross_rest)} sit at ranks "
+            f"{rest_lo}–{rest_hi} with power 0 "
+            f"({_mde_text(cross_rest)}, vs the {cross_threshold} "
+            f"threshold). {vol_level_note}"
+        )
+    elif cross:
+        lo = min(c.rank for c in cross)
+        hi = max(c.rank for c in cross)
+        cross_note = (
+            f"Cross-section pairs ({len(cross)}, all DGS10-sourced) "
+            f"sit at ranks {lo}–{hi}: their power component is 0 at "
+            "every available event count "
+            f"({_mde_text(cross)}, vs the {cross_threshold} "
+            f"threshold), so they cannot reach the top tier. "
+            f"{vol_level_note}"
+        )
+    else:
+        cross_note = (
+            "No cross-section pairs among the ranked candidates. "
+            f"{vol_level_note}"
+        )
     lines += [
-        "Conclusion: the top-10 is weight-invariant in this run. "
-        "The 34 pairs in the top tier saturate all three components, "
-        "so they score 1.00 under any weights, and the top-10 is "
-        "the same lexicographic slice of that tier under every "
-        "weighting. The weights only reorder the lower tiers "
-        "(under adjacency-heavy weights the adjacency-1/power-0 "
-        "tier outranks the adjacency-0.5/power-1 tier; under "
-        "power-heavy weights it is the other way round). The "
-        "ranking's discriminating power is limited by its coarse "
-        "components — a finer power component (e.g. a continuous "
-        "MDE margin) would be needed to break the 34-way tie, and "
-        "that is a design decision for a later planner version, "
-        "not something to smuggle in here.",
+        sensitivity_conclusion,
         "",
         "## Mechanism distribution",
         "",
@@ -353,15 +437,7 @@ def main() -> None:
         )
         + ".",
         "",
-        "Cross-section pairs (7, all DGS10-sourced) sit at ranks "
-        "80–86: their power component is 0 at every available event "
-        "count (MDE 0.1514 at 44 events, 0.1485 at 45 events, "
-        "0.0546 at 136 events, vs the 0.05 threshold), so they "
-        "cannot reach the top tier. "
-        "Vol-level, event-response and regime-conditional labels do "
-        "not occur among candidates: level and event-response tests "
-        "are self-loops (never candidates) and regime-conditional "
-        "designs are follow-ups, not first tests.",
+        cross_note,
         "",
         "## Full ranking (default weights)",
         "",
@@ -371,10 +447,10 @@ def main() -> None:
         "",
         "## Limitations",
         "",
-        "- The ranking is a heuristic with coarse components: 34 "
-        "pairs tie at the top score, so the top-10 is decided by "
-        "the lexicographic tie-break, not by any discriminating "
-        "evidence. Do not read it as a prediction.",
+        f"- The ranking is a heuristic with coarse components: "
+        f"{top_tier_count} pairs tie at the top score, so the top-10 "
+        "is decided by the lexicographic tie-break, not by any "
+        "discriminating evidence. Do not read it as a prediction.",
         "- Joint sample sizes are estimates (pro-rata by days from "
         "the verified per-node panels), not verified joint counts. "
         "The true joint row count must be confirmed when the study "
@@ -394,9 +470,9 @@ def main() -> None:
         "warm-up approximating the 60-trading-day estimation "
         "window; events dropped for data gaps (e.g. the 2004-11-10 "
         "DGS10 gap in study 005) are not subtracted.",
-        "- VXN is verified only through 2020-05-15; re-fetching it "
-        "would change 12 pairs from unrankable to ranked. TYVIX "
-        "cannot be extended (discontinued).",
+        "- VXN was re-fetched past 2020-05-15 (see "
+        "`vxn_refresh.json`); its 12 pairs moved from unrankable to "
+        "ranked. TYVIX cannot be extended (discontinued).",
         "- The planner knows nothing about economics: it cannot tell "
         "a plausible mechanism from a spurious pair, and it does not "
         "try. The mechanism label is a classification of the "
