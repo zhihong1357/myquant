@@ -1,0 +1,11 @@
+{
+  "instrument_id": "rates:us-10y-yield",
+  "asset_class": "rates",
+  "instrument_type": "rate",
+  "name": "Market Yield on US Treasury Securities at 10 Years (DGS10)",
+  "quote_currency": "percent",
+  "calendar_id": "us-equity",
+  "metadata": {
+    "fred_series": "DGS10"
+  }
+}

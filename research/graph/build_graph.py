@@ -70,6 +70,7 @@ SHORT_LABELS = {
     # node ids, which must be alphanumeric plus underscores.
     "index:btc-dvol": "BTC_DVOL",
     "index:eth-dvol": "ETH_DVOL",
+    "macro:cpi-mom": "CPI_MoM",
 }
 
 
@@ -752,6 +753,229 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
             "window.",
         ),
     ),
+    # Study 007 (H0011, T0013): 5-test Holm family. Study 005's event
+    # study re-run with every FRED leg lagged one trading day (FRED
+    # posts day-t values the next business day, verified before
+    # preregistration): the lagged [0,+1] window in availability terms
+    # covers reference-date changes [-1,0]. Yahoo SPX is not shifted
+    # and enters as an unlagged control that reproduces study 005
+    # exactly. The lagged TYVIX response survives (primary, SUPPORTED);
+    # the lagged VIX response is significant too, because the day +1
+    # rebound drops out of the lagged window.
+    EdgeSpec(
+        edge_id="E0032",
+        study="publication-lag-007",
+        trial_id="T0013",
+        ledger_test_key="tyvix_lagged_car",
+        source="index:tyvix",
+        target="index:tyvix",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); lagged event window "
+            "[0,+1] in availability terms (reference-date changes "
+            "[-1,0]); FRED legs lagged one trading day; n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on lagged log changes, "
+            "CAR[0,+1], cluster-based normal inference (estimation "
+            "window [-60,-11])"
+        ),
+        control=None,
+        is_primary=True,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=(
+            "Primary test of H0011. The TYVIX drop is concentrated on "
+            "day 0 (descriptive per-day AR: day 0 -0.0336, day +1 "
+            "-0.0045), so the lagged window keeps most of the effect.",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0033",
+        study="publication-lag-007",
+        trial_id="T0013",
+        ledger_test_key="vix_lagged_car",
+        source="index:vix",
+        target="index:vix",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); lagged event window "
+            "[0,+1] in availability terms (reference-date changes "
+            "[-1,0]); FRED legs lagged one trading day; n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on lagged log changes, "
+            "CAR[0,+1], cluster-based normal inference (estimation "
+            "window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=(
+            "Significant under the lag while the unlagged VIX test was "
+            "not (study 005: Holm p = 0.160): the day +1 rebound "
+            "(+0.0098) drops out of the lagged window, leaving the day "
+            "0 drop (-0.0254) alone.",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0034",
+        study="publication-lag-007",
+        trial_id="T0013",
+        ledger_test_key="dgs10_lagged_car",
+        source="rates:us-10y-yield",
+        target="rates:us-10y-yield",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); lagged event window "
+            "[0,+1] in availability terms (reference-date changes "
+            "[-1,0]); FRED legs lagged one trading day; n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on lagged level changes (bp), "
+            "CAR[0,+1], cluster-based normal inference (estimation "
+            "window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=("CAR in basis points of the 10-year yield level change.",),
+    ),
+    EdgeSpec(
+        edge_id="E0035",
+        study="publication-lag-007",
+        trial_id="T0013",
+        ledger_test_key="baa10y_lagged_car",
+        source="credit:baa-10y-spread",
+        target="credit:baa-10y-spread",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); lagged event window "
+            "[0,+1] in availability terms (reference-date changes "
+            "[-1,0]); FRED legs lagged one trading day; n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on lagged level changes (bp), "
+            "CAR[0,+1], cluster-based normal inference (estimation "
+            "window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=("CAR in basis points of the BAA-10Y spread level change.",),
+    ),
+    EdgeSpec(
+        edge_id="E0036",
+        study="publication-lag-007",
+        trial_id="T0013",
+        ledger_test_key="spx_car",
+        source="index:sp500",
+        target="index:sp500",
+        frequency="daily",
+        condition=(
+            "scheduled FOMC statement days (t=0); event window [0,+1]; "
+            "n = 135 events"
+        ),
+        method=(
+            "constant-mean event study on log changes, CAR[0,+1], "
+            "cluster-based normal inference (estimation window [-60,-11])"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.EVENT_STUDY,
+        notes=(
+            "Unlagged control (Yahoo SPX is not shifted): reproduces "
+            "study 005's SPX CAR exactly (+0.000669, p = 0.634), as "
+            "the trial's machinery guard requires.",
+        ),
+    ),
+    # Study 007 (H0012, T0015): 3-test Holm family. The latest
+    # published CPI month-on-month value (FRED CPIAUCSL, aligned by
+    # release date as a step function) predicts next-day returns. The
+    # step takes only 69 distinct values over 2021-2026 (one per
+    # release); the 1,468 daily rows are not the effective sample size.
+    # The predictor is the published MoM level, not a surprise (no
+    # consensus data). T0014 is absent by design: the first H0012
+    # attempt ran as T0014 and failed inside the experiment on the
+    # skipped-release guard (it checked the out-of-sample November
+    # 2026 release, whose MoM is undefined only because the value is
+    # not published yet); the corrected rerun is T0015.
+    EdgeSpec(
+        edge_id="E0037",
+        study="publication-lag-007",
+        trial_id="T0015",
+        ledger_test_key="spx_daily",
+        source="macro:cpi-mom",
+        target="index:sp500",
+        frequency="daily",
+        condition=(
+            "CPI step predictor (latest published MoM, release-day "
+            "aligned); next-day SPX return"
+        ),
+        method=(
+            "partial lead-lag OLS, lag 1, Newey-West HAC "
+            "(max lag 21 daily)"
+        ),
+        control="SPX[t] log return",
+        is_primary=True,
+        panel_key="daily",
+        notes=(
+            "Primary test of H0012. HAC max lag 21 is preregistered: "
+            "the step predictor's run length is about 21 trading days.",
+            "The step takes only 69 distinct values over 2021-2026; "
+            "the 1,468 daily rows are not the effective sample size.",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0038",
+        study="publication-lag-007",
+        trial_id="T0015",
+        ledger_test_key="spx_release_day",
+        source="macro:cpi-mom",
+        target="index:sp500",
+        frequency="daily",
+        condition=(
+            "CPI step predictor, release-day subsample only (n = 70 "
+            "fresh-information rows)"
+        ),
+        method=(
+            "partial lead-lag OLS on release-day rows only, "
+            "Newey-West HAC (max lag 5 daily)"
+        ),
+        control="SPX[t] log return",
+        is_primary=False,
+        panel_key="daily",
+        notes=(
+            "Closest read in the family (raw p = 0.018, Holm p = "
+            "0.053, partial R² 0.060) but it does not survive the "
+            "family correction; recorded as hypothesis-generating only.",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0039",
+        study="publication-lag-007",
+        trial_id="T0015",
+        ledger_test_key="btc_daily",
+        source="macro:cpi-mom",
+        target="crypto:btc-usdt-perp",
+        frequency="daily",
+        condition=(
+            "CPI step predictor evaluated at each OKX bar's close date "
+            "(open date + 1 day); next-day BTC return"
+        ),
+        method=(
+            "partial lead-lag OLS, lag 1, Newey-West HAC "
+            "(max lag 21 daily)"
+        ),
+        control="BTC[t] log return",
+        is_primary=False,
+        panel_key="btc_daily",
+        notes=("Predeclared BTC robustness test.",),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
@@ -764,7 +988,10 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
 # absent for the same reason: the first H0007 attempt ran as T0008 and
 # failed inside the experiment (an over-strict cycle-boundary guard,
 # recorded as a failed trial in the ledger); the corrected rerun is
-# T0010.
+# T0010. T0014 is absent for the same reason: the first H0012 attempt
+# ran as T0014 and failed inside the experiment (the skipped-release
+# guard checked the out-of-sample November 2026 release, recorded as a
+# failed trial in the ledger); the corrected rerun is T0015.
 TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0001", "btc-eth-001", "H0001", 1, "docs/studies/btc-eth-transmission-001.md"),
     ("T0002", "lowvol-002", "H0002", 1, "docs/studies/lowvol-transmission-002.md"),
@@ -775,6 +1002,8 @@ TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0009", "fomc-event-study-005", "H0008", 1, "docs/studies/fomc-event-study-005.md"),
     ("T0011", "macro-windows-006", "H0009", 1, "docs/studies/macro-windows-006.md"),
     ("T0012", "macro-windows-006", "H0010", 1, "docs/studies/macro-windows-006.md"),
+    ("T0013", "publication-lag-007", "H0011", 1, "docs/studies/publication-lag-007.md"),
+    ("T0015", "publication-lag-007", "H0012", 1, "docs/studies/publication-lag-007.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -993,6 +1222,22 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
                 "from free data. Not a verdict criterion."
             ),
         )
+    if data.trial_id == "T0015":
+        gate = data.metrics["cost_gate_informational"]
+        return CostGateRecord(
+            verdict=CostGateVerdict.INFORMATIONAL,
+            net_daily_edge=None,
+            gross_daily_edge=gate["gross_daily_edge"],
+            bootstrap_p_value=gate["gross_edge_bootstrap_p_value"],
+            ci_lower=gate["gross_edge_ci_lower"],
+            ci_upper=gate["gross_edge_ci_upper"],
+            days=gate["days"],
+            note=(
+                "Informational only: no costs applied. The S&P 500 index "
+                "is not directly tradable and no free SPX futures or ETF "
+                "price series is used. Not a verdict criterion."
+            ),
+        )
     gate = data.metrics["cost_gate"]
     if data.trial_id == "T0002":
         note = (
@@ -1076,12 +1321,28 @@ def _lead_lag_primary_verdict(
         r2_part = f"partial R² {partial_r2:.6g} below the 0.005 threshold"
     oos_part = f"holdout OOS incremental R² {oos_value:+.5f}"
     if cost_gate.verdict is CostGateVerdict.INFORMATIONAL:
+        if data.trial_id == "T0004":
+            return (
+                f"Hypothesis {data.hypothesis_id} {verdict} "
+                f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
+                "cost gate informational (gross daily "
+                f"edge {cost_gate.gross_daily_edge:+.4%}, 95% CI includes "
+                "zero) — no net edge measurable without VIX futures data."
+            )
+        ci_includes_zero = (
+            cost_gate.ci_lower is not None
+            and cost_gate.ci_upper is not None
+            and cost_gate.ci_lower <= 0.0 <= cost_gate.ci_upper
+        )
+        ci_part = (
+            "95% CI includes zero" if ci_includes_zero else "95% CI excludes zero"
+        )
         return (
             f"Hypothesis {data.hypothesis_id} {verdict} "
             f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
             "cost gate informational (gross daily "
-            f"edge {cost_gate.gross_daily_edge:+.4%}, 95% CI includes "
-            "zero) — no net edge measurable without VIX futures data."
+            f"edge {cost_gate.gross_daily_edge:+.4%}, {ci_part}) — no net "
+            "edge measurable without a tradable SPX price series."
         )
     return (
         f"Hypothesis {data.hypothesis_id} {verdict} "
@@ -1807,6 +2068,8 @@ def build_registry(repo_root: Path) -> GraphRegistry:
         _provenance(trials["T0009"]),
         _provenance(trials["T0011"]),
         _provenance(trials["T0012"]),
+        _provenance(trials["T0013"]),
+        _provenance(trials["T0015"]),
     )
     content_hash = compute_content_hash(
         schema_version=1,
@@ -1861,6 +2124,8 @@ def _condition_short(edge: EdgeRecord) -> str:
     if edge.status is EdgeStatus.PENDING:
         return "low-vol forward"
     if edge.test_type is EdgeTestType.EVENT_STUDY:
+        if "lagged" in edge.condition:
+            return "FOMC event window (lagged)"
         return "FOMC event window"
     if edge.test_type is EdgeTestType.CROSS_SECTION:
         return "FOMC cross-event"
@@ -1868,6 +2133,10 @@ def _condition_short(edge: EdgeRecord) -> str:
         if "macro" in edge.condition:
             return "macro window (mean |r|)"
         return "expiry window (mean |r|)"
+    if "cpi step" in edge.condition.lower():
+        if "release-day subsample" in edge.condition:
+            return "CPI step (release-day)"
+        return "CPI step"
     if "macro" in edge.condition:
         if "interaction" in edge.condition:
             return "macro-window interaction"

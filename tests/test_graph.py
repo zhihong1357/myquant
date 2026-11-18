@@ -815,6 +815,7 @@ def test_every_holm_family_test_has_an_edge(tmp_path: Path):
         ("options-expiry-004", "research/options-expiry-004/trials.jsonl"),
         ("fomc-event-study-005", "research/fomc-event-study-005/trials.jsonl"),
         ("macro-windows-006", "research/macro-windows-006/trials.jsonl"),
+        ("publication-lag-007", "research/publication-lag-007/trials.jsonl"),
     ):
         # A ledger may hold more than one trial (study 004 has T0005 and
         # T0007; study 006 has T0011 and T0012); failed trials carry no
@@ -847,6 +848,7 @@ def test_edge_numbers_match_the_trial_ledger(tmp_path: Path):
         "research/options-expiry-004/trials.jsonl",
         "research/fomc-event-study-005/trials.jsonl",
         "research/macro-windows-006/trials.jsonl",
+        "research/publication-lag-007/trials.jsonl",
     ):
         # Keyed by trial id: a ledger may hold more than one trial.
         for line in (REPO_ROOT / ledger).read_text().splitlines():
@@ -880,11 +882,11 @@ def test_real_graph_summary(tmp_path: Path):
     built_registry, _ = run_builder(tmp_path)
     graph = MarketGraph.from_file(built_registry)
     assert graph.summary() == {
-        "nodes": 11,
-        "edges": 31,
-        "candidates": 103,
-        "edges_supported": 4,
-        "edges_rejected": 24,
+        "nodes": 12,
+        "edges": 39,
+        "candidates": 123,
+        "edges_supported": 6,
+        "edges_rejected": 30,
         "edges_pending": 1,
         "edges_descriptive": 2,
     }
@@ -903,17 +905,22 @@ def test_real_graph_summary(tmp_path: Path):
         ("rates:us-10y-yield", "index:sp500"),
         ("rates:us-10y-yield", "index:vix"),
         ("rates:us-10y-yield", "credit:baa-10y-spread"),
+        ("macro:cpi-mom", "index:sp500"),
+        ("macro:cpi-mom", "crypto:btc-usdt-perp"),
     }
     # The supported edges: the TYVIX event-window CAR (E0023) and the
     # BAA10Y cross-event slope (E0026), both secondary tests whose
-    # hypotheses were rejected on their primary tests; and the
-    # macro-window mean |log return| comparisons for BTC (E0030) and ETH
-    # (E0031), study 006's H0010 family — the lab's first supported
-    # hypothesis.
+    # hypotheses were rejected on their primary tests; the macro-window
+    # mean |log return| comparisons for BTC (E0030) and ETH (E0031),
+    # study 006's H0010 family — the lab's first supported hypothesis;
+    # and the lagged TYVIX event-window CAR (E0032, study 007's H0011
+    # primary — the lab's second supported hypothesis) plus the lagged
+    # VIX event-window CAR (E0033, significant under the lag because
+    # the day +1 rebound drops out of the lagged window).
     assert {
         edge.edge_id
         for edge in graph.edges_by(status=EdgeStatus.SUPPORTED)
-    } == {"E0023", "E0026", "E0030", "E0031"}
+    } == {"E0023", "E0026", "E0030", "E0031", "E0032", "E0033"}
     # The reverse-placebo pair stays an untested candidate, with its
     # descriptive check noted.
     vix_tyvix = graph.untested_candidates(
@@ -967,6 +974,11 @@ def test_event_study_and_cross_section_edges_carry_no_lead_lag_stats(
         "E0021",
         "E0022",
         "E0023",
+        "E0032",
+        "E0033",
+        "E0034",
+        "E0035",
+        "E0036",
     }
     for edge in event_edges:
         # An event-window mean-CAR test compares one instrument against

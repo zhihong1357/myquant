@@ -58,6 +58,12 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "macro:cpi-mom"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "credit:baa-10y-spread",
       "target_instrument": "rates:us-10y-yield"
     },
     {
@@ -101,6 +107,12 @@
       "related_descriptive": null,
       "source_instrument": "crypto:btc-usdt-perp",
       "target_instrument": "index:vxn"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "macro:cpi-mom"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -166,6 +178,12 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "macro:cpi-mom"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:eth-usdt-perp",
       "target_instrument": "rates:us-10y-yield"
     },
     {
@@ -221,6 +239,12 @@
       "related_descriptive": null,
       "source_instrument": "crypto:sol-usdt-perp",
       "target_instrument": "index:vxn"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "macro:cpi-mom"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -286,6 +310,12 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "index:btc-dvol",
+      "target_instrument": "macro:cpi-mom"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:btc-dvol",
       "target_instrument": "rates:us-10y-yield"
     },
     {
@@ -341,6 +371,12 @@
       "related_descriptive": null,
       "source_instrument": "index:eth-dvol",
       "target_instrument": "index:vxn"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "macro:cpi-mom"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -406,6 +442,12 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "index:sp500",
+      "target_instrument": "macro:cpi-mom"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:sp500",
       "target_instrument": "rates:us-10y-yield"
     },
     {
@@ -449,6 +491,12 @@
       "related_descriptive": null,
       "source_instrument": "index:tyvix",
       "target_instrument": "index:sp500"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "macro:cpi-mom"
     },
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
@@ -514,6 +562,12 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "index:vix",
+      "target_instrument": "macro:cpi-mom"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:vix",
       "target_instrument": "rates:us-10y-yield"
     },
     {
@@ -574,6 +628,66 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "index:vxn",
+      "target_instrument": "macro:cpi-mom"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "index:vxn",
+      "target_instrument": "rates:us-10y-yield"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "credit:baa-10y-spread"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "crypto:eth-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "crypto:sol-usdt-perp"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:btc-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:eth-dvol"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:tyvix"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:vix"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:vxn"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "macro:cpi-mom",
       "target_instrument": "rates:us-10y-yield"
     },
     {
@@ -617,9 +731,15 @@
       "related_descriptive": null,
       "source_instrument": "rates:us-10y-yield",
       "target_instrument": "index:vxn"
+    },
+    {
+      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
+      "related_descriptive": null,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "macro:cpi-mom"
     }
   ],
-  "content_hash": "0ed515b5edd47c1a9251169cb3a4ccd9a57e6b058898acb176fbf8dbfce2921c",
+  "content_hash": "3d0515bd4fa1f7c3922d10a4e1cbb805b4cba3e6ccbd630f26b6973704ec4ae0",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -2143,6 +2263,411 @@
       "trial_record_hash": "4b0dd1cce4fbe6e15849ba3ef80355d60591afdf9f3c0913f7cea8bf2681cb8d",
       "verdict_summary": "Hypothesis H0010 SUPPORTED (trial T0012): this test rejected (Holm-adjusted p = 0.006); window/non-window mean |log return| ratio 1.2976; the hypothesis verdict is decided by the primary test (E0030).",
       "version": 1
+    },
+    {
+      "coefficient": -0.03021596706540259,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); lagged event window [0,+1] in availability terms (reference-date changes [-1,0]); FRED legs lagged one trading day; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0011 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0032",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 5.201439834401356e-09,
+      "hypothesis_id": "H0011",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "tyvix_lagged_car",
+      "method": "constant-mean event study on lagged log changes, CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "Primary test of H0011. The TYVIX drop is concentrated on day 0 (descriptive per-day AR: day 0 -0.0336, day +1 -0.0045), so the lagged window keeps most of the effect."
+      ],
+      "observations": 135,
+      "p_value": 1.0402879668802711e-09,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2003-01-06T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4329
+      },
+      "source_instrument": "index:tyvix",
+      "standard_error": 0.00504323323562653,
+      "status": "supported",
+      "t_statistic": -5.991387995294413,
+      "target_instrument": "index:tyvix",
+      "test_type": "event_study",
+      "trial_id": "T0013",
+      "trial_record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23",
+      "verdict_summary": "Hypothesis H0011 SUPPORTED (trial T0013): this test rejected (Holm-adjusted p = 0.000); standardized mean CAR -0.5157 at or below the -0.30 threshold; mean CAR -0.030216 over [0,+1] (n = 135 events). No OOS or cost-gate criterion: event study, not a forecast.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.024379808923705018,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); lagged event window [0,+1] in availability terms (reference-date changes [-1,0]); FRED legs lagged one trading day; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0011 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0033",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.005848241881070582,
+      "hypothesis_id": "H0011",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "vix_lagged_car",
+      "method": "constant-mean event study on lagged log changes, CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "Significant under the lag while the unlagged VIX test was not (study 005: Holm p = 0.160): the day +1 rebound (+0.0098) drops out of the lagged window, leaving the day 0 drop (-0.0254) alone."
+      ],
+      "observations": 135,
+      "p_value": 0.0014620604702676454,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2003-01-06T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4329
+      },
+      "source_instrument": "index:vix",
+      "standard_error": 0.008193230068808689,
+      "status": "supported",
+      "t_statistic": -2.9756040925199954,
+      "target_instrument": "index:vix",
+      "test_type": "event_study",
+      "trial_id": "T0013",
+      "trial_record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23",
+      "verdict_summary": "Hypothesis H0011 SUPPORTED (trial T0013): this test rejected (Holm-adjusted p = 0.006); standardized mean CAR -0.2561; the hypothesis verdict is decided by the primary test (E0032).",
+      "version": 1
+    },
+    {
+      "coefficient": -1.1765925925925922,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); lagged event window [0,+1] in availability terms (reference-date changes [-1,0]); FRED legs lagged one trading day; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0011 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0034",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.4023106222820503,
+      "hypothesis_id": "H0011",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "dgs10_lagged_car",
+      "method": "constant-mean event study on lagged level changes (bp), CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "CAR in basis points of the 10-year yield level change."
+      ],
+      "observations": 135,
+      "p_value": 0.13410354076068343,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2003-01-06T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4329
+      },
+      "source_instrument": "rates:us-10y-yield",
+      "standard_error": 0.7853823605905873,
+      "status": "rejected",
+      "t_statistic": -1.498114360128772,
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "event_study",
+      "trial_id": "T0013",
+      "trial_record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23",
+      "verdict_summary": "Hypothesis H0011 SUPPORTED (trial T0013): this test did not reject (Holm-adjusted p = 0.402); standardized mean CAR -0.1289; the hypothesis verdict is decided by the primary test (E0032).",
+      "version": 1
+    },
+    {
+      "coefficient": 0.6071111111111114,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); lagged event window [0,+1] in availability terms (reference-date changes [-1,0]); FRED legs lagged one trading day; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0011 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0035",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.4351127654724056,
+      "hypothesis_id": "H0011",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "baa10y_lagged_car",
+      "method": "constant-mean event study on lagged level changes (bp), CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "CAR in basis points of the BAA-10Y spread level change."
+      ],
+      "observations": 135,
+      "p_value": 0.2175563827362028,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2003-01-06T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4329
+      },
+      "source_instrument": "credit:baa-10y-spread",
+      "standard_error": 0.4923645845286074,
+      "status": "rejected",
+      "t_statistic": 1.2330519500958075,
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "event_study",
+      "trial_id": "T0013",
+      "trial_record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23",
+      "verdict_summary": "Hypothesis H0011 SUPPORTED (trial T0013): this test did not reject (Holm-adjusted p = 0.435); standardized mean CAR 0.1061; the hypothesis verdict is decided by the primary test (E0032).",
+      "version": 1
+    },
+    {
+      "coefficient": 0.0006693574991539838,
+      "common_factor_control": null,
+      "condition": "scheduled FOMC statement days (t=0); event window [0,+1]; n = 135 events",
+      "cost_gate": null,
+      "cost_gate_note": "No cost gate: H0011 is an event study, not a forecast; there is no trading rule to cost.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "federalreserve@v1"
+      ],
+      "edge_id": "E0036",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "No OOS score: event study, not a forecast.",
+      "holm_adjusted_p_value": 0.6342554696490699,
+      "hypothesis_id": "H0011",
+      "hypothesis_version": 1,
+      "incremental_r_squared": null,
+      "lag_steps": null,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "spx_car",
+      "method": "constant-mean event study on log changes, CAR[0,+1], cluster-based normal inference (estimation window [-60,-11])",
+      "notes": [
+        "Unlagged control (Yahoo SPX is not shifted): reproduces study 005's SPX CAR exactly (+0.000669, p = 0.634), as the trial's machinery guard requires."
+      ],
+      "observations": 135,
+      "p_value": 0.6342554696490699,
+      "partial_r_squared": null,
+      "preregistration_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2003-01-06T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 135,
+        "panel_rows": 4329
+      },
+      "source_instrument": "index:sp500",
+      "standard_error": 0.0014069645257081995,
+      "status": "rejected",
+      "t_statistic": 0.4757458250889878,
+      "target_instrument": "index:sp500",
+      "test_type": "event_study",
+      "trial_id": "T0013",
+      "trial_record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23",
+      "verdict_summary": "Hypothesis H0011 SUPPORTED (trial T0013): this test did not reject (Holm-adjusted p = 0.634); standardized mean CAR 0.0409; the hypothesis verdict is decided by the primary test (E0032).",
+      "version": 1
+    },
+    {
+      "coefficient": -0.037402090072185715,
+      "common_factor_control": "SPX[t] log return",
+      "condition": "CPI step predictor (latest published MoM, release-day aligned); next-day SPX return",
+      "cost_gate": {
+        "bootstrap_p_value": 0.42278860569715143,
+        "ci_lower": -0.0004579641250611481,
+        "ci_upper": 0.00098532393747442,
+        "days": 470,
+        "gross_daily_edge": 0.0002933361444898209,
+        "net_daily_edge": null,
+        "note": "Informational only: no costs applied. The S&P 500 index is not directly tradable and no free SPX futures or ETF price series is used. Not a verdict criterion.",
+        "verdict": "informational"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "bls@v1",
+        "okx-public@v1"
+      ],
+      "edge_id": "E0037",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": -0.0003362377537479144,
+      "holdout_oos_note": "Holdout window only (6 folds, 470 rows).",
+      "holm_adjusted_p_value": 0.7548740391336041,
+      "hypothesis_id": "H0012",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 0.00010218096537817356,
+      "lag_steps": 1,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "spx_daily",
+      "method": "partial lead-lag OLS, lag 1, Newey-West HAC (max lag 21 daily)",
+      "notes": [
+        "Primary test of H0012. HAC max lag 21 is preregistered: the step predictor's run length is about 21 trading days.",
+        "The step takes only 69 distinct values over 2021-2026; the 1,468 daily rows are not the effective sample size."
+      ],
+      "observations": 1468,
+      "p_value": 0.7548740391336041,
+      "partial_r_squared": 0.00010223875705747534,
+      "preregistration_fingerprint": "8526ef1ce9d5620463668319c9d3e7b0b31293dd524f157e90032207fccdc6e5",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2021-01-05T21:00:00Z",
+        "last": "2026-11-17T21:00:00Z",
+        "observations": 1468,
+        "panel_rows": 1475
+      },
+      "source_instrument": "macro:cpi-mom",
+      "standard_error": 0.11979437994650124,
+      "status": "rejected",
+      "t_statistic": -0.31221907145301014,
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "trial_id": "T0015",
+      "trial_record_hash": "6d757217ecab7b2e573ba8260579fc08bf643e22ce3a4ba7b3cd53f9eb6e9976",
+      "verdict_summary": "Hypothesis H0012 REJECTED (trial T0015): this test did not reject (Holm-adjusted p = 0.755); partial R² 0.000102239 below the 0.005 threshold; holdout OOS incremental R² -0.00034; cost gate informational (gross daily edge +0.0293%, 95% CI includes zero) — no net edge measurable without a tradable SPX price series.",
+      "version": 1
+    },
+    {
+      "coefficient": -0.8625919839929368,
+      "common_factor_control": "SPX[t] log return",
+      "condition": "CPI step predictor, release-day subsample only (n = 70 fresh-information rows)",
+      "cost_gate": null,
+      "cost_gate_note": "Trial-level cost gate; applies to the primary test (E0037) only.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "bls@v1",
+        "okx-public@v1"
+      ],
+      "edge_id": "E0038",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "Trial-level metric; measured for the primary test (E0037) only.",
+      "holm_adjusted_p_value": 0.05304546582475029,
+      "hypothesis_id": "H0012",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 0.06016272153622093,
+      "lag_steps": 1,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "spx_release_day",
+      "method": "partial lead-lag OLS on release-day rows only, Newey-West HAC (max lag 5 daily)",
+      "notes": [
+        "Closest read in the family (raw p = 0.018, Holm p = 0.053, partial R² 0.060) but it does not survive the family correction; recorded as hypothesis-generating only."
+      ],
+      "observations": 70,
+      "p_value": 0.01768182194158343,
+      "partial_r_squared": 0.06022158508425336,
+      "preregistration_fingerprint": "8526ef1ce9d5620463668319c9d3e7b0b31293dd524f157e90032207fccdc6e5",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2021-01-05T21:00:00Z",
+        "last": "2026-11-17T21:00:00Z",
+        "observations": 70,
+        "panel_rows": 1475
+      },
+      "source_instrument": "macro:cpi-mom",
+      "standard_error": 0.3636230961485586,
+      "status": "rejected",
+      "t_statistic": -2.372214507629966,
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "trial_id": "T0015",
+      "trial_record_hash": "6d757217ecab7b2e573ba8260579fc08bf643e22ce3a4ba7b3cd53f9eb6e9976",
+      "verdict_summary": "Hypothesis H0012 REJECTED (trial T0015): this test did not reject (Holm-adjusted p = 0.053, partial R² 0.0602216).",
+      "version": 1
+    },
+    {
+      "coefficient": -0.48750916529029076,
+      "common_factor_control": "BTC[t] log return",
+      "condition": "CPI step predictor evaluated at each OKX bar's close date (open date + 1 day); next-day BTC return",
+      "cost_gate": null,
+      "cost_gate_note": "Trial-level cost gate; applies to the primary test (E0037) only.",
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1",
+        "bls@v1",
+        "okx-public@v1"
+      ],
+      "edge_id": "E0039",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": null,
+      "holdout_oos_note": "Trial-level metric; measured for the primary test (E0037) only.",
+      "holm_adjusted_p_value": 0.16909619607107185,
+      "hypothesis_id": "H0012",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 0.00216417700790994,
+      "lag_steps": 1,
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "btc_daily",
+      "method": "partial lead-lag OLS, lag 1, Newey-West HAC (max lag 21 daily)",
+      "notes": [
+        "Predeclared BTC robustness test."
+      ],
+      "observations": 2134,
+      "p_value": 0.08454809803553592,
+      "partial_r_squared": 0.002167642978964771,
+      "preregistration_fingerprint": "8526ef1ce9d5620463668319c9d3e7b0b31293dd524f157e90032207fccdc6e5",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "sample": {
+        "first": "2021-01-02T16:00:00Z",
+        "last": "2026-11-16T16:00:00Z",
+        "observations": 2134,
+        "panel_rows": 2145
+      },
+      "source_instrument": "macro:cpi-mom",
+      "standard_error": 0.28263275898727624,
+      "status": "rejected",
+      "t_statistic": -1.7248855618758538,
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0015",
+      "trial_record_hash": "6d757217ecab7b2e573ba8260579fc08bf643e22ce3a4ba7b3cd53f9eb6e9976",
+      "verdict_summary": "Hypothesis H0012 REJECTED (trial T0015): this test did not reject (Holm-adjusted p = 0.169, partial R² 0.00216764).",
+      "version": 1
     }
   ],
   "nodes": [
@@ -2155,7 +2680,8 @@
       "short_label": "BAA10Y",
       "studies": [
         "fomc-event-study-005",
-        "move-vix-003"
+        "move-vix-003",
+        "publication-lag-007"
       ]
     },
     {
@@ -2169,7 +2695,8 @@
         "btc-eth-001",
         "lowvol-002",
         "macro-windows-006",
-        "options-expiry-004"
+        "options-expiry-004",
+        "publication-lag-007"
       ]
     },
     {
@@ -2227,7 +2754,8 @@
       "short_label": "SPX",
       "studies": [
         "fomc-event-study-005",
-        "move-vix-003"
+        "move-vix-003",
+        "publication-lag-007"
       ]
     },
     {
@@ -2239,7 +2767,8 @@
       "short_label": "TYVIX",
       "studies": [
         "fomc-event-study-005",
-        "move-vix-003"
+        "move-vix-003",
+        "publication-lag-007"
       ]
     },
     {
@@ -2251,7 +2780,8 @@
       "short_label": "VIX",
       "studies": [
         "fomc-event-study-005",
-        "move-vix-003"
+        "move-vix-003",
+        "publication-lag-007"
       ]
     },
     {
@@ -2266,6 +2796,17 @@
       ]
     },
     {
+      "asset_class": "macro",
+      "calendar_id": "us-equity",
+      "instrument_id": "macro:cpi-mom",
+      "instrument_type": "macro_series",
+      "name": "Consumer Price Index for All Urban Consumers, All Items, month-on-month log change (CPIAUCSL, seasonally adjusted)",
+      "short_label": "CPI_MoM",
+      "studies": [
+        "publication-lag-007"
+      ]
+    },
+    {
       "asset_class": "rates",
       "calendar_id": "us-equity",
       "instrument_id": "rates:us-10y-yield",
@@ -2274,7 +2815,8 @@
       "short_label": "DGS10",
       "studies": [
         "fomc-event-study-005",
-        "move-vix-003"
+        "move-vix-003",
+        "publication-lag-007"
       ]
     }
   ],
@@ -2358,6 +2900,22 @@
       "study": "macro-windows-006",
       "trial_id": "T0012",
       "trial_record_hash": "4b0dd1cce4fbe6e15849ba3ef80355d60591afdf9f3c0913f7cea8bf2681cb8d"
+    },
+    {
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "preregistration_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+      "registration_path": "research/publication-lag-007/hypotheses/registrations/H0011/v1.json",
+      "study": "publication-lag-007",
+      "trial_id": "T0013",
+      "trial_record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23"
+    },
+    {
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "preregistration_fingerprint": "8526ef1ce9d5620463668319c9d3e7b0b31293dd524f157e90032207fccdc6e5",
+      "registration_path": "research/publication-lag-007/hypotheses/registrations/H0012/v1.json",
+      "study": "publication-lag-007",
+      "trial_id": "T0015",
+      "trial_record_hash": "6d757217ecab7b2e573ba8260579fc08bf643e22ce3a4ba7b3cd53f9eb6e9976"
     }
   ],
   "schema_version": 1

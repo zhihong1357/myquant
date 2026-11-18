@@ -1,0 +1,11 @@
+{
+  "attribution": "Source: Board of Governors of the Federal Reserve System",
+  "description": "Federal Reserve public FOMC meeting calendar pages: fomchistorical{YYYY}.htm (2003-2020) and fomccalendars.htm (2021 onwards), plus the 2003 schedule press release and the 2020 minutes publication page used as cross-checks",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public meeting schedule data published by the Board of Governors, free to use; the pages require no API key. Used for research only; raw payloads are not redistributed. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "Board of Governors of the Federal Reserve System",
+  "source_id": "federalreserve",
+  "terms_url": "https://www.federalreserve.gov/",
+  "timestamp_basis": "Scheduled meeting dates are public in advance (the annual schedule is announced months ahead); the statement day is the last day of the meeting and the statement is released at about 14:00 ET on that day."
+}

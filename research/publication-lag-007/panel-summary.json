@@ -1,0 +1,146 @@
+{
+  "calendar_validation": {
+    "cpi": {
+      "first_release": "2021-01-13",
+      "last_release": "2026-12-10",
+      "releases": 71,
+      "source": "research/macro-windows-006/cpi_calendar.json"
+    },
+    "fomc": {
+      "first_statement": "2003-01-29",
+      "last_statement": "2027-11-17",
+      "scheduled_meetings": 199,
+      "source": "research/fomc-event-study-005/fomc_calendar.json"
+    }
+  },
+  "fetched_at": "2026-11-18T06:38:21.309273+00:00",
+  "fetches": [
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:vix",
+      "last_date": "2020-05-15",
+      "missing_values": 158,
+      "rows": 4374
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:tyvix",
+      "last_date": "2020-05-15",
+      "missing_values": 169,
+      "rows": 4363
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "rates:us-10y-yield",
+      "last_date": "2020-05-15",
+      "missing_values": 185,
+      "rows": 4347
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "credit:baa-10y-spread",
+      "last_date": "2020-05-15",
+      "missing_values": 186,
+      "rows": 4346
+    },
+    {
+      "first_date": "2020-11-01",
+      "instrument_id": "macro:cpi-mom",
+      "last_date": "2026-10-01",
+      "missing_values": 1,
+      "rows": 71
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:sp500",
+      "last_date": "2026-11-17",
+      "missing_values": 0,
+      "rows": 6008
+    },
+    {
+      "first_date": "2021-01-01T16:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_date": "2026-11-16T16:00:00+00:00",
+      "missing_values": 0,
+      "rows": 2146
+    }
+  ],
+  "fred_lag_check": {
+    "consistent_with_lag_steps": 1,
+    "fetched_at": "2026-11-18T06:38:21.309273+00:00",
+    "most_recent_trading_day": "2026-11-17",
+    "notes": "Both series' last available date is the most recent trading day or the one before it, consistent with next-business-day posting (N=1). Whether it is the most recent day or the previous one depends on whether this fetch ran before or after FRED's morning posting.",
+    "previous_trading_day": "2026-11-16",
+    "series": {
+      "DGS10": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+        "last_available_date": "2026-11-16",
+        "payload_sha256": "f41f4abe378278e0a8c74e42d54bf5763955eddd353e81cd8895dd359c5ce4a6",
+        "record_id": "98c3f430e8ba08f076c4eb931eaa4b90166eaf341b32dcec1b9b0810062244d8",
+        "rows": 16203
+      },
+      "VIXCLS": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
+        "last_available_date": "2026-11-16",
+        "payload_sha256": "f446df921245c3998246c77c05218dd3d59db15c2dc6b24f14ff94d00ffb9653",
+        "record_id": "6e1f30f7507091dfebaee81a144bd9ba7a20c25eb3137bc8f0ef2de5afec7218",
+        "rows": 9318
+      }
+    },
+    "today_us_eastern": "2026-11-18"
+  },
+  "panel": {
+    "cpi_monthly": {
+      "first_date": "2020-11-01",
+      "instrument": "macro:cpi-mom",
+      "last_date": "2026-10-01",
+      "rows": 71
+    },
+    "h0011": {
+      "close_rows": 4331,
+      "dropped_close_rows": 51,
+      "dropped_return_rows": 52,
+      "first_return_time": "2003-01-03T21:00:00+00:00",
+      "instruments": [
+        "index:vix",
+        "index:tyvix",
+        "rates:us-10y-yield",
+        "credit:baa-10y-spread",
+        "index:sp500"
+      ],
+      "last_return_time": "2020-05-15T21:00:00+00:00",
+      "return_rows": 4330
+    },
+    "h0012_btc": {
+      "close_rows": 2146,
+      "dropped_close_rows": 0,
+      "dropped_return_rows": 1,
+      "first_return_time": "2021-01-02T16:00:00+00:00",
+      "instruments": [
+        "crypto:btc-usdt-perp"
+      ],
+      "last_return_time": "2026-11-16T16:00:00+00:00",
+      "return_rows": 2145
+    },
+    "h0012_spx": {
+      "close_rows": 1476,
+      "dropped_close_rows": 0,
+      "dropped_return_rows": 1,
+      "first_return_time": "2021-01-05T21:00:00+00:00",
+      "instruments": [
+        "index:sp500"
+      ],
+      "last_return_time": "2026-11-17T21:00:00+00:00",
+      "return_rows": 1475
+    }
+  },
+  "quality_issues": {
+    "pit-1d": [],
+    "pit-okx-1d": []
+  },
+  "quality_row_count": {
+    "pit-1d": 23509,
+    "pit-okx-1d": 10730
+  },
+  "study": "publication-lag-007"
+}

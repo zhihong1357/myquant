@@ -1,0 +1,11 @@
+{
+  "attribution": "Source: Federal Reserve Bank of St. Louis",
+  "description": "FRED free fredgraph CSV downloads for VIXCLS (VIX), VXTYN (TYVIX history), DGS10 (10-year Treasury yield), BAA10Y (Baa minus 10-year Treasury spread) and CPIAUCSL (seasonally adjusted CPI, monthly)",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public economic data published by the Federal Reserve Bank of St. Louis, free to use with attribution; the fredgraph.csv endpoint requires no API key. Used for research only; raw payloads are not redistributed. FRED terms of use reviewed 2026-11-18. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "Federal Reserve Bank of St. Louis (FRED)",
+  "source_id": "fred",
+  "terms_url": "https://fred.stlouisfed.org/docs/api/terms_of_use.html",
+  "timestamp_basis": "Daily closing values dated observation_date; the event time is the US equity close (16:00 ET) recorded as 21:00 UTC (fixed; DST is not modelled). Monthly CPIAUCSL values are dated the first of the reference month. FRED lag verified 2026-11-18 before preregistration: VIXCLS and DGS10 fredgraph CSVs fetched at 06:26 UTC (01:26 EST, about 9.4 hours after Tuesday 2026-11-17's close) both end at 2026-11-16 (Monday). Tuesday's value is not posted yet (rules out same-evening posting) and Monday's value is already available (rules out a two-business-day posting delay), so a FRED value dated t is posted on the next business day: a one-trading-day availability lag (N=1)."
+}

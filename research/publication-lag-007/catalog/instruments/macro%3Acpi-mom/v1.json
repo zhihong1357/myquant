@@ -1,0 +1,11 @@
+{
+  "instrument_id": "macro:cpi-mom",
+  "asset_class": "macro",
+  "instrument_type": "macro_series",
+  "name": "Consumer Price Index for All Urban Consumers, All Items, month-on-month log change (CPIAUCSL, seasonally adjusted)",
+  "quote_currency": "log-points",
+  "calendar_id": "us-equity",
+  "metadata": {
+    "fred_series": "CPIAUCSL"
+  }
+}
