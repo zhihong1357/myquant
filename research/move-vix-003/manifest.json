@@ -1,0 +1,147 @@
+{
+  "cache_root": "data/cache/move-vix-003",
+  "fetched_at": "2026-11-18T02:26:36.608569+00:00",
+  "fetches": [
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "VIXCLS",
+      "instrument_id": "index:vix",
+      "last_date": "2020-05-15",
+      "missing_values": 158,
+      "observation_rows": 4374,
+      "payload_sha256": "51828c28c93ed961bbe19fce5e1e3cd88bc4f08a05e44174f293cb426c4acb5c",
+      "pit_parquet": "769a21353db609e99f989994bc5e424eff57a4f3c2e23530eb07646bb49bcc98.parquet",
+      "pit_parquet_sha256": "769a21353db609e99f989994bc5e424eff57a4f3c2e23530eb07646bb49bcc98",
+      "pit_store": "pit-1d",
+      "record_id": "bb706b0cf0f3fe032e7a7b6ae5b8314022da32235fdc9441214c579d20770d19",
+      "rows": 4374,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VXNCLS&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "VXNCLS",
+      "instrument_id": "index:vxn",
+      "last_date": "2020-05-15",
+      "missing_values": 161,
+      "observation_rows": 4372,
+      "payload_sha256": "07843b50be573c1a532f6269af72eb31dcbe4a61fba711279a097204386c31b9",
+      "pit_parquet": "5532fa5ccb530b08bbec6117ac801ffa36fe62a5a16d13ff4994db92064d57f3.parquet",
+      "pit_parquet_sha256": "5532fa5ccb530b08bbec6117ac801ffa36fe62a5a16d13ff4994db92064d57f3",
+      "pit_store": "pit-1d",
+      "record_id": "c6ab4b307927d7c7ad3720796c15b67a2541b3a68b970b07b5d9a1d0bb81e4ca",
+      "rows": 4372,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VXTYN&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "VXTYN",
+      "instrument_id": "index:tyvix",
+      "last_date": "2020-05-15",
+      "missing_values": 169,
+      "observation_rows": 4363,
+      "payload_sha256": "643ec650255c43b1c3b033215e6314ddbff5972b515f0f3a7931805f07f5bbef",
+      "pit_parquet": "0109ba201dba8d196b5fd65d3311d70dcaf7efb974f23681298a40e65f9b7747.parquet",
+      "pit_parquet_sha256": "0109ba201dba8d196b5fd65d3311d70dcaf7efb974f23681298a40e65f9b7747",
+      "pit_store": "pit-1d",
+      "record_id": "9eff339ee8e5bc5d907d92be535d4db2891e04749eab89b54fac666b153be329",
+      "rows": 4363,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "DGS10",
+      "instrument_id": "rates:us-10y-yield",
+      "last_date": "2020-05-15",
+      "missing_values": 185,
+      "observation_rows": 4347,
+      "payload_sha256": "bbbf691acefeba9b15f94b510f77caea91701d52361493a517b7e8ce1cf5f797",
+      "pit_parquet": "2b0db901c7af4b62cdababa3e9f7f5aa650f1b7a689f62141e886347ce885fdb.parquet",
+      "pit_parquet_sha256": "2b0db901c7af4b62cdababa3e9f7f5aa650f1b7a689f62141e886347ce885fdb",
+      "pit_store": "pit-1d",
+      "record_id": "bf385c276e40f203ea081e3591d89c397feaebcf6d7662ec1f4dec0c583864ab",
+      "rows": 4347,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y&cosd=2003-01-02&coed=2020-05-15",
+      "first_date": "2003-01-02",
+      "fred_series": "BAA10Y",
+      "instrument_id": "credit:baa-10y-spread",
+      "last_date": "2020-05-15",
+      "missing_values": 186,
+      "observation_rows": 4346,
+      "payload_sha256": "d1ece261b762652c4df92f1f85ba4c476065cc85e0e2033b3d421461fbdb7357",
+      "pit_parquet": "541c27fdb7c24b879cb4a297658e4693ef4787553176fa4236cc3216fdfeea39.parquet",
+      "pit_parquet_sha256": "541c27fdb7c24b879cb4a297658e4693ef4787553176fa4236cc3216fdfeea39",
+      "pit_store": "pit-1d",
+      "record_id": "4e3fc665e811fa9c88fa078275ce2ac9edfeb5cc73e440397ce5c06a0afdcc8d",
+      "rows": 4346,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02"
+    },
+    {
+      "endpoint": "https://query2.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1=1041465600&period2=1589587200&interval=1d",
+      "first_date": "2003-01-02",
+      "instrument_id": "index:sp500",
+      "last_date": "2020-05-15",
+      "missing_values": 0,
+      "observation_rows": 4373,
+      "payload_sha256": "715a219eb52624fef1c91f75fc2a7a7a82efa0e2d85c489b823fb5b10871ac7e",
+      "pit_parquet": "8b9e6156ba1fb48ac3e4b87422c9713aea00242e2ba2d2bc851ee5ea6fb4076c.parquet",
+      "pit_parquet_sha256": "8b9e6156ba1fb48ac3e4b87422c9713aea00242e2ba2d2bc851ee5ea6fb4076c",
+      "pit_store": "pit-1d",
+      "record_id": "0266032c4d3fffeb45c393570c19bebc20cf125ac8d6b22dea71d7ffaa07d295",
+      "rows": 4373,
+      "window_end": "2020-05-15",
+      "window_start": "2003-01-02",
+      "yahoo_long_name": "S&P 500",
+      "yahoo_symbol": "^GSPC"
+    }
+  ],
+  "panel": {
+    "close_rows": 4329,
+    "dropped_close_rows": 54,
+    "dropped_return_rows": 55,
+    "first_return_time": "2003-01-03T21:00:00+00:00",
+    "instruments": [
+      "index:vix",
+      "index:vxn",
+      "index:tyvix",
+      "rates:us-10y-yield",
+      "credit:baa-10y-spread",
+      "index:sp500"
+    ],
+    "last_return_time": "2020-05-15T21:00:00+00:00",
+    "return_rows": 4328
+  },
+  "quality": {
+    "pit-1d": {
+      "event_time_max": "2020-05-15T21:00:00+00:00",
+      "event_time_min": "2003-01-02T21:00:00+00:00",
+      "issues": [],
+      "missing_expected_series": [],
+      "row_count": 26175,
+      "unique_instrument_count": 6,
+      "unique_series_count": 6
+    }
+  },
+  "sources": [
+    {
+      "source_id": "fred",
+      "version": 1
+    },
+    {
+      "source_id": "yahoo-finance",
+      "version": 1
+    }
+  ],
+  "study": "move-vix-003"
+}

@@ -40,6 +40,7 @@ The system is designed for multiple horizons: sub-hourly, intraday, daily and mu
 - OLS regression, Newey-West HAC inference and common-factor controlled partial lead-lag diagnostics
 - Purged chronological walk-forward splits, auditable embargo/purge indices and paired out-of-sample forecast scoring
 - OKX and Hyperliquid public REST source adapters (standard library only) and synchronized multi-instrument panels; first real-data study (BTC/ETH perpetual transmission, H0001) completed and rejected — see `docs/studies/btc-eth-transmission-001.md`; second study (low-volatility regime-conditional transmission, H0002) completed and rejected — see `docs/studies/lowvol-transmission-002.md`
+- FRED public CSV and Yahoo Finance chart adapters (standard library only); third real-data study (MOVE/VIX/VXN conditional repricing, H0004, using TYVIX via FRED VXTYN as the rates-volatility measure) completed and rejected — see `docs/studies/move-vix-transmission-003.md`
 
 The current implementation is a research foundation, not a live market data service or a proven trading system. Statistical validation and evidence-backed strategy decisions remain future work.
 

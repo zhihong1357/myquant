@@ -1,0 +1,11 @@
+{
+  "attribution": "Source: Federal Reserve Bank of St. Louis",
+  "description": "FRED free fredgraph CSV downloads for VIXCLS (VIX), VXNCLS (VXN), VXTYN (TYVIX history), DGS10 (10-year Treasury yield) and BAA10Y (Baa minus 10-year Treasury spread)",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public economic data published by the Federal Reserve Bank of St. Louis, free to use with attribution; the fredgraph.csv endpoint requires no API key. Used for research only; raw payloads are not redistributed. FRED terms of use reviewed 2026-11-18. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "Federal Reserve Bank of St. Louis (FRED)",
+  "source_id": "fred",
+  "terms_url": "https://fred.stlouisfed.org/docs/api/terms_of_use.html",
+  "timestamp_basis": "Daily closing values dated observation_date; the event time is the US equity close (16:00 ET) recorded as 21:00 UTC (fixed; DST is not modelled) and available_at equals the event time. FRED's actual publication lag is not modelled."
+}

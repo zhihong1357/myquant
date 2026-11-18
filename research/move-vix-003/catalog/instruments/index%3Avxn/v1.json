@@ -1,0 +1,11 @@
+{
+  "instrument_id": "index:vxn",
+  "asset_class": "volatility",
+  "instrument_type": "index",
+  "name": "CBOE Nasdaq-100 Volatility Index (VXN)",
+  "quote_currency": "points",
+  "calendar_id": "us-equity",
+  "metadata": {
+    "fred_series": "VXNCLS"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "instrument_id": "index:vix",
+  "asset_class": "volatility",
+  "instrument_type": "index",
+  "name": "CBOE Volatility Index (VIX)",
+  "quote_currency": "points",
+  "calendar_id": "us-equity",
+  "metadata": {
+    "fred_series": "VIXCLS"
+  }
+}

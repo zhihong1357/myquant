@@ -1,0 +1,11 @@
+{
+  "instrument_id": "index:sp500",
+  "asset_class": "index",
+  "instrument_type": "index",
+  "name": "S&P 500 Index",
+  "quote_currency": "points",
+  "calendar_id": "us-equity",
+  "metadata": {
+    "yahoo_symbol": "^GSPC"
+  }
+}

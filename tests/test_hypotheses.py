@@ -26,6 +26,22 @@ def test_initial_registration_is_immutable_and_versioned(tmp_path):
     assert len(registry.read_events()) == 1
 
 
+def test_register_normalizes_unvalidated_spec_before_fingerprinting(tmp_path):
+    registry = HypothesisRegistry(tmp_path)
+    spec = make_spec()
+    unsorted = spec.model_copy(
+        update={"fixed_parameters": tuple(reversed(spec.fixed_parameters))}
+    )
+    # model_copy skips validation, so the copy keeps the unsorted order.
+    assert unsorted.fixed_parameters == ("winsorization=none", "lag=1")
+
+    registered = registry.register(unsorted)
+
+    assert registered.spec.fixed_parameters == ("lag=1", "winsorization=none")
+    # The stored registration must read back without a fingerprint mismatch.
+    assert registry.get("H0001") == registered
+
+
 def test_pre_trial_amendment_creates_new_version_and_supersedes_old(tmp_path):
     registry = HypothesisRegistry(tmp_path)
     first = registry.register(make_spec())

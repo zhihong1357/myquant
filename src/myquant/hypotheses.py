@@ -274,6 +274,12 @@ class HypothesisRegistry:
         amendment_reason: str | None = None,
     ) -> HypothesisRegistration:
         """Register v1 or issue a pre-trial amendment as a new immutable version."""
+        # Normalize through validation before anything else: model_copy()
+        # bypasses the spec validator, so a spec built that way can carry
+        # unsorted fixed_parameters. get() re-validates on read and would
+        # then reject the stored fingerprint. Fingerprinting the canonical
+        # validated form keeps register/get consistent.
+        spec = HypothesisSpec.model_validate(spec.model_dump(mode="json"))
         # Fail closed before creating any new registration if the shared audit
         # log or any previously registered snapshot is corrupt.
         existing_events = self.read_events()
