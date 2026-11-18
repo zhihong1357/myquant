@@ -47,7 +47,7 @@
 - [x] First empirical study: BTC/ETH perpetual transmission (H0001, trial T0001 — rejected, no lag-1 evidence; see `docs/studies/btc-eth-transmission-001.md`). Per the user's decision, Stage 3's first study follows the crypto-perpetual direction; MOVE/VIX/VXN remains a planned item below.
 - [x] Second empirical study: low-volatility regime-conditional transmission (H0002, trial T0002 — rejected on fresh dimensions: new pair BTC→SOL daily and new frequency BTC→ETH 1H, plus a Hyperliquid cross-venue check; see `docs/studies/lowvol-transmission-002.md`).
 - [ ] Forward test of the original BTC→ETH daily low-volatility hypothesis (H0003, preregistered; trial runs when 60 low-volatility forward rows exist, expected around 2027-03).
-- [ ] Market graph and edge registry.
+- [x] Market graph and edge registry (9 nodes; 10 tested edges, all rejected; 1 pending H0003 forward test; 2 descriptive checks; 68 untested candidate pairs; see `docs/market-graph.md` and `research/graph/registry.json`, both generated from the trial ledgers by `research/graph/build_graph.py`).
 - [x] MOVE/VIX/VXN conditional repricing study (H0004, trial T0004 — rejected: lag-1 TYVIX log changes do not predict next-day VIX log changes, daily or weekly; see `docs/studies/move-vix-transmission-003.md`). MOVE has no free source, so the study uses TYVIX via FRED VXTYN (2003–2020) as the rates implied-volatility measure; the cost gate is informational (no free VIX futures series).
 - [ ] Rates-credit-equity-options event studies.
 - [ ] Macro release and auction windows.
