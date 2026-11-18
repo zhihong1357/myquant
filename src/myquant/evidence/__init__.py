@@ -1,0 +1,98 @@
+"""Evidence and source analyst package (Stage 6b): the lab's
+data-source registry, pure source checks, panel-freshness
+judgements, and evidence reporting. The analyst reads records and
+probes sources; it never registers, never tests, and never changes
+any study data. A passing check means "this probe matched the
+recorded expectation at this moment" — never "this source is
+reliable"."""
+
+from myquant.evidence.checks import (
+    CheckResult,
+    CheckStatus,
+    FreshnessResult,
+    FreshnessStatus,
+    check_deribit_dvol,
+    check_deribit_instruments,
+    check_discontinued_series_end,
+    check_fed_page,
+    check_fiscal_api,
+    check_fred_csv,
+    check_hyperliquid_mids,
+    check_okx_candles,
+    check_panel_freshness,
+    check_probe,
+    check_reachable,
+    check_skipped,
+    check_yahoo_chart,
+    expected_latest_cpi_month,
+    expected_latest_dvol,
+    expected_latest_fred,
+    expected_latest_okx_daily,
+    expected_latest_yahoo,
+    previous_trading_day,
+)
+from myquant.evidence.fetch import FetchOutcome, fetch_once
+from myquant.evidence.registry import (
+    CheckKind,
+    EvidenceRegistry,
+    LagKind,
+    PanelFreshnessConfig,
+    PanelFreshnessRule,
+    ProbeKind,
+    SourceEndpoint,
+    SourceProbe,
+    SourceQuirk,
+    SourceRecord,
+    load_panel_freshness,
+    load_registry,
+)
+from myquant.evidence.report import (
+    EvidenceReport,
+    RecordedOnlyItem,
+    SourceProbeResult,
+    render_markdown,
+)
+
+__all__ = [
+    "CheckKind",
+    "CheckResult",
+    "CheckStatus",
+    "EvidenceRegistry",
+    "EvidenceReport",
+    "FetchOutcome",
+    "FreshnessResult",
+    "FreshnessStatus",
+    "LagKind",
+    "PanelFreshnessConfig",
+    "PanelFreshnessRule",
+    "ProbeKind",
+    "RecordedOnlyItem",
+    "SourceEndpoint",
+    "SourceProbe",
+    "SourceProbeResult",
+    "SourceQuirk",
+    "SourceRecord",
+    "check_deribit_dvol",
+    "check_deribit_instruments",
+    "check_discontinued_series_end",
+    "check_fed_page",
+    "check_fiscal_api",
+    "check_fred_csv",
+    "check_hyperliquid_mids",
+    "check_okx_candles",
+    "check_panel_freshness",
+    "check_probe",
+    "check_reachable",
+    "check_skipped",
+    "check_yahoo_chart",
+    "expected_latest_cpi_month",
+    "expected_latest_dvol",
+    "expected_latest_fred",
+    "expected_latest_okx_daily",
+    "expected_latest_yahoo",
+    "fetch_once",
+    "load_panel_freshness",
+    "load_registry",
+    "previous_trading_day",
+    "render_markdown",
+]

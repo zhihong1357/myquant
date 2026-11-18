@@ -1,0 +1,101 @@
+{
+  "panels": [
+    {
+      "instrument_id": "credit:baa-10y-spread",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:BAA10Y",
+      "notes": "FRED series BAA10Y; expected latest is the previous trading day (one-business-day publication lag).",
+      "series_end": null,
+      "source_id": "fred"
+    },
+    {
+      "instrument_id": "crypto:btc-usdt-perp",
+      "lag_kind": "okx_daily_bar",
+      "latest_from": "okx:BTC-1D",
+      "notes": "OKX 1D bars open 16:00 UTC; the latest confirmed bar is the panel point.",
+      "series_end": null,
+      "source_id": "okx-public"
+    },
+    {
+      "instrument_id": "crypto:eth-usdt-perp",
+      "lag_kind": "okx_daily_bar",
+      "latest_from": "okx:BTC-1D",
+      "notes": "Shares the OKX 1D bar grid with BTC: bars are exchange-generated on one 24/7 clock, so the BTC probe's latest confirmed bar date is the grid's latest for every perpetual. The probe does not fetch ETH candles.",
+      "series_end": null,
+      "source_id": "okx-public"
+    },
+    {
+      "instrument_id": "crypto:sol-usdt-perp",
+      "lag_kind": "okx_daily_bar",
+      "latest_from": "okx:BTC-1D",
+      "notes": "Shares the OKX 1D bar grid with BTC (see the ETH note); the probe does not fetch SOL candles.",
+      "series_end": null,
+      "source_id": "okx-public"
+    },
+    {
+      "instrument_id": "index:btc-dvol",
+      "lag_kind": "dvol_daily",
+      "latest_from": "deribit:DVOL-BTC",
+      "notes": "DVOL points are timestamped 00:00 UTC and complete the next day; the expected latest is yesterday's point.",
+      "series_end": null,
+      "source_id": "deribit"
+    },
+    {
+      "instrument_id": "index:eth-dvol",
+      "lag_kind": "dvol_daily",
+      "latest_from": "deribit:DVOL-BTC",
+      "notes": "Shares the DVOL daily grid with BTC DVOL (both indices are computed daily by the same system); the probe fetches BTC DVOL only.",
+      "series_end": null,
+      "source_id": "deribit"
+    },
+    {
+      "instrument_id": "index:sp500",
+      "lag_kind": "yahoo_close",
+      "latest_from": "yahoo:^GSPC",
+      "notes": "Yahoo ^GSPC daily closes; no publication lag, so the expected latest is the latest close (21:00 UTC by the lab's fixed convention).",
+      "series_end": null,
+      "source_id": "yahoo-finance"
+    },
+    {
+      "instrument_id": "index:tyvix",
+      "lag_kind": "discontinued",
+      "latest_from": "fred:VXTYN",
+      "notes": "FRED VXTYN is discontinued: the series ends 2020-05-15 and the panel ends there too. That is the expected state, not staleness.",
+      "series_end": "2020-05-15",
+      "source_id": "fred"
+    },
+    {
+      "instrument_id": "index:vix",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:VIXCLS",
+      "notes": "FRED series VIXCLS; expected latest is the previous trading day.",
+      "series_end": null,
+      "source_id": "fred"
+    },
+    {
+      "instrument_id": "index:vxn",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:VXNCLS",
+      "notes": "FRED series VXNCLS continues past 2020, but the lab's verified panel ends 2020-05-15 (the study-003 bound). Expect a large days-behind figure: it means the panel needs a re-fetch, not that the source is broken.",
+      "series_end": null,
+      "source_id": "fred"
+    },
+    {
+      "instrument_id": "macro:cpi-mom",
+      "lag_kind": "cpi_monthly",
+      "latest_from": "fred:CPIAUCSL",
+      "notes": "FRED CPIAUCSL reference months; the expected latest is the latest reference month whose BLS release date has passed (from the study-006 CPI calendar).",
+      "series_end": null,
+      "source_id": "fred"
+    },
+    {
+      "instrument_id": "rates:us-10y-yield",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:DGS10",
+      "notes": "FRED series DGS10; expected latest is the previous trading day.",
+      "series_end": null,
+      "source_id": "fred"
+    }
+  ],
+  "schema_version": 1
+}
