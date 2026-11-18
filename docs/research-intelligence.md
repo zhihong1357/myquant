@@ -113,7 +113,7 @@ not findings — no weighting is "optimal" or "validated". The
 validation report runs two alternative weightings
 (adjacency-heavy 0.6/0.2/0.2, power-heavy 0.2/0.2/0.6) and reports
 how the top-10 moves. In the current run it does not move at all:
-34 pairs saturate all three components and score 1.00 under any
+35 pairs saturate all three components and score 1.00 under any
 weights, so the top-10 is the same lexicographic slice of that
 tier under every weighting; the weights only reorder the lower
 tiers.
@@ -178,44 +178,79 @@ registry file is byte-identical before and after.
 
 ### Validation results (current registry)
 
-- 123 candidates: **99 ranked, 0 excluded, 24 unrankable**.
-- The 24 unrankable pairs are all TYVIX/VXN against post-2020-only
+- 123 candidates: **111 ranked, 0 excluded, 12 unrankable**.
+- The 12 unrankable pairs are all TYVIX against post-2020-only
   nodes (crypto perpetuals, DVOL, CPI): TYVIX ends 2020-05-15
-  (discontinued) and VXN is verified only through 2020-05-15,
-  while the crypto/DVOL/CPI panels start in 2021 — no overlapping
-  window. Re-fetching VXN past 2020 would make 12 of them
-  rankable; TYVIX cannot be extended.
-- Score tiers (default weights): 1.00 × 34, 0.80 × 9, 0.70 × 44,
-  0.60 × 2, 0.50 × 10. The top-10 is the first ten of the 34-way
+  (discontinued) while the crypto/DVOL/CPI panels start in 2021 —
+  no overlapping window. TYVIX cannot be extended. VXN was
+  re-fetched past 2020 (see `research/planner-6a/vxn_refresh.json`):
+  the full FRED VXNCLS history, 6,487 rows, 2001-02-02 to
+  2026-11-17; its 12 pairs moved from unrankable to ranked.
+- Score tiers (default weights): 1.00 × 35, 0.80 × 9, 0.70 × 47,
+  0.60 × 2, 0.50 × 18. The top-10 is the first ten of the 35-way
   tie at 1.00 in lexicographic order: BAA10Y→SPX, BAA10Y→TYVIX,
   BAA10Y→VIX, BAA10Y→VXN, BAA10Y→DGS10, BTC→BTC_DVOL,
   BTC→ETH_DVOL, ETH→BTC, ETH→SOL, ETH→BTC_DVOL.
-- Mechanisms: 92 transmission, 7 cross-section (all DGS10-sourced,
-  ranks 80–86 — their power component is 0 at every available
-  event count: MDE 0.1514 at 44 events, 0.1485 at 45 events,
-  0.0546 at 136 events, vs the 0.05 threshold).
+- Mechanisms: 104 transmission, 7 cross-section (all DGS10-sourced:
+  DGS10→VXN reaches the top tier at rank 35 — its overlap window
+  now runs to 2026, 188 FOMC events, MDE 0.0401 vs the 0.05
+  threshold — while the other six sit at ranks 85–90 with power
+  0: MDE 0.1514 at 44 events, 0.1485 at 45 events, 0.0546 at 136
+  events).
+- The 12 recovered VXN pairs all score power 0: their joint-n
+  estimates (1,422–1,470) sit just under the sample size the
+  0.005 lead-lag threshold needs (MDEs 0.00531–0.00549).
+  Near-misses, not comfortably powered — and the joint-n figures
+  are pro-rata estimates, so the power verdict on these pairs is
+  marginal either way.
 - Weight sensitivity: top-10 identical (10/10) under all three
   weightings, for the reason above — the top tier saturates every
   component.
 - MDE cross-check: 15/15 audit entries reproduced exactly.
-- Independent recomputation (review): the full ranking was
-  re-derived a second time in plain Python with no repo imports —
-  adjacency tiers, test-type suggestions, joint-n estimates,
-  power components, the guard, and the ranking under all three
-  weight sets — from the registry, the availability config, the
-  FOMC calendar and the audit summary. All 99 ranked rows matched
-  exactly (scores, joint n, MDEs, adjacent edges, decision
-  records), as did the 24 unrankable pairs, the score tiers and
-  the weight-invariance result. The pair census was also checked:
-  144 ordered pairs = 17 with edges + 123 candidates + 5
-  self-pairs with neither (SOL, BTC_DVOL, ETH_DVOL, VXN, CPI) −
-  1 pair in both sets: VIX→TYVIX, whose only tested edge (E0013)
-  is descriptive, so the guard (tested edges only) correctly
-  leaves the candidate ranked.
+- Independent recomputation (6a review, on the pre-refresh
+  ranking): the full ranking was re-derived a second time in
+  plain Python with no repo imports — adjacency tiers, test-type
+  suggestions, joint-n estimates, power components, the guard,
+  and the ranking under all three weight sets — from the registry,
+  the availability config, the FOMC calendar and the audit
+  summary. All 99 ranked rows matched exactly (scores, joint n,
+  MDEs, adjacent edges, decision records), as did the 24
+  unrankable pairs, the score tiers and the weight-invariance
+  result. The pair census was also checked: 144 ordered pairs =
+  17 with edges + 123 candidates + 5 self-pairs with neither
+  (SOL, BTC_DVOL, ETH_DVOL, VXN, CPI) − 1 pair in both sets:
+  VIX→TYVIX, whose only tested edge (E0013) is descriptive, so
+  the guard (tested edges only) correctly leaves the candidate
+  ranked. The VXN refresh changed the ranking to 111 ranked /
+  12 unrankable (above); the refreshed ranking was re-run and
+  reproduced byte-identically (`ranking.json`) except the report
+  timestamp.
+- Independent review of the VXN refresh: the FRED pull was
+  re-fetched independently (plain urllib, no User-Agent) and is
+  byte-identical to the refresh payload (SHA-256 `8d356b55…`);
+  all counts agree (6,487 valued rows, 242 empty-field missing,
+  2001-02-02 → 2026-11-17; overlap 4,372 / 161, new segment
+  1,637 / 60). The overlap window was additionally cross-checked
+  value-by-value against Yahoo ^VXN: from 2003-09-22 onward the
+  two series agree exactly on 99.4% of common dates (5,722 of
+  5,755 from 2004 onward; the 33 exceptions are Yahoo-side
+  artefacts — a stale-quote run in February 2017 and two
+  crisis-day bad ticks). Before 2003-09-22 Yahoo carries the
+  pre-methodology-change series (mismatches run 2003-01-02 →
+  2003-09-19 and stop exactly at the 22 September 2003 CBOE
+  methodology launch), so Yahoo cannot validate the first nine
+  months of the study-003 window — FRED, the official CBOE
+  series, remains the lab's source throughout. The ranking
+  delta was also re-derived independently: all 12 recovered
+  pairs' MDEs recomputed from their joint-n estimates, the
+  DGS10→VXN event count re-counted from the FOMC calendar
+  (188 statements in the overlap window), the tier counts
+  tallied from `ranking.json`, and the top-10 confirmed
+  unchanged.
 
 ### Limitations
 
-- The ranking is a heuristic with coarse components: 34 pairs tie
+- The ranking is a heuristic with coarse components: 35 pairs tie
   at the top score, so the top-10 is decided by the lexicographic
   tie-break, not by discriminating evidence. A finer power
   component (e.g. a continuous MDE margin) would break the tie,
@@ -372,6 +407,11 @@ change.
   2026-11-18 close). VXN stale by 2,377 days: the FRED series
   continues (latest 2026-11-17) but the lab's verified panel ends
   2020-05-15 — the panel needs a re-fetch, not the source a fix.
+
+Note (2026-11-19): the VXN panel has since been re-fetched past
+2020-05-15 (see `research/planner-6a/vxn_refresh.json`); the
+2,377-day figure above is the probe-time snapshot, kept as
+recorded.
 
 Two corrections the live probe forced, both fixed and tested
 before this section was written:

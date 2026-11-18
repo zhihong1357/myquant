@@ -101,14 +101,14 @@
         },
         {
             "calendar": "trading_day",
-            "first": "2003-01-02",
+            "first": "2001-02-02",
             "instrument_id": "index:vxn",
-            "last": "2020-05-15",
-            "notes": "Verified only through 2020-05-15 (the study-003 panel bound); the series continues on FRED, but the lab has no verified panel past that date, so the planner uses 2020-05-15 as the last date. Pairs with post-2020-only nodes have no overlapping window and are unrankable.",
-            "rows": 4372,
+            "last": "2026-11-17",
+            "notes": "Re-fetched past 2020-05-15 (see research/planner-6a/vxn_refresh.json): the full FRED VXNCLS history, verified 2026-11-18. The study-003 panel (2003-01-02 to 2020-05-15) is unchanged; the overlap segment of the new pull matches its manifest aggregates exactly (4,372 rows, 161 missing).",
+            "rows": 6487,
             "source": "FRED VXNCLS, fredgraph CSV, no key",
             "status": "available",
-            "verified_by": "research/move-vix-003/panel-summary.json (fetches: 4372 rows, 161 missing values)"
+            "verified_by": "research/planner-6a/vxn_refresh.json (full VXNCLS pull: 6487 rows, 242 missing values)"
         },
         {
             "calendar": "monthly",
