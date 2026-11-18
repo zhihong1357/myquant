@@ -311,7 +311,7 @@ holdout, net daily edge **−0.0437%**, block-bootstrap 95% CI [−0.120%,
 | test | n (window / non-window) | mean \|r\| window | mean \|r\| non-window | mean diff | SE | t | raw p | Holm-adj p | ratio | 95% boot CI |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | (a) BTC | 2,125 (280 / 1,845) | 0.019879 | 0.019877 | +0.000001 | 0.00144 | 0.00 | 0.999 | 1.0 | 1.0001 | [−0.00474, +0.00505] |
-| (b) ETH | 2,125 (280 / 1,845) | 0.025430 | 0.026518 | −0.001087 | 0.00165 | −0.66 | 0.510 | 1.0 | 0.9590 | [−0.00686, +0.00518] |
+| (b) ETH | 2,125 (280 / 1,845) | 0.025430 | 0.026518 | −0.001087 | 0.00165 | −0.66 | 0.510 | 1.0 | 0.9590 | [−0.00686, +0.00517] |
 
 The BTC result is as null as a test can be: the window and non-window
 means agree to the sixth decimal (0.019879 vs 0.019877), the mean

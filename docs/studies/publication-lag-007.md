@@ -313,7 +313,7 @@ n = 135 events, 135 clusters:
 |---|---|---|---|---|---|---|---|---|
 | tyvix_lagged_car (primary, one-sided < 0) | TYVIX (log pts) | −0.030216 | 0.005043 | −5.9914 | 1.040e-09 | 5.201e-09 | −0.5157 | **yes** |
 | vix_lagged_car (one-sided < 0) | VIX (log pts) | −0.024380 | 0.008193 | −2.9756 | 0.001462 | 0.005848 | −0.2561 | **yes** |
-| dgs10_lagged_car (two-sided) | DGS10 (bp) | −1.176593 | 0.785383 | −1.4981 | 0.1341 | 0.4023 | −0.1289 | no |
+| dgs10_lagged_car (two-sided) | DGS10 (bp) | −1.176593 | 0.785382 | −1.4981 | 0.1341 | 0.4023 | −0.1289 | no |
 | baa10y_lagged_car (two-sided) | BAA10Y (bp) | +0.607111 | 0.492365 | +1.2331 | 0.2176 | 0.4351 | +0.1061 | no |
 | spx_car (two-sided, unlagged control) | SPX (log pts) | +0.000669 | 0.001407 | +0.4757 | 0.6343 | 0.6343 | +0.0409 | no |
 

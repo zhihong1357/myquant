@@ -195,12 +195,12 @@ As in study 001, information is contemporaneous, not lagged.
 
 | test | n | coef | SE | t | raw p | Holm-adj p | partial R² | incr R² |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| (a) daily TYVIX→VIX, SPX control | 4,327 | −0.0093 | 0.0328 | −0.28 | 0.776 | 1.0 | 0.000035 | 0.000035 |
+| (a) daily TYVIX→VIX, SPX control | 4,327 | −0.0093 | 0.0328 | −0.28 | 0.776 | 1.0 | 0.000035 | 0.000034 |
 | (a) no-factor control | 4,327 | −0.0078 | 0.0337 | −0.23 | 0.818 | — | 0.000024 | 0.000024 |
 | (b) daily TYVIX→VXN, SPX control | 4,327 | −0.0137 | 0.0322 | −0.43 | 0.670 | 1.0 | 0.00010 | 0.00010 |
 | (b) no-factor control | 4,327 | −0.0140 | 0.0328 | −0.43 | 0.671 | — | 0.00011 | 0.00011 |
-| (c) weekly TYVIX→VIX, SPX control | 905 | −0.0047 | 0.0583 | −0.08 | 0.936 | 1.0 | 0.0000086 | 0.0000086 |
-| (c) no-factor control | 905 | −0.0047 | 0.0586 | −0.08 | 0.936 | — | 0.0000086 | 0.0000086 |
+| (c) weekly TYVIX→VIX, SPX control | 905 | −0.0047 | 0.0583 | −0.08 | 0.936 | 1.0 | 0.0000086 | 0.0000083 |
+| (c) no-factor control | 905 | −0.0047 | 0.0586 | −0.08 | 0.936 | — | 0.0000086 | 0.0000084 |
 
 No test in the family rejects. The primary coefficient (−0.009 ± 0.033)
 is consistent with zero and wrong-signed, and its partial R² (0.000035)
