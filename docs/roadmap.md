@@ -45,6 +45,8 @@
 ## Stage 3 — Cross-market transmission research
 - [x] Synchronized daily panel.
 - [x] First empirical study: BTC/ETH perpetual transmission (H0001, trial T0001 — rejected, no lag-1 evidence; see `docs/studies/btc-eth-transmission-001.md`). Per the user's decision, Stage 3's first study follows the crypto-perpetual direction; MOVE/VIX/VXN remains a planned item below.
+- [x] Second empirical study: low-volatility regime-conditional transmission (H0002, trial T0002 — rejected on fresh dimensions: new pair BTC→SOL daily and new frequency BTC→ETH 1H, plus a Hyperliquid cross-venue check; see `docs/studies/lowvol-transmission-002.md`).
+- [ ] Forward test of the original BTC→ETH daily low-volatility hypothesis (H0003, preregistered; trial runs when 60 low-volatility forward rows exist, expected around 2027-03).
 - [ ] Market graph and edge registry.
 - [ ] MOVE/VIX/VXN conditional repricing study.
 - [ ] Rates-credit-equity-options event studies.

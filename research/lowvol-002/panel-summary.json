@@ -1,0 +1,100 @@
+{
+  "fetched_at": "2026-11-18T01:32:02.550025+00:00",
+  "okx_inputs": {
+    "cache_root": "data/cache/btc-eth-001",
+    "fetched_at": "2026-11-18T01:29:26.945513+00:00",
+    "fetches": [
+      {
+        "bar": "1D",
+        "candles": 1416,
+        "first_bar_open": "2023-01-01T16:00:00+00:00",
+        "instrument_id": "crypto:btc-usdt-perp",
+        "last_bar_open": "2026-11-16T16:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1D",
+        "candles": 1416,
+        "first_bar_open": "2023-01-01T16:00:00+00:00",
+        "instrument_id": "crypto:eth-usdt-perp",
+        "last_bar_open": "2026-11-16T16:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1D",
+        "candles": 1416,
+        "first_bar_open": "2023-01-01T16:00:00+00:00",
+        "instrument_id": "crypto:sol-usdt-perp",
+        "last_bar_open": "2026-11-16T16:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1H",
+        "candles": 2160,
+        "first_bar_open": "2026-08-20T00:00:00+00:00",
+        "instrument_id": "crypto:btc-usdt-perp",
+        "last_bar_open": "2026-11-17T23:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1H",
+        "candles": 2160,
+        "first_bar_open": "2026-08-20T00:00:00+00:00",
+        "instrument_id": "crypto:eth-usdt-perp",
+        "last_bar_open": "2026-11-17T23:00:00+00:00",
+        "missing_bars": 0
+      },
+      {
+        "bar": "1H",
+        "candles": 2160,
+        "first_bar_open": "2026-08-20T00:00:00+00:00",
+        "instrument_id": "crypto:sol-usdt-perp",
+        "last_bar_open": "2026-11-17T23:00:00+00:00",
+        "missing_bars": 0
+      }
+    ],
+    "manifest_sha256": "03a125f619957510c24e8742bf151387a846273432b17d861e09d67638dd9973"
+  },
+  "panels": [
+    {
+      "bar": "1d",
+      "candles": 1361,
+      "excluded_unclosed": 0,
+      "excluded_zero_trade": 56,
+      "expected_confirmed_bars": 1417,
+      "first_bar_open": "2023-02-26T00:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-17T00:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1d",
+      "candles": 1361,
+      "excluded_unclosed": 0,
+      "excluded_zero_trade": 56,
+      "expected_confirmed_bars": 1417,
+      "first_bar_open": "2023-02-26T00:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-17T00:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1d",
+      "candles": 1355,
+      "excluded_unclosed": 0,
+      "excluded_zero_trade": 62,
+      "expected_confirmed_bars": 1417,
+      "first_bar_open": "2023-03-04T00:00:00+00:00",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-17T00:00:00+00:00",
+      "missing_bars": 0
+    }
+  ],
+  "quality_issues": {
+    "pit-1d-hl": []
+  },
+  "quality_row_count": {
+    "pit-1d-hl": 20385
+  },
+  "study": "lowvol-002"
+}
