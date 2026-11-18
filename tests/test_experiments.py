@@ -2,88 +2,29 @@ import logging
 import os
 import shutil
 import subprocess
-from datetime import UTC, datetime, timedelta
 
 import numpy as np
 import pytest
+from conftest import make_spec
 from pydantic import ValidationError
 
-from myquant.contracts import MultiplicityCorrection
 from myquant.experiments import (
     ExperimentRunner,
     TrialParameter,
     TrialSpec,
     git_head_revision,
 )
-from myquant.hypotheses import (
-    ExpectedDirection,
-    HypothesisRegistry,
-    HypothesisSpec,
-    HypothesisState,
-    SampleWindow,
-)
+from myquant.hypotheses import HypothesisRegistry, HypothesisState
 from myquant.registry import read_and_verify
 
 
 def make_hypothesis():
-    start = datetime(2020, 1, 1, tzinfo=UTC)
-    day = timedelta(days=1)
-    return HypothesisSpec(
-        hypothesis_id="H0001",
-        title="VIX leads MOVE repricing",
-        research_question=(
-            "Does the daily VIX change contain incremental information about "
-            "the next-session MOVE index return after controlling for rates and equities?"
-        ),
-        mechanism=(
-            "Options-implied equity volatility may reprice faster than Treasury "
-            "volatility during cross-asset risk shocks."
-        ),
-        alternative_hypothesis=(
-            "Lagged VIX changes explain a positive, out-of-sample component of "
-            "future MOVE changes beyond the declared baseline."
-        ),
-        null_hypothesis=(
-            "Lagged VIX changes have no incremental predictive value over the "
-            "declared baseline after costs and dependence controls."
-        ),
-        universe=("index:vix", "index:move"),
-        source_versions=("sample-vix@v1", "sample-move@v1"),
-        observation_frequency="daily",
-        horizon_seconds=86_400,
-        target_definition="Next session close-to-close MOVE log return",
-        feature_set=("vix_return_lag_1@v1", "rates_return_1d@v1"),
-        model_definition=("OLS with intercept", "Newey-West HAC standard errors"),
-        fixed_parameters=("lag=1", "winsorization=none"),
-        benchmark="Intercept-only historical mean",
-        cost_model="No direct trading claim; diagnostic forecast evaluation only",
-        cost_assumptions=("No fills assumed at this stage",),
-        train_window=SampleWindow(start=start, end=start + 365 * day),
-        validation_window=SampleWindow(
-            start=start + 366 * day,
-            end=start + 500 * day,
-        ),
-        holdout_window=SampleWindow(
-            start=start + 501 * day,
-            end=start + 650 * day,
-        ),
-        purge_gap_seconds=86_400,
-        minimum_train_observations=200,
-        minimum_validation_observations=60,
-        minimum_holdout_observations=60,
-        primary_metric="Out-of-sample incremental R-squared",
-        expected_direction=ExpectedDirection.POSITIVE,
-        minimum_effect_size=0.01,
-        target_error_rate=0.05,
-        multiple_testing_family="Cross-market volatility transmission v1",
-        multiple_testing_method=MultiplicityCorrection.NONE,
-        planned_test_count=1,
-        missing_data_policy="No forward filling; exclude incomplete paired sessions",
+    # Same preregistration as the shared make_spec factory, except the
+    # experiment tests use a shorter acceptance/rejection/confounder list.
+    return make_spec(
         acceptance_criteria=("Holdout incremental R-squared exceeds 0.01",),
         rejection_criteria=("Holdout incremental R-squared is no greater than zero",),
         known_confounders=("Rates level", "Equity return"),
-        exclusions=("Sessions with unscheduled market closures",),
-        random_seed=17,
     )
 
 
