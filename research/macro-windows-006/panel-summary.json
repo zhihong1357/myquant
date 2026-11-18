@@ -1,0 +1,142 @@
+{
+  "auction_calendar": {
+    "coupon_auction_dates": 551,
+    "cross_check_passed": true,
+    "fiscaldata_coverage": [
+      "2021-01-04",
+      "2026-10-22"
+    ],
+    "fiscaldata_records": 2487,
+    "tail_supplement_dates": 7,
+    "treasurydirect_records": 250,
+    "treasurydirect_window": [
+      "2025-05-27",
+      "2026-11-12"
+    ],
+    "verified": true
+  },
+  "calendar_validation": {
+    "cpi": {
+      "annual_counts": {
+        "2021": 12,
+        "2022": 12,
+        "2023": 12,
+        "2024": 12,
+        "2025": 11,
+        "2026": 12
+      },
+      "file": "research/macro-windows-006/cpi_calendar.json",
+      "first_release": "2021-01-13",
+      "known_dates_checked": [
+        "2026-11-10",
+        "2025-10-24",
+        "2021-01-13",
+        "2026-12-10"
+      ],
+      "last_release": "2026-12-10",
+      "not_published": [
+        "2025-10"
+      ],
+      "reference_months": "2020-12..2026-11",
+      "releases": 71
+    },
+    "fomc": {
+      "annual_counts": {
+        "2021": 8,
+        "2022": 8,
+        "2023": 8,
+        "2024": 8,
+        "2025": 8,
+        "2026": 8
+      },
+      "file": "research/fomc-event-study-005/fomc_calendar.json",
+      "first_statement": "2021-01-27",
+      "known_dates_checked": [
+        "2021-01-27",
+        "2026-10-28"
+      ],
+      "last_statement": "2026-12-09",
+      "statements_2021_2026": 48
+    },
+    "macro_window": {
+      "cpi_bars_in_sample": 69,
+      "cpi_bars_total": 71,
+      "fomc_bars_in_sample": 47,
+      "fomc_bars_total": 48,
+      "overlap_bars": [
+        "2026-12-09"
+      ],
+      "overlap_bars_in_sample": 0,
+      "panel_first_bar": "2021-01-21",
+      "panel_last_bar": "2026-11-16",
+      "window_bars_in_sample": 116,
+      "window_bars_total": 118
+    }
+  },
+  "fetched_at": "2026-11-18T05:54:24.381469+00:00",
+  "okx_panels": [
+    {
+      "bar": "1D",
+      "candles": 2126,
+      "expected_confirmed_bars": 2126,
+      "first_bar_open": "2021-01-21T16:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1D",
+      "candles": 2126,
+      "expected_confirmed_bars": 2126,
+      "first_bar_open": "2021-01-21T16:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1D",
+      "candles": 2126,
+      "expected_confirmed_bars": 2126,
+      "first_bar_open": "2021-01-21T16:00:00+00:00",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-16T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 16440,
+      "expected_confirmed_bars": 16440,
+      "first_bar_open": "2025-01-02T00:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 16440,
+      "expected_confirmed_bars": 16440,
+      "first_bar_open": "2025-01-02T00:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1H",
+      "candles": 16440,
+      "expected_confirmed_bars": 16440,
+      "first_bar_open": "2025-01-02T00:00:00+00:00",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "last_bar_open": "2026-11-17T23:00:00+00:00",
+      "missing_bars": 0
+    }
+  ],
+  "quality_issues": {
+    "pit-1d": [],
+    "pit-1h": []
+  },
+  "quality_row_count": {
+    "pit-1d": 31890,
+    "pit-1h": 246600
+  },
+  "study": "macro-windows-006"
+}

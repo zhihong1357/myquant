@@ -619,12 +619,145 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
             "to a clean two-asset transmission test.",
         ),
     ),
+    # Study 006 (H0009, T0011): 3-test Holm family. Macro window = union
+    # of FOMC statement days and CPI release days, one OKX daily bar
+    # per event: the CPI window bar opened the day before the release
+    # date (08:30 ET is always before the 16:00 UTC bar open); the FOMC
+    # window bar opened on the statement day itself (14:00 ET is always
+    # after it). Both offsets are DST-independent. The window indicator
+    # is known at the bar's open because the schedules are public in
+    # advance; the release content (surprise) is not measured.
+    EdgeSpec(
+        edge_id="E0027",
+        study="macro-windows-006",
+        trial_id="T0011",
+        ledger_test_key="daily_btc_eth_interaction",
+        source="crypto:btc-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="daily",
+        condition=(
+            "macro-window interaction: BTC[t] x window[t], window = "
+            "FOMC statement days + CPI release days, one OKX daily bar "
+            "per event (PIT-correct)"
+        ),
+        method=(
+            "interaction OLS (BTC[t] x window[t]), Newey-West HAC "
+            "(max lag 5 daily)"
+        ),
+        control="SOL[t] log return",
+        is_primary=True,
+        panel_key="daily",
+    ),
+    EdgeSpec(
+        edge_id="E0028",
+        study="macro-windows-006",
+        trial_id="T0011",
+        ledger_test_key="daily_btc_eth_window",
+        source="crypto:btc-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="daily",
+        condition=(
+            "macro-window subsample only (FOMC statement days + CPI "
+            "release days)"
+        ),
+        method=(
+            "partial lead-lag OLS on macro-window rows only, "
+            "Newey-West HAC (max lag 5 daily)"
+        ),
+        control="SOL[t] log return",
+        is_primary=False,
+        panel_key="daily",
+    ),
+    EdgeSpec(
+        edge_id="E0029",
+        study="macro-windows-006",
+        trial_id="T0011",
+        ledger_test_key="hourly_btc_eth_interaction",
+        source="crypto:btc-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="hourly",
+        condition=(
+            "macro-window interaction: BTC[t] x window[t], window = "
+            "FOMC statement days + CPI release days, one OKX daily bar "
+            "per event (PIT-correct)"
+        ),
+        method=(
+            "interaction OLS (BTC[t] x window[t]), Newey-West HAC "
+            "(max lag 12 hourly)"
+        ),
+        control="SOL[t] log return",
+        is_primary=False,
+        panel_key="hourly",
+        notes=("Predeclared 1H robustness test.",),
+    ),
+    # Study 006 (H0010, T0012): 2-test Holm family. Mean-comparison
+    # edges: within-instrument level tests (window vs non-window mean
+    # daily |log return|), NOT transmission edges. Self-loops by
+    # construction; no lag, no partial R-squared, no OOS or cost gate.
+    # The first SUPPORTED mean-comparison edges in the graph.
+    EdgeSpec(
+        edge_id="E0030",
+        study="macro-windows-006",
+        trial_id="T0012",
+        ledger_test_key="btc_mean_abs_return_comparison",
+        source="crypto:btc-usdt-perp",
+        target="crypto:btc-usdt-perp",
+        frequency="daily",
+        condition=(
+            "macro-window days vs non-window days (mean daily "
+            "|log return|); window = FOMC statement days + CPI release "
+            "days"
+        ),
+        method=(
+            "mean comparison by OLS of |log return| on the window "
+            "indicator, Newey-West HAC (max lag 10); block-bootstrap "
+            "CI for the mean difference"
+        ),
+        control=None,
+        is_primary=True,
+        panel_key="daily",
+        test_type=EdgeTestType.MEAN_COMPARISON,
+        notes=(
+            "Mean-comparison edge, not a transmission edge: it tests "
+            "whether BTC realized volatility differs inside the macro "
+            "window. Effect size is the window/non-window mean |log "
+            "return| ratio (threshold 1.15).",
+        ),
+    ),
+    EdgeSpec(
+        edge_id="E0031",
+        study="macro-windows-006",
+        trial_id="T0012",
+        ledger_test_key="eth_mean_abs_return_comparison",
+        source="crypto:eth-usdt-perp",
+        target="crypto:eth-usdt-perp",
+        frequency="daily",
+        condition=(
+            "macro-window days vs non-window days (mean daily "
+            "|log return|); window = FOMC statement days + CPI release "
+            "days"
+        ),
+        method=(
+            "mean comparison by OLS of |log return| on the window "
+            "indicator, Newey-West HAC (max lag 10); block-bootstrap "
+            "CI for the mean difference"
+        ),
+        control=None,
+        is_primary=False,
+        panel_key="daily",
+        test_type=EdgeTestType.MEAN_COMPARISON,
+        notes=(
+            "Mean-comparison edge, not a transmission edge: it tests "
+            "whether ETH realized volatility differs inside the macro "
+            "window.",
+        ),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
 # registration version, report path). A study directory may hold more
 # than one trial (study 004 has T0005 and T0007 in one directory;
-# study 005 has T0010 and T0009).
+# study 005 has T0010 and T0009; study 006 has T0011 and T0012).
 # T0006 is absent by design: the first H0006 attempt ran as T0006 and
 # failed inside the experiment (a bootstrap-weights bug, recorded as a
 # failed trial in the ledger); the corrected rerun is T0007. T0008 is
@@ -640,6 +773,8 @@ TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0007", "options-expiry-004", "H0006", 1, "docs/studies/options-expiry-004.md"),
     ("T0010", "fomc-event-study-005", "H0007", 1, "docs/studies/fomc-event-study-005.md"),
     ("T0009", "fomc-event-study-005", "H0008", 1, "docs/studies/fomc-event-study-005.md"),
+    ("T0011", "macro-windows-006", "H0009", 1, "docs/studies/macro-windows-006.md"),
+    ("T0012", "macro-windows-006", "H0010", 1, "docs/studies/macro-windows-006.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -821,6 +956,16 @@ def _trial_level_oos(data: StudyData) -> tuple[float, str]:
             f"{walk_forward['holdout_oos_incremental_r_squared']:+.5f}."
         )
         return value, note
+    if data.trial_id == "T0011":
+        value = walk_forward["window_holdout_oos_incremental_r_squared"]
+        note = (
+            "Macro-window holdout rows only (the acceptance criterion; "
+            f"{walk_forward['window_holdout_folds']} folds, "
+            f"{walk_forward['window_holdout_test_rows']} rows). "
+            "All-holdout incremental OOS R² was "
+            f"{walk_forward['holdout_oos_incremental_r_squared']:+.5f}."
+        )
+        return value, note
     value = walk_forward["holdout_oos_incremental_r_squared"]
     note = (
         "Holdout window only "
@@ -863,6 +1008,14 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
             "non-window rows. Net edge averaged over all "
             f"{gate['days']} holdout rows (including {gate['window_days']} "
             "expiry-window rows). 0.05% taker fee per side; funding, "
+            "slippage and market impact ignored."
+        )
+    elif data.trial_id == "T0011":
+        note = (
+            "Sign rule on macro-window holdout rows only; flat on "
+            "non-window rows. Net edge averaged over all "
+            f"{gate['days']} holdout rows (including {gate['window_days']} "
+            "macro-window rows). 0.05% taker fee per side; funding, "
             "slippage and market impact ignored."
         )
     else:
@@ -1652,6 +1805,8 @@ def build_registry(repo_root: Path) -> GraphRegistry:
         _provenance(trials["T0007"]),
         _provenance(trials["T0010"]),
         _provenance(trials["T0009"]),
+        _provenance(trials["T0011"]),
+        _provenance(trials["T0012"]),
     )
     content_hash = compute_content_hash(
         schema_version=1,
@@ -1710,7 +1865,15 @@ def _condition_short(edge: EdgeRecord) -> str:
     if edge.test_type is EdgeTestType.CROSS_SECTION:
         return "FOMC cross-event"
     if edge.test_type is EdgeTestType.MEAN_COMPARISON:
+        if "macro" in edge.condition:
+            return "macro window (mean |r|)"
         return "expiry window (mean |r|)"
+    if "macro" in edge.condition:
+        if "interaction" in edge.condition:
+            return "macro-window interaction"
+        if "subsample" in edge.condition:
+            return "macro-window subsample"
+        return "macro window"
     if "expiry" in edge.condition:
         if "interaction" in edge.condition:
             return "expiry-window interaction"

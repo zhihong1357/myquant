@@ -1,0 +1,11 @@
+{
+  "attribution": "Source: U.S. Department of the Treasury, Fiscal Data",
+  "description": "Fiscal Data API auctions_query dataset: Treasury auction results by CUSIP, including auction_date, security_type and security_term, for the descriptive Treasury auction-day splits only (auction days never enter the main window)",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public auction data served without authentication by the Fiscal Data API (api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query), used for research only; raw payloads are not redistributed. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "U.S. Department of the Treasury, Bureau of the Fiscal Service",
+  "source_id": "fiscaldata",
+  "terms_url": "https://fiscaldata.treasury.gov/",
+  "timestamp_basis": "auction_date is the competitive-bidding close date; note/bond results are announced shortly after the 1:00 PM ET close (17:00 UTC in daylight saving time, 18:00 UTC in standard time), always after the 16:00 UTC OKX daily bar open."
+}
