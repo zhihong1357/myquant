@@ -1,0 +1,652 @@
+{
+  "probed_at": "2026-11-18T21:45:56.107388Z",
+  "sources": [
+    {
+      "source_id": "okx-public",
+      "probe_kind": "automatic",
+      "requests_made": 1,
+      "checks": [
+        {
+          "check_id": "okx:BTC-1D:reachability",
+          "source_id": "okx-public",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "okx:BTC-1D:payload",
+          "source_id": "okx-public",
+          "status": "pass",
+          "evidence": "2 candle rows, 1 confirmed, 1 forming; latest confirmed bar opens 2026-11-17T16:00:00+00:00; all bars open 16:00 UTC (sha 5b55ed4d30db)",
+          "reason": null,
+          "latest_date": "2026-11-17"
+        }
+      ],
+      "manual_check": null
+    },
+    {
+      "source_id": "deribit",
+      "probe_kind": "automatic",
+      "requests_made": 2,
+      "checks": [
+        {
+          "check_id": "deribit:expired-BTC:reachability",
+          "source_id": "deribit",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "deribit:expired-BTC:payload",
+          "source_id": "deribit",
+          "status": "pass",
+          "evidence": "62 expired contracts, single batch expiring 2026-11-18 (sha 5b117c8660f8)",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "deribit:DVOL-BTC:reachability",
+          "source_id": "deribit",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "deribit:DVOL-BTC:payload",
+          "source_id": "deribit",
+          "status": "pass",
+          "evidence": "10 DVOL points; latest final point 2026-11-17T00:00:00+00:00 close 43.29, 1 current-day point(s) excluded as provisional (sha 2bcd06851e72)",
+          "reason": null,
+          "latest_date": "2026-11-17"
+        }
+      ],
+      "manual_check": null
+    },
+    {
+      "source_id": "fred",
+      "probe_kind": "automatic",
+      "requests_made": 6,
+      "checks": [
+        {
+          "check_id": "fred:VIXCLS:reachability",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fred:VIXCLS:payload",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "7 observations, 0 missing, latest 2026-11-17 (sha 3aeeccef6a13)",
+          "reason": null,
+          "latest_date": "2026-11-17"
+        },
+        {
+          "check_id": "fred:VXNCLS:reachability",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fred:VXNCLS:payload",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "7 observations, 0 missing, latest 2026-11-17 (sha d5114bab7721)",
+          "reason": null,
+          "latest_date": "2026-11-17"
+        },
+        {
+          "check_id": "fred:VXTYN:reachability",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fred:VXTYN:payload",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "11 observations, 0 missing, latest 2020-05-15 (sha 99531f7b8409)",
+          "reason": null,
+          "latest_date": "2020-05-15"
+        },
+        {
+          "check_id": "fred:VXTYN:series-end",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "VXTYN still ends 2020-05-15 (discontinued series)",
+          "reason": null,
+          "latest_date": "2020-05-15"
+        },
+        {
+          "check_id": "fred:DGS10:reachability",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fred:DGS10:payload",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "6 observations, 1 missing (1 empty field), latest 2026-11-17 (sha 596ed5cad219)",
+          "reason": null,
+          "latest_date": "2026-11-17"
+        },
+        {
+          "check_id": "fred:BAA10Y:reachability",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fred:BAA10Y:payload",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "5 observations, 1 missing (1 empty field), latest 2026-11-16 (sha 50aaaf2929f6)",
+          "reason": null,
+          "latest_date": "2026-11-16"
+        },
+        {
+          "check_id": "fred:CPIAUCSL:reachability",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fred:CPIAUCSL:payload",
+          "source_id": "fred",
+          "status": "pass",
+          "evidence": "2 observations, 0 missing, latest 2026-10-01 (sha 6deca4fe5db5)",
+          "reason": null,
+          "latest_date": "2026-10-01"
+        }
+      ],
+      "manual_check": null
+    },
+    {
+      "source_id": "yahoo-finance",
+      "probe_kind": "automatic",
+      "requests_made": 1,
+      "checks": [
+        {
+          "check_id": "yahoo:^GSPC:reachability",
+          "source_id": "yahoo-finance",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "yahoo:^GSPC:payload",
+          "source_id": "yahoo-finance",
+          "status": "pass",
+          "evidence": "8 bars, 0 missing, latest 2026-11-18, longName 'S&P 500' (sha bbbb61682178)",
+          "reason": null,
+          "latest_date": "2026-11-18"
+        }
+      ],
+      "manual_check": null
+    },
+    {
+      "source_id": "fiscaldata",
+      "probe_kind": "automatic",
+      "requests_made": 1,
+      "checks": [
+        {
+          "check_id": "fiscal:recent:reachability",
+          "source_id": "fiscaldata",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fiscal:recent:payload",
+          "source_id": "fiscaldata",
+          "status": "pass",
+          "evidence": "5 auction records, latest auction 2026-10-22, total-count 37, 27 days behind the probe date (sha a7a4fd0107b3)",
+          "reason": null,
+          "latest_date": "2026-10-22"
+        }
+      ],
+      "manual_check": null
+    },
+    {
+      "source_id": "federalreserve",
+      "probe_kind": "automatic",
+      "requests_made": 1,
+      "checks": [
+        {
+          "check_id": "fed:calendars:reachability",
+          "source_id": "federalreserve",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "fed:calendars:payload",
+          "source_id": "federalreserve",
+          "status": "pass",
+          "evidence": "166359 bytes, FOMC markers and a year present (sha 180c72485052)",
+          "reason": null,
+          "latest_date": null
+        }
+      ],
+      "manual_check": null
+    },
+    {
+      "source_id": "bls",
+      "probe_kind": "manual-only",
+      "requests_made": 0,
+      "checks": [
+        {
+          "check_id": "bls:manual",
+          "source_id": "bls",
+          "status": "skip",
+          "evidence": "Manual-only source: no automated probe exists (see the manual check above).",
+          "reason": null,
+          "latest_date": null
+        }
+      ],
+      "manual_check": "Open the BLS Schedule of Selected Releases page (https://www.bls.gov/schedule/) in a browser, read the CPI release dates for the current year, and compare them with research/macro-windows-006/cpi_calendar.json. Do not curl the page: BLS returns HTTP 403 to programmatic requests."
+    },
+    {
+      "source_id": "hyperliquid",
+      "probe_kind": "automatic",
+      "requests_made": 1,
+      "checks": [
+        {
+          "check_id": "hyperliquid:mids:reachability",
+          "source_id": "hyperliquid",
+          "status": "pass",
+          "evidence": "HTTP 200",
+          "reason": null,
+          "latest_date": null
+        },
+        {
+          "check_id": "hyperliquid:mids:payload",
+          "source_id": "hyperliquid",
+          "status": "pass",
+          "evidence": "1427 mids, BTC 62348.5, ETH 1764.35 (sha 7686394331c9)",
+          "reason": null,
+          "latest_date": null
+        }
+      ],
+      "manual_check": null
+    }
+  ],
+  "panels": [
+    {
+      "instrument_id": "credit:baa-10y-spread",
+      "source_id": "fred",
+      "status": "fresh",
+      "panel_last": "2026-11-16",
+      "latest_observed": "2026-11-16",
+      "expected_latest": "2026-11-17",
+      "days_behind": 0,
+      "notes": [
+        "the source itself is 1 day(s) behind its expected latest (2026-11-17); the verdict is judged against what the source serves"
+      ]
+    },
+    {
+      "instrument_id": "crypto:btc-usdt-perp",
+      "source_id": "okx-public",
+      "status": "stale",
+      "panel_last": "2026-11-16",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 1,
+      "notes": []
+    },
+    {
+      "instrument_id": "crypto:eth-usdt-perp",
+      "source_id": "okx-public",
+      "status": "stale",
+      "panel_last": "2026-11-16",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 1,
+      "notes": []
+    },
+    {
+      "instrument_id": "crypto:sol-usdt-perp",
+      "source_id": "okx-public",
+      "status": "stale",
+      "panel_last": "2026-11-16",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 1,
+      "notes": []
+    },
+    {
+      "instrument_id": "index:btc-dvol",
+      "source_id": "deribit",
+      "status": "fresh",
+      "panel_last": "2026-11-17",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 0,
+      "notes": []
+    },
+    {
+      "instrument_id": "index:eth-dvol",
+      "source_id": "deribit",
+      "status": "fresh",
+      "panel_last": "2026-11-17",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 0,
+      "notes": []
+    },
+    {
+      "instrument_id": "index:sp500",
+      "source_id": "yahoo-finance",
+      "status": "stale",
+      "panel_last": "2026-11-16",
+      "latest_observed": "2026-11-18",
+      "expected_latest": "2026-11-18",
+      "days_behind": 2,
+      "notes": []
+    },
+    {
+      "instrument_id": "index:tyvix",
+      "source_id": "fred",
+      "status": "fresh",
+      "panel_last": "2020-05-15",
+      "latest_observed": "2020-05-15",
+      "expected_latest": "2020-05-15",
+      "days_behind": 0,
+      "notes": [
+        "discontinued series; the panel end is the series end, as expected"
+      ]
+    },
+    {
+      "instrument_id": "index:vix",
+      "source_id": "fred",
+      "status": "stale",
+      "panel_last": "2026-11-16",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 1,
+      "notes": []
+    },
+    {
+      "instrument_id": "index:vxn",
+      "source_id": "fred",
+      "status": "stale",
+      "panel_last": "2020-05-15",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 2377,
+      "notes": []
+    },
+    {
+      "instrument_id": "macro:cpi-mom",
+      "source_id": "fred",
+      "status": "fresh",
+      "panel_last": "2026-10-01",
+      "latest_observed": "2026-10-01",
+      "expected_latest": "2026-10-01",
+      "days_behind": 0,
+      "notes": []
+    },
+    {
+      "instrument_id": "rates:us-10y-yield",
+      "source_id": "fred",
+      "status": "stale",
+      "panel_last": "2026-11-16",
+      "latest_observed": "2026-11-17",
+      "expected_latest": "2026-11-17",
+      "days_behind": 1,
+      "notes": []
+    }
+  ],
+  "recorded_only": [
+    {
+      "source_id": "okx-public",
+      "statement": "history-candles pagination uses after=<ts> (bars strictly older, newest first); sending before returns empty data.",
+      "verified_by": "study 004 (options-expiry-004)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch one history-candles page with after=<now> and one with before=<now>; the before page is empty."
+    },
+    {
+      "source_id": "okx-public",
+      "statement": "history-trades retention is about 90 calendar days: the oldest retrievable BTC-USDT-SWAP trade was 2843636428, dated 2026-08-20 00:01:56 UTC, found by bisection.",
+      "verified_by": "Stage 4a (microstructure-4a)",
+      "verified_date": "2026-11-18",
+      "recheck": "Bisect trade IDs from the live head until the oldest retrievable trade (see docs/microstructure.md)."
+    },
+    {
+      "source_id": "okx-public",
+      "statement": "funding-rate-history retention is about 93 days (280 rows per instrument); the floor moves (a 281st row seen minutes before the fetch was gone by fetch time) and must be re-established on every pull.",
+      "verified_by": "Stage 5a (funding-history)",
+      "verified_date": "2026-11-19",
+      "recheck": "Page after=<ms> backwards from the live head until the oldest row."
+    },
+    {
+      "source_id": "okx-public",
+      "statement": "funding-rate-history pagination uses after only; before acts as a lower bound and does not page.",
+      "verified_by": "Stage 5a (funding-history)",
+      "verified_date": "2026-11-19",
+      "recheck": null
+    },
+    {
+      "source_id": "okx-public",
+      "statement": "The live funding-rate value read mid-interval is an estimate, not the settled rate for that interval (the 4b input 0.0000215 was an estimate; the settled rate was 0.00006348).",
+      "verified_by": "Stage 5a (funding-history)",
+      "verified_date": "2026-11-19",
+      "recheck": "Compare the live funding-rate value with the history row at the next settlement."
+    },
+    {
+      "source_id": "okx-public",
+      "statement": "Funding settles on the 00:00/08:00/16:00 UTC grid; the funding-rate cap/floor is ±0.375% per interval.",
+      "verified_by": "Stage 4b (microstructure-4b)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "okx-public",
+      "statement": "Fee schedule (Regular): maker 0.0200% / taker 0.0500% on notional, per the OKX fee-adjustment notice effective 2026-09-09.",
+      "verified_by": "Stage 4b (microstructure-4b)",
+      "verified_date": "2026-11-18",
+      "recheck": "Re-read the OKX fee notice page and compare the Regular tier."
+    },
+    {
+      "source_id": "deribit",
+      "statement": "get_volatility_index_data requires a currency parameter; omitting it returns HTTP 400.",
+      "verified_by": "study 004 (options-expiry-004)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "deribit",
+      "statement": "Monthly options expire on the last Friday of the month, 08:00 UTC; listed BTC and ETH contracts each show 11 identical forward expiries, all last Fridays (Deribit Contract Introduction Policy states the rule verbatim).",
+      "verified_by": "study 004 (options-expiry-004)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch listed BTC/ETH instruments and compare their forward expiry sets."
+    },
+    {
+      "source_id": "deribit",
+      "statement": "2,065 DVOL points per currency, 2021-03-24 to 2026-11-17, no gaps.",
+      "verified_by": "study 004 (options-expiry-004)",
+      "verified_date": "2026-11-18",
+      "recheck": "Re-fetch the full DVOL history per currency and recount the points and gaps."
+    },
+    {
+      "source_id": "deribit",
+      "statement": "Instrument listings carry no top-level currency field.",
+      "verified_by": "study 004 (options-expiry-004)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch one instrument listing and inspect the top-level keys of a returned contract."
+    },
+    {
+      "source_id": "fred",
+      "statement": "Custom or browser-like User-Agent requests hang (bare Mozilla/5.0 and a full Chrome UA both timed out); send no User-Agent header and let urllib identify itself.",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "fred",
+      "statement": "Publication lag is one trading day (N=1): a value dated t is posted on the next business day. Verified behaviourally at 2026-11-18 06:26 UTC (01:26 EST): VIXCLS and DGS10 both ended at 2026-11-16, ruling out same-evening posting and a two-day lag.",
+      "verified_by": "study 007 (publication-lag-007)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch VIXCLS/DGS10 before the morning posting and compare the last date with the previous trading day (see study 007)."
+    },
+    {
+      "source_id": "fred",
+      "statement": "VXTYN covers 2003-01-02 to 2020-05-15 (4,363 rows in the study-003 manifest).",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch the full VXTYN series and check the first date and row count."
+    },
+    {
+      "source_id": "fred",
+      "statement": "FRED has no TYVIX series and no MOVE series.",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": "Search the FRED catalogue for a TYVIX or MOVE series."
+    },
+    {
+      "source_id": "fred",
+      "statement": "VXTYN has a genuine two-day gap on 2004-11-10 and 2004-11-11 (verified against a fresh pull; DGS10 has a value those days).",
+      "verified_by": "study 005 (fomc-event-study-005)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "fred",
+      "statement": "Licensed series are truncated on FRED; the lab used BAA10Y as the credit spread instead of a licensed spread series.",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "fred",
+      "statement": "Series are current vintage and are revised over time; as-released values would need ALFRED or an API key.",
+      "verified_by": "study 007 (publication-lag-007)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "yahoo-finance",
+      "statement": "The chart endpoint requires a browser-like User-Agent (Mozilla/5.0); without one Yahoo returns 401/403.",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch the chart without a User-Agent and confirm Yahoo returns 401/403."
+    },
+    {
+      "source_id": "yahoo-finance",
+      "statement": "Yahoo ^MOVE is a Northern Trust iBoxx ETF, not the ICE BofA MOVE index — always check meta.longName before trusting a ticker.",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch the ^MOVE chart and read meta.longName."
+    },
+    {
+      "source_id": "yahoo-finance",
+      "statement": "Yahoo ^TYVIX is delisted (\"No data found, symbol may be delisted\").",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch the ^TYVIX chart; the error payload confirms the delisting."
+    },
+    {
+      "source_id": "yahoo-finance",
+      "statement": "Bar timestamps are the market open (09:30 ET); closes use the 21:00 UTC convention shared with FRED; null closes are missing days and are excluded and counted.",
+      "verified_by": "study 003 (move-vix-transmission-003)",
+      "verified_date": "2026-11-18",
+      "recheck": "Fetch a recent window and confirm the bar timestamps are the 09:30 ET market open (14:30 UTC in winter, 13:30 in summer) and that null closes are counted as missing."
+    },
+    {
+      "source_id": "fiscaldata",
+      "statement": "TreasuryDirect cross-check on the overlap window (2025-05-27 to 2026-10-22): 134 coupon dates on each side, symmetric difference empty.",
+      "verified_by": "study 006 (macro-windows-006)",
+      "verified_date": "2026-11-18",
+      "recheck": "Re-fetch both endpoints and recompute the overlap."
+    },
+    {
+      "source_id": "fiscaldata",
+      "statement": "The 7 most recent coupon dates (2026-10-26 to 2026-11-12) come from the TreasuryDirect tail supplement, flagged as such in the calendar file.",
+      "verified_by": "study 006 (macro-windows-006)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "fiscaldata",
+      "statement": "Coupon auction closings are 01:00 PM ET (536 records) or 11:30 AM ET (92 records); the 11:30 minority's results sit near the 16:00 UTC bar boundary.",
+      "verified_by": "study 006 (macro-windows-006)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "federalreserve",
+      "statement": "The calendar was extracted from fomchistorical{YYYY}.htm (2003–2020) and fomccalendars.htm (2021 onwards): 199 scheduled meetings 2003–2027, 8 per year (7 in 2020).",
+      "verified_by": "study 005 (fomc-event-study-005)",
+      "verified_date": "2026-11-18",
+      "recheck": "Re-fetch the calendar page and re-run the study-005 calendar checks (8/year, 7 in 2020)."
+    },
+    {
+      "source_id": "federalreserve",
+      "statement": "Statements are released around 14:00 ET on the last meeting day; t=0 is the statement day and the daily close already contains the reaction.",
+      "verified_by": "study 005 (fomc-event-study-005)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "federalreserve",
+      "statement": "31 meetings are excluded from the scheduled set: 20 conference calls, 5 unscheduled meetings, 1 cancelled meeting (2020-03-17–18), 5 notation votes.",
+      "verified_by": "study 005 (fomc-event-study-005)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    },
+    {
+      "source_id": "bls",
+      "statement": "BLS returns HTTP 403 to direct programmatic requests, including with a browser user-agent; the CPI calendar is a text-fetch transcription, not structured BLS API output.",
+      "verified_by": "study 006 (macro-windows-006)",
+      "verified_date": "2026-11-18",
+      "recheck": "Open the BLS schedule page in a browser and compare the CPI release dates with research/macro-windows-006/cpi_calendar.json."
+    },
+    {
+      "source_id": "bls",
+      "statement": "The CPI calendar (71 releases, 2021-01-13 to 2026-12-10) was transcribed from the BLS archived schedule pages and cross-checked against the BLS archive page and two independent public lists.",
+      "verified_by": "study 006 (macro-windows-006)",
+      "verified_date": "2026-11-18",
+      "recheck": "Re-transcribe one full year from the BLS archive page and compare."
+    },
+    {
+      "source_id": "bls",
+      "statement": "The October 2025 CPI was never published (2025 federal shutdown); the September 2025 CPI was delayed to 2025-10-24.",
+      "verified_by": "study 006 (macro-windows-006)",
+      "verified_date": "2026-11-18",
+      "recheck": "Check the BLS shutdown FAQ and the archived CPI news releases page."
+    },
+    {
+      "source_id": "hyperliquid",
+      "statement": "The public API is reachable without a key, but the 1H candle endpoint returned an empty array once during study-002 preparation and was not used.",
+      "verified_by": "study 002 (lowvol-transmission-002)",
+      "verified_date": "2026-11-18",
+      "recheck": "POST a candleSnapshot request for a recent 1H window and check the response is non-empty."
+    },
+    {
+      "source_id": "hyperliquid",
+      "statement": "No study uses Hyperliquid data; no lab panel depends on it.",
+      "verified_by": "study 002 (lowvol-transmission-002)",
+      "verified_date": "2026-11-18",
+      "recheck": null
+    }
+  ]
+}

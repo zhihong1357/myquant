@@ -74,7 +74,7 @@ Stage 5 is complete: prediction contract, risk model, paper portfolio, funding h
 
 ## Stage 6 — AI research intelligence
 - [x] Hypothesis planner — ranks the 123 untested candidate pairs by explicit criteria (supported-edge adjacency, verified data availability, MDE power feasibility) with a hard anti-retest guard and preregistration draft templates (99 ranked, 24 unrankable, top-10 a 34-way tie at 1.00, weight-invariant); see `docs/research-intelligence.md` §1 and `research/planner-6a/validation_report.md`.
-- [ ] Evidence and source analyst.
+- [x] Evidence and source analyst — hand-written source registry (8 sources, 37 quirks each cited to the verifying study, 27 recorded-only with recheck methods) + pure check functions + a 13-request live probe; probe at 2026-11-18T21:37Z: 27 pass, 0 fail, 1 skip (BLS manual-only); 12 panels: 5 fresh, 7 stale (5 by 1 day, SPX by 2, VXN by 2,377 — panel ends 2020-05-15 while the FRED series continues); see `docs/research-intelligence.md` §2 and `research/evidence-6b/report.md`.
 - [ ] Experiment/code assistant.
 - [ ] Adversarial reviewer.
 - [ ] Research librarian and report generator.

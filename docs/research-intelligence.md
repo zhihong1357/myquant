@@ -230,3 +230,215 @@ registry file is byte-identical before and after.
   draft carries the caveat.
 - The planner knows nothing about economics: it cannot tell a
   plausible mechanism from a spurious pair, and it does not try.
+
+## 2. Evidence and source analyst (6b)
+
+`src/myquant/evidence/` collects the source facts the seven
+studies verified by hand — FRED's keyless CSVs, the Deribit
+expired-instruments quirk, BLS blocking curl, OKX's `after`-only
+pagination, the 90-day trade retention, the one-trading-day FRED
+publication lag — into one registry with a checker, so the next
+study can confirm its sources are still alive and still behave
+the way they were recorded to behave. Validation:
+`research/evidence-6b/probe_sources.py` (live, 13 small requests),
+report in `research/evidence-6b/report.md` and
+`research/evidence-6b/evidence_report.json`.
+
+### What the analyst is (and is not)
+
+The analyst checks. It does not judge whether a source is
+reliable or will stay available: a PASS means only that this
+probe, at this moment, matched the recorded expectation. It does
+not re-verify everything — expensive checks (the OKX 90-day
+retention bisection, the FRED lag timing) stay recorded-only with
+their recheck method written down, and the report keeps live
+observations and recorded-only items in separate sections. It
+reads the planner's `data_availability.json` for panel freshness
+but never writes to it, the registry, or any study data.
+
+### Registry
+
+`research/evidence-6b/sources.json` (hand-written, schema
+version 1): 8 sources, each with id, provider, description, base
+URL, auth (all public, no key), the studies that use it, the
+endpoints used with their expected response structure, retention
+and publication lag, a `last_verified` date, and quirks — each
+quirk cited to the study and date that verified it. 41 quirks in
+total, 33 of them recorded-only (not re-checked by the probe).
+`recorded_only` is false only when a probe check *asserts* the
+quirk's claim — or the fetch itself proves it, as with FRED's
+keyless access. A quirk the probe merely observes without
+asserting (the Yahoo User-Agent requirement, the 09:30 ET bar
+timestamps, the full DVOL history count) stays recorded-only,
+with its recheck method written down.
+Duplicate source ids are rejected; unknown source or probe ids
+are refused, never guessed; a manual-only source must have a
+`manual_check` method and no probes, an automatic source needs at
+least one probe.
+
+| Source | Probes | Notes |
+| --- | --- | --- |
+| OKX public REST | 1 (candles, limit 2) | 1D bars open 16:00 UTC; history-trades ~90 days; funding 8h grid, ~93-day retention with a moving floor |
+| Deribit public API | 2 (expired instruments, DVOL) | expired=true returns only the most recent batch; DVOL needs a `currency` param |
+| FRED fredgraph CSV | 6 (one per series) | no key; no User-Agent header (custom UAs hang); missing = empty fields; 1-trading-day publication lag |
+| Yahoo Finance chart | 1 (^GSPC) | Mozilla UA required; `^MOVE` is an ETF, `^TYVIX` delisted |
+| Fiscal Data API | 1 (recent auctions) | lags the live schedule ~4 weeks |
+| Fed FOMC pages | 1 (calendar page) | smoke check only, not a parse |
+| BLS | 0 — manual-only | curl gets HTTP 403; the CPI calendar is a text-fetch transcription |
+| Hyperliquid | 1 (allMids) | reachable without a key; no study uses it |
+
+### Check kinds
+
+Every check returns PASS / FAIL / SKIP + evidence (timestamps,
+counts, a payload hash, or an excerpt); a FAIL always carries a
+reason. Checks are pure functions over a payload — they never
+make network requests, and the tests never import the fetch layer
+(an AST test enforces the separation).
+
+- **Reachability** — HTTP status, or the error type when no
+  response arrived.
+- **Structure** — the expected fields/columns exist (FRED CSV has
+  a DATE column; OKX `code` is `"0"`).
+- **Source-specific assertions** — Deribit's expired contracts all
+  share one expiry date (the recorded single-batch behaviour);
+  a discontinued series still ends at its recorded end.
+- **Freshness** — see below.
+- **SKIP** — the payload check is not run when no payload arrived,
+  and manual-only sources get a SKIP with the manual method.
+
+The thin fetch layer (`fetch.py`) is stdlib urllib with a
+timeout, an explicit per-source User-Agent, one request, no
+retries. A failed fetch is recorded with its status code or error
+type, never silently skipped.
+
+### Panel freshness
+
+`research/evidence-6b/panel_freshness.json` maps each of the 12
+planner panels to a lag rule and the probe key that supplies its
+latest point. The verdict compares the panel's `last` date with
+the latest point the source serves *now*: FRESH when the panel
+already holds everything the source serves, STALE with the
+calendar-days-behind count otherwise, UNKNOWN when no latest
+point was observed or the source serves *less* than the panel
+(possible truncation or revision). The expected latest is judged
+against the source's known lag (FRED: previous trading day; OKX
+daily: yesterday's bar open; DVOL: yesterday's point; Yahoo:
+latest close at the 21:00 UTC convention; CPI: latest reference
+month whose BLS release date has passed) — but the verdict is
+judged against what the source serves, not the expectation, so a
+holiday-week expectation being one day early cannot flip a
+verdict; the mismatch is recorded as a note instead.
+
+Two rules handle data that is still forming. The OKX check reports
+the latest *confirmed* bar (the newest row is usually still
+forming). The DVOL check, given the probe date, excludes the
+current day's provisional row — the endpoint serves it with a
+running close, and the lab's adapter treats a point as usable
+only from the next day, 00:00 UTC. TYVIX is marked discontinued
+(series end 2020-05-15): a panel ending there is the expected
+state, not staleness; new data past the recorded end would make
+it STALE with a note that the "discontinued" fact itself is
+stale.
+
+The ETH/SOL perpetual panels share the OKX 1D bar grid with BTC,
+and the ETH DVOL panel shares the DVOL daily grid with BTC DVOL,
+so those panels' latest points come from the BTC probes; the
+config says so explicitly rather than fetching the same grid four
+times.
+
+### Validation results (probe 2026-11-18T21:45Z)
+
+13 requests, 27 checks passed, 0 failed, 1 skipped (BLS,
+manual-only). The report is a snapshot of probe time: re-running
+changes the timestamp, the observed latest dates and the freshness
+verdicts; the registry citations and recorded-only items do not
+change.
+
+- **Deribit's single-batch behaviour confirmed live**: 62 expired
+  contracts, one batch expiring 2026-11-18.
+- **VXTYN still ends 2020-05-15** (discontinued series-end check).
+- **Fiscal Data API lag persists**: latest auction 2026-10-22,
+  27 days behind the probe date.
+- **BAA10Y posts later than the other FRED series**: at probe
+  time its latest was 2026-11-16 while VIXCLS, VXNCLS and DGS10
+  had 2026-11-17 — the one-trading-day FRED lag is not uniform
+  across series. The panel is fresh (it holds everything the
+  source serves); the note records the source's own lag.
+- **Panels: 5 fresh, 7 stale.** Fresh: BAA10Y, BTC DVOL, ETH
+  DVOL, TYVIX (discontinued, as expected), CPI. Stale by 1 day:
+  BTC/ETH/SOL perpetuals, VIX, DGS10 — routine overnight lag, the
+  panels were verified on 2026-11-16. SPX stale by 2 days (the
+  Yahoo panel's last close is 2026-11-16; the probe saw the
+  2026-11-18 close). VXN stale by 2,377 days: the FRED series
+  continues (latest 2026-11-17) but the lab's verified panel ends
+  2020-05-15 — the panel needs a re-fetch, not the source a fix.
+
+Two corrections the live probe forced, both fixed and tested
+before this section was written:
+
+- The first draft of the Hyperliquid check assumed the allMids
+  response was a `{"mids": [...]}` wrapper; the live response is
+  a flat symbol-to-price map (1,427 entries at probe time). The
+  check now verifies that shape and the presence of BTC/ETH.
+- The first DVOL check reported the current day's row as the
+  latest point; the probe caught it (a 2026-11-18 row with a
+  running close at 21:34 UTC). The check now excludes provisional
+  points, and freshness notes when a source serves past the
+  expected latest.
+
+Independent review (plain urllib re-probe, no repo imports,
+~5 minutes after the first probe) confirmed every live fact:
+all 13 endpoints returned 200; OKX's latest confirmed bar opens
+2026-11-17T16:00Z; Deribit returned 62 expired contracts in one
+batch expiring 2026-11-18; DVOL's latest final point is
+2026-11-17 close 43.29 with a provisional 2026-11-18 row present;
+FRED's VIXCLS/VXNCLS/DGS10 end 2026-11-17, BAA10Y ends 2026-11-16
+(the one-day BAA10Y lag is real, not a probe artefact), VXTYN
+ends 2020-05-15, CPIAUCSL ends 2026-10-01; Yahoo's ^GSPC latest
+is the 2026-11-18 close; Fiscal Data's latest auction is
+2026-10-22 (27 days behind); the Fed page is byte-identical at
+166,359 bytes; Hyperliquid is a flat map of 1,427 string prices.
+The re-probe also confirmed the raw forms the checks assert: the
+DGS10/BAA10Y missing rows are empty fields, not "."; the Yahoo
+bar timestamps are 14:30 UTC (09:30 EST); the Deribit listing
+carries `base_currency` and no top-level `currency` key.
+
+The same review corrected the registry's live/recorded
+classification, which had over-claimed in places: several
+quirks marked live were only observed by the probe, not
+asserted — the Yahoo User-Agent requirement and bar-timestamp
+convention are now recorded-only, and the bundled DVOL, VXTYN
+and Deribit-listing quirks are split so the live-asserted half
+(00:00 UTC timestamps; the discontinued series end; the
+`base_currency` field) is separated from the recorded half (the
+2,065-point history; the 2003 start; the absent `currency`
+field). The checks were strengthened to match: the OKX check
+asserts the 16:00 UTC bar open, the DVOL check asserts the
+00:00 UTC timestamping, the FRED check fails on a "."-form
+missing value, and the fiscal check reports the lag in days.
+The registry's Hyperliquid endpoint description still said
+`{"mids": [...]}` after the check was fixed; it now states the
+flat-map shape.
+
+### Limitations
+
+- One probe is one moment: a passing check says nothing about
+  the source tomorrow, and a failing check may be a transient
+  outage — re-probe before concluding anything.
+- The expected-latest rules use a weekday calendar and ignore
+  market holidays, so a holiday-week expectation can be one day
+  early; the verdict is judged against what the source serves
+  for exactly this reason.
+- The Fed page check is a smoke check (markers present), not a
+  parse of the meeting list; the Fiscal Data API lag is observed
+  from the latest auction date, not measured against the live
+  schedule.
+- BLS has no automated probe: its calendar stays a manual
+  transcription until someone re-checks it by hand.
+- 33 of the 41 registry quirks are recorded-only. The expensive
+  re-checks (OKX retention bisection, FRED lag timing, the
+  TreasuryDirect cross-check) have their methods written down
+  but have not been re-run since the citing study.
+- The DVOL provisional-point exclusion depends on the probe
+  date: a probe run without `as_of` counts the current day's row
+  as the latest point. The probe script always passes it.
