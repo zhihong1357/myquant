@@ -1,0 +1,138 @@
+{
+    "panels": [
+        {
+            "calendar": "trading_day",
+            "first": "2003-01-02",
+            "instrument_id": "credit:baa-10y-spread",
+            "last": "2026-11-16",
+            "notes": "Joint extended panel with VIX/DGS10/SPX: 5959 return rows, 2003-01-03 to 2026-11-16 (same manifest).",
+            "rows": 5967,
+            "source": "FRED BAA10Y (Moody's Seasoned Baa Corporate Bond Yield Relative to Yield on 10-Year Treasury), fredgraph CSV, no key",
+            "status": "available",
+            "verified_by": "research/fomc-event-study-005/panel-summary.json (fetches: 5967 rows, 261 missing values)"
+        },
+        {
+            "calendar": "calendar_day",
+            "first": "2021-01-21",
+            "instrument_id": "crypto:btc-usdt-perp",
+            "last": "2026-11-16",
+            "notes": "1H panel also verified: 16440 bars, 2025-01-02 to 2026-11-17 (same manifests); the planner uses the daily panel.",
+            "rows": 2126,
+            "source": "OKX public REST 1D candles (BTC-USDT-SWAP), bars open 16:00 UTC",
+            "status": "available",
+            "verified_by": "research/options-expiry-004/panel-summary.json and research/macro-windows-006/panel-summary.json (okx_panels: 2126 confirmed bars, 0 missing)"
+        },
+        {
+            "calendar": "calendar_day",
+            "first": "2021-01-21",
+            "instrument_id": "crypto:eth-usdt-perp",
+            "last": "2026-11-16",
+            "notes": "1H panel also verified: 16440 bars, 2025-01-02 to 2026-11-17 (same manifests); the planner uses the daily panel.",
+            "rows": 2126,
+            "source": "OKX public REST 1D candles (ETH-USDT-SWAP), bars open 16:00 UTC",
+            "status": "available",
+            "verified_by": "research/options-expiry-004/panel-summary.json and research/macro-windows-006/panel-summary.json (okx_panels: 2126 confirmed bars, 0 missing)"
+        },
+        {
+            "calendar": "calendar_day",
+            "first": "2021-01-21",
+            "instrument_id": "crypto:sol-usdt-perp",
+            "last": "2026-11-16",
+            "notes": "SOL's first bar bounds the joint crypto panel (BTC/ETH history is longer). 1H panel also verified: 16440 bars, 2025-01-02 to 2026-11-17; the planner uses the daily panel.",
+            "rows": 2126,
+            "source": "OKX public REST 1D candles (SOL-USDT-SWAP), bars open 16:00 UTC",
+            "status": "available",
+            "verified_by": "research/options-expiry-004/panel-summary.json and research/macro-windows-006/panel-summary.json (okx_panels: 2126 confirmed bars, 0 missing)"
+        },
+        {
+            "calendar": "calendar_day",
+            "first": "2021-03-24",
+            "instrument_id": "index:btc-dvol",
+            "last": "2026-11-17",
+            "notes": "DVOL is an implied-volatility index, not a tradable price; no DVOL edge has been tested yet.",
+            "rows": 2065,
+            "source": "Deribit public DVOL endpoint (BTC), daily points",
+            "status": "available",
+            "verified_by": "research/options-expiry-004/panel-summary.json (dvol_panels: 2065 points)"
+        },
+        {
+            "calendar": "calendar_day",
+            "first": "2021-03-24",
+            "instrument_id": "index:eth-dvol",
+            "last": "2026-11-17",
+            "notes": "DVOL is an implied-volatility index, not a tradable price; no DVOL edge has been tested yet.",
+            "rows": 2065,
+            "source": "Deribit public DVOL endpoint (ETH), daily points",
+            "status": "available",
+            "verified_by": "research/options-expiry-004/panel-summary.json (dvol_panels: 2065 points)"
+        },
+        {
+            "calendar": "trading_day",
+            "first": "2003-01-02",
+            "instrument_id": "index:sp500",
+            "last": "2026-11-16",
+            "notes": "Study 007 fetched one more close (2026-11-17, 6008 rows); the planner uses the study-005 panel, whose joint extended panel is verified (5959 return rows with VIX/DGS10/BAA10Y).",
+            "rows": 6007,
+            "source": "Yahoo Finance chart endpoint, ^GSPC daily closes",
+            "status": "available",
+            "verified_by": "research/fomc-event-study-005/panel-summary.json (fetches: 6007 rows, 0 missing values)"
+        },
+        {
+            "calendar": "trading_day",
+            "first": "2003-01-02",
+            "instrument_id": "index:tyvix",
+            "last": "2020-05-15",
+            "notes": "Series discontinued 2020-05-15: the panel ends there and cannot be extended. Pairs with post-2020-only nodes (crypto, DVOL, CPI) have no overlapping window and are unrankable.",
+            "rows": 4363,
+            "source": "FRED VXTYN (Cboe TYVIX history), fredgraph CSV, no key",
+            "status": "available",
+            "verified_by": "research/move-vix-003/panel-summary.json (fetches: 4363 rows, 169 missing values); same fetch in research/fomc-event-study-005/panel-summary.json"
+        },
+        {
+            "calendar": "trading_day",
+            "first": "2003-01-02",
+            "instrument_id": "index:vix",
+            "last": "2026-11-16",
+            "notes": "Joint extended panel with DGS10/SPX/BAA10Y: 5959 return rows, 2003-01-03 to 2026-11-16 (same manifest). FRED posts day-t values the next business day (verified in study 007); the planner's joint-n estimate does not model the lag.",
+            "rows": 6041,
+            "source": "FRED VIXCLS, fredgraph CSV, no key",
+            "status": "available",
+            "verified_by": "research/fomc-event-study-005/panel-summary.json (fetches: 6041 rows, 187 missing values)"
+        },
+        {
+            "calendar": "trading_day",
+            "first": "2003-01-02",
+            "instrument_id": "index:vxn",
+            "last": "2020-05-15",
+            "notes": "Verified only through 2020-05-15 (the study-003 panel bound); the series continues on FRED, but the lab has no verified panel past that date, so the planner uses 2020-05-15 as the last date. Pairs with post-2020-only nodes have no overlapping window and are unrankable.",
+            "rows": 4372,
+            "source": "FRED VXNCLS, fredgraph CSV, no key",
+            "status": "available",
+            "verified_by": "research/move-vix-003/panel-summary.json (fetches: 4372 rows, 161 missing values)"
+        },
+        {
+            "calendar": "monthly",
+            "first": "2020-11-01",
+            "instrument_id": "macro:cpi-mom",
+            "last": "2026-10-01",
+            "notes": "Monthly reference values (2020-11 to 2026-10); October 2025 CPI was never published (2025 federal shutdown), so the step takes only 69 distinct values in-sample (2021-2026). As a daily predictor it is a step function; daily rows are not the effective sample size. As a target it needs a monthly design.",
+            "rows": 71,
+            "source": "FRED CPIAUCSL (CPI all items, seasonally adjusted), month-on-month of the index level; release-day aligned step function on the daily grid",
+            "status": "available",
+            "step_start": "2021-01-13",
+            "verified_by": "research/publication-lag-007/panel-summary.json (fetches: 71 rows, 1 missing value) and research/macro-windows-006/cpi_calendar.json (71 releases, 2021-01-13 to 2026-12-10)"
+        },
+        {
+            "calendar": "trading_day",
+            "first": "2003-01-02",
+            "instrument_id": "rates:us-10y-yield",
+            "last": "2026-11-16",
+            "notes": "Joint extended panel with VIX/SPX/BAA10Y: 5959 return rows, 2003-01-03 to 2026-11-16 (same manifest). One genuine two-day gap in the source (2004-11-10) is recorded in study 005.",
+            "rows": 5972,
+            "source": "FRED DGS10, fredgraph CSV, no key",
+            "status": "available",
+            "verified_by": "research/fomc-event-study-005/panel-summary.json (fetches: 5972 rows, 256 missing values)"
+        }
+    ],
+    "schema_version": 1
+}

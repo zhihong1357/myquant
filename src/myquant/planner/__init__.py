@@ -1,0 +1,81 @@
+"""Hypothesis planner package (Stage 6a): rank untested candidate
+pairs from the market graph by explicit, auditable criteria, and
+draft preregistrations for the shortlist. The planner only sorts;
+it never concludes, never registers, and never tests."""
+
+from myquant.planner.config import (
+    DEFAULT_CONFIG,
+    AvailabilityConfig,
+    PanelAvailability,
+    PanelCalendar,
+    PanelStatus,
+    PlannerConfig,
+    PlannerWeights,
+    TestTypeThreshold,
+)
+from myquant.planner.loader import (
+    MDECheck,
+    PlannerInputs,
+    default_config,
+    load_availability,
+    load_decision_records,
+    load_fomc_statement_dates,
+    load_planner_inputs,
+    mde_cross_check,
+)
+from myquant.planner.scoring import (
+    CandidatePair,
+    ExcludedCandidate,
+    GuardOutcome,
+    MechanismLabel,
+    RankedCandidate,
+    RankingResult,
+    SuggestedTest,
+    TestedEdge,
+    UnrankableCandidate,
+    adjacency_tiers,
+    apply_guard,
+    data_component,
+    estimate_joint_n,
+    power_component,
+    rank_candidates,
+    suggest_test,
+)
+from myquant.planner.template import TODO, generate_prereg_draft
+
+__all__ = [
+    "DEFAULT_CONFIG",
+    "TODO",
+    "AvailabilityConfig",
+    "CandidatePair",
+    "ExcludedCandidate",
+    "GuardOutcome",
+    "MDECheck",
+    "MechanismLabel",
+    "PanelAvailability",
+    "PanelCalendar",
+    "PanelStatus",
+    "PlannerConfig",
+    "PlannerInputs",
+    "PlannerWeights",
+    "RankedCandidate",
+    "RankingResult",
+    "SuggestedTest",
+    "TestTypeThreshold",
+    "TestedEdge",
+    "UnrankableCandidate",
+    "adjacency_tiers",
+    "apply_guard",
+    "data_component",
+    "default_config",
+    "estimate_joint_n",
+    "generate_prereg_draft",
+    "load_availability",
+    "load_decision_records",
+    "load_fomc_statement_dates",
+    "load_planner_inputs",
+    "mde_cross_check",
+    "power_component",
+    "rank_candidates",
+    "suggest_test",
+]

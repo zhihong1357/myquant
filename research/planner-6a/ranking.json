@@ -1,0 +1,2794 @@
+{
+  "ranked": [
+    {
+      "rank": 1,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 5967,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001313653264264328,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 2,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4341,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001804817769346941,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0026",
+        "E0032"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0026",
+        "DR-E0032"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 3,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 5967,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001313653264264328,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 4,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4341,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001804817769346941,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 5,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 5967,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001313653264264328,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 6,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 7,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 8,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2126,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003678273475170476,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030",
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0030",
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 9,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2126,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003678273475170476,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 10,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 11,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 12,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2126,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003678273475170476,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 13,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2126,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003678273475170476,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 14,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 15,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 16,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 17,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 18,
+      "source_instrument": "index:sp500",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 5967,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001313653264264328,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 19,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4363,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.00179573349486888,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0032"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0032"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 20,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 6007,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0013049171959737987,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 21,
+      "source_instrument": "index:sp500",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 5972,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0013125548642121828,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 22,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4341,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001804817769346941,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0026",
+        "E0032"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0026",
+        "DR-E0032"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 23,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4363,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.00179573349486888,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0032"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0032"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 24,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4344,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.00180357359624772,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0026",
+        "E0032"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0026",
+        "DR-E0032"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 25,
+      "source_instrument": "index:vix",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 5967,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001313653264264328,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 26,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 6007,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0013049171959737987,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 27,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4363,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.00179573349486888,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0032",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0032",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 28,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4372,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0017920435042099328,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 29,
+      "source_instrument": "index:vix",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 5972,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0013125548642121828,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 30,
+      "source_instrument": "index:vxn",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4341,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.001804817769346941,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 31,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4363,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.00179573349486888,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0032"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0032"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 32,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4372,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0017920435042099328,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 33,
+      "source_instrument": "index:vxn",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4344,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.00180357359624772,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 34,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 1.0,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2126,
+      "joint_n_basis": "estimated daily rows of the target panel inside the step-predictor window (first release to panel end)",
+      "mde": 0.003678273475170476,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": [
+        "CPI step predictor: daily rows are not the effective sample size (69 distinct step values in-sample); the MDE uses daily rows, matching the H0012 audit treatment — confirm at design time"
+      ]
+    },
+    {
+      "rank": 35,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 36,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 37,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 38,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2064,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003788345670923388,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 39,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4370,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0017928621909912448,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 40,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 4370,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0017928621909912448,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 41,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2126,
+      "joint_n_basis": "estimated daily rows of the target panel inside the step-predictor window (first release to panel end)",
+      "mde": 0.003678273475170476,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": [
+        "CPI step predictor: daily rows are not the effective sample size (69 distinct step values in-sample); the MDE uses daily rows, matching the H0012 audit treatment — confirm at design time"
+      ]
+    },
+    {
+      "rank": 42,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2065,
+      "joint_n_basis": "estimated daily rows of the target panel inside the step-predictor window (first release to panel end)",
+      "mde": 0.003786518067518257,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": [
+        "CPI step predictor: daily rows are not the effective sample size (69 distinct step values in-sample); the MDE uses daily rows, matching the H0012 audit treatment — confirm at design time"
+      ]
+    },
+    {
+      "rank": 43,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.8,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2065,
+      "joint_n_basis": "estimated daily rows of the target panel inside the step-predictor window (first release to panel end)",
+      "mde": 0.003786518067518257,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": [
+        "CPI step predictor: daily rows are not the effective sample size (69 distinct step values in-sample); the MDE uses daily rows, matching the H0012 audit treatment — confirm at design time"
+      ]
+    },
+    {
+      "rank": 44,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1454,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005369145773655762,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 45,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1454,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005369145773655762,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 46,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1454,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005369145773655762,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 47,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1412,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005527968396057474,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 48,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1412,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005527968396057474,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 49,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 72,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.09829667943322051,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 50,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1454,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005369145773655762,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 51,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1464,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005332666853519445,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 52,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1472,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005303838683689149,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0030",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 53,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 70,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.10082199976586106,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 54,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1456,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005361810117840484,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 55,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1454,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005369145773655762,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 56,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1464,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005332666853519445,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 57,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1472,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005303838683689149,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0031",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 58,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 70,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.10082199976586106,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 59,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1456,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005361810117840484,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 60,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1454,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005369145773655762,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 61,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1472,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005303838683689149,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 62,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1456,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005361810117840484,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 63,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1412,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005527968396057474,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 64,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1429,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0054625645362233405,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 65,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1413,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005524077786383987,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 66,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1412,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005527968396057474,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 67,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1429,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0054625645362233405,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 68,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1413,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005524077786383987,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 69,
+      "source_instrument": "index:sp500",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1464,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005332666853519445,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 70,
+      "source_instrument": "index:sp500",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1464,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005332666853519445,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 71,
+      "source_instrument": "index:vix",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1472,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005303838683689149,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0030",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0030",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 72,
+      "source_instrument": "index:vix",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1472,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005303838683689149,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0031",
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0031",
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 73,
+      "source_instrument": "index:vix",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1472,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005303838683689149,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 74,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1429,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0054625645362233405,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 75,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1429,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.0054625645362233405,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 76,
+      "source_instrument": "index:vix",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 72,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.09829667943322051,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 77,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1460,
+      "joint_n_basis": "estimated daily rows of the target panel inside the step-predictor window (first release to panel end)",
+      "mde": 0.005347198776872439,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": [
+        "CPI step predictor: daily rows are not the effective sample size (69 distinct step values in-sample); the MDE uses daily rows, matching the H0012 audit treatment — confirm at design time"
+      ]
+    },
+    {
+      "rank": 78,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1478,
+      "joint_n_basis": "estimated daily rows of the target panel inside the step-predictor window (first release to panel end)",
+      "mde": 0.005282421275407477,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0033"
+      ],
+      "decision_records": [
+        "DR-E0033"
+      ],
+      "notes": [
+        "CPI step predictor: daily rows are not the effective sample size (69 distinct step values in-sample); the MDE uses daily rows, matching the H0012 audit treatment — confirm at design time"
+      ]
+    },
+    {
+      "rank": 79,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1461,
+      "joint_n_basis": "estimated daily rows of the target panel inside the step-predictor window (first release to panel end)",
+      "mde": 0.00534355837597712,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": [
+        "CPI step predictor: daily rows are not the effective sample size (69 distinct step values in-sample); the MDE uses daily rows, matching the H0012 audit treatment — confirm at design time"
+      ]
+    },
+    {
+      "rank": 80,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "cross_section",
+      "frequency": "daily",
+      "mechanism": "cross-section",
+      "suggestion_reason": "DGS10 is the lab's policy-surprise proxy: the first test is the FOMC cross-event regression of the target's event-window CAR on the DGS10 CAR (H0008).",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 45,
+      "joint_n_basis": "FOMC statements in the overlap window after the 84-day estimation warm-up",
+      "mde": 0.14851553663582612,
+      "mde_measure": "r_squared",
+      "mde_threshold": 0.05,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0030"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0030"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 81,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "cross_section",
+      "frequency": "daily",
+      "mechanism": "cross-section",
+      "suggestion_reason": "DGS10 is the lab's policy-surprise proxy: the first test is the FOMC cross-event regression of the target's event-window CAR on the DGS10 CAR (H0008).",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 45,
+      "joint_n_basis": "FOMC statements in the overlap window after the 84-day estimation warm-up",
+      "mde": 0.14851553663582612,
+      "mde_measure": "r_squared",
+      "mde_threshold": 0.05,
+      "adjacent_supported_edges": [
+        "E0026",
+        "E0031"
+      ],
+      "decision_records": [
+        "DR-E0026",
+        "DR-E0031"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 82,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "cross_section",
+      "frequency": "daily",
+      "mechanism": "cross-section",
+      "suggestion_reason": "DGS10 is the lab's policy-surprise proxy: the first test is the FOMC cross-event regression of the target's event-window CAR on the DGS10 CAR (H0008).",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 45,
+      "joint_n_basis": "FOMC statements in the overlap window after the 84-day estimation warm-up",
+      "mde": 0.14851553663582612,
+      "mde_measure": "r_squared",
+      "mde_threshold": 0.05,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 83,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "cross_section",
+      "frequency": "daily",
+      "mechanism": "cross-section",
+      "suggestion_reason": "DGS10 is the lab's policy-surprise proxy: the first test is the FOMC cross-event regression of the target's event-window CAR on the DGS10 CAR (H0008).",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 44,
+      "joint_n_basis": "FOMC statements in the overlap window after the 84-day estimation warm-up",
+      "mde": 0.15137992902765318,
+      "mde_measure": "r_squared",
+      "mde_threshold": 0.05,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 84,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "cross_section",
+      "frequency": "daily",
+      "mechanism": "cross-section",
+      "suggestion_reason": "DGS10 is the lab's policy-surprise proxy: the first test is the FOMC cross-event regression of the target's event-window CAR on the DGS10 CAR (H0008).",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 44,
+      "joint_n_basis": "FOMC statements in the overlap window after the 84-day estimation warm-up",
+      "mde": 0.15137992902765318,
+      "mde_measure": "r_squared",
+      "mde_threshold": 0.05,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 85,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:tyvix",
+      "test_type": "cross_section",
+      "frequency": "daily",
+      "mechanism": "cross-section",
+      "suggestion_reason": "DGS10 is the lab's policy-surprise proxy: the first test is the FOMC cross-event regression of the target's event-window CAR on the DGS10 CAR (H0008).",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 136,
+      "joint_n_basis": "FOMC statements in the overlap window after the 84-day estimation warm-up",
+      "mde": 0.05456337059311064,
+      "mde_measure": "r_squared",
+      "mde_threshold": 0.05,
+      "adjacent_supported_edges": [
+        "E0023",
+        "E0026",
+        "E0032"
+      ],
+      "decision_records": [
+        "DR-E0023",
+        "DR-E0026",
+        "DR-E0032"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 86,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:vxn",
+      "test_type": "cross_section",
+      "frequency": "daily",
+      "mechanism": "cross-section",
+      "suggestion_reason": "DGS10 is the lab's policy-surprise proxy: the first test is the FOMC cross-event regression of the target's event-window CAR on the DGS10 CAR (H0008).",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 136,
+      "joint_n_basis": "FOMC statements in the overlap window after the 84-day estimation warm-up",
+      "mde": 0.05456337059311064,
+      "mde_measure": "r_squared",
+      "mde_threshold": 0.05,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 87,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 1.0,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.7,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 72,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.09829667943322051,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [
+        "E0026"
+      ],
+      "decision_records": [
+        "DR-E0026"
+      ],
+      "notes": []
+    },
+    {
+      "rank": 88,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.6,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2065,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003786518067518257,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 89,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.0,
+      "data": 1.0,
+      "power": 1.0,
+      "total": 0.6,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 2065,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.003786518067518257,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 90,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1464,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005332666853519445,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 91,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 70,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.10082199976586106,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 92,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1421,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005493148957647887,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 93,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 68,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.10348049650619466,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 94,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1421,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005493148957647887,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 95,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 68,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.10348049650619466,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 96,
+      "source_instrument": "index:sp500",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1464,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005332666853519445,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 97,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1421,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005493148957647887,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 98,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "frequency": "daily",
+      "mechanism": "transmission",
+      "suggestion_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 1421,
+      "joint_n_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+      "mde": 0.005493148957647887,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    },
+    {
+      "rank": 99,
+      "source_instrument": "index:sp500",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "frequency": "monthly",
+      "mechanism": "transmission",
+      "suggestion_reason": "CPI is a monthly series; the target cannot sit on the daily grid, so the first test is a monthly lead-lag.",
+      "adjacency": 0.5,
+      "data": 1.0,
+      "power": 0.0,
+      "total": 0.5,
+      "downgraded": false,
+      "downgrade_reason": null,
+      "joint_n": 72,
+      "joint_n_basis": "calendar months in the overlap of the monthly panel with the other panel",
+      "mde": 0.09829667943322051,
+      "mde_measure": "partial_r_squared",
+      "mde_threshold": 0.005,
+      "adjacent_supported_edges": [],
+      "decision_records": [],
+      "notes": []
+    }
+  ],
+  "excluded": [],
+  "unrankable": [
+    {
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:tyvix",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:vxn",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:tyvix",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:vxn",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:tyvix",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:vxn",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:tyvix",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:vxn",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:tyvix",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:vxn",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:tyvix",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:tyvix",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:tyvix",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:tyvix",
+      "target_instrument": "index:btc-dvol",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:tyvix",
+      "target_instrument": "index:eth-dvol",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:tyvix",
+      "target_instrument": "macro:cpi-mom",
+      "reason": "no overlapping panel window for the suggested lead_lag test (calendar months in the overlap of the monthly panel with the other panel)"
+    },
+    {
+      "source_instrument": "index:vxn",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:vxn",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:vxn",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:btc-dvol",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:eth-dvol",
+      "reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "source_instrument": "index:vxn",
+      "target_instrument": "macro:cpi-mom",
+      "reason": "no overlapping panel window for the suggested lead_lag test (calendar months in the overlap of the monthly panel with the other panel)"
+    },
+    {
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:tyvix",
+      "reason": "no overlapping panel window for the suggested lead_lag test (estimated daily rows of the target panel inside the step-predictor window (first release to panel end))"
+    },
+    {
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:vxn",
+      "reason": "no overlapping panel window for the suggested lead_lag test (estimated daily rows of the target panel inside the step-predictor window (first release to panel end))"
+    }
+  ],
+  "weights": {
+    "adjacency": 0.4,
+    "data": 0.3,
+    "power": 0.3
+  },
+  "total_candidates": 123
+}
