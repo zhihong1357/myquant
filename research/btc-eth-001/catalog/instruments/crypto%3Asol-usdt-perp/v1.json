@@ -1,0 +1,11 @@
+{
+  "instrument_id": "crypto:sol-usdt-perp",
+  "asset_class": "crypto",
+  "instrument_type": "perpetual",
+  "name": "SOL-USDT perpetual swap (OKX)",
+  "quote_currency": "USDT",
+  "calendar_id": "crypto-24-7",
+  "metadata": {
+    "okx_inst_id": "SOL-USDT-SWAP"
+  }
+}
