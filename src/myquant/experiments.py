@@ -4,13 +4,18 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
+import subprocess
 from collections.abc import Callable, Mapping
+from decimal import Decimal, InvalidOperation
 from math import isfinite
 from pathlib import Path
 from typing import Annotated, Any
 
+import numpy as np
 from pydantic import Field, model_validator
 
+from myquant.canonical import canonical_json
 from myquant.contracts import StrictContract
 from myquant.hypotheses import (
     ExpectedDirection,
@@ -18,6 +23,8 @@ from myquant.hypotheses import (
     HypothesisSpec,
 )
 from myquant.registry import append_trial, read_and_verify
+
+logger = logging.getLogger(__name__)
 
 
 class TrialParameter(StrictContract):
@@ -34,6 +41,16 @@ class TrialParameter(StrictContract):
 
 
 class TrialSpec(StrictContract):
+    """One executable trial bound to a preregistered hypothesis version.
+
+    data_fingerprint, config_fingerprint and code_revision are caller
+    attestations, not verified facts: the runner checks only their format
+    and binds them to the trial record. It cannot prove that the data,
+    configuration or code actually used match the supplied values. Use
+    git_head_revision() to fill code_revision from a real checkout, and
+    compute data/config fingerprints from the exact inputs used.
+    """
+
     trial_id: str = Field(min_length=5, pattern=r"^T[0-9]{4,}$")
     hypothesis_id: str = Field(pattern=r"^H[0-9]{4,}$")
     hypothesis_version: int = Field(ge=1)
@@ -41,9 +58,18 @@ class TrialSpec(StrictContract):
     description: str = Field(min_length=8)
 
     seed: int = Field(ge=0)
-    data_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
-    config_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
-    code_revision: str = Field(min_length=7)
+    data_fingerprint: str = Field(
+        pattern=r"^[0-9a-f]{64}$",
+        description="SHA-256 of the exact input data (caller attestation).",
+    )
+    config_fingerprint: str = Field(
+        pattern=r"^[0-9a-f]{64}$",
+        description="SHA-256 of the exact configuration (caller attestation).",
+    )
+    code_revision: str = Field(
+        min_length=7,
+        description="VCS revision of the executed code (caller attestation).",
+    )
 
     universe: tuple[str, ...] = Field(min_length=1)
     observation_frequency: str = Field(min_length=2)
@@ -95,12 +121,51 @@ class TrialReceipt(StrictContract):
 Experiment = Callable[[TrialSpec], Mapping[str, Any]]
 
 
+def git_head_revision(repo_path: str | Path | None = None) -> str | None:
+    """Return the HEAD commit SHA of a local git repository, or None.
+
+    This is a read-only local lookup (``git rev-parse HEAD``) with no
+    network access. It returns None when the path is not inside a git
+    repository, when git is unavailable, or when the command fails or
+    times out. Callers may pass the result as a trial's code_revision;
+    the runner never calls this itself, so trials remain reproducible
+    outside a git checkout. A dirty worktree is NOT detected: the
+    returned SHA identifies the last commit, not the exact working files.
+    """
+    command = ["git", "rev-parse", "HEAD"]
+    if repo_path is not None:
+        command = ["git", "-C", str(repo_path), "rev-parse", "HEAD"]
+    try:
+        completed = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            timeout=10,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if completed.returncode != 0:
+        return None
+    revision = completed.stdout.strip()
+    if len(revision) != 40 or any(
+        char not in "0123456789abcdef" for char in revision
+    ):
+        return None
+    return revision
+
+
 class ExperimentRunner:
     """Execute one trial only when it matches the registered research plan.
 
     The preregistered hypothesis version is moved into TESTING before the
     callback is executed. Trial success/failure is appended to the hash-chained
     trial ledger. The runner does not decide statistical acceptance.
+
+    Fingerprints and code revisions recorded with a trial are caller
+    attestations: the runner verifies their format and binds them to the
+    receipt, but it cannot verify that they describe the data, config or
+    code actually used.
     """
 
     def __init__(
@@ -129,7 +194,7 @@ class ExperimentRunner:
             if key != "trial_id"
         }
         spec_fingerprint = hashlib.sha256(
-            _canonical_json(fingerprint_payload)
+            canonical_json(fingerprint_payload)
         ).hexdigest()
 
         self.hypothesis_registry.assert_runnable(
@@ -156,6 +221,14 @@ class ExperimentRunner:
                 status="failed",
                 result=failure_record,
             )
+            logger.warning(
+                "trial %s for %s v%s failed: %s: %s",
+                spec.trial_id,
+                spec.hypothesis_id,
+                spec.hypothesis_version,
+                type(exc).__name__,
+                exc,
+            )
             raise
 
         result = {
@@ -170,6 +243,13 @@ class ExperimentRunner:
             hypothesis_id=spec.hypothesis_id,
             status="completed",
             result=result,
+        )
+        logger.info(
+            "trial %s for %s v%s completed (record %s)",
+            spec.trial_id,
+            spec.hypothesis_id,
+            spec.hypothesis_version,
+            record_hash[:12],
         )
         return TrialReceipt(
             trial_id=spec.trial_id,
@@ -187,6 +267,13 @@ class ExperimentRunner:
         spec: TrialSpec,
         hypothesis: HypothesisSpec,
     ) -> None:
+        """Reject trials whose research plan differs from the preregistration.
+
+        Fixed parameters compare numerically when both sides parse as
+        numbers (1 matches 1.0, 0.5 matches "0.50"); booleans compare as
+        the literal strings "true"/"false" and never match a number. Every
+        mismatch is reported with its expected and actual values.
+        """
         expected = {
             "universe": hypothesis.universe,
             "observation_frequency": hypothesis.observation_frequency,
@@ -200,7 +287,6 @@ class ExperimentRunner:
             "primary_metric": hypothesis.primary_metric,
             "expected_direction": hypothesis.expected_direction,
             "seed": hypothesis.random_seed,
-            "parameters": _parse_fixed_parameters(hypothesis.fixed_parameters),
         }
         actual = {
             "universe": spec.universe,
@@ -215,18 +301,23 @@ class ExperimentRunner:
             "primary_metric": spec.primary_metric,
             "expected_direction": spec.expected_direction,
             "seed": spec.seed,
-            "parameters": {
-                parameter.name: _parameter_value(parameter.value)
-                for parameter in spec.parameters
-            },
         }
         mismatches = [
-            name for name, value in expected.items() if actual[name] != value
+            f"{name}: expected {_short_repr(value)}, "
+            f"trial has {_short_repr(actual[name])}"
+            for name, value in expected.items()
+            if actual[name] != value
         ]
+        mismatches.extend(
+            _parameter_mismatches(
+                _parse_fixed_parameters(hypothesis.fixed_parameters),
+                {parameter.name: parameter.value for parameter in spec.parameters},
+            )
+        )
         if mismatches:
-            joined = ", ".join(mismatches)
             raise PermissionError(
-                f"trial does not match preregistered hypothesis fields: {joined}"
+                "trial does not match preregistered hypothesis fields: "
+                + "; ".join(mismatches)
             )
 
 
@@ -244,16 +335,85 @@ def _parameter_value(value: str | int | float | bool) -> str:
     return str(value)
 
 
+def _numeric_equal(left: str, right: str) -> bool:
+    """Compare two strings as exact decimal numbers, if both parse."""
+    try:
+        return Decimal(left) == Decimal(right)
+    except InvalidOperation:
+        return False
+
+
+def _values_match(expected: str, actual: str | int | float | bool) -> bool:
+    """Compare a preregistered parameter value with a trial value.
+
+    Booleans compare as the literal strings "true"/"false" and never match
+    a number. When both sides parse as decimal numbers they compare by
+    numeric value, so 1 matches 1.0, 0.5 matches "0.50" and 0.001 matches
+    "1e-3". Anything else compares as exact strings.
+    """
+    if isinstance(actual, bool):
+        return ("true" if actual else "false") == expected
+    if isinstance(actual, str) and actual == expected:
+        return True
+    return _numeric_equal(expected, str(actual))
+
+
+def _short_repr(value: Any, *, limit: int = 120) -> str:
+    text = repr(value)
+    return text if len(text) <= limit else text[: limit - 3] + "..."
+
+
+def _parameter_mismatches(
+    expected: dict[str, str],
+    actual: dict[str, str | int | float | bool],
+) -> list[str]:
+    """Describe every fixed-parameter difference with expected/actual values."""
+    details: list[str] = []
+    for name in sorted(set(expected) | set(actual)):
+        if name not in actual:
+            details.append(
+                f"parameters: '{name}' is preregistered as "
+                f"'{expected[name]}' but missing from the trial"
+            )
+        elif name not in expected:
+            details.append(
+                f"parameters: '{name}' is not preregistered "
+                f"(trial has '{_parameter_value(actual[name])}')"
+            )
+        elif not _values_match(expected[name], actual[name]):
+            details.append(
+                f"parameters: '{name}' expected '{expected[name]}' "
+                f"but trial has '{_parameter_value(actual[name])}'"
+            )
+    return details
+
+
+def _to_jsonable(value: Any) -> Any:
+    """Convert numpy scalars and arrays to plain Python values.
+
+    Metrics computed with numpy are ordinary numbers, not experiment
+    failures: np.integer becomes int, np.floating becomes float, np.bool_
+    becomes bool and ndarrays become nested lists. Anything else passes
+    through unchanged for the strict JSON round-trip to accept or reject.
+    """
+    if isinstance(value, np.bool_):
+        return bool(value)
+    if isinstance(value, np.integer):
+        return int(value)
+    if isinstance(value, np.floating):
+        return float(value)
+    if isinstance(value, np.ndarray):
+        return _to_jsonable(value.tolist())
+    if isinstance(value, Mapping):
+        return {
+            _to_jsonable(key): _to_jsonable(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, (list, tuple)):
+        return [_to_jsonable(item) for item in value]
+    return value
+
+
 def _normalize_json(value: Any) -> Any:
     """Round-trip values through strict JSON to reject NaN, Infinity and objects."""
-    return json.loads(_canonical_json(value))
-
-
-def _canonical_json(value: Any) -> bytes:
-    return json.dumps(
-        value,
-        sort_keys=True,
-        separators=(",", ":"),
-        ensure_ascii=False,
-        allow_nan=False,
-    ).encode("utf-8")
+    return json.loads(canonical_json(_to_jsonable(value)))

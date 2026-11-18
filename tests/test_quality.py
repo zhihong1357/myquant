@@ -94,6 +94,24 @@ def test_quality_report_explains_pre_event_information():
     assert any(issue.code == "AVAILABLE_BEFORE_EVENT" for issue in report.issues)
 
 
+def test_quality_report_aggregates_repeated_issues_with_counts():
+    observation = make_observation()
+    report = inspect_observations([observation] * 5)
+    duplicates = [issue for issue in report.issues if issue.code == "DUPLICATE_ROW"]
+    assert len(duplicates) == 1
+    assert duplicates[0].count == 4
+
+    laggy = inspect_observations(
+        [make_observation(ingestion_delay=30) for _ in range(3)],
+        max_ingestion_lag_seconds=10,
+    )
+    lag_issues = [
+        issue for issue in laggy.issues if issue.code == "HIGH_INGESTION_LAG"
+    ]
+    assert len(lag_issues) == 1
+    assert lag_issues[0].count == 3
+
+
 def test_quality_report_empty_batch_is_explicit_error():
     expected = {("volatility:vix", "CBOE", "close", "sample", 1)}
     report = inspect_observations([], expected_series=expected)

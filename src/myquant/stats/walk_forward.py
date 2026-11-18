@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from collections.abc import Iterable
 from datetime import datetime, timedelta
 from math import isfinite
@@ -13,6 +14,9 @@ from numpy.typing import NDArray
 from pydantic import Field, model_validator
 
 from myquant.contracts import StrictContract, require_utc
+from myquant.stats._validation import numeric_array
+
+logger = logging.getLogger(__name__)
 
 
 class WalkForwardFold(StrictContract):
@@ -58,6 +62,34 @@ class WalkForwardFold(StrictContract):
         object.__setattr__(self, "test_start_time", start)
         object.__setattr__(self, "test_last_time", last)
         return self
+
+
+class SkippedWalkForwardFold(StrictContract):
+    """A test window dropped because too few training rows survived purging."""
+
+    fold_number: int = Field(ge=1)
+    test_start_time: datetime
+    test_last_time: datetime
+    training_observations: int = Field(ge=0)
+    minimum_train_size: int = Field(ge=1)
+    reason: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_skipped_fold(self) -> SkippedWalkForwardFold:
+        start = require_utc(self.test_start_time)
+        last = require_utc(self.test_last_time)
+        if last < start:
+            raise ValueError("test_last_time must not precede test_start_time")
+        object.__setattr__(self, "test_start_time", start)
+        object.__setattr__(self, "test_last_time", last)
+        return self
+
+
+class WalkForwardSplitReport(StrictContract):
+    """Usable folds plus an audit record of every skipped test window."""
+
+    folds: tuple[WalkForwardFold, ...] = Field(min_length=1)
+    skipped_folds: tuple[SkippedWalkForwardFold, ...] = ()
 
 
 class FoldForecastMetrics(StrictContract):
@@ -128,7 +160,7 @@ def _positive_integer(value: int, *, name: str) -> int:
     return int(value)
 
 
-def purged_walk_forward_splits(
+def purged_walk_forward_split_report(
     decision_times: Iterable[datetime],
     label_end_times: Iterable[datetime],
     *,
@@ -138,7 +170,7 @@ def purged_walk_forward_splits(
     max_train_size: int | None = None,
     embargo: timedelta = timedelta(0),
     minimum_train_size: int = 30,
-) -> tuple[WalkForwardFold, ...]:
+) -> WalkForwardSplitReport:
     """Build disjoint forward test windows and purge overlapping training labels.
 
     Each label is assumed to cover the closed time interval from its decision
@@ -155,6 +187,13 @@ def purged_walk_forward_splits(
     overlap. A final shorter test window is retained. When max_train_size is
     supplied, only the most recent candidate training observations are
     considered before purging and embargo are applied.
+
+    A test window whose training set falls below minimum_train_size after
+    purging and embargo is skipped, not fatal: the remaining folds are
+    still returned, the skipped window is recorded in the report with its
+    reason, and a warning is logged. Only when every test window is
+    skipped does the function raise. Fold numbers are never renumbered,
+    so a fold's number always identifies its test window.
 
     This splitter handles label-window overlap only. Callers must separately
     enforce point-in-time availability for every feature, source revision and
@@ -199,6 +238,7 @@ def purged_walk_forward_splits(
         raise ValueError("embargo must be finite and non-negative")
 
     folds: list[WalkForwardFold] = []
+    skipped: list[SkippedWalkForwardFold] = []
     fold_number = 1
     for test_start in range(initial_size, decisions.size, advance):
         test_stop = min(test_start + held_out_size, decisions.size)
@@ -232,27 +272,80 @@ def purged_walk_forward_splits(
         ]
 
         if len(training) < minimum_size:
-            raise ValueError(
-                f"fold {fold_number} has {len(training)} training observations "
-                f"after purging and embargo; minimum is {minimum_size}"
+            skipped.append(
+                SkippedWalkForwardFold(
+                    fold_number=fold_number,
+                    test_start_time=decisions[test_start].to_pydatetime(),
+                    test_last_time=decisions[test_stop - 1].to_pydatetime(),
+                    training_observations=len(training),
+                    minimum_train_size=minimum_size,
+                    reason=(
+                        f"only {len(training)} training observations remain "
+                        f"after purging and embargo; minimum is {minimum_size}"
+                    ),
+                )
             )
-
-        folds.append(
-            WalkForwardFold(
-                fold_number=fold_number,
-                train_indices=tuple(training),
-                test_indices=tuple(range(test_start, test_stop)),
-                purged_indices=tuple(purged),
-                embargoed_indices=tuple(embargoed),
-                test_start_time=decisions[test_start].to_pydatetime(),
-                test_last_time=decisions[test_stop - 1].to_pydatetime(),
+            logger.warning(
+                "skipping walk-forward fold %s: %s",
+                fold_number,
+                skipped[-1].reason,
             )
-        )
+        else:
+            folds.append(
+                WalkForwardFold(
+                    fold_number=fold_number,
+                    train_indices=tuple(training),
+                    test_indices=tuple(range(test_start, test_stop)),
+                    purged_indices=tuple(purged),
+                    embargoed_indices=tuple(embargoed),
+                    test_start_time=decisions[test_start].to_pydatetime(),
+                    test_last_time=decisions[test_stop - 1].to_pydatetime(),
+                )
+            )
         fold_number += 1
 
     if not folds:
+        if skipped:
+            raise ValueError(
+                "no test fold can be formed from the supplied sample: "
+                f"{len(skipped)} test window(s) were skipped; the first "
+                f"was skipped because {skipped[0].reason}"
+            )
         raise ValueError("no test fold can be formed from the supplied sample")
-    return tuple(folds)
+    return WalkForwardSplitReport(
+        folds=tuple(folds),
+        skipped_folds=tuple(skipped),
+    )
+
+
+def purged_walk_forward_splits(
+    decision_times: Iterable[datetime],
+    label_end_times: Iterable[datetime],
+    *,
+    initial_train_size: int,
+    test_size: int,
+    step_size: int | None = None,
+    max_train_size: int | None = None,
+    embargo: timedelta = timedelta(0),
+    minimum_train_size: int = 30,
+) -> tuple[WalkForwardFold, ...]:
+    """Build purged walk-forward folds; see purged_walk_forward_split_report.
+
+    Returns only the usable folds. Test windows whose training set falls
+    below minimum_train_size after purging and embargo are skipped; use
+    purged_walk_forward_split_report for the audit record of skipped
+    windows.
+    """
+    return purged_walk_forward_split_report(
+        decision_times,
+        label_end_times,
+        initial_train_size=initial_train_size,
+        test_size=test_size,
+        step_size=step_size,
+        max_train_size=max_train_size,
+        embargo=embargo,
+        minimum_train_size=minimum_train_size,
+    ).folds
 
 
 def _prediction_vector(
@@ -261,11 +354,10 @@ def _prediction_vector(
     name: str,
     expected_size: int,
 ) -> NDArray[np.float64]:
-    try:
-        result = np.asarray(tuple(values), dtype=np.float64)
-    except (TypeError, ValueError) as exc:
-        raise TypeError(f"{name} must contain numeric values") from exc
-    if result.ndim != 1 or result.size != expected_size:
+    # NaN is allowed here: forecasts outside the held-out rows are ignored,
+    # and finiteness is enforced per test row during scoring.
+    result = numeric_array(values, name=name)
+    if result.size != expected_size:
         raise ValueError(f"{name} must be one-dimensional and match actual length")
     return result
 

@@ -10,8 +10,9 @@ from typing import Any
 
 from pydantic import Field, model_validator
 
+from myquant.canonical import canonical_json
 from myquant.contracts import StrictContract, require_utc
-from myquant.sources import _write_new_file
+from myquant.files import write_new_file
 
 
 class RawPayloadRecord(StrictContract):
@@ -40,7 +41,13 @@ class RawPayloadRecord(StrictContract):
 
 
 class RawStore:
-    """Store exact payload bytes once, with immutable provenance manifests."""
+    """Store exact payload bytes once, with immutable provenance manifests.
+
+    The raw layer performs no research-permission gating: an unapproved
+    source's payload may be quarantined here. The permission gate lives in
+    the PIT layer, which refuses to admit observations from unapproved
+    source versions into the canonical research table.
+    """
 
     def __init__(self, root: str | Path) -> None:
         self.root = Path(root)
@@ -79,19 +86,19 @@ class RawStore:
             "content_type": content_type,
             "byte_length": len(payload),
         }
-        record_id = hashlib.sha256(_canonical(metadata)).hexdigest()
+        record_id = hashlib.sha256(canonical_json(metadata)).hexdigest()
         record = RawPayloadRecord(record_id=record_id, **metadata)
 
         blob_path = self.blob_root / payload_hash[:2] / f"{payload_hash}.bin"
         manifest_path = self.manifest_root / record_id[:2] / f"{record_id}.json"
-        _write_new_file(blob_path, payload)
+        write_new_file(blob_path, payload)
         manifest = json.dumps(
             record.model_dump(mode="json"),
             sort_keys=True,
             indent=2,
             ensure_ascii=False,
         ) + "\n"
-        _write_new_file(manifest_path, manifest.encode("utf-8"))
+        write_new_file(manifest_path, manifest.encode("utf-8"))
         return record
 
     def get_record(self, record_id: str) -> RawPayloadRecord:
@@ -102,7 +109,7 @@ class RawStore:
         if record.record_id != record_id:
             raise ValueError("manifest record_id mismatch")
         expected_id = hashlib.sha256(
-            _canonical({
+            canonical_json({
                 "payload_sha256": record.payload_sha256,
                 "source_id": record.source_id,
                 "source_version": record.source_version,
@@ -127,12 +134,3 @@ class RawStore:
         if len(payload) != record.byte_length:
             raise ValueError("raw payload length mismatch")
         return payload
-
-
-def _canonical(payload: dict[str, Any]) -> bytes:
-    return json.dumps(
-        payload,
-        sort_keys=True,
-        separators=(",", ":"),
-        ensure_ascii=False,
-    ).encode("utf-8")

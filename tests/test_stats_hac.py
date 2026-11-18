@@ -63,3 +63,53 @@ def test_newey_west_rejects_invalid_bandwidths_and_settings():
             max_lag=2,
             small_sample_correction=1,  # type: ignore[arg-type]
         )
+
+
+# Golden standard errors from statsmodels 0.15.0 OLS(cov_type="HAC",
+# use_correction=False) on the fixed dataset below (seed 7, n=300, AR(1)
+# errors with rho=0.6). Generated during the 2026-11-18 review; myquant
+# matches statsmodels to about 2e-15, so the 1e-12 tolerance below guards
+# the formula without being brittle to floating-point reassociation.
+HAC_GOLDEN_STANDARD_ERRORS = {
+    0: (0.07592208073261744, 0.08451649157738123, 0.08680154589662513),
+    5: (0.13157878460550934, 0.08124011229245301, 0.08465833557002045),
+    12: (0.14639646646016755, 0.07849443268060807, 0.08516405194803897),
+}
+
+
+def _hac_golden_data():
+    rng = np.random.default_rng(7)
+    observations = 300
+    x1 = rng.normal(size=observations)
+    x2 = rng.normal(size=observations)
+    innovations = rng.normal(size=observations)
+    errors = np.zeros(observations)
+    for index in range(1, observations):
+        errors[index] = 0.6 * errors[index - 1] + innovations[index]
+    target = 1.0 + 0.5 * x1 - 0.3 * x2 + errors
+    return target, {"x1": x1, "x2": x2}
+
+
+def test_newey_west_matches_statsmodels_golden_standard_errors():
+    target, predictors = _hac_golden_data()
+    for max_lag, expected in HAC_GOLDEN_STANDARD_ERRORS.items():
+        result = newey_west_hac(target, predictors, max_lag=max_lag)
+        actual = tuple(
+            coefficient.standard_error for coefficient in result.coefficients
+        )
+        np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=0.0)
+
+
+def test_newey_west_small_sample_correction_scales_by_n_over_dof():
+    target, predictors = _hac_golden_data()
+    plain = newey_west_hac(target, predictors, max_lag=5)
+    corrected = newey_west_hac(
+        target,
+        predictors,
+        max_lag=5,
+        small_sample_correction=True,
+    )
+    ratio = np.asarray(corrected.covariance_matrix) / np.asarray(
+        plain.covariance_matrix
+    )
+    np.testing.assert_allclose(ratio, 300 / 297, rtol=1e-12)

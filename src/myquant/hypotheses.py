@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
-import tempfile
 from datetime import UTC, datetime, timedelta
 from enum import StrEnum
 from pathlib import Path
@@ -13,20 +13,32 @@ from typing import Any
 
 from pydantic import Field, model_validator
 
-from myquant.contracts import StrictContract, require_utc
+from myquant.canonical import canonical_json
+from myquant.contracts import (
+    MultiplicityCorrection,
+    StrictContract,
+    require_utc,
+)
+from myquant.files import create_immutable_file
+
+logger = logging.getLogger(__name__)
+
+__all__ = [
+    "ExpectedDirection",
+    "HypothesisEvent",
+    "HypothesisRegistration",
+    "HypothesisRegistry",
+    "HypothesisSpec",
+    "HypothesisState",
+    "MultiplicityCorrection",
+    "SampleWindow",
+]
 
 
 class ExpectedDirection(StrEnum):
     POSITIVE = "positive"
     NEGATIVE = "negative"
     TWO_SIDED = "two_sided"
-
-
-class MultiplicityCorrection(StrEnum):
-    NONE = "none"
-    BONFERRONI = "bonferroni"
-    HOLM = "holm"
-    BENJAMINI_HOCHBERG = "benjamini_hochberg"
 
 
 class HypothesisState(StrEnum):
@@ -221,6 +233,12 @@ class HypothesisRegistry:
     are frozen permanently; a material change requires a new hypothesis ID.
 
     This is a local single-writer research registry, not a distributed database.
+
+    Like the trial ledger, the event hash chain detects tampering with
+    events that are still present but not deletion of trailing events; see
+    myquant.registry for the anchor pattern if truncation detection is
+    required. Every operation replays and re-validates the full event log,
+    so n events cost O(n^2) time in total.
     """
 
     _TRANSITIONS: dict[HypothesisState, frozenset[HypothesisState]] = {
@@ -265,11 +283,13 @@ class HypothesisRegistry:
         for existing_version in existing_versions:
             if (spec.hypothesis_id, existing_version) not in registered_event_versions:
                 raise ValueError(
-                    f"registration v{existing_version} has no lifecycle event"
+                    f"registration v{existing_version} has no lifecycle event; "
+                    "use repair_orphan_registration to append the missing "
+                    "event with an audit reason"
                 )
         serialized_spec = spec.model_dump(mode="json")
         spec_fingerprint = hashlib.sha256(
-            _canonical_json(serialized_spec)
+            canonical_json(serialized_spec)
         ).hexdigest()
 
         if not existing_versions:
@@ -315,7 +335,7 @@ class HypothesisRegistry:
             exclude={"registration_hash"},
         )
         registration_hash = hashlib.sha256(
-            _canonical_json(hash_payload)
+            canonical_json(hash_payload)
         ).hexdigest()
         registration = draft.model_copy(
             update={"registration_hash": registration_hash}
@@ -323,9 +343,9 @@ class HypothesisRegistry:
 
         directory.mkdir(parents=True, exist_ok=True)
         target = directory / f"v{version}.json"
-        _create_immutable_file(
+        create_immutable_file(
             target,
-            _canonical_json(registration.model_dump(mode="json")) + b"\n",
+            canonical_json(registration.model_dump(mode="json")) + b"\n",
         )
 
         self._append_event(
@@ -347,7 +367,72 @@ class HypothesisRegistry:
                 to_state=HypothesisState.SUPERSEDED,
                 reason=f"Superseded by version {version}.",
             )
+        logger.info(
+            "registered hypothesis %s v%s", spec.hypothesis_id, version
+        )
         return registration
+
+    def repair_orphan_registration(
+        self,
+        hypothesis_id: str,
+        version: int,
+        *,
+        reason: str,
+    ) -> HypothesisEvent:
+        """Append the missing REGISTERED event for a crash-orphaned snapshot.
+
+        `register` writes the immutable snapshot before appending its
+        lifecycle event, so a crash between the two steps leaves a snapshot
+        with no event. Such an orphan blocks all further registrations for
+        the hypothesis. This repair appends the missing event with an
+        explicit audit reason; it never modifies the snapshot itself.
+
+        If the orphaned version supersedes an older version, the missing
+        SUPERSEDED event for that older version is appended as well, so the
+        registry reaches the state `register` would have produced.
+        """
+        if len(reason.strip()) < 10:
+            raise ValueError(
+                "orphan repair requires a reason of at least 10 characters"
+            )
+        registration = self.get(hypothesis_id, version=version)
+        events = self.read_events()
+        if any(
+            event.hypothesis_id == hypothesis_id and event.version == version
+            for event in events
+        ):
+            raise ValueError(
+                f"registration v{version} already has lifecycle events; "
+                "repair is only for orphaned snapshots"
+            )
+        supersedes_version = registration.supersedes_version
+        if supersedes_version is not None:
+            superseded_state = self.get_state(hypothesis_id, supersedes_version)
+            if superseded_state != HypothesisState.REGISTERED:
+                raise ValueError(
+                    f"cannot repair orphan v{version}: superseded version "
+                    f"v{supersedes_version} is {superseded_state.value}, "
+                    "not REGISTERED"
+                )
+        event = self._append_event(
+            hypothesis_id=hypothesis_id,
+            version=version,
+            from_state=None,
+            to_state=HypothesisState.REGISTERED,
+            reason=f"Orphan repair: {reason.strip()}",
+        )
+        if supersedes_version is not None:
+            self._append_event(
+                hypothesis_id=hypothesis_id,
+                version=supersedes_version,
+                from_state=HypothesisState.REGISTERED,
+                to_state=HypothesisState.SUPERSEDED,
+                reason=f"Superseded by version {version} (orphan repair).",
+            )
+        logger.warning(
+            "repaired orphan registration %s v%s", hypothesis_id, version
+        )
+        return event
 
     def get(
         self,
@@ -371,7 +456,7 @@ class HypothesisRegistry:
         )
         raw = json.loads(path.read_text(encoding="utf-8"))
         supplied_hash = raw.pop("registration_hash", None)
-        actual_hash = hashlib.sha256(_canonical_json(raw)).hexdigest()
+        actual_hash = hashlib.sha256(canonical_json(raw)).hexdigest()
         if supplied_hash != actual_hash:
             raise ValueError("hypothesis registration integrity check failed")
 
@@ -384,7 +469,7 @@ class HypothesisRegistry:
             raise ValueError("registration version does not match its storage path")
 
         expected_spec_fingerprint = hashlib.sha256(
-            _canonical_json(registration.spec.model_dump(mode="json"))
+            canonical_json(registration.spec.model_dump(mode="json"))
         ).hexdigest()
         if registration.spec_fingerprint != expected_spec_fingerprint:
             raise ValueError("hypothesis spec fingerprint mismatch")
@@ -428,13 +513,21 @@ class HypothesisRegistry:
             )
         if len(reason.strip()) < 5:
             raise ValueError("transition reason must contain at least five characters")
-        return self._append_event(
+        event = self._append_event(
             hypothesis_id=hypothesis_id,
             version=version,
             from_state=current_state,
             to_state=to_state,
             reason=reason,
         )
+        logger.info(
+            "hypothesis %s v%s: %s -> %s",
+            hypothesis_id,
+            version,
+            current_state.value,
+            to_state.value,
+        )
+        return event
 
     def assert_runnable(
         self,
@@ -480,7 +573,7 @@ class HypothesisRegistry:
             supplied_hash = raw.pop("event_hash", None)
             if raw.get("previous_hash") != expected_previous:
                 raise ValueError(f"broken hypothesis event chain at line {line_number}")
-            actual_hash = hashlib.sha256(_canonical_json(raw)).hexdigest()
+            actual_hash = hashlib.sha256(canonical_json(raw)).hexdigest()
             if supplied_hash != actual_hash:
                 raise ValueError(f"hypothesis event hash mismatch at line {line_number}")
             event = HypothesisEvent.model_validate(
@@ -559,12 +652,12 @@ class HypothesisRegistry:
             exclude={"event_hash"},
         )
         event_hash = hashlib.sha256(
-            _canonical_json(hash_payload)
+            canonical_json(hash_payload)
         ).hexdigest()
         event = draft.model_copy(update={"event_hash": event_hash})
         self.events_path.parent.mkdir(parents=True, exist_ok=True)
         with self.events_path.open("ab") as stream:
-            stream.write(_canonical_json(event.model_dump(mode="json")) + b"\n")
+            stream.write(canonical_json(event.model_dump(mode="json")) + b"\n")
             stream.flush()
             os.fsync(stream.fileno())
         return event
@@ -583,36 +676,3 @@ def _valid_versioned_identifier(value: str) -> bool:
 def _validate_hypothesis_id(value: str) -> None:
     if len(value) < 5 or value[0] != "H" or not value[1:].isdigit():
         raise ValueError("hypothesis_id must match H followed by at least four digits")
-
-
-def _canonical_json(value: Any) -> bytes:
-    return json.dumps(
-        value,
-        sort_keys=True,
-        separators=(",", ":"),
-        ensure_ascii=False,
-        allow_nan=False,
-    ).encode("utf-8")
-
-
-def _create_immutable_file(target: Path, content: bytes) -> None:
-    """Atomically create an immutable file without replacing prior contents."""
-    target.parent.mkdir(parents=True, exist_ok=True)
-    descriptor, temporary_name = tempfile.mkstemp(
-        dir=target.parent,
-        prefix=".hypothesis-",
-    )
-    temporary = Path(temporary_name)
-    try:
-        with os.fdopen(descriptor, "wb") as stream:
-            stream.write(content)
-            stream.flush()
-            os.fsync(stream.fileno())
-        try:
-            os.link(temporary, target)
-        except FileExistsError as exc:
-            raise FileExistsError(
-                f"hypothesis registration already exists: {target}"
-            ) from exc
-    finally:
-        temporary.unlink(missing_ok=True)

@@ -1,4 +1,10 @@
-"""Canonical instruments and exchange-session calendars."""
+"""Canonical instruments and exchange-session calendars.
+
+Python datetimes and zoneinfo do not represent leap seconds (23:59:60 is
+folded into the following second). Session boundaries are therefore accurate
+to the second, which is sufficient for daily and hourly research; sub-second
+studies must handle leap seconds upstream.
+"""
 
 from __future__ import annotations
 
@@ -88,6 +94,11 @@ class MarketCalendar(StrictContract):
             raise ValueError("weekdays cannot contain duplicates")
         if len(set(self.holidays)) != len(self.holidays):
             raise ValueError("holidays cannot contain duplicates")
+        # The anchor check validates the open/close ordering on one fixed
+        # date. A daylight-saving transition between a session's open and
+        # close shifts both boundaries by the same amount in practice, so the
+        # ordering is preserved; session_bounds additionally re-checks the
+        # resolved UTC boundaries for every trading date.
         anchor = date(2000, 1, 3)
         open_date = anchor + timedelta(days=self.open_day_offset)
         close_date = anchor + timedelta(days=self.close_day_offset)
@@ -109,17 +120,30 @@ class MarketCalendar(StrictContract):
         local_open = _localize_wall_time(open_date, self.regular_open, zone)
         local_close = _localize_wall_time(close_date, close_time, zone)
         if local_close <= local_open:
-            raise ValueError(f"early close creates invalid session for {trading_date}")
+            raise ValueError(
+                f"session close must be later than session open for {trading_date}"
+            )
         return local_open.astimezone(UTC), local_close.astimezone(UTC)
 
     def is_open(self, instant: datetime) -> bool:
-        """Check an aware instant against sessions labelled by trading date."""
+        """Check an aware instant against sessions labelled by trading date.
+
+        A session labelled T spans local dates T + open_day_offset through
+        T + close_day_offset, so an instant on local date D may belong to any
+        label in [D - close_day_offset, D - open_day_offset]. Every label in
+        that interval is checked: checking only the two endpoint labels
+        misses the middle labels of sessions spanning three or more days.
+        """
         instant_utc = require_utc(instant)
         local_date = instant_utc.astimezone(ZoneInfo(self.timezone_name)).date()
-        candidate_dates = {
-            local_date - timedelta(days=self.open_day_offset),
-            local_date - timedelta(days=self.close_day_offset),
-        }
+        first_label = local_date - timedelta(days=self.close_day_offset)
+        last_label = local_date - timedelta(days=self.open_day_offset)
+        if first_label > last_label:
+            first_label, last_label = last_label, first_label
+        candidate_dates = [
+            first_label + timedelta(days=offset)
+            for offset in range((last_label - first_label).days + 1)
+        ]
         for trading_date in candidate_dates:
             bounds = self.session_bounds(trading_date)
             if bounds is not None and bounds[0] <= instant_utc < bounds[1]:

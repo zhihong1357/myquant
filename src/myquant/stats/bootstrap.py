@@ -9,6 +9,7 @@ import numpy as np
 from pydantic import Field
 
 from myquant.contracts import StrictContract
+from myquant.stats._validation import finite_numeric_array
 
 
 class BootstrapInterval(StrictContract):
@@ -33,13 +34,9 @@ class BootstrapMeanTest(StrictContract):
 
 
 def _finite_sample(values: Iterable[float]) -> np.ndarray:
-    sample = np.asarray(tuple(values), dtype=float)
-    if sample.ndim != 1:
-        raise ValueError("bootstrap input must be a one-dimensional sequence")
+    sample = finite_numeric_array(values, name="bootstrap input")
     if sample.size < 2:
         raise ValueError("bootstrap requires at least two observations")
-    if not np.isfinite(sample).all():
-        raise ValueError("bootstrap input must contain only finite observations")
     return sample
 
 
@@ -50,8 +47,20 @@ def _validate_bootstrap_settings(
     resamples: int,
     seed: int,
 ) -> None:
-    if block_length < 1 or block_length > sample_size:
-        raise ValueError("block_length must be between 1 and the sample size")
+    # At least two full blocks are required. With a single block every
+    # resample is a cyclic shift of the whole sample, so every bootstrap mean
+    # equals the sample mean and the resampling distribution degenerates to a
+    # point (a zero-width interval and a minimum p-value regardless of the
+    # data). The same failure appears gradually as block_length approaches
+    # the sample size, so the bound is set at half the sample size rather
+    # than at the sample size.
+    max_block_length = max(1, sample_size // 2)
+    if block_length < 1 or block_length > max_block_length:
+        raise ValueError(
+            "block_length must be between 1 and half the sample size "
+            f"(at most {max_block_length} for {sample_size} observations); "
+            f"got block_length={block_length}"
+        )
     if resamples < 100:
         raise ValueError("resamples must be at least 100")
     if seed < 0:
@@ -94,6 +103,10 @@ def block_bootstrap_mean_ci(
     blocks. The method is approximate and sensitive to block length; callers
     should report block-length sensitivity rather than treating one interval
     as definitive evidence.
+
+    block_length must not exceed half the sample size: with fewer than two
+    full blocks the resampling distribution collapses toward a point and the
+    interval would understate uncertainty.
     """
     sample = _finite_sample(values)
     _validate_bootstrap_settings(
@@ -142,6 +155,10 @@ def block_bootstrap_mean_test(
     resampling. The finite-resample p-value uses the +1 correction. This is a
     basic dependent-data test, not a substitute for a study-specific null,
     studentization, covariate adjustment or multiple-testing correction.
+
+    block_length must not exceed half the sample size: with fewer than two
+    full blocks the resampling distribution collapses toward a point and the
+    test would report spurious significance.
     """
     sample = _finite_sample(values)
     _validate_bootstrap_settings(

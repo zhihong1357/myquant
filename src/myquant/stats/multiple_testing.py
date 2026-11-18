@@ -9,8 +9,8 @@ import numpy as np
 from numpy.typing import NDArray
 from pydantic import Field
 
-from myquant.contracts import StrictContract
-from myquant.hypotheses import MultiplicityCorrection
+from myquant.contracts import MultiplicityCorrection, StrictContract
+from myquant.stats._validation import finite_numeric_array
 
 
 class AdjustedPValue(StrictContract):
@@ -36,13 +36,9 @@ def adjust_pvalues(
     must include every planned test in that family, not only attractive
     results. NONE is permitted only for a single planned test.
     """
-    values: NDArray[np.float64] = np.asarray(tuple(p_values), dtype=np.float64)
-    if values.ndim != 1:
-        raise ValueError("p_values must be a one-dimensional sequence")
+    values: NDArray[np.float64] = finite_numeric_array(p_values, name="p_values")
     if values.size == 0:
         raise ValueError("p_values must not be empty")
-    if not np.isfinite(values).all():
-        raise ValueError("p_values must be finite")
     if ((values < 0.0) | (values > 1.0)).any():
         raise ValueError("p_values must lie in the closed interval [0, 1]")
     if not isfinite(target_error_rate) or not 0.0 < target_error_rate < 1.0:

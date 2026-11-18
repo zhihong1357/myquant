@@ -64,6 +64,34 @@ def test_cme_sunday_evening_belongs_to_monday_trade_date():
     assert calendar.is_open(sunday_evening)
 
 
+def test_is_open_covers_middle_day_of_three_day_session():
+    # Each weekday label spans 47 hours: open 18:00 the day before, close
+    # 17:00 the day after. Monday noon sits inside the Monday-labelled
+    # session (Sunday 18:00 to Tuesday 17:00) even though neither the
+    # open-day label nor the close-day label for Monday noon is Monday.
+    calendar = MarketCalendar(
+        calendar_id="LONG-WEEKDAY",
+        timezone_name="UTC",
+        weekdays=(0, 1, 2, 3, 4),
+        regular_open=time(18, 0),
+        regular_close=time(17, 0),
+        open_day_offset=-1,
+        close_day_offset=1,
+    )
+    monday_bounds = calendar.session_bounds(date(2026, 1, 5))
+    assert monday_bounds is not None
+    assert monday_bounds[0] == datetime(2026, 1, 4, 18, 0, tzinfo=UTC)
+    assert monday_bounds[1] == datetime(2026, 1, 6, 17, 0, tzinfo=UTC)
+
+    assert calendar.is_open(datetime(2026, 1, 5, 12, 0, tzinfo=UTC))
+    assert calendar.is_open(datetime(2026, 1, 7, 12, 0, tzinfo=UTC))
+    assert calendar.is_open(datetime(2026, 1, 9, 12, 0, tzinfo=UTC))
+    assert calendar.is_open(datetime(2026, 1, 4, 20, 0, tzinfo=UTC))
+    # Sunday noon is between the Friday session (ended Saturday 17:00) and
+    # the Monday session (starts Sunday 18:00).
+    assert not calendar.is_open(datetime(2026, 1, 4, 12, 0, tzinfo=UTC))
+
+
 def test_24_7_calendar_stays_open_on_weekends():
     calendar = MarketCalendar(
         calendar_id="CRYPTO-24-7",

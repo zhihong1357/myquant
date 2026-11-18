@@ -80,6 +80,14 @@ def test_scan_rejects_unsynchronized_or_invalid_inputs():
         lead_lag_scan([1.0] * 40, [2.0] * 40, lag_steps=(1, 1))
 
 
+def test_scan_rejects_string_and_boolean_inputs():
+    source = [1.0, 2.0, 3.0, 4.0, 5.0]
+    with pytest.raises(TypeError, match="numeric values"):
+        lead_lag_scan(["1", "2", "3", "4", "5"], source, lag_steps=(0,))
+    with pytest.raises(TypeError, match="numeric values"):
+        lead_lag_scan([True] * 5, source, lag_steps=(0,))
+
+
 def test_scan_requires_a_minimum_sample_size():
     with pytest.raises(ValueError, match="at least 3"):
         lead_lag_scan([1.0] * 40, [2.0] * 40, lag_steps=(0,), minimum_observations=2)

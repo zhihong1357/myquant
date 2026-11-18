@@ -111,7 +111,9 @@ def event_study(
         try:
             position = int(index.get_loc(timestamp))
         except KeyError as exc:
-            raise ValueError(f"event timestamp is not present in returns index: {timestamp}") from exc
+            raise ValueError(
+                f"event timestamp is not present in returns index: {timestamp}"
+            ) from exc
         if position - pre_event_steps < 0 or position + post_event_steps >= len(index):
             raise ValueError("every event window must fit completely inside returns")
         normalized_events.append(timestamp)

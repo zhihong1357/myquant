@@ -11,6 +11,7 @@ from numpy.typing import NDArray
 from pydantic import Field
 
 from myquant.contracts import StrictContract
+from myquant.stats._validation import finite_numeric_array
 
 
 class OLSResult(StrictContract):
@@ -28,23 +29,24 @@ class OLSResult(StrictContract):
     adjusted_r_squared: float | None = Field(default=None, allow_inf_nan=False)
     rank: int = Field(ge=1)
     degrees_of_freedom: int = Field(ge=0)
+    condition_number: float = Field(
+        ge=1,
+        allow_inf_nan=False,
+        description=(
+            "2-norm condition number of the design matrix; large values "
+            "indicate near-collinear predictors with unstable coefficients."
+        ),
+    )
 
 
 def _finite_vector(values: Iterable[float], *, name: str) -> NDArray[np.float64]:
-    try:
-        result = np.asarray(tuple(values), dtype=np.float64)
-    except (TypeError, ValueError) as exc:
-        raise TypeError(f"{name} must contain numeric values") from exc
-    if result.ndim != 1:
-        raise ValueError(f"{name} must be one-dimensional")
+    result = finite_numeric_array(values, name=name)
     if result.size == 0:
         raise ValueError(f"{name} must not be empty")
-    if not np.isfinite(result).all():
-        raise ValueError(f"{name} must contain only finite values")
-    return cast(NDArray[np.float64], result)
+    return result
 
 
-def _prepare_regression(
+def prepare_regression(
     target: Iterable[float],
     predictors: Mapping[str, Iterable[float]],
     *,
@@ -55,6 +57,11 @@ def _prepare_regression(
     tuple[str, ...],
     tuple[str, ...],
 ]:
+    """Validate regression inputs and build the target vector and design matrix.
+
+    Shared by `ols_fit` and the Newey-West HAC estimator so both agree on
+    input validation, predictor ordering and the design matrix.
+    """
     if not isinstance(include_intercept, bool):
         raise TypeError("include_intercept must be a boolean")
 
@@ -119,9 +126,14 @@ def ols_fit(
 
     Inputs are already aligned observations. This function does not join,
     resample, fill, lag, standardize, or infer point-in-time availability.
+
+    The result reports the design matrix's 2-norm condition number. A
+    large condition number means the predictors are nearly collinear and
+    the coefficient estimates are unstable, even though the design is
+    technically full rank.
     """
     target_values, design, predictor_names, coefficient_names = (
-        _prepare_regression(
+        prepare_regression(
             target,
             predictors,
             include_intercept=include_intercept,
@@ -163,6 +175,9 @@ def ols_fit(
     intercept = values[0] if include_intercept else None
     if not isfinite(residual_sum_squares) or not isfinite(r_squared):
         raise ArithmeticError("OLS calculation produced a non-finite result")
+    condition_number = float(np.linalg.cond(design))
+    if not isfinite(condition_number):
+        raise ArithmeticError("design matrix condition number is non-finite")
 
     return OLSResult(
         observations=int(target_values.size),
@@ -179,4 +194,5 @@ def ols_fit(
         ),
         rank=int(rank),
         degrees_of_freedom=degrees_of_freedom,
+        condition_number=condition_number,
     )

@@ -52,3 +52,40 @@ def test_ols_rejects_undersized_and_invalid_designs():
         ols_fit([1.0, 2.0, 3.0], {}, include_intercept=False)
     with pytest.raises(ValueError, match="reserved"):
         ols_fit([1.0, 2.0, 3.0], {"intercept": [1.0, 2.0, 3.0]})
+
+
+def test_ols_rejects_string_and_boolean_inputs():
+    x = [1.0, 2.0, 3.0, 4.0]
+    with pytest.raises(TypeError, match="numeric values"):
+        ols_fit(["1.0", "2.0", "3.0", "4.0"], {"x": x})
+    with pytest.raises(TypeError, match="numeric values"):
+        ols_fit(x, {"x": [True, False, True, False]})
+    with pytest.raises(TypeError, match="numeric values"):
+        ols_fit(x, {"x": np.array([True, False, True, False])})
+
+
+def test_ols_matches_hand_computed_small_sample_values():
+    # Exact hand computation: x = 0..3, y = 2,4,5,8 gives slope 1.9,
+    # intercept 1.9, residuals (0.1, 0.2, -0.7, 0.4), RSS 0.7,
+    # R^2 = 361/375 and adjusted R^2 = 0.944.
+    result = ols_fit([2.0, 4.0, 5.0, 8.0], {"x": [0.0, 1.0, 2.0, 3.0]})
+
+    assert result.coefficients == pytest.approx((1.9, 1.9), abs=1e-12)
+    assert result.residuals == pytest.approx((0.1, 0.2, -0.7, 0.4), abs=1e-12)
+    assert result.sum_squared_residuals == pytest.approx(0.7, abs=1e-12)
+    assert result.r_squared == pytest.approx(361 / 375, abs=1e-12)
+    assert result.adjusted_r_squared == pytest.approx(0.944, abs=1e-12)
+    assert result.degrees_of_freedom == 2
+
+
+def test_ols_reports_condition_number_for_near_collinear_design():
+    rng = np.random.default_rng(7)
+    x = rng.normal(size=200)
+    clean = ols_fit(2.0 * x, {"x": x})
+    assert clean.condition_number >= 1.0
+    assert clean.condition_number < 10.0
+
+    near_duplicate = x + rng.normal(scale=1e-8, size=200)
+    target = 1.0 + 2.0 * x + 0.5 * near_duplicate
+    result = ols_fit(target, {"x": x, "near_duplicate": near_duplicate})
+    assert result.condition_number > 1e6

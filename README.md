@@ -37,7 +37,8 @@ The system is designed for multiple horizons: sub-hourly, intraday, daily and mu
 - Reproducible experiment runner with append-only hash-chained results
 - Immutable hypothesis preregistration with chronological splits, purge gaps and multiple-testing plans
 - Trial enforcement against exact hypothesis versions, data-source versions, feature versions and fixed model parameters
-- OLS regression, Newey-West HAC inference and common-factor controlled partial lead-lag diagnostics\n- Purged chronological walk-forward splits, auditable embargo/purge indices and paired out-of-sample forecast scoring
+- OLS regression, Newey-West HAC inference and common-factor controlled partial lead-lag diagnostics
+- Purged chronological walk-forward splits, auditable embargo/purge indices and paired out-of-sample forecast scoring
 
 The current implementation is a research foundation, not a live market data service or a proven trading system. Statistical validation and evidence-backed strategy decisions remain future work.
 
@@ -57,5 +58,7 @@ mypy src
 ## Project status
 
 No profitability claim is made. Live execution is explicitly out of scope.
+
+License: Proprietary — the repository is public for reading; reuse requires permission.
 
 See [architecture](docs/architecture.md), [research thesis](docs/research-thesis.md), [statistical kernel](docs/statistical-kernel.md), and [roadmap](docs/roadmap.md).

@@ -1,15 +1,25 @@
+import logging
+import os
+import shutil
+import subprocess
 from datetime import UTC, datetime, timedelta
 
+import numpy as np
 import pytest
 from pydantic import ValidationError
 
-from myquant.experiments import ExperimentRunner, TrialParameter, TrialSpec
+from myquant.contracts import MultiplicityCorrection
+from myquant.experiments import (
+    ExperimentRunner,
+    TrialParameter,
+    TrialSpec,
+    git_head_revision,
+)
 from myquant.hypotheses import (
     ExpectedDirection,
     HypothesisRegistry,
     HypothesisSpec,
     HypothesisState,
-    MultiplicityCorrection,
     SampleWindow,
 )
 from myquant.registry import read_and_verify
@@ -151,6 +161,22 @@ def test_runner_records_failed_experiment_and_keeps_it_in_testing(tmp_path):
     assert registry.get_state("H0001", 1) == HypothesisState.TESTING
 
 
+def test_runner_logs_trial_completion_and_failure(tmp_path, caplog):
+    registry, registration = make_registry(tmp_path)
+    runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
+
+    def explode(_spec):
+        raise RuntimeError("boom")
+
+    with caplog.at_level(logging.INFO, logger="myquant.experiments"):
+        runner.run(make_trial(registration), lambda _spec: {"ok": True})
+        with pytest.raises(RuntimeError):
+            runner.run(make_trial(registration, trial_id="T0002"), explode)
+    messages = [record.message for record in caplog.records]
+    assert any("trial T0001" in message and "completed" in message for message in messages)
+    assert any("trial T0002" in message and "failed" in message for message in messages)
+
+
 def test_runner_refuses_duplicate_trial_ids(tmp_path):
     registry, registration = make_registry(tmp_path)
     runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
@@ -167,6 +193,48 @@ def test_runner_rejects_nan_metrics_and_records_failure(tmp_path):
 
     with pytest.raises(ValueError, match="Out of range float values"):
         runner.run(make_trial(registration), lambda _spec: {"sharpe": float("nan")})
+
+    records = read_and_verify(ledger)
+    assert records[0]["status"] == "failed"
+
+
+def test_runner_accepts_numpy_scalar_and_array_metrics(tmp_path):
+    registry, registration = make_registry(tmp_path)
+    ledger = tmp_path / "trials.jsonl"
+    runner = ExperimentRunner(ledger, registry)
+
+    receipt = runner.run(
+        make_trial(registration),
+        lambda _spec: {
+            "count": np.int64(42),
+            "sharpe": np.float32(1.25),
+            "converged": np.bool_(True),
+            "fold_scores": np.array([0.1, 0.2, 0.3]),
+            "nested": {"inner": np.int32(7)},
+        },
+    )
+
+    assert receipt.status == "completed"
+    assert receipt.metrics["count"] == 42
+    assert isinstance(receipt.metrics["count"], int)
+    assert receipt.metrics["sharpe"] == pytest.approx(1.25, abs=1e-6)
+    assert receipt.metrics["converged"] is True
+    assert receipt.metrics["fold_scores"] == pytest.approx([0.1, 0.2, 0.3])
+    assert receipt.metrics["nested"]["inner"] == 7
+    records = read_and_verify(ledger)
+    assert records[0]["status"] == "completed"
+
+
+def test_runner_rejects_numpy_nan_metrics_and_records_failure(tmp_path):
+    registry, registration = make_registry(tmp_path)
+    ledger = tmp_path / "trials.jsonl"
+    runner = ExperimentRunner(ledger, registry)
+
+    with pytest.raises(ValueError, match="Out of range float values"):
+        runner.run(
+            make_trial(registration),
+            lambda _spec: {"sharpe": np.float64(float("nan"))},
+        )
 
     records = read_and_verify(ledger)
     assert records[0]["status"] == "failed"
@@ -323,6 +391,44 @@ def test_runner_refuses_changed_fixed_parameters_before_testing(tmp_path):
     assert not (tmp_path / "trials.jsonl").exists()
 
 
+def test_git_head_revision_reads_local_checkout(tmp_path, monkeypatch):
+    if shutil.which("git") is None:
+        pytest.skip("git binary is not available")
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    env = {
+        **os.environ,
+        "GIT_AUTHOR_NAME": "Test",
+        "GIT_AUTHOR_EMAIL": "test@example.com",
+        "GIT_COMMITTER_NAME": "Test",
+        "GIT_COMMITTER_EMAIL": "test@example.com",
+    }
+    subprocess.run(["git", "init", "-q", str(repo)], check=True, env=env)
+    (repo / "file.txt").write_text("hello\n")
+    subprocess.run(["git", "-C", str(repo), "add", "file.txt"], check=True, env=env)
+    subprocess.run(
+        ["git", "-C", str(repo), "commit", "-q", "-m", "init"],
+        check=True,
+        env=env,
+    )
+    expected = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", "HEAD"],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+
+    assert git_head_revision(repo) == expected
+    assert len(expected) == 40
+    monkeypatch.chdir(repo)
+    assert git_head_revision() == expected
+
+
+def test_git_head_revision_returns_none_outside_a_repository(tmp_path):
+    assert git_head_revision(tmp_path) is None
+    assert git_head_revision(tmp_path / "missing") is None
+
+
 def test_runner_refuses_changed_target_before_testing(tmp_path):
     registry, registration = make_registry(tmp_path)
     runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
@@ -333,6 +439,106 @@ def test_runner_refuses_changed_target_before_testing(tmp_path):
 
     with pytest.raises(PermissionError, match="target_definition"):
         runner.run(wrong_trial, lambda _spec: {"score": 0.1})
+
+    assert registry.get_state("H0001", 1) == HypothesisState.REGISTERED
+    assert not (tmp_path / "trials.jsonl").exists()
+
+
+def test_runner_accepts_numerically_equal_fixed_parameters(tmp_path):
+    registry, registration = make_registry(tmp_path)
+    runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
+
+    # The preregistration says lag=1; a float 1.0 is the same number.
+    receipt = runner.run(
+        make_trial(
+            registration,
+            trial_id="T0001",
+            parameters=(
+                TrialParameter(name="lag", value=1.0),
+                TrialParameter(name="winsorization", value="none"),
+            ),
+        ),
+        lambda _spec: {"ok": True},
+    )
+    assert receipt.status == "completed"
+
+    # A boolean True is not the number 1: booleans compare as "true"/"false".
+    with pytest.raises(PermissionError, match="parameters.*'lag'"):
+        runner.run(
+            make_trial(
+                registration,
+                trial_id="T0002",
+                parameters=(
+                    TrialParameter(name="lag", value=True),
+                    TrialParameter(name="winsorization", value="none"),
+                ),
+            ),
+            lambda _spec: {"ok": True},
+        )
+
+
+def test_runner_accepts_equivalent_decimal_spellings(tmp_path):
+    spec = make_hypothesis().model_copy(
+        update={"fixed_parameters": ("alpha=0.50", "lag=1", "threshold=1e-3")}
+    )
+    registry = HypothesisRegistry(tmp_path / "hypotheses")
+    registration = registry.register(spec)
+    runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
+
+    receipt = runner.run(
+        make_trial(
+            registration,
+            parameters=(
+                TrialParameter(name="alpha", value=0.5),
+                TrialParameter(name="lag", value=1),
+                TrialParameter(name="threshold", value=0.001),
+            ),
+        ),
+        lambda _spec: {"ok": True},
+    )
+    assert receipt.status == "completed"
+
+
+def test_runner_parameter_mismatch_names_parameter_and_values(tmp_path):
+    registry, registration = make_registry(tmp_path)
+    runner = ExperimentRunner(tmp_path / "trials.jsonl", registry)
+
+    with pytest.raises(
+        PermissionError,
+        match="parameters: 'lag' expected '1' but trial has '2'",
+    ):
+        runner.run(
+            make_trial(
+                registration,
+                parameters=(
+                    TrialParameter(name="lag", value=2),
+                    TrialParameter(name="winsorization", value="none"),
+                ),
+            ),
+            lambda _spec: {"score": 0.1},
+        )
+
+    with pytest.raises(PermissionError, match="'lag'.*missing from the trial"):
+        runner.run(
+            make_trial(
+                registration,
+                parameters=(TrialParameter(name="winsorization", value="none"),),
+            ),
+            lambda _spec: {"score": 0.1},
+        )
+
+    with pytest.raises(PermissionError, match="'surprise' is not preregistered"):
+        runner.run(
+            make_trial(
+                registration,
+                parameters=(
+                    TrialParameter(name="lag", value=1),
+                    TrialParameter(name="winsorization", value="none"),
+                    TrialParameter(name="surprise", value=1),
+                ),
+            ),
+            lambda _spec: {"score": 0.1},
+        )
 
     assert registry.get_state("H0001", 1) == HypothesisState.REGISTERED
     assert not (tmp_path / "trials.jsonl").exists()
