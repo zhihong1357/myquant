@@ -14,7 +14,7 @@
 - [x] Canonical observations and point-in-time query.
 - [x] Data quality, missingness and timestamp diagnostics (batch-level; expected series must be explicit).
 - [x] Experiment runner with strict JSON outputs and failure receipts.
-- [x] Synthetic null, lead-lag, common-factor and regime-shift data factory.
+- [x] Synthetic null, lead-lag, common-factor, regime-shift and heavy-tail-with-missing data factory.
 
 ## Stage 2A — Research governance
 - [x] Immutable, versioned hypothesis preregistration.

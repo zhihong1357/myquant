@@ -86,13 +86,15 @@ def newey_west_hac(
         )
         meat = meat + weight * (cross_product + cross_product.T)
 
-    bread = cast(
-        NDArray[np.float64],
-        np.linalg.inv(cast(NDArray[np.float64], design.T @ design)),
-    )
+    gram = cast(NDArray[np.float64], design.T @ design)
+    # Solve for the sandwich covariance without forming the explicit
+    # inverse: solve() is more accurate than inv() for ill-conditioned
+    # designs. With B = (X'X)^-1 and symmetric meat M, the covariance is
+    # B M B = (B (B M)^T)^T, computed here with two triangular solves.
+    left = np.linalg.solve(gram, meat)
     covariance = cast(
         NDArray[np.float64],
-        bread @ meat @ bread,
+        np.linalg.solve(gram, left.T).T,
     )
     if small_sample_correction:
         covariance = covariance * (

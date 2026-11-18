@@ -1,87 +1,17 @@
+import json
 import logging
 from datetime import UTC, datetime, timedelta
 
 import pytest
+from conftest import make_spec
 from pydantic import ValidationError
 
-from myquant.contracts import MultiplicityCorrection
 from myquant.hypotheses import (
-    ExpectedDirection,
+    GENESIS_EVENT_HASH,
     HypothesisRegistry,
-    HypothesisSpec,
     HypothesisState,
     SampleWindow,
 )
-
-
-def make_spec(**overrides):
-    start = datetime(2020, 1, 1, tzinfo=UTC)
-    day = timedelta(days=1)
-    values = {
-        "hypothesis_id": "H0001",
-        "title": "VIX leads MOVE repricing",
-        "research_question": (
-            "Does the daily VIX change contain incremental information about "
-            "the next-session MOVE index return after controlling for rates and equities?"
-        ),
-        "mechanism": (
-            "Options-implied equity volatility may reprice faster than Treasury "
-            "volatility during cross-asset risk shocks."
-        ),
-        "alternative_hypothesis": (
-            "Lagged VIX changes explain a positive, out-of-sample component of "
-            "future MOVE changes beyond the declared baseline."
-        ),
-        "null_hypothesis": (
-            "Lagged VIX changes have no incremental predictive value over the "
-            "declared baseline after costs and dependence controls."
-        ),
-        "universe": ("index:vix", "index:move"),
-        "source_versions": ("sample-vix@v1", "sample-move@v1"),
-        "observation_frequency": "daily",
-        "horizon_seconds": 86_400,
-        "target_definition": "Next session close-to-close MOVE log return",
-        "feature_set": ("vix_return_lag_1@v1", "rates_return_1d@v1"),
-        "model_definition": ("OLS with intercept", "Newey-West HAC standard errors"),
-        "fixed_parameters": ("lag=1", "winsorization=none"),
-        "benchmark": "Intercept-only historical mean",
-        "cost_model": "No direct trading claim; diagnostic forecast evaluation only",
-        "cost_assumptions": ("No fills assumed at this stage",),
-        "train_window": SampleWindow(start=start, end=start + 365 * day),
-        "validation_window": SampleWindow(
-            start=start + 365 * day + day,
-            end=start + 500 * day,
-        ),
-        "holdout_window": SampleWindow(
-            start=start + 500 * day + day,
-            end=start + 650 * day,
-        ),
-        "purge_gap_seconds": 86_400,
-        "minimum_train_observations": 200,
-        "minimum_validation_observations": 60,
-        "minimum_holdout_observations": 60,
-        "primary_metric": "Out-of-sample incremental R-squared",
-        "expected_direction": ExpectedDirection.POSITIVE,
-        "minimum_effect_size": 0.01,
-        "target_error_rate": 0.05,
-        "multiple_testing_family": "Cross-market volatility transmission v1",
-        "multiple_testing_method": MultiplicityCorrection.NONE,
-        "planned_test_count": 1,
-        "missing_data_policy": "No forward filling; exclude incomplete paired sessions",
-        "acceptance_criteria": (
-            "Holdout incremental R-squared exceeds 0.01",
-            "Direction is stable across at least two predeclared subsamples",
-        ),
-        "rejection_criteria": (
-            "Holdout incremental R-squared is no greater than zero",
-            "Result disappears after the declared confounder controls",
-        ),
-        "known_confounders": ("Rates level", "Equity return", "Global risk factor"),
-        "exclusions": ("Sessions with unscheduled market closures",),
-        "random_seed": 17,
-    }
-    values.update(overrides)
-    return HypothesisSpec(**values)
 
 
 def test_initial_registration_is_immutable_and_versioned(tmp_path):
@@ -192,6 +122,108 @@ def test_registry_detects_lifecycle_event_tampering(tmp_path):
 
     with pytest.raises(ValueError, match="event hash mismatch"):
         registry.read_events()
+
+
+def test_event_truncation_passes_verification_without_anchor(tmp_path):
+    # Documented limitation: a hash chain detects tampering with events
+    # that are still present, not deletion of trailing events. Removing
+    # the TESTING transition below leaves a shorter log that still
+    # verifies, which is exactly why anchors exist (see the next tests).
+    registry = HypothesisRegistry(tmp_path)
+    registry.register(make_spec())
+    registry.transition(
+        "H0001",
+        1,
+        HypothesisState.TESTING,
+        reason="First trial began",
+    )
+    event_log = tmp_path / "hypothesis-events.jsonl"
+    lines = event_log.read_text().splitlines()
+    event_log.write_text(lines[0] + "\n")
+
+    events = registry.read_events()
+    assert len(events) == 1
+    assert events[0].to_state == HypothesisState.REGISTERED
+
+
+def test_event_anchor_round_trip_and_default_path(tmp_path):
+    registry = HypothesisRegistry(tmp_path)
+    registry.register(make_spec())
+    second = registry.transition(
+        "H0001",
+        1,
+        HypothesisState.TESTING,
+        reason="First trial began",
+    )
+
+    anchor = registry.write_event_anchor()
+    assert anchor["event_count"] == 2
+    assert anchor["latest_event_hash"] == second.event_hash
+    assert anchor["event_file"] == "hypothesis-events.jsonl"
+    assert (tmp_path / "hypothesis-events.jsonl.anchor").exists()
+
+    events = registry.read_events(
+        anchor_path=tmp_path / "hypothesis-events.jsonl.anchor"
+    )
+    assert len(events) == 2
+
+
+def test_event_anchor_detects_truncation(tmp_path):
+    registry = HypothesisRegistry(tmp_path)
+    registry.register(make_spec())
+    registry.transition(
+        "H0001",
+        1,
+        HypothesisState.TESTING,
+        reason="First trial began",
+    )
+    anchor_path = tmp_path / "anchor.json"
+    registry.write_event_anchor(anchor_path)
+
+    event_log = tmp_path / "hypothesis-events.jsonl"
+    lines = event_log.read_text().splitlines()
+    event_log.write_text(lines[0] + "\n")
+    with pytest.raises(ValueError, match="does not match its anchor"):
+        registry.read_events(anchor_path=anchor_path)
+
+
+def test_event_anchor_detects_full_log_deletion(tmp_path):
+    registry = HypothesisRegistry(tmp_path)
+    registry.register(make_spec())
+    anchor_path = tmp_path / "anchor.json"
+    registry.write_event_anchor(anchor_path)
+
+    (tmp_path / "hypothesis-events.jsonl").unlink()
+    with pytest.raises(ValueError, match="does not match its anchor"):
+        registry.read_events(anchor_path=anchor_path)
+
+
+def test_event_anchor_of_empty_log_uses_genesis_hash(tmp_path):
+    registry = HypothesisRegistry(tmp_path)
+    anchor = registry.write_event_anchor(tmp_path / "anchor.json")
+    assert anchor["event_count"] == 0
+    assert anchor["latest_event_hash"] == GENESIS_EVENT_HASH
+    assert registry.read_events(anchor_path=tmp_path / "anchor.json") == []
+
+
+def test_event_anchor_verification_fails_closed_on_missing_or_malformed_anchor(
+    tmp_path,
+):
+    registry = HypothesisRegistry(tmp_path)
+    registry.register(make_spec())
+
+    with pytest.raises(FileNotFoundError, match="anchor file not found"):
+        registry.read_events(anchor_path=tmp_path / "missing.json")
+
+    bad_anchor = tmp_path / "bad.json"
+    bad_anchor.write_text("not json")
+    with pytest.raises(ValueError, match="not valid JSON"):
+        registry.read_events(anchor_path=bad_anchor)
+
+    bad_anchor.write_text(json.dumps({"schema_version": 1, "event_count": -1,
+                                      "latest_event_hash": "x" * 64}))
+    with pytest.raises(ValueError, match="invalid record data"):
+        registry.read_events(anchor_path=bad_anchor)
 
 
 def test_governance_operations_emit_log_records(tmp_path, caplog):

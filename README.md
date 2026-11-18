@@ -33,7 +33,7 @@ The system is designed for multiple horizons: sub-hourly, intraday, daily and mu
 - Immutable content-addressed raw payloads and provenance manifests
 - Immutable Parquet observations with point-in-time revision queries
 - Batch-level data-quality and coverage diagnostics
-- Deterministic synthetic scenarios: null, lead-lag, common-factor and regime-shift
+- Deterministic synthetic scenarios: null, lead-lag, common-factor, regime-shift and heavy-tail-with-missing stress
 - Reproducible experiment runner with append-only hash-chained results
 - Immutable hypothesis preregistration with chronological splits, purge gaps and multiple-testing plans
 - Trial enforcement against exact hypothesis versions, data-source versions, feature versions and fixed model parameters

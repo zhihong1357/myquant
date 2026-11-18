@@ -19,7 +19,7 @@ from myquant.contracts import (
     StrictContract,
     require_utc,
 )
-from myquant.files import create_immutable_file
+from myquant.files import atomic_replace, create_immutable_file
 
 logger = logging.getLogger(__name__)
 
@@ -235,10 +235,12 @@ class HypothesisRegistry:
     This is a local single-writer research registry, not a distributed database.
 
     Like the trial ledger, the event hash chain detects tampering with
-    events that are still present but not deletion of trailing events; see
-    myquant.registry for the anchor pattern if truncation detection is
-    required. Every operation replays and re-validates the full event log,
-    so n events cost O(n^2) time in total.
+    events that are still present but not deletion of trailing events.
+    Use :meth:`write_event_anchor` to publish the latest event hash (and
+    event count) to an independent anchor file and pass that file to
+    :meth:`read_events` so truncation is detected as a mismatch against
+    the anchor. Every operation replays and re-validates the full event
+    log, so n events cost O(n^2) time in total.
     """
 
     _TRANSITIONS: dict[HypothesisState, frozenset[HypothesisState]] = {
@@ -555,64 +557,123 @@ class HypothesisRegistry:
             )
         return registration
 
-    def read_events(self) -> list[HypothesisEvent]:
-        """Verify the event hash chain and replay legal state transitions."""
+    def read_events(
+        self,
+        *,
+        anchor_path: str | Path | None = None,
+    ) -> list[HypothesisEvent]:
+        """Verify the event hash chain and replay legal state transitions.
+
+        Without an anchor this verifies tampering only: a truncated event
+        log still verifies. With ``anchor_path``, the event count and
+        latest event hash are additionally compared against the anchor, so
+        deleting trailing events is detected. A missing or malformed
+        anchor file fails closed.
+        """
         if not self.events_path.exists():
-            return []
-        events: list[HypothesisEvent] = []
-        expected_previous = GENESIS_EVENT_HASH
-        states: dict[tuple[str, int], HypothesisState] = {}
+            events: list[HypothesisEvent] = []
+        else:
+            events = []
+            expected_previous = GENESIS_EVENT_HASH
+            states: dict[tuple[str, int], HypothesisState] = {}
 
-        for line_number, raw_line in enumerate(
-            self.events_path.read_bytes().splitlines(),
-            start=1,
-        ):
-            if not raw_line:
-                continue
-            raw = json.loads(raw_line)
-            supplied_hash = raw.pop("event_hash", None)
-            if raw.get("previous_hash") != expected_previous:
-                raise ValueError(f"broken hypothesis event chain at line {line_number}")
-            actual_hash = hashlib.sha256(canonical_json(raw)).hexdigest()
-            if supplied_hash != actual_hash:
-                raise ValueError(f"hypothesis event hash mismatch at line {line_number}")
-            event = HypothesisEvent.model_validate(
-                {**raw, "event_hash": supplied_hash}
-            )
-            registration_path = (
-                self.registration_root
-                / event.hypothesis_id
-                / f"v{event.version}.json"
-            )
-            if not registration_path.exists():
-                raise ValueError(
-                    f"hypothesis event references missing registration "
-                    f"{event.hypothesis_id} v{event.version}"
+            for line_number, raw_line in enumerate(
+                self.events_path.read_bytes().splitlines(),
+                start=1,
+            ):
+                if not raw_line:
+                    continue
+                raw = json.loads(raw_line)
+                supplied_hash = raw.pop("event_hash", None)
+                if raw.get("previous_hash") != expected_previous:
+                    raise ValueError(f"broken hypothesis event chain at line {line_number}")
+                actual_hash = hashlib.sha256(canonical_json(raw)).hexdigest()
+                if supplied_hash != actual_hash:
+                    raise ValueError(f"hypothesis event hash mismatch at line {line_number}")
+                event = HypothesisEvent.model_validate(
+                    {**raw, "event_hash": supplied_hash}
                 )
-            self.get(event.hypothesis_id, version=event.version)
+                registration_path = (
+                    self.registration_root
+                    / event.hypothesis_id
+                    / f"v{event.version}.json"
+                )
+                if not registration_path.exists():
+                    raise ValueError(
+                        f"hypothesis event references missing registration "
+                        f"{event.hypothesis_id} v{event.version}"
+                    )
+                self.get(event.hypothesis_id, version=event.version)
 
-            key = (event.hypothesis_id, event.version)
-            current_state = states.get(key)
-            if event.from_state != current_state:
-                raise ValueError(
-                    f"invalid lifecycle history at line {line_number}: "
-                    "from_state does not match the prior event"
-                )
-            if current_state is None:
-                if event.to_state != HypothesisState.REGISTERED:
+                key = (event.hypothesis_id, event.version)
+                current_state = states.get(key)
+                if event.from_state != current_state:
                     raise ValueError(
                         f"invalid lifecycle history at line {line_number}: "
-                        "first event must register the hypothesis"
+                        "from_state does not match the prior event"
                     )
-            elif event.to_state not in self._TRANSITIONS[current_state]:
-                raise ValueError(
-                    f"invalid lifecycle transition in event log at line {line_number}"
-                )
+                if current_state is None:
+                    if event.to_state != HypothesisState.REGISTERED:
+                        raise ValueError(
+                            f"invalid lifecycle history at line {line_number}: "
+                            "first event must register the hypothesis"
+                        )
+                elif event.to_state not in self._TRANSITIONS[current_state]:
+                    raise ValueError(
+                        f"invalid lifecycle transition in event log at line {line_number}"
+                    )
 
-            states[key] = event.to_state
-            events.append(event)
-            expected_previous = supplied_hash
+                states[key] = event.to_state
+                events.append(event)
+                expected_previous = supplied_hash
+
+        if anchor_path is not None:
+            anchor = _read_event_anchor(Path(anchor_path))
+            latest_hash = events[-1].event_hash if events else GENESIS_EVENT_HASH
+            if (
+                anchor["event_count"] != len(events)
+                or anchor["latest_event_hash"] != latest_hash
+            ):
+                raise ValueError(
+                    "hypothesis event log does not match its anchor: anchor "
+                    f"records {anchor['event_count']} event(s) ending at "
+                    f"{anchor['latest_event_hash']}, event log has "
+                    f"{len(events)} event(s) ending at {latest_hash}; "
+                    "the event log may have been truncated"
+                )
         return events
+
+    def write_event_anchor(
+        self,
+        anchor_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Publish the event log's latest event hash to an anchor file.
+
+        The anchor records the event count and latest event hash. Store it
+        somewhere the event-log writer cannot silently rewrite — for
+        example, committed to version control or on another machine — and
+        pass it to :meth:`read_events` to detect truncation of trailing
+        events. The event log is fully verified before the anchor is
+        written; a corrupt log produces no anchor. Returns the anchor
+        payload. This mirrors :func:`myquant.registry.write_anchor`.
+        """
+        anchor = (
+            Path(anchor_path)
+            if anchor_path is not None
+            else _default_event_anchor_path(self.events_path)
+        )
+        events = self.read_events()
+        payload: dict[str, Any] = {
+            "schema_version": 1,
+            "event_file": self.events_path.name,
+            "event_count": len(events),
+            "latest_event_hash": (
+                events[-1].event_hash if events else GENESIS_EVENT_HASH
+            ),
+            "anchored_at": datetime.now(UTC).isoformat(),
+        }
+        atomic_replace(anchor, canonical_json(payload) + b"\n")
+        return payload
 
     def _versions(self, hypothesis_id: str) -> list[int]:
         _validate_hypothesis_id(hypothesis_id)
@@ -661,6 +722,34 @@ class HypothesisRegistry:
             stream.flush()
             os.fsync(stream.fileno())
         return event
+
+def _default_event_anchor_path(events_path: Path) -> Path:
+    return Path(str(events_path) + ".anchor")
+
+
+def _read_event_anchor(anchor: Path) -> dict[str, Any]:
+    # Mirrors myquant.registry._read_anchor with event-log field names.
+    if not anchor.exists():
+        raise FileNotFoundError(f"anchor file not found: {anchor}")
+    try:
+        payload = json.loads(anchor.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"anchor file is not valid JSON: {anchor}") from exc
+    if not isinstance(payload, dict) or payload.get("schema_version") != 1:
+        raise ValueError(f"anchor file has an unsupported format: {anchor}")
+    event_count = payload.get("event_count")
+    latest_hash = payload.get("latest_event_hash")
+    if (
+        not isinstance(event_count, int)
+        or isinstance(event_count, bool)
+        or event_count < 0
+        or not isinstance(latest_hash, str)
+        or len(latest_hash) != 64
+        or any(char not in "0123456789abcdef" for char in latest_hash)
+    ):
+        raise ValueError(f"anchor file contains invalid record data: {anchor}")
+    return payload
+
 
 def _valid_versioned_identifier(value: str) -> bool:
     if "@v" not in value:
