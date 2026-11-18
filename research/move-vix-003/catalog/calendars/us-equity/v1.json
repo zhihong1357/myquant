@@ -1,0 +1,17 @@
+{
+  "calendar_id": "us-equity",
+  "timezone_name": "America/New_York",
+  "weekdays": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "regular_open": "09:30:00",
+  "regular_close": "16:00:00",
+  "open_day_offset": 0,
+  "close_day_offset": 0,
+  "holidays": [],
+  "early_closes": {}
+}

@@ -48,7 +48,7 @@
 - [x] Second empirical study: low-volatility regime-conditional transmission (H0002, trial T0002 — rejected on fresh dimensions: new pair BTC→SOL daily and new frequency BTC→ETH 1H, plus a Hyperliquid cross-venue check; see `docs/studies/lowvol-transmission-002.md`).
 - [ ] Forward test of the original BTC→ETH daily low-volatility hypothesis (H0003, preregistered; trial runs when 60 low-volatility forward rows exist, expected around 2027-03).
 - [ ] Market graph and edge registry.
-- [ ] MOVE/VIX/VXN conditional repricing study.
+- [x] MOVE/VIX/VXN conditional repricing study (H0004, trial T0004 — rejected: lag-1 TYVIX log changes do not predict next-day VIX log changes, daily or weekly; see `docs/studies/move-vix-transmission-003.md`). MOVE has no free source, so the study uses TYVIX via FRED VXTYN (2003–2020) as the rates implied-volatility measure; the cost gate is informational (no free VIX futures series).
 - [ ] Rates-credit-equity-options event studies.
 - [ ] Macro release and auction windows.
 - [ ] Options expiry and dealer-hedging proxy study.

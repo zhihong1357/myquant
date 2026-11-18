@@ -1,0 +1,70 @@
+{
+  "fetched_at": "2026-11-18T02:26:36.608569+00:00",
+  "fetches": [
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:vix",
+      "last_date": "2020-05-15",
+      "missing_values": 158,
+      "rows": 4374
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:vxn",
+      "last_date": "2020-05-15",
+      "missing_values": 161,
+      "rows": 4372
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:tyvix",
+      "last_date": "2020-05-15",
+      "missing_values": 169,
+      "rows": 4363
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "rates:us-10y-yield",
+      "last_date": "2020-05-15",
+      "missing_values": 185,
+      "rows": 4347
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "credit:baa-10y-spread",
+      "last_date": "2020-05-15",
+      "missing_values": 186,
+      "rows": 4346
+    },
+    {
+      "first_date": "2003-01-02",
+      "instrument_id": "index:sp500",
+      "last_date": "2020-05-15",
+      "missing_values": 0,
+      "rows": 4373
+    }
+  ],
+  "panel": {
+    "close_rows": 4329,
+    "dropped_close_rows": 54,
+    "dropped_return_rows": 55,
+    "first_return_time": "2003-01-03T21:00:00+00:00",
+    "instruments": [
+      "index:vix",
+      "index:vxn",
+      "index:tyvix",
+      "rates:us-10y-yield",
+      "credit:baa-10y-spread",
+      "index:sp500"
+    ],
+    "last_return_time": "2020-05-15T21:00:00+00:00",
+    "return_rows": 4328
+  },
+  "quality_issues": {
+    "pit-1d": []
+  },
+  "quality_row_count": {
+    "pit-1d": 26175
+  },
+  "study": "move-vix-003"
+}
