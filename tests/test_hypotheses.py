@@ -1,14 +1,15 @@
+import logging
 from datetime import UTC, datetime, timedelta
 
 import pytest
 from pydantic import ValidationError
 
+from myquant.contracts import MultiplicityCorrection
 from myquant.hypotheses import (
     ExpectedDirection,
     HypothesisRegistry,
     HypothesisSpec,
     HypothesisState,
-    MultiplicityCorrection,
     SampleWindow,
 )
 
@@ -191,6 +192,95 @@ def test_registry_detects_lifecycle_event_tampering(tmp_path):
 
     with pytest.raises(ValueError, match="event hash mismatch"):
         registry.read_events()
+
+
+def test_governance_operations_emit_log_records(tmp_path, caplog):
+    registry = HypothesisRegistry(tmp_path)
+    with caplog.at_level(logging.INFO, logger="myquant.hypotheses"):
+        registry.register(make_spec())
+        registry.transition(
+            "H0001",
+            1,
+            HypothesisState.TESTING,
+            reason="First trial began",
+        )
+    messages = [record.message for record in caplog.records]
+    assert any("registered hypothesis H0001 v1" in message for message in messages)
+    assert any("registered -> testing" in message for message in messages)
+
+
+def test_repair_orphan_registration_rejects_healthy_and_short_reasons(tmp_path):
+    registry = HypothesisRegistry(tmp_path)
+    registry.register(make_spec())
+    with pytest.raises(ValueError, match="already has lifecycle events"):
+        registry.repair_orphan_registration(
+            "H0001", 1, reason="Nothing is actually wrong here"
+        )
+    with pytest.raises(ValueError, match="at least 10 characters"):
+        registry.repair_orphan_registration("H0001", 1, reason="short")
+
+
+def test_repair_orphan_registration_restores_bricked_amendment(
+    tmp_path, monkeypatch
+):
+    registry = HypothesisRegistry(tmp_path)
+    registry.register(make_spec())
+
+    def crash(*_args, **_kwargs):
+        raise RuntimeError("simulated crash between snapshot and event")
+
+    monkeypatch.setattr(HypothesisRegistry, "_append_event", crash)
+    with pytest.raises(RuntimeError, match="simulated crash"):
+        registry.register(
+            make_spec(title="VIX leads MOVE repricing v2"),
+            amendment_reason="Clarified title before any trial was started",
+        )
+    monkeypatch.undo()
+
+    # The orphaned v2 snapshot blocks further registrations until repaired.
+    with pytest.raises(ValueError, match="repair_orphan_registration"):
+        registry.register(
+            make_spec(title="VIX leads MOVE repricing v3"),
+            amendment_reason="Another clarification before any trial",
+        )
+    with pytest.raises(FileNotFoundError, match="no lifecycle events"):
+        registry.get_state("H0001", 2)
+
+    event = registry.repair_orphan_registration(
+        "H0001",
+        2,
+        reason="Recovered snapshot after a crash during registration",
+    )
+    assert event.to_state == HypothesisState.REGISTERED
+    assert "Orphan repair" in event.reason
+    assert registry.get_state("H0001", 2) == HypothesisState.REGISTERED
+    assert registry.get_state("H0001", 1) == HypothesisState.SUPERSEDED
+
+    third = registry.register(
+        make_spec(title="VIX leads MOVE repricing v3"),
+        amendment_reason="Another clarification before any trial",
+    )
+    assert third.version == 3
+
+
+def test_repair_orphan_registration_restores_bricked_first_version(
+    tmp_path, monkeypatch
+):
+    registry = HypothesisRegistry(tmp_path)
+
+    def crash(*_args, **_kwargs):
+        raise RuntimeError("simulated crash between snapshot and event")
+
+    monkeypatch.setattr(HypothesisRegistry, "_append_event", crash)
+    with pytest.raises(RuntimeError, match="simulated crash"):
+        registry.register(make_spec())
+    monkeypatch.undo()
+
+    registry.repair_orphan_registration(
+        "H0001", 1, reason="Recovered snapshot after a crash during registration"
+    )
+    assert registry.get_state("H0001", 1) == HypothesisState.REGISTERED
+    assert registry.get("H0001", version=1).spec == make_spec()
 
 
 def test_time_splits_must_respect_prediction_horizon_purge():

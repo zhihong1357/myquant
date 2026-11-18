@@ -10,8 +10,9 @@ from pathlib import Path
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-from myquant.contracts import Observation, require_utc
-from myquant.sources import SourceRegistry, _write_new_file
+from myquant.contracts import Observation, is_available_at, require_utc
+from myquant.files import write_new_file
+from myquant.sources import SourceRegistry
 
 
 class ParquetPITStore:
@@ -45,7 +46,7 @@ class ParquetPITStore:
         content = sink.getvalue().to_pybytes()
         digest = hashlib.sha256(content).hexdigest()
         target = self.root / f"{digest}.parquet"
-        _write_new_file(target, content)
+        write_new_file(target, content)
         return target
 
     def query_as_of(
@@ -60,18 +61,30 @@ class ParquetPITStore:
         Revision resolution is performed independently per instrument, venue,
         field, event_time and exact source version. Multiple data sources remain
         separate; callers must not silently average conflicting providers.
+
+        The permission check on read is defensive: source registry versions
+        are immutable, so an approved version cannot be revoked in place and
+        the write-time gate is the real enforcement point. Permission results
+        are cached per (source_id, version) within one query.
         """
         decision = require_utc(decision_time)
         eligible: list[Observation] = []
+        checked_permissions: set[tuple[str, int]] = set()
         for path in sorted(self.root.glob("*.parquet")):
             table = pq.read_table(path)
             for row in table.to_pylist():
                 observation = Observation.model_validate(row)
-                self.source_registry.require_research_permission(
+                permission_key = (
                     observation.source_id,
-                    version=observation.source_version,
+                    observation.source_version,
                 )
-                if observation.available_at > decision:
+                if permission_key not in checked_permissions:
+                    self.source_registry.require_research_permission(
+                        observation.source_id,
+                        version=observation.source_version,
+                    )
+                    checked_permissions.add(permission_key)
+                if not is_available_at(observation, decision):
                     continue
                 if instrument_ids is not None and observation.instrument_id not in instrument_ids:
                     continue

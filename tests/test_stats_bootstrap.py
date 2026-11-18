@@ -78,3 +78,77 @@ def test_bootstrap_rejects_invalid_inputs_and_settings():
             null_mean=float("nan"),
             block_length=1,
         )
+
+
+def test_bootstrap_rejects_block_length_at_or_near_sample_size():
+    # With block_length == n every resample is a cyclic shift of the whole
+    # sample, so the bootstrap distribution degenerates to a point: the
+    # interval collapses and the mean test always returns the minimum
+    # p-value. The same failure appears as block_length approaches n, so
+    # block lengths above half the sample size are rejected outright.
+    rng = np.random.default_rng(5)
+    values = rng.normal(0.5, 1.0, 200)
+
+    with pytest.raises(ValueError, match="half the sample size"):
+        block_bootstrap_mean_ci(values, block_length=200, resamples=100, seed=1)
+    with pytest.raises(ValueError, match="half the sample size"):
+        block_bootstrap_mean_ci(values, block_length=199, resamples=100, seed=1)
+    with pytest.raises(ValueError, match="half the sample size"):
+        block_bootstrap_mean_ci(values, block_length=101, resamples=100, seed=1)
+    with pytest.raises(ValueError, match="half the sample size"):
+        block_bootstrap_mean_test(
+            values,
+            null_mean=0.0,
+            block_length=200,
+            resamples=100,
+            seed=1,
+        )
+
+
+def test_bootstrap_accepts_block_length_at_half_sample_size():
+    rng = np.random.default_rng(5)
+    values = rng.normal(0.5, 1.0, 200)
+    result = block_bootstrap_mean_ci(
+        values,
+        block_length=100,
+        resamples=100,
+        seed=1,
+    )
+    assert result.block_length == 100
+    assert result.lower_bound < result.upper_bound
+
+
+def _bootstrap_coverage(*, correlated: bool, repetitions: int = 100) -> float:
+    covered = 0
+    for repetition in range(repetitions):
+        rng = np.random.default_rng(1000 + repetition)
+        if correlated:
+            size = 300
+            innovations = rng.normal(0.0, 1.0, size)
+            values = np.zeros(size)
+            for index in range(1, size):
+                values[index] = 0.6 * values[index - 1] + innovations[index]
+            values = values / np.sqrt(1.0 / (1.0 - 0.6**2))
+            block_length = 10
+        else:
+            values = rng.normal(0.0, 1.0, 200)
+            block_length = 5
+        interval = block_bootstrap_mean_ci(
+            values,
+            block_length=block_length,
+            resamples=500,
+            seed=repetition,
+        )
+        if interval.lower_bound <= 0.0 <= interval.upper_bound:
+            covered += 1
+    return covered / repetitions
+
+
+def test_block_bootstrap_interval_coverage_is_calibrated():
+    # A 95% interval should cover the true mean (0 here) in about 95% of
+    # repeated samples. Fixed seeds keep the test deterministic; the
+    # bounds allow Monte Carlo noise (std ~= 0.022 over 100 repetitions)
+    # while catching gross miscalibration such as a degenerate resampling
+    # distribution, which would cover at a rate near zero.
+    assert 0.85 <= _bootstrap_coverage(correlated=False) <= 1.0
+    assert 0.85 <= _bootstrap_coverage(correlated=True) <= 1.0

@@ -10,6 +10,7 @@ import numpy as np
 from pydantic import Field
 
 from myquant.contracts import StrictContract
+from myquant.stats._validation import finite_numeric_array
 from myquant.stats.hac import HACCoefficient, HACResult, newey_west_hac
 from myquant.stats.regression import OLSResult, ols_fit
 
@@ -56,17 +57,13 @@ def lead_lag_scan(
     establish causality. Lag choices should be declared before inspecting
     results when used for confirmatory research.
     """
-    source_values = np.asarray(tuple(source), dtype=float)
-    target_values = np.asarray(tuple(target), dtype=float)
+    source_values = finite_numeric_array(source, name="source")
+    target_values = finite_numeric_array(target, name="target")
 
-    if source_values.ndim != 1 or target_values.ndim != 1:
-        raise ValueError("source and target must be one-dimensional")
     if source_values.size != target_values.size:
         raise ValueError("source and target must have equal lengths")
     if source_values.size == 0:
         raise ValueError("source and target must not be empty")
-    if not np.isfinite(source_values).all() or not np.isfinite(target_values).all():
-        raise ValueError("source and target must contain only finite observations")
     if (
         isinstance(minimum_observations, bool)
         or not isinstance(minimum_observations, Integral)
@@ -138,6 +135,10 @@ def partial_lead_lag(
     descriptions; the Newey-West HAC p-value is asymptotic and does not turn
     the result into a causal claim or tradable alpha. Predeclare the lag,
     control set, HAC bandwidth and complete testing family.
+
+    Inputs must be stationary (for example returns, not price levels): with
+    a highly persistent target the lagged target dominates the regression
+    and the HAC inference is not valid for non-stationary series.
     """
     if isinstance(lag_steps, bool) or not isinstance(lag_steps, Integral):
         raise TypeError("lag_steps must be an integer")
@@ -150,16 +151,12 @@ def partial_lead_lag(
     ):
         raise ValueError("minimum_observations must be an integer of at least 3")
 
-    source_values = np.asarray(tuple(source), dtype=float)
-    target_values = np.asarray(tuple(target), dtype=float)
-    if source_values.ndim != 1 or target_values.ndim != 1:
-        raise ValueError("source and target must be one-dimensional")
+    source_values = finite_numeric_array(source, name="source")
+    target_values = finite_numeric_array(target, name="target")
     if source_values.size != target_values.size:
         raise ValueError("source and target must have equal lengths")
     if source_values.size == 0:
         raise ValueError("source and target must not be empty")
-    if not np.isfinite(source_values).all() or not np.isfinite(target_values).all():
-        raise ValueError("source and target must contain only finite observations")
     if lag_steps >= source_values.size:
         raise ValueError("lag_steps must be smaller than the sample length")
 
@@ -176,11 +173,9 @@ def partial_lead_lag(
             raise ValueError("common-factor names must be non-empty strings")
         if name in {"intercept", "target_lag", "source"}:
             raise ValueError(f"reserved common-factor name: {name}")
-        factor_values = np.asarray(tuple(raw_values), dtype=float)
-        if factor_values.ndim != 1 or factor_values.size != target_values.size:
+        factor_values = finite_numeric_array(raw_values, name=f"common factor '{name}'")
+        if factor_values.size != target_values.size:
             raise ValueError(f"common factor '{name}' must match the input length")
-        if not np.isfinite(factor_values).all():
-            raise ValueError(f"common factor '{name}' must contain only finite values")
         base_predictors[name] = factor_values[:-lag_steps]
 
     response = target_values[lag_steps:]

@@ -42,6 +42,26 @@ class ObservationQualityReport(StrictContract):
 
 SeriesKey = tuple[str, str, str, str, int]
 
+# Issues that can occur once per row are aggregated by code with a count
+# instead of emitting one issue per row, so a large batch cannot produce a
+# report as large as its input.
+_REPEATABLE_ISSUES: dict[str, tuple[QualitySeverity, str]] = {
+    "DUPLICATE_ROW": (
+        QualitySeverity.WARNING,
+        "An identical observation row appears more than once.",
+    ),
+    "REVISION_COLLISION": (
+        QualitySeverity.ERROR,
+        "Different observation payloads share the same instrument, "
+        "event time, source version and revision.",
+    ),
+    "HIGH_INGESTION_LAG": (
+        QualitySeverity.WARNING,
+        "Observation reached MyQuant later than the configured "
+        "ingestion-lag threshold.",
+    ),
+}
+
 
 def inspect_observations(
     observations: Sequence[Observation],
@@ -55,6 +75,10 @@ def inspect_observations(
     Missing coverage is reported only when the caller supplies an explicit
     expected_series set. Missing rows cannot be interpreted as missing bars
     until the market calendar and expected cadence are known.
+
+    The p95 ingestion lag uses the nearest-rank definition (index
+    min(n-1, ceil(0.95*n)-1)), not linear interpolation. Repeated issues
+    are aggregated by code with a count.
     """
     if (
         max_ingestion_lag_seconds is not None
@@ -99,6 +123,7 @@ def inspect_observations(
     series: set[SeriesKey] = set()
     instruments: set[str] = set()
     ingestion_lags: list[float] = []
+    repeatable_counts: dict[str, int] = {}
     before_event = 0
     after_event = 0
 
@@ -118,23 +143,12 @@ def inspect_observations(
         if previous is None:
             seen[identity] = observation
         elif previous != observation:
-            issues.append(
-                QualityIssue(
-                    code="REVISION_COLLISION",
-                    severity=QualitySeverity.ERROR,
-                    message=(
-                        "Different observation payloads share the same instrument, "
-                        "event time, source version and revision."
-                    ),
-                )
+            repeatable_counts["REVISION_COLLISION"] = (
+                repeatable_counts.get("REVISION_COLLISION", 0) + 1
             )
         else:
-            issues.append(
-                QualityIssue(
-                    code="DUPLICATE_ROW",
-                    severity=QualitySeverity.WARNING,
-                    message="An identical observation row appears more than once.",
-                )
+            repeatable_counts["DUPLICATE_ROW"] = (
+                repeatable_counts.get("DUPLICATE_ROW", 0) + 1
             )
 
         ingestion_lag = (
@@ -145,21 +159,25 @@ def inspect_observations(
             max_ingestion_lag_seconds is not None
             and ingestion_lag > max_ingestion_lag_seconds
         ):
-            issues.append(
-                QualityIssue(
-                    code="HIGH_INGESTION_LAG",
-                    severity=QualitySeverity.WARNING,
-                    message=(
-                        "Observation reached MyQuant later than the configured "
-                        "ingestion-lag threshold."
-                    ),
-                )
+            repeatable_counts["HIGH_INGESTION_LAG"] = (
+                repeatable_counts.get("HIGH_INGESTION_LAG", 0) + 1
             )
 
         if observation.available_at < observation.event_time:
             before_event += 1
         elif observation.available_at > observation.event_time:
             after_event += 1
+
+    for code, count in repeatable_counts.items():
+        severity, message = _REPEATABLE_ISSUES[code]
+        issues.append(
+            QualityIssue(
+                code=code,
+                severity=severity,
+                message=message,
+                count=count,
+            )
+        )
 
     missing_expected = tuple(
         sorted(

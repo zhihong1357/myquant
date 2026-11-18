@@ -59,6 +59,20 @@ def test_common_factor_scenario_exposes_latent_shared_driver():
     assert frame["source_beta_truth"].eq(0).all()
 
 
+def test_common_factor_scenario_starts_from_stationary_distribution():
+    frame = make_transmission_panel(
+        observations=2_000,
+        seed=9,
+        scenario=SyntheticScenario.COMMON_FACTOR,
+    )
+    # The stationary variance of the AR(1) factor (phi=0.85, unit
+    # innovations) is 1/(1-0.85^2) ~= 3.60. With a zero start the opening
+    # rows would be strongly under-dispersed.
+    opening_variance = frame["common_factor_truth"].iloc[:100].var()
+    assert 1.5 < opening_variance < 6.5
+    assert frame["common_factor_truth"].iloc[0] != 0.0
+
+
 def test_regime_shift_turns_off_direct_effect_mid_sample():
     frame = make_transmission_panel(
         observations=4_000,

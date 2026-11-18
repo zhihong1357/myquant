@@ -12,7 +12,7 @@ from numpy.typing import NDArray
 from pydantic import Field
 
 from myquant.contracts import StrictContract
-from myquant.stats.regression import OLSResult, _prepare_regression, ols_fit
+from myquant.stats.regression import OLSResult, ols_fit, prepare_regression
 
 
 class HACCoefficient(StrictContract):
@@ -60,7 +60,7 @@ def newey_west_hac(
     if not isinstance(small_sample_correction, bool):
         raise TypeError("small_sample_correction must be a boolean")
 
-    target_values, design, _, coefficient_names = _prepare_regression(
+    target_values, design, _, coefficient_names = prepare_regression(
         target,
         predictors,
         include_intercept=include_intercept,

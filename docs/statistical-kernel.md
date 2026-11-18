@@ -30,6 +30,8 @@ This is a descriptive cross-correlation diagnostic only. It does not control com
 
 The result includes named coefficients, fitted values, residuals, residual sum of squares, R-squared, adjusted R-squared, rank and residual degrees of freedom. Missing or infinite observations, unequal lengths and collinear predictors are rejected. The function does not perform timestamp joins, lag construction, resampling, imputation, feature scaling, or point-in-time checks.
 
+The result also reports the design matrix's 2-norm condition number. A large condition number means the predictors are nearly collinear and the coefficient estimates are unstable, even though the design is technically full rank.
+
 ## 4. Newey-West HAC inference
 
 `newey_west_hac(target, predictors, max_lag=...)` fits the same OLS model and estimates its covariance matrix using a Bartlett-kernel Newey-West heteroskedasticity- and autocorrelation-consistent estimator.
@@ -74,6 +76,8 @@ The bootstrap utilities use circular moving blocks:
 
 Block bootstrap is intended to preserve short-range serial dependence better than independently shuffling observations. It remains an approximation. The result can be sensitive to block length, non-stationarity, structural breaks and heavy tails. Always report block-length sensitivity and use a sample period that matches the research question. The current implementation does not provide studentized or bias-corrected intervals and should not be represented as a universal solution to time-series inference.
 
+`block_length` must not exceed half the sample size. With fewer than two full blocks the resampling distribution collapses: at `block_length == n` every resample is a cyclic shift of the whole sample, so every bootstrap mean equals the sample mean, the interval degenerates to a point and the mean test always returns the minimum p-value. Block lengths above `n // 2` are rejected rather than silently producing that degenerate result.
+
 ## 7. Multiple-testing corrections
 
 `adjust_pvalues` preserves the original input order and provides adjusted p-values plus the decision at a predeclared threshold.
@@ -89,6 +93,8 @@ The function treats the supplied p-values as the complete family. It cannot know
 `purged_walk_forward_splits` builds chronological, disjoint held-out test windows. Each fold trains only on observations whose decision times precede the test window. For a test window beginning at T, a training sample is purged when its label end time is greater than or equal to T; equality is treated conservatively as overlap.
 
 An optional pre-test embargo removes additional training observations whose decision times fall within the configured duration immediately before T. In this forward-only design, future rows are never training candidates, so embargo is implemented as an extra historical gap before the test window. The optional maximum training size limits the candidate window before purging and embargo are applied. A final shorter test window is retained.
+
+A test window whose training set falls below `minimum_train_size` after purging and embargo is skipped rather than failing the whole split: the remaining folds are still returned, the skipped window is recorded in the `WalkForwardSplitReport` with its reason, and a warning is logged. Only when every test window is skipped does the splitter raise. Fold numbers are never renumbered, so a fold's number always identifies its test window.
 
 The splitter returns the training, test, purged and embargoed indices for each fold so the exclusions can be audited. Decision timestamps must be timezone-aware, unique and strictly increasing. Label end timestamps must be timezone-aware, aligned one-to-one, and later than their corresponding decision timestamps.
 

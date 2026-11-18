@@ -105,3 +105,49 @@ def test_write_batch_rejects_unapproved_source(tmp_path):
     observation = make_observation(source_id="unknown")
     with pytest.raises(PermissionError, match="not registered"):
         store.write_batch([observation])
+
+
+def test_query_as_of_rejects_same_revision_conflict(tmp_path):
+    store = make_store(tmp_path)
+    store.write_batch([
+        make_observation(revision=1, value=20.0),
+        make_observation(revision=1, value=21.0),
+    ])
+    with pytest.raises(ValueError, match="conflicting observations"):
+        store.query_as_of(datetime(2026, 1, 2, tzinfo=UTC))
+
+
+def test_query_as_of_prefers_revision_over_arrival_order(tmp_path):
+    store = make_store(tmp_path)
+    store.write_batch([
+        make_observation(revision=1, available_offset_seconds=10, value=20.0),
+        make_observation(revision=2, available_offset_seconds=2, value=21.0),
+    ])
+    decision = datetime(2026, 1, 1, tzinfo=UTC) + timedelta(seconds=20)
+    result = store.query_as_of(decision)
+    assert len(result) == 1
+    assert result[0].revision == 2
+    assert result[0].value == 21.0
+
+
+def test_query_as_of_filters_by_instrument_and_field(tmp_path):
+    store = make_store(tmp_path)
+    base = make_observation()
+    other_instrument = base.model_copy(update={"instrument_id": "volatility:move"})
+    other_field = base.model_copy(update={"field": "open"})
+    store.write_batch([base, other_instrument, other_field])
+    decision = datetime(2026, 1, 2, tzinfo=UTC)
+
+    assert len(store.query_as_of(decision)) == 3
+    by_instrument = store.query_as_of(decision, instrument_ids={"volatility:move"})
+    assert len(by_instrument) == 1
+    assert by_instrument[0].instrument_id == "volatility:move"
+    by_field = store.query_as_of(decision, fields={"open"})
+    assert len(by_field) == 1
+    assert by_field[0].field == "open"
+    assert store.query_as_of(decision, instrument_ids={"no-such-instrument"}) == []
+
+
+def test_query_as_of_empty_store_returns_empty_list(tmp_path):
+    store = make_store(tmp_path)
+    assert store.query_as_of(datetime(2026, 1, 2, tzinfo=UTC)) == []

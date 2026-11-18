@@ -5,8 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from urllib.parse import quote
 
+from myquant.files import write_new_file
 from myquant.market import Instrument, MarketCalendar
-from myquant.sources import _write_new_file
 
 
 class MarketCatalog:
@@ -40,7 +40,7 @@ class MarketCatalog:
     ) -> Path:
         path = self._path(kind, key, version)
         payload = model.model_dump_json(indent=2).encode("utf-8") + b"\n"
-        _write_new_file(path, payload)
+        write_new_file(path, payload)
         return path
 
     def _path(self, kind: str, key: str, version: int) -> Path:

@@ -3,15 +3,14 @@
 from __future__ import annotations
 
 import json
-import os
 import re
-import tempfile
 from enum import StrEnum
 from pathlib import Path
 
 from pydantic import Field, model_validator
 
 from myquant.contracts import StrictContract
+from myquant.files import write_new_file
 
 
 class LicenseStatus(StrEnum):
@@ -69,7 +68,7 @@ class SourceRegistry:
             indent=2,
             ensure_ascii=False,
         ) + "\n"
-        _write_new_file(target, payload.encode("utf-8"))
+        write_new_file(target, payload.encode("utf-8"))
         return target
 
     def get(self, source_id: str, *, version: int = 1) -> SourceDefinition:
@@ -94,27 +93,3 @@ class SourceRegistry:
             ) from exc
         definition.require_research_permission()
         return definition
-
-
-def _write_new_file(target: Path, content: bytes) -> None:
-    """Atomically create a file; identical existing bytes are treated as idempotent."""
-    target.parent.mkdir(parents=True, exist_ok=True)
-    if target.exists():
-        if target.read_bytes() == content:
-            return
-        raise FileExistsError(f"immutable path already contains different bytes: {target}")
-
-    descriptor, temporary_name = tempfile.mkstemp(dir=target.parent, prefix=".tmp-")
-    temporary = Path(temporary_name)
-    try:
-        with os.fdopen(descriptor, "wb") as stream:
-            stream.write(content)
-            stream.flush()
-            os.fsync(stream.fileno())
-        try:
-            os.link(temporary, target)
-        except FileExistsError:
-            if target.read_bytes() != content:
-                raise
-    finally:
-        temporary.unlink(missing_ok=True)

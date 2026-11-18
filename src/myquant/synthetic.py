@@ -62,6 +62,11 @@ def make_transmission_panel(
 
     if scenario == SyntheticScenario.COMMON_FACTOR:
         factor_innovations = rng.normal(0.0, 1.0, observations)
+        # Initialize from the stationary distribution N(0, 1/(1-phi^2)) so
+        # the opening rows are already stationary; starting at zero would
+        # leave the first dozens of rows under-dispersed relative to the
+        # declared AR(1) process.
+        common_factor[0] = factor_innovations[0] / np.sqrt(1.0 - 0.85**2)
         for index in range(1, observations):
             common_factor[index] = (
                 0.85 * common_factor[index - 1] + factor_innovations[index]

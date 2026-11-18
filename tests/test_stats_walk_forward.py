@@ -1,3 +1,4 @@
+import logging
 from datetime import timedelta
 
 import numpy as np
@@ -6,6 +7,7 @@ import pytest
 
 from myquant.stats.walk_forward import (
     evaluate_walk_forward_forecasts,
+    purged_walk_forward_split_report,
     purged_walk_forward_splits,
 )
 
@@ -138,13 +140,56 @@ def test_splitter_rejects_invalid_time_and_window_inputs():
             minimum_train_size=20,
         )
 
-    with pytest.raises(ValueError, match="after purging and embargo"):
-        purged_walk_forward_splits(
+
+def test_splitter_skips_folds_with_too_little_training_and_reports_them(caplog):
+    decisions, label_ends = dated_panel()
+
+    with caplog.at_level(logging.WARNING, logger="myquant.stats.walk_forward"):
+        report = purged_walk_forward_split_report(
             decisions,
             label_ends,
             initial_train_size=40,
             test_size=10,
             embargo=timedelta(days=30),
+            minimum_train_size=20,
+        )
+
+    # The first fold keeps only 10 training rows after the 30-day embargo,
+    # so it is skipped; later folds have enough history and are kept with
+    # their original fold numbers.
+    assert len(report.skipped_folds) == 1
+    skipped = report.skipped_folds[0]
+    assert skipped.fold_number == 1
+    assert skipped.training_observations == 10
+    assert skipped.minimum_train_size == 20
+    assert "after purging and embargo" in skipped.reason
+    assert [fold.fold_number for fold in report.folds] == [2, 3, 4, 5, 6]
+    assert any(
+        "skipping walk-forward fold 1" in record.message
+        for record in caplog.records
+    )
+
+    # The convenience wrapper returns the same usable folds.
+    folds = purged_walk_forward_splits(
+        decisions,
+        label_ends,
+        initial_train_size=40,
+        test_size=10,
+        embargo=timedelta(days=30),
+        minimum_train_size=20,
+    )
+    assert folds == report.folds
+
+
+def test_splitter_raises_when_every_fold_is_skipped():
+    decisions, label_ends = dated_panel()
+    with pytest.raises(ValueError, match="no test fold can be formed"):
+        purged_walk_forward_splits(
+            decisions,
+            label_ends,
+            initial_train_size=40,
+            test_size=10,
+            embargo=timedelta(days=365),
             minimum_train_size=20,
         )
 

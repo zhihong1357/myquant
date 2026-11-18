@@ -19,13 +19,17 @@ class StrictContract(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
 
-class HypothesisStatus(StrEnum):
-    DRAFT = "draft"
-    REGISTERED = "registered"
-    TESTING = "testing"
-    SUPPORTED = "supported"
-    REJECTED = "rejected"
-    RETIRED = "retired"
+class MultiplicityCorrection(StrEnum):
+    """Multiple-testing correction methods shared by governance and statistics.
+
+    This enum lives in the contract layer so the statistical kernel can use
+    it without depending on the hypothesis-governance module.
+    """
+
+    NONE = "none"
+    BONFERRONI = "bonferroni"
+    HOLM = "holm"
+    BENJAMINI_HOCHBERG = "benjamini_hochberg"
 
 
 class Observation(StrictContract):
@@ -58,52 +62,6 @@ class Observation(StrictContract):
         object.__setattr__(self, "event_time", event)
         object.__setattr__(self, "available_at", available)
         object.__setattr__(self, "ingested_at", ingested)
-        return self
-
-
-class Hypothesis(StrictContract):
-    hypothesis_id: Annotated[str, Field(pattern=r"^H[0-9]{4,}$")]
-    title: Annotated[str, Field(min_length=8)]
-    statement: Annotated[str, Field(min_length=20)]
-    null_hypothesis: Annotated[str, Field(min_length=10)]
-    universe: tuple[str, ...]
-    horizon_seconds: Annotated[int, Field(gt=0)]
-    benchmark: Annotated[str, Field(min_length=1)]
-    cost_model: Annotated[str, Field(min_length=1)]
-    rejection_criteria: tuple[str, ...]
-    status: HypothesisStatus = HypothesisStatus.DRAFT
-    created_at: datetime
-
-    @model_validator(mode="after")
-    def validate_created_at(self) -> Hypothesis:
-        object.__setattr__(self, "created_at", require_utc(self.created_at))
-        if not self.universe:
-            raise ValueError("universe must contain at least one instrument or market")
-        if not self.rejection_criteria:
-            raise ValueError("at least one rejection criterion is required")
-        return self
-
-
-class FeatureRecord(StrictContract):
-    feature_id: Annotated[str, Field(min_length=1)]
-    feature_version: Annotated[str, Field(min_length=1)]
-    instrument_id: Annotated[str, Field(min_length=1)]
-    observation_time: datetime
-    available_at: datetime
-    value: Annotated[float, Field(allow_inf_nan=False)]
-    input_fingerprints: tuple[str, ...]
-    config_fingerprint: Annotated[str, Field(min_length=1)]
-
-    @model_validator(mode="after")
-    def validate_feature_time(self) -> FeatureRecord:
-        observation = require_utc(self.observation_time)
-        available = require_utc(self.available_at)
-        if available < observation:
-            raise ValueError("feature cannot be available before its observation time")
-        if not self.input_fingerprints:
-            raise ValueError("feature must identify its input data")
-        object.__setattr__(self, "observation_time", observation)
-        object.__setattr__(self, "available_at", available)
         return self
 
 

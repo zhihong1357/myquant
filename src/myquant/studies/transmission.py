@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from numbers import Integral
+
 import pandas as pd
 
 
@@ -21,11 +23,23 @@ def lead_lag_panel(
     missing = required.difference(frame.columns)
     if missing:
         raise ValueError(f"missing required columns: {sorted(missing)}")
-    if not source_lags or any(lag < 1 for lag in source_lags):
+    if not source_lags:
         raise ValueError("source_lags must contain positive integers (>= 1)")
-    if frame[timestamp_column].isna().any():
+    if any(
+        isinstance(lag, bool) or not isinstance(lag, Integral)
+        for lag in source_lags
+    ):
+        raise TypeError("source_lags must contain integers")
+    if any(lag < 1 for lag in source_lags):
+        raise ValueError("source_lags must contain positive integers (>= 1)")
+    timestamps = frame[timestamp_column]
+    if not pd.api.types.is_datetime64_any_dtype(timestamps):
+        raise TypeError("timestamp column must contain datetime values")
+    if timestamps.dt.tz is None:
+        raise ValueError("timestamps must be timezone-aware")
+    if timestamps.isna().any():
         raise ValueError("timestamps cannot be missing")
-    if frame[timestamp_column].duplicated().any():
+    if timestamps.duplicated().any():
         raise ValueError("timestamps must be unique before lag construction")
     ordered = frame.sort_values(timestamp_column).copy()
     for lag in source_lags:

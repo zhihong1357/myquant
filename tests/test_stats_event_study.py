@@ -46,8 +46,11 @@ def test_expected_returns_are_subtracted_before_car():
         pre_event_steps=0, post_event_steps=1,
         expected_returns=expected,
     )
-    assert result.events[0].cumulative_abnormal_return == pytest.approx(0.05)
-    assert result.events[1].cumulative_abnormal_return == pytest.approx(0.04)
+    # Window is [pos - pre, pos + post] inclusive, abnormal = observed - expected
+    # per observation: event 0 -> (0.04-0.01) + (0.02-0.01) = 0.04;
+    # event 1 -> (0.02-0.01) + (0.03-0.01) = 0.03.
+    assert result.events[0].cumulative_abnormal_return == pytest.approx(0.04)
+    assert result.events[1].cumulative_abnormal_return == pytest.approx(0.03)
 
 
 def test_event_study_omits_inference_for_one_cluster():
