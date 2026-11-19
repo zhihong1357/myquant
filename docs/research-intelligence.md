@@ -650,6 +650,11 @@ the next real hypothesis id is H0013):
   convention); 1h keeps it, monthly never had it. The other six
   items of study 008's scaffold feedback are recorded in that
   study's report, not fixed here.
+- Second real use (study 009): generated from the planner's
+  BAA10Y→TYVIX template, it exposed no new gaps — every
+  hand-adaptation was a repeat of a study-008 item — and the
+  `bar_seconds` fix was verified in the generated file
+  (`BAR_SECONDS = None`). See that study's report.
 
 ### Independent review
 
@@ -669,7 +674,14 @@ real difference, not a claim. One review fix: the validation
 originally used hypothesis id H0013 — the next real lab id —
 for its placeholder spec; it now uses H9001, mirroring T9001,
 so no validation fingerprint can ever be confused with a real
-H0013 registration.
+H0013 registration. The same staleness recurred with the
+other-type placeholder specs (H0014/H0015/H0016 in
+`_other_type_specs`): study 009's real H0014 collided with
+the mean-comparison placeholder, and H0015 was the next real
+id in line. All three were renamed to H9002/H9003/H9004 in
+the study-009 review; re-running the validation reproduced
+the report except the three wall-clock values, and the H9001
+fingerprint is still `30c355bc…`.
 
 ## 4. Adversarial reviewer (6d)
 
@@ -881,18 +893,18 @@ answer is to never type a number in the first place.
 
 | section | contents | source |
 | --- | --- | --- |
-| studies | 8 empirical studies: report path, hypotheses, trials, anchor/manifest/panel-summary presence, open/closed | `research/*/trials.jsonl` |
-| hypotheses | 13 hypotheses, 14 versions: fingerprints, registration hashes, lifecycle states, trials, edges, decision records | `hypotheses/registrations/`, event logs |
-| trials | 15 records: status, verdict, primary-test summary (effect, adjusted p, n) | trial ledgers |
-| edges | 40 edges: endpoints, status, trial/test key, decision record, audit survival | `research/graph/registry.json` |
-| decision records | 16 records: edge/hypothesis/trial/study links | `research/decision-records/records/` |
-| candidates | 122 pairs: rank, score, mechanism, template presence | `research/planner-6a/ranking.json` |
+| studies | 9 empirical studies: report path, hypotheses, trials, anchor/manifest/panel-summary presence, open/closed | `research/*/trials.jsonl` |
+| hypotheses | 14 hypotheses, 15 versions: fingerprints, registration hashes, lifecycle states, trials, edges, decision records | `hypotheses/registrations/`, event logs |
+| trials | 16 records: status, verdict, primary-test summary (effect, adjusted p, n) | trial ledgers |
+| edges | 41 edges: endpoints, status, trial/test key, decision record, audit survival | `research/graph/registry.json` |
+| decision records | 17 records: edge/hypothesis/trial/study links | `research/decision-records/records/` |
+| candidates | 121 pairs: rank, score, mechanism, template presence | `research/planner-6a/ranking.json` |
 | sources | 8 sources: quirks, recorded-only counts, probe outcomes | `research/evidence-6b/` |
 | panels | 12 panels: probe-time freshness | evidence report |
 | review | 6d counts and unverified items, quoted | `research/review-6d/review_report.json` |
 | audit | lab-wide Holm/BH survivors, quoted | `research/statistical-audit-2b/summary.json` |
 
-The catalog also records its own provenance: the 65 source
+The catalog also records its own provenance: the 69 source
 files read (repo-relative paths), the generation timestamp,
 the broken-link list and the missing-optional list.
 
@@ -939,7 +951,7 @@ manifests, panel summaries) are recorded separately in
 `lab_report.md` is the one-page view of the lab: a studies
 table (one row per completed trial, with the primary effect,
 adjusted p-value and sample size from the ledger), the graph
-summary (40 edges by status; the 6 supported edges with their
+summary (41 edges by status; the 6 supported edges with their
 lab-wide audit survival, quoted from the 2B summary), the
 candidate queue (top-10 and tier counts), data freshness
 (probe-time snapshot, plus post-probe updates recorded in
@@ -1034,7 +1046,7 @@ catalog's 0 broken links.
   from the 6b evidence report (probed 2026-11-18T21:45Z),
   not from a live check. Post-probe updates appear only when
   a committed record exists.
-- **The catalog covers the eight empirical studies**: stages
+- **The catalog covers the nine empirical studies**: stages
   without trial ledgers (microstructure, portfolio, planner,
   evidence, scaffolding, review) appear only through their
   outputs, not as catalogued studies.
@@ -1054,6 +1066,36 @@ pass, 0 fail, 8 unverified, 12 note) and the 2B audit at
 family 37 (4 Holm survivors, 5 BH survivors). The counts in
 the Validation results section above are the 6e validation's
 own record (2026-11-18T23:52Z) and are left as they were.
+
+### Regeneration after study 009
+
+The catalog and lab report were regenerated when study 009
+landed (generated 2026-11-19T02:13Z): 9 studies, 14
+hypotheses (15 versions), 16 trial records (13 completed, 3
+failed, T0003 reserved), 41 edges (6 supported, 32 rejected,
+1 pending, 2 descriptive), 17 decision records, 121
+candidates (109 ranked, 12 unrankable), 69 source files.
+Integrity still holds: **0 broken links**, and the only
+missing optional file is still the study-005 anchor. The
+regenerated report quotes the 6d review at 114 checks (93
+pass, 0 fail, 8 unverified, 13 note) and the 2B audit at
+family 38 (3 Holm survivors, 5 BH survivors) — E0033 dropped
+out of the Holm survivor set when the family grew (Holm p
+0.04971 → 0.05117), which is the audit's normal operation,
+not an error. The counts in the Validation results section
+above are the 6e validation's own record (2026-11-18T23:52Z)
+and are left as they were.
+
+Independent review of study 009 (plain numpy, no repo
+imports, panel rebuilt from the raw cached FRED payloads):
+the panel counts, all four partial tests (36 numbers), all
+six scan correlations, all four sub-periods, the MDE, the
+walk-forward evaluation (27 folds, both MSEs, both OOS R²
+values, all 27 per-fold values) and the full informational
+cost gate (gross edge, sign accuracy, bootstrap CI and p)
+all match the T0017 ledger record. The E0033 flip was
+confirmed from the audit summary itself (family 38, Holm
+p 0.051172, BH p 0.01389 — still a BH survivor).
 
 Stage 6 is complete with this item: the planner (§1), the
 evidence analyst (§2), the experiment assistant (§3), the

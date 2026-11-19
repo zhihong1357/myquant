@@ -851,6 +851,7 @@ def test_edge_numbers_match_the_trial_ledger(tmp_path: Path):
         "research/macro-windows-006/trials.jsonl",
         "research/publication-lag-007/trials.jsonl",
         "research/credit-spread-spx-008/trials.jsonl",
+        "research/credit-spread-tyvix-009/trials.jsonl",
     ):
         # Keyed by trial id: a ledger may hold more than one trial.
         for line in (REPO_ROOT / ledger).read_text().splitlines():
@@ -885,10 +886,10 @@ def test_real_graph_summary(tmp_path: Path):
     graph = MarketGraph.from_file(built_registry)
     assert graph.summary() == {
         "nodes": 12,
-        "edges": 40,
-        "candidates": 122,
+        "edges": 41,
+        "candidates": 121,
         "edges_supported": 6,
-        "edges_rejected": 31,
+        "edges_rejected": 32,
         "edges_pending": 1,
         "edges_descriptive": 2,
     }
@@ -910,6 +911,7 @@ def test_real_graph_summary(tmp_path: Path):
         ("macro:cpi-mom", "index:sp500"),
         ("macro:cpi-mom", "crypto:btc-usdt-perp"),
         ("credit:baa-10y-spread", "index:sp500"),
+        ("credit:baa-10y-spread", "index:tyvix"),
     }
     # The supported edges: the TYVIX event-window CAR (E0023) and the
     # BAA10Y cross-event slope (E0026), both secondary tests whose

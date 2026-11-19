@@ -98,7 +98,7 @@ def _other_type_specs() -> list[StudySpec]:
         StudySpec(
             study_number=9,
             slug="btc-window-vol-009",
-            hypothesis_id="H0014",
+            hypothesis_id="H9002",
             source_instrument="crypto:btc-usdt-perp",
             target_instrument="crypto:btc-usdt-perp",
             test_type=EdgeTestType.MEAN_COMPARISON,
@@ -114,7 +114,7 @@ def _other_type_specs() -> list[StudySpec]:
         StudySpec(
             study_number=10,
             slug="dvol-event-study-010",
-            hypothesis_id="H0015",
+            hypothesis_id="H9003",
             source_instrument="vol:btc-dvol",
             target_instrument="vol:btc-dvol",
             test_type=EdgeTestType.EVENT_STUDY,
@@ -128,7 +128,7 @@ def _other_type_specs() -> list[StudySpec]:
         StudySpec(
             study_number=11,
             slug="cpi-cross-section-011",
-            hypothesis_id="H0016",
+            hypothesis_id="H9004",
             source_instrument="rates:dgs10",
             target_instrument="macro:cpi",
             test_type=EdgeTestType.CROSS_SECTION,

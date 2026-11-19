@@ -102,9 +102,10 @@ PRIMARY_EDGES: dict[str, tuple[str, str]] = {
     "T0013": ("E0032", "H0011"),
     "T0015": ("E0037", "H0012"),
     "T0016": ("E0040", "H0013"),
+    "T0017": ("E0041", "H0014"),
 }
 # Lead-lag primaries feeding the partial-R^2 power table.
-LEAD_LAG_PRIMARIES = ("T0001", "T0002", "T0004", "T0005", "T0011", "T0015", "T0016")
+LEAD_LAG_PRIMARIES = ("T0001", "T0002", "T0004", "T0005", "T0011", "T0015", "T0016", "T0017")
 # CAR edges feeding the event-study power table (primary/secondary label).
 CAR_EDGES = (
     ("E0019", "T0010", "primary"),
@@ -1314,12 +1315,13 @@ def render_report(summary: dict) -> str:
         "stand alone."
     )
     lines.append(
-        "5. **Dependence limits the pooled reading.** The 36 tests reuse "
+        "5. **Dependence limits the pooled reading.** The "
+        f"{lab['family_size']} tests reuse "
         "the same data (the same FOMC events feed E0023 and E0032; the "
         "same BTC/ETH daily panel feeds several lead-lag tests), so the "
-        "lab-wide family is not 36 independent draws. Holm remains "
-        "valid under arbitrary dependence; BH is indicative only, and "
-        "the Storey pi0 estimate assumes independence too."
+        f"lab-wide family is not {lab['family_size']} independent draws. "
+        "Holm remains valid under arbitrary dependence; BH is indicative "
+        "only, and the Storey pi0 estimate assumes independence too."
     )
     lines.append(
         "6. **What this audit does not do.** It does not re-judge any "

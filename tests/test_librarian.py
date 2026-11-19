@@ -113,22 +113,22 @@ def _edge_entry(
 def test_catalog_counts_match_known_lab_state() -> None:
     catalog = _catalog()
     assert catalog.counts == {
-        "studies": 8,
-        "hypotheses": 13,
-        "hypothesis_versions": 14,
-        "trials_total": 15,
-        "trials_completed": 12,
+        "studies": 9,
+        "hypotheses": 14,
+        "hypothesis_versions": 15,
+        "trials_total": 16,
+        "trials_completed": 13,
         "trials_failed": 3,
         "trials_reserved": 1,
         "nodes": 12,
-        "edges_total": 40,
+        "edges_total": 41,
         "edges_supported": 6,
-        "edges_rejected": 31,
+        "edges_rejected": 32,
         "edges_pending": 1,
         "edges_descriptive": 2,
-        "decision_records": 16,
-        "candidates_total": 122,
-        "candidates_ranked": 110,
+        "decision_records": 17,
+        "candidates_total": 121,
+        "candidates_ranked": 109,
         "candidates_unrankable": 12,
         "templates": 10,
         "sources": 8,
@@ -201,11 +201,15 @@ def test_catalog_edges_link_to_decision_records_and_audit() -> None:
     assert by_id["E0030"].bh_significant is False
     assert by_id["E0031"].holm_significant is False
     assert by_id["E0031"].bh_significant is True
+    # E0033 flipped out of the Holm survivor set when the family grew
+    # to 38 (Holm p 0.04971 -> 0.05117); it survives under BH.
+    assert by_id["E0033"].holm_significant is False
+    assert by_id["E0033"].bh_significant is True
     assert by_id["E0026"].audit_caveat is not None
     assert "mechanical" in by_id["E0026"].audit_caveat
     assert catalog.audit is not None
-    assert catalog.audit.family_size == 37
-    assert catalog.audit.holm_survivors == 4
+    assert catalog.audit.family_size == 38
+    assert catalog.audit.holm_survivors == 3
     assert catalog.audit.bh_survivors == 5
 
 
@@ -232,7 +236,7 @@ def test_catalog_candidates_and_templates() -> None:
     tiers = {}
     for candidate in ranked:
         tiers[candidate.total_score] = tiers.get(candidate.total_score, 0) + 1
-    assert tiers == {1.0: 34, 0.8: 9, 0.7: 47, 0.6: 2, 0.5: 18}
+    assert tiers == {1.0: 33, 0.8: 9, 0.7: 47, 0.6: 2, 0.5: 18}
 
 
 def test_catalog_sources_and_panels() -> None:
@@ -262,12 +266,12 @@ def test_catalog_review_summary_quoted() -> None:
     assert catalog.review is not None
     assert catalog.review.counts == {
         "fail": 0,
-        "note": 12,
-        "pass": 84,
+        "note": 13,
+        "pass": 93,
         "unverified": 8,
     }
     assert len(catalog.review.unverified_items) == 8
-    assert catalog.review.reviewed_at == "2026-11-19T00:36:42Z"
+    assert catalog.review.reviewed_at == "2026-11-19T02:13:30.990499Z"
 
 
 # --- Integrity: the real lab has no broken links ------------------------
@@ -327,7 +331,7 @@ def test_trial_numbers_derive_from_raw_ledgers() -> None:
         if secondary_field is not None:
             assert trial.secondary_effect_value == test[secondary_field]
         checked += 1
-    assert checked == 12
+    assert checked == 13
 
 
 def test_fmt_num_keeps_significant_digits() -> None:
@@ -635,7 +639,7 @@ def test_missing_optional_file_does_not_crash_build(tmp_path: Path) -> None:
     missing = {m.path for m in catalog.missing_optional}
     assert "research/lowvol-002/panel-summary.json" in missing
     assert "research/lowvol-002/manifest.json" in missing
-    assert catalog.counts["studies"] == 8
+    assert catalog.counts["studies"] == 9
     study = next(s for s in catalog.studies if s.slug == "lowvol-002")
     assert study.panel_summary_present is False
     assert study.manifest_present is False

@@ -1,6 +1,6 @@
 # Adversarial reviewer validation (Stage 6d)
 
-Validated at: 2026-11-19T00:36:42+00:00
+Validated at: 2026-11-19T02:13:30.990499+00:00
 
 ## What was validated
 
@@ -10,27 +10,27 @@ Validated at: 2026-11-19T00:36:42+00:00
 
 ## Full-lab review summary
 
-- Checks run: 104
-- PASS: 84
+- Checks run: 114
+- PASS: 93
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 12
+- NOTE: 13
 
 ### Per-check breakdown
 
 | check | pass | fail | unverified | note |
 | --- | --- | --- | --- | --- |
-| `hypothesis_state` | 12 | 0 | 0 | 0 |
-| `ledger_anchor` | 7 | 0 | 1 | 0 |
-| `ledger_chain` | 8 | 0 | 0 | 0 |
-| `multiple_testing` | 12 | 0 | 0 | 0 |
-| `pit_spot_check` | 1 | 0 | 7 | 0 |
-| `power_note` | 0 | 0 | 0 | 12 |
-| `prereg_binding` | 15 | 0 | 0 | 0 |
-| `registry_events` | 8 | 0 | 0 | 0 |
-| `report_ledger` | 8 | 0 | 0 | 0 |
+| `hypothesis_state` | 13 | 0 | 0 | 0 |
+| `ledger_anchor` | 8 | 0 | 1 | 0 |
+| `ledger_chain` | 9 | 0 | 0 | 0 |
+| `multiple_testing` | 13 | 0 | 0 | 0 |
+| `pit_spot_check` | 2 | 0 | 7 | 0 |
+| `power_note` | 0 | 0 | 0 | 13 |
+| `prereg_binding` | 16 | 0 | 0 | 0 |
+| `registry_events` | 9 | 0 | 0 | 0 |
+| `report_ledger` | 9 | 0 | 0 | 0 |
 | `trial_sequence` | 1 | 0 | 0 | 0 |
-| `verdict_consistency` | 12 | 0 | 0 | 0 |
+| `verdict_consistency` | 13 | 0 | 0 | 0 |
 
 ### The FAILs
 
@@ -62,8 +62,8 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ### Report coverage
 
-- 56 report rules across the 7 reports; 56 rows verified, 0 rows disagree.
-- 361 numeric cells compared (window-count and bootstrap-CI cells compared separately).
+- 60 report rules across the 7 reports; 60 rows verified, 0 rows disagree.
+- 386 numeric cells compared (window-count and bootstrap-CI cells compared separately).
 
 ## Adversarial fixtures
 
@@ -80,7 +80,7 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ## Rounding-margin diagnostic
 
-- Numeric cells compared: 361
+- Numeric cells compared: 386
 - Cells outside tolerance: 0
 - Highest passing ratio (|diff| / tolerance): 0.999
 - Lowest failing ratio: none (no cell outside tolerance)
@@ -90,11 +90,11 @@ The highest passing ratio is a correctly rounded value sitting near its rounding
 Largest ratios:
 
 - 0.999: credit-spread-spx-008 T0016 daily_baa10y_spx_naive (raw p)
+- 0.996: credit-spread-tyvix-009 T0017 daily_baa10y_tyvix_no_factor (partial R²)
+- 0.993: credit-spread-tyvix-009 T0017 daily_tyvix_baa10y_reverse (partial R²)
 - 0.99: fomc-event-study-005 T0009 baa10y_on_dgs10 (slope)
 - 0.987: btc-eth-001 T0001 daily_btc_sol_no_factor (SE)
 - 0.983: btc-eth-001 T0001 daily_btc_sol (incr R²)
-- 0.982: move-vix-003 T0004 daily_tyvix_vix_no_factor (coef)
-- 0.979: lowvol-002 T0002 hourly_btc_eth_interaction_no_factor (coef)
 
 ## Limitations
 

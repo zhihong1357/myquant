@@ -1009,6 +1009,43 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
             "but descriptive only, not in the family.",
         ),
     ),
+    # Study 009 (H0014, T0017): 1-test Holm family. The predictor is
+    # the BAA10Y level change in basis points lagged 2 trading days by
+    # availability (the latest change available at the decision close,
+    # under the verified 2-trading-day BAA10Y posting lag); the VIX
+    # control carries the standard 1-trading-day FRED lag. The target
+    # is the TYVIX daily log change. The naive (unlagged, lookahead)
+    # alignment is also null, so the publication lag is not what killed
+    # the effect. TYVIX was discontinued on 2020-05-15, so the sample
+    # is historical-only (2003-2020). Second real use of the 6c
+    # scaffold; see the study report's scaffold-feedback section.
+    EdgeSpec(
+        edge_id="E0041",
+        study="credit-spread-tyvix-009",
+        trial_id="T0017",
+        ledger_test_key="daily_baa10y_tyvix",
+        source="credit:baa-10y-spread",
+        target="index:tyvix",
+        frequency="daily",
+        condition=(
+            "predictor is the BAA10Y bp change lagged 2 trading days "
+            "by availability (latest available at the decision close); "
+            "next-day TYVIX log change"
+        ),
+        method=PARTIAL_LEAD_LAG_DAILY,
+        control="lagged VIX[t] log change (1-trading-day FRED lag)",
+        is_primary=True,
+        panel_key="daily",
+        notes=(
+            "Planner rank-1 candidate pair (6a, total score 1.00). "
+            "Primary coefficient -0.000126 per bp, wrong sign vs the "
+            "preregistered positive expectation; partial R² 6.10e-05.",
+            "TYVIX discontinued 2020-05-15; the sample is "
+            "historical-only (2003-2020). The reverse placebo "
+            "(TYVIX->BAA10Y) is not significant and descriptive only, "
+            "not in the family.",
+        ),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
@@ -1038,6 +1075,7 @@ TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0013", "publication-lag-007", "H0011", 1, "docs/studies/publication-lag-007.md"),
     ("T0015", "publication-lag-007", "H0012", 1, "docs/studies/publication-lag-007.md"),
     ("T0016", "credit-spread-spx-008", "H0013", 1, "docs/studies/credit-spread-spx-008.md"),
+    ("T0017", "credit-spread-tyvix-009", "H0014", 1, "docs/studies/credit-spread-tyvix-009.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -1272,6 +1310,22 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
                 "price series is used. Not a verdict criterion."
             ),
         )
+    if data.trial_id == "T0017":
+        gate = data.metrics["cost_gate_informational"]
+        return CostGateRecord(
+            verdict=CostGateVerdict.INFORMATIONAL,
+            net_daily_edge=None,
+            gross_daily_edge=gate["gross_daily_edge"],
+            bootstrap_p_value=gate["gross_edge_bootstrap_p_value"],
+            ci_lower=gate["gross_edge_ci_lower"],
+            ci_upper=gate["gross_edge_ci_upper"],
+            days=gate["days"],
+            note=(
+                "Informational only: no costs applied. TYVIX is not "
+                "tradable; no listed TYVIX futures exist and no clean "
+                "free cost series is available. Not a verdict criterion."
+            ),
+        )
     gate = data.metrics["cost_gate"]
     if data.trial_id == "T0002":
         note = (
@@ -1377,6 +1431,15 @@ def _lead_lag_primary_verdict(
         ci_part = (
             "95% CI includes zero" if ci_includes_zero else "95% CI excludes zero"
         )
+        if data.trial_id == "T0017":
+            return (
+                f"Hypothesis {data.hypothesis_id} {verdict} "
+                f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
+                "cost gate informational (gross daily "
+                f"edge {cost_gate.gross_daily_edge:+.4%}, {ci_part}) — no "
+                "net edge measurable: TYVIX is not tradable and no "
+                "listed TYVIX futures exist."
+            )
         return (
             f"Hypothesis {data.hypothesis_id} {verdict} "
             f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "

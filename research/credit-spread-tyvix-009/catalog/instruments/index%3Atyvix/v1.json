@@ -1,0 +1,11 @@
+{
+  "asset_class": "volatility",
+  "calendar_id": "us-equity",
+  "instrument_id": "index:tyvix",
+  "instrument_type": "index",
+  "metadata": {
+    "fred_series": "VXTYN"
+  },
+  "name": "CBOE/CBOT 10-Year Treasury Note Volatility Index (TYVIX)",
+  "quote_currency": "points"
+}

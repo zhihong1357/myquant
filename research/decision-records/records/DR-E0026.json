@@ -1,6 +1,6 @@
 {
   "audit_notes": [
-    "Lab-wide family correction (37 tested edges): Holm adjusted p 0.005914 (significant), BH adjusted p 0.002084 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Lab-wide family correction (38 tested edges): Holm adjusted p 0.006083 (significant), BH adjusted p 0.00214 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
     "Known caveat (from the study report): Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md."
   ],
   "conclusion": "SUPPORTED",
@@ -33,10 +33,10 @@
     ],
     "holdout_oos": null,
     "lab_wide": {
-      "bh_adjusted_p_value": 0.002083991633547207,
+      "bh_adjusted_p_value": 0.0021403157317511855,
       "bh_significant": true,
-      "family_size": 37,
-      "holm_adjusted_p_value": 0.00591403031141775,
+      "family_size": 38,
+      "holm_adjusted_p_value": 0.006083002606029685,
       "holm_significant": true
     },
     "primary_test": {
