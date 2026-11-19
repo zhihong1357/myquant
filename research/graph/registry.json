@@ -34,12 +34,6 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:tyvix"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
-      "source_instrument": "credit:baa-10y-spread",
       "target_instrument": "index:vix"
     },
     {
@@ -733,7 +727,7 @@
       "target_instrument": "macro:cpi-mom"
     }
   ],
-  "content_hash": "65a4b04639537b99f3beaffef2e5ab84a4cbdbfeff2ec91a8c78358967664b28",
+  "content_hash": "827c23df1a08983feef4f09b7e81e228625296a75bb10055140e63ed144a8b00",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -2720,6 +2714,63 @@
       "trial_record_hash": "5e2ca06ab5c3c417df84dac18f71e435ec10114411c1c867d4beb10d98426170",
       "verdict_summary": "Hypothesis H0013 REJECTED (trial T0016): this test did not reject (Holm-adjusted p = 0.894); partial R² 2.19264e-05 below the 0.005 threshold; holdout OOS incremental R² +0.00015; cost gate pass (net daily edge +0.0106%).",
       "version": 1
+    },
+    {
+      "coefficient": -0.0001255730293832285,
+      "common_factor_control": "lagged VIX[t] log change (1-trading-day FRED lag)",
+      "condition": "predictor is the BAA10Y bp change lagged 2 trading days by availability (latest available at the decision close); next-day TYVIX log change",
+      "cost_gate": {
+        "bootstrap_p_value": 0.037481259370314844,
+        "ci_lower": 0.0004819445593969071,
+        "ci_upper": 0.009146868323401095,
+        "days": 841,
+        "gross_daily_edge": 0.004572137356618472,
+        "net_daily_edge": null,
+        "note": "Informational only: no costs applied. TYVIX is not tradable; no listed TYVIX futures exist and no clean free cost series is available. Not a verdict criterion.",
+        "verdict": "informational"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "fred@v1"
+      ],
+      "edge_id": "E0041",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": -0.0009830291199928176,
+      "holdout_oos_note": "Holdout window only (8 folds, 841 rows).",
+      "holm_adjusted_p_value": 0.7539842282666138,
+      "hypothesis_id": "H0014",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 6.0840450344157304e-05,
+      "lag_steps": 1,
+      "ledger_path": "research/credit-spread-tyvix-009/trials.jsonl",
+      "ledger_test_key": "daily_baa10y_tyvix",
+      "method": "partial lead-lag OLS, lag 1, Newey-West HAC (max lag 5 daily)",
+      "notes": [
+        "Planner rank-1 candidate pair (6a, total score 1.00). Primary coefficient -0.000126 per bp, wrong sign vs the preregistered positive expectation; partial R² 6.10e-05.",
+        "TYVIX discontinued 2020-05-15; the sample is historical-only (2003-2020). The reverse placebo (TYVIX->BAA10Y) is not significant and descriptive only, not in the family."
+      ],
+      "observations": 4327,
+      "p_value": 0.7539842282666138,
+      "partial_r_squared": 6.1003316440060284e-05,
+      "preregistration_fingerprint": "435ae25855fdce42053a658c55ddeaa86503a8a5921d8ce03f8a0c7a4a26e655",
+      "report_path": "docs/studies/credit-spread-tyvix-009.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2020-05-15T21:00:00Z",
+        "observations": 4327,
+        "panel_rows": 4330
+      },
+      "source_instrument": "credit:baa-10y-spread",
+      "standard_error": 0.00040069226515237143,
+      "status": "rejected",
+      "t_statistic": -0.313390200670524,
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "trial_id": "T0017",
+      "trial_record_hash": "4daa54ed5167d4644bbe65ebcff4ef10d5a53cd3ac85c9361e8eaf3e5813d7c5",
+      "verdict_summary": "Hypothesis H0014 REJECTED (trial T0017): this test did not reject (Holm-adjusted p = 0.754); partial R² 6.10033e-05 below the 0.005 threshold; holdout OOS incremental R² -0.00098; cost gate informational (gross daily edge +0.4572%, 95% CI excludes zero) — no net edge measurable: TYVIX is not tradable and no listed TYVIX futures exist.",
+      "version": 1
     }
   ],
   "nodes": [
@@ -2732,6 +2783,7 @@
       "short_label": "BAA10Y",
       "studies": [
         "credit-spread-spx-008",
+        "credit-spread-tyvix-009",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"
@@ -2820,6 +2872,7 @@
       "name": "CBOE/CBOT 10-Year Treasury Note Volatility Index (TYVIX)",
       "short_label": "TYVIX",
       "studies": [
+        "credit-spread-tyvix-009",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"
@@ -2834,6 +2887,7 @@
       "short_label": "VIX",
       "studies": [
         "credit-spread-spx-008",
+        "credit-spread-tyvix-009",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"

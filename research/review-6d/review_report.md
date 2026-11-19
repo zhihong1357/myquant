@@ -1,15 +1,15 @@
 # Adversarial review report (Stage 6d)
 
-Reviewed at: 2026-11-19T00:36:42+00:00
+Reviewed at: 2026-11-19T02:13:30.990499+00:00
 
-Read-only review of the lab's 8 empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
+Read-only review of the lab's 9 empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
 
 ## Summary
 
-- PASS: 84
+- PASS: 93
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 12
+- NOTE: 13
 
 ## btc-eth-001
 
@@ -317,7 +317,36 @@ Read-only review of the lab's 8 empirical studies: ledger integrity, preregistra
 - **[PASS]** `pit_spot_check` (credit-spread-spx-008): available_at >= event_time for all 18018 retained observation(s)
   - credit-spread-spx-008: 18018 observation(s) in 3 batch(es)
 
+## credit-spread-tyvix-009
+
+- Report: `docs/studies/credit-spread-tyvix-009.md`
+- Checks: 9 pass, 0 fail, 0 unverified, 1 note
+
+- **[PASS]** `ledger_chain` (research/credit-spread-tyvix-009/trials.jsonl): hash chain intact (1 record(s))
+  - research/credit-spread-tyvix-009/trials.jsonl: 1 record(s), latest record hash 4daa54ed5167...
+- **[PASS]** `ledger_anchor` (research/credit-spread-tyvix-009/trials.jsonl): ledger matches its anchor (1 record(s))
+  - research/credit-spread-tyvix-009/trials.jsonl: anchor record count and latest hash agree
+- **[PASS]** `registry_events` (research/credit-spread-tyvix-009/hypotheses): event chain intact (3 event(s))
+  - research/credit-spread-tyvix-009/hypotheses: 3 lifecycle event(s), all transitions legal
+- **[PASS]** `prereg_binding` (T0017): bound to H0014 v1 (fingerprint, plan, spec hash)
+  - T0017: fingerprint 435ae25855fd..., spec hash 084ef3bfc1e7...
+- **[PASS]** `multiple_testing` (T0017): holm adjustment recomputes (1 test(s), family size matches plan)
+  - T0017: 1 adjusted p-value(s) and reject flag(s) agree
+- **[PASS]** `verdict_consistency` (T0017): verdict re-derives from metrics and spec (primary test daily_baa10y_tyvix)
+  - T0017: supported=False equals the conjunction of 3 criteria; holm_adjusted_primary_p_below_0.05=False (adjusted p 0.7539842282666138); primary_partial_r_squared_at_least_0.005=False (partial_r_squared 6.1003316440060284e-05 >= 0.005)
+- **[NOTE]** `power_note` (T0017): MDE annotation from the 2B audit (1 entry)
+  - E0041: lead-lag n=4327, MDE partial R²=0.0018106466804513129, observed=6.1003316440060284e-05 (below MDE)
+- **[PASS]** `hypothesis_state` (H0014 v1): lifecycle state rejected matches the trial verdict
+  - credit-spread-tyvix-009 H0014 v1: supported=False, state=rejected
+- **[PASS]** `report_ledger` (credit-spread-tyvix-009): 4/4 report row(s) verified against the ledger
+  - T0017 daily_baa10y_tyvix: 8 column(s) match
+  - T0017 daily_baa10y_tyvix_no_factor: 7 column(s) match
+  - T0017 daily_baa10y_tyvix_naive: 7 column(s) match
+  - T0017 daily_tyvix_baa10y_reverse: 7 column(s) match
+- **[PASS]** `pit_spot_check` (credit-spread-tyvix-009): available_at >= event_time for all 13083 retained observation(s)
+  - credit-spread-tyvix-009: 13083 observation(s) in 3 batch(es)
+
 ## Lab-wide checks
 
-- **[PASS]** `trial_sequence` (lab): sequence T0001..T0016 complete (15 trial(s), T0003 reserved, 3 failed trial(s) recorded)
-  - lab: 15 trial(s); reserved: T0003; failed: T0006, T0008, T0014
+- **[PASS]** `trial_sequence` (lab): sequence T0001..T0017 complete (16 trial(s), T0003 reserved, 3 failed trial(s) recorded)
+  - lab: 16 trial(s); reserved: T0003; failed: T0006, T0008, T0014

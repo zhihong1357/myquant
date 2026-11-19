@@ -1,7 +1,7 @@
 """Statistical decision-record builder (Stage 2B).
 
 Generates one structured record per lab conclusion: a record for each
-of the 6 SUPPORTED edges and a rejection record for each of the 9
+of the 6 SUPPORTED edges and a rejection record for each of the 11
 rejected primary hypotheses. Records live in
 ``research/decision-records/records/`` as ``DR-<id>.json``.
 
@@ -80,9 +80,10 @@ PRIMARY_EDGES: dict[str, tuple[str, str]] = {
     "T0013": ("E0032", "H0011"),
     "T0015": ("E0037", "H0012"),
     "T0016": ("E0040", "H0013"),
+    "T0017": ("E0041", "H0014"),
 }
 
-# The 6 supported edges (from the registry) and the 10 rejected primary
+# The 6 supported edges (from the registry) and the 11 rejected primary
 # hypotheses (trial_id, hypothesis_id). Both lists are verified against
 # the registry/ledgers at run time.
 SUPPORTED_EDGE_IDS = ("E0023", "E0026", "E0030", "E0031", "E0032", "E0033")
@@ -97,6 +98,7 @@ REJECTED_HYPOTHESES = (
     ("T0011", "H0009"),
     ("T0015", "H0012"),
     ("T0016", "H0013"),
+    ("T0017", "H0014"),
 )
 
 # Ledger test fields copied into evidence, per test type. Only fields
@@ -255,6 +257,22 @@ LIMITATIONS: dict[str, tuple[str, ...]] = {
         "about same-day transmission.",
         "The reverse placebo (SPX->BAA10Y) is nominally significant but "
         "descriptive only, not in the test family.",
+    ),
+    "DR-H0014": (
+        "TYVIX was discontinued in 2020-05; the sample is "
+        "historical-only (2003-2020) and says nothing about the "
+        "post-2020 regime.",
+        "The 2-trading-day BAA10Y publication lag was verified only at "
+        "fetch time and is assumed constant over the historical sample; "
+        "FRED's posting schedule may have changed over 2003-2020.",
+        "FRED revisions are unmodelled; the trial uses the current "
+        "vintage, not as-first-posted values.",
+        "Same-day comovement is positive (see the study report "
+        "descriptives); the rejection is about next-day carryover, not "
+        "about same-day transmission.",
+        "The informational gross sign-rule edge is positive but "
+        "descriptive only, on an untradable index, and not a verdict "
+        "criterion.",
     ),
 }
 
@@ -605,7 +623,7 @@ def build_rejected_hypothesis_record(
 
 
 def build_records(repo_root: Path) -> dict[str, dict]:
-    """Build all 16 decision records; returns record_id -> record."""
+    """Build all 17 decision records; returns record_id -> record."""
     registry = load_json(repo_root / "research" / "graph" / "registry.json")
     audit_summary = load_json(
         repo_root / "research" / "statistical-audit-2b" / "summary.json"

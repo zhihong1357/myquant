@@ -641,7 +641,7 @@ def test_generated_fetch_fails_fast_on_todo_source(tmp_path: Path) -> None:
     spec = StudySpec(
         study_number=11,
         slug="cpi-cross-section-011",
-        hypothesis_id="H0016",
+        hypothesis_id="H9004",
         source_instrument="rates:dgs10",
         target_instrument="macro:cpi",
         test_type=EdgeTestType.CROSS_SECTION,

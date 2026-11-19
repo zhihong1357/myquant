@@ -1,0 +1,77 @@
+{
+  "audit_notes": [
+    "Power: observed partial R^2 0.00006 vs MDE 0.00181 at n=4327 (80% power, alpha 0.05) \u2014 the design was underpowered for an effect of the observed size; the null result rules out large effects, not small ones."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (3 of 3 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": {
+      "costs_applied": 0.0,
+      "days": 841,
+      "gross_daily_edge": 0.004572137356618472,
+      "gross_edge_bootstrap_p_value": 0.037481259370314844,
+      "gross_edge_ci_lower": 0.0004819445593969071,
+      "gross_edge_ci_upper": 0.009146868323401095,
+      "kind": "cost_gate_informational",
+      "note": "Informational only: no costs applied. TYVIX is not tradable; no listed TYVIX futures exist and no clean free cost series is available. Not a verdict criterion.",
+      "sign_accuracy": 0.5487804878048781
+    },
+    "family_tests": [
+      {
+        "edge_id": "E0041",
+        "holm_adjusted_p_value": 0.7539842282666138,
+        "raw_p_value": 0.7539842282666138,
+        "reject": false,
+        "test_key": "daily_baa10y_tyvix"
+      }
+    ],
+    "holdout_oos": {
+      "all_oos_incremental_r_squared": -0.0007782503346209779,
+      "holdout_oos_incremental_r_squared": -0.0009830291199928176
+    },
+    "primary_test": {
+      "coefficient": -0.0001255730293832285,
+      "observations": 4327,
+      "p_value": 0.7539842282666138,
+      "partial_r_squared": 6.1003316440060284e-05,
+      "standard_error": 0.00040069226515237143,
+      "t_statistic": -0.313390200670524,
+      "test_key": "daily_baa10y_tyvix",
+      "test_type": "lead_lag",
+      "within_study_holm_adjusted_p_value": 0.7539842282666138,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2003-01-03T21:00:00Z",
+      "last": "2020-05-15T21:00:00Z",
+      "observations": 4327,
+      "panel_rows": 4330
+    },
+    "verdict_criteria": {
+      "holdout_oos_incremental_r_squared_above_0": false,
+      "holm_adjusted_primary_p_below_0.05": false,
+      "primary_partial_r_squared_at_least_0.005": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0014",
+  "hypothesis_version": 1,
+  "ledger_path": "research/credit-spread-tyvix-009/trials.jsonl",
+  "ledger_test_key": "daily_baa10y_tyvix",
+  "limitations": [
+    "TYVIX was discontinued in 2020-05; the sample is historical-only (2003-2020) and says nothing about the post-2020 regime.",
+    "The 2-trading-day BAA10Y publication lag was verified only at fetch time and is assumed constant over the historical sample; FRED's posting schedule may have changed over 2003-2020.",
+    "FRED revisions are unmodelled; the trial uses the current vintage, not as-first-posted values.",
+    "Same-day comovement is positive (see the study report descriptives); the rejection is about next-day carryover, not about same-day transmission.",
+    "The informational gross sign-rule edge is positive but descriptive only, on an untradable index, and not a verdict criterion."
+  ],
+  "preregistration_fingerprint": "435ae25855fdce42053a658c55ddeaa86503a8a5921d8ce03f8a0c7a4a26e655",
+  "primary_edge_id": "E0041",
+  "record_id": "DR-H0014",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/credit-spread-tyvix-009.md",
+  "schema_version": 1,
+  "study": "credit-spread-tyvix-009",
+  "trial_id": "T0017",
+  "trial_record_hash": "4daa54ed5167d4644bbe65ebcff4ef10d5a53cd3ac85c9361e8eaf3e5813d7c5"
+}
