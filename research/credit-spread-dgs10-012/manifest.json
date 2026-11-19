@@ -1,0 +1,143 @@
+{
+  "cache_root": "data/cache/credit-spread-dgs10-012",
+  "fetched_at": "2026-11-19T15:39:41.169810+00:00",
+  "fetches": [
+    {
+      "dropped_partial_bars": 0,
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+      "fields": [
+        "close"
+      ],
+      "first_event": "2003-01-02T21:00:00+00:00",
+      "instrument_id": "credit:baa-10y-spread",
+      "items": 5968,
+      "last_event": "2026-11-17T21:00:00+00:00",
+      "missing": 261,
+      "observation_rows": 5968,
+      "pages": [
+        {
+          "payload_sha256": "141e24f8dd78762a6a446c3ccb0fd1c9c3ab93735f693cf32973e3f5779bdf6a",
+          "record_id": "ec248b5638bfd74aff970225e303cfc8ae65711f9039db4e377ff0b6b0a0cd90",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y&cosd=2003-01-02&coed=2026-11-19"
+        }
+      ],
+      "pit_parquet": "9eb6c21671709e5b2ef77a543f7ed78f32bcb4598e437af1c233b3783016e8e4.parquet",
+      "pit_parquet_sha256": "9eb6c21671709e5b2ef77a543f7ed78f32bcb4598e437af1c233b3783016e8e4",
+      "pit_store": "pit-1d",
+      "source_id": "fred",
+      "venue": "fred",
+      "venue_id": "BAA10Y",
+      "window_end": "2026-11-19T21:00:00+00:00",
+      "window_start": "2003-01-02T21:00:00+00:00"
+    },
+    {
+      "dropped_partial_bars": 0,
+      "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+      "fields": [
+        "close"
+      ],
+      "first_event": "2003-01-02T21:00:00+00:00",
+      "instrument_id": "rates:us-10y-yield",
+      "items": 5973,
+      "last_event": "2026-11-17T21:00:00+00:00",
+      "missing": 256,
+      "observation_rows": 5973,
+      "pages": [
+        {
+          "payload_sha256": "94812cbdc685e101a1abb913bfa345000882558bd577471fbb8d0d6883cbb7cb",
+          "record_id": "6ea69d61d649b06df965307ef41a0d7df7a9a140046ab06e60eb69bfaf417f6b",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2003-01-02&coed=2026-11-19"
+        }
+      ],
+      "pit_parquet": "f4d0c0dd141ffa553d6ff21b5c8b23f129ec0dbfe92100d53992f7a56d45abf3.parquet",
+      "pit_parquet_sha256": "f4d0c0dd141ffa553d6ff21b5c8b23f129ec0dbfe92100d53992f7a56d45abf3",
+      "pit_store": "pit-1d",
+      "source_id": "fred",
+      "venue": "fred",
+      "venue_id": "DGS10",
+      "window_end": "2026-11-19T21:00:00+00:00",
+      "window_start": "2003-01-02T21:00:00+00:00"
+    },
+    {
+      "dropped_partial_bars": 1,
+      "endpoint": "https://query2.finance.yahoo.com/v8/finance/chart",
+      "fields": [
+        "close"
+      ],
+      "first_event": "2003-01-02T21:00:00+00:00",
+      "instrument_id": "index:sp500",
+      "items": 6009,
+      "last_event": "2026-11-18T21:00:00+00:00",
+      "missing": 0,
+      "observation_rows": 6009,
+      "pages": [
+        {
+          "payload_sha256": "0cdc73884dcc27312cb1a009584f52f4f187a79e374b026fa779f70bb6d746a5",
+          "record_id": "017ff19ddd1224f67f72fe887192459a0cf5f328340623cf103b3eaf87a84af8",
+          "url": "https://query2.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1=1041465600&period2=1795132800&interval=1d"
+        }
+      ],
+      "pit_parquet": "215d703deadfbc065291cbf91a630b1a5e3b7c0608086b4c27bf0994f791c53d.parquet",
+      "pit_parquet_sha256": "215d703deadfbc065291cbf91a630b1a5e3b7c0608086b4c27bf0994f791c53d",
+      "pit_store": "pit-1d",
+      "source_id": "yahoo-finance",
+      "venue": "yahoo",
+      "venue_id": "^GSPC",
+      "window_end": "2026-11-19T21:00:00+00:00",
+      "window_start": "2003-01-02T21:00:00+00:00"
+    }
+  ],
+  "fred_lag_check": {
+    "consistent_with_baa10y_lag_steps": 2,
+    "consistent_with_reference_lag_steps": 1,
+    "fetched_at": "2026-11-19T15:39:41.169810+00:00",
+    "interpretation": "BAA10Y is level with the reference series at fetch time; the 6b probe (2026-11-18T21:45Z, 45 minutes after the US close) showed it one trading day behind at that time, so the posting happened after the close and the effective 2-trading-day lag for close-of-day decisions stands.",
+    "most_recent_trading_day": "2026-11-18",
+    "previous_trading_day": "2026-11-17",
+    "series": {
+      "BAA10Y": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y",
+        "last_available_date": "2026-11-17",
+        "payload_sha256": "d803ed7cbe5328b15f7953423ac5465fd7553c1d52c4dd56c3b1f294ae71054d",
+        "record_id": "89cccd2ac523387d852744031cd021073467c41003428f647b85ac4bcce9aa96",
+        "rows": 10219
+      },
+      "DGS10": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+        "last_available_date": "2026-11-17",
+        "payload_sha256": "ebe1a153c62aa8fd19129effe84b235c79d7a63b04418473a35aabfe86135a87",
+        "record_id": "98a2f52ea804764c76d4d22a85725047315035f0aae72179f40709c7faf3a08a",
+        "rows": 16204
+      }
+    },
+    "today_us_eastern": "2026-11-19"
+  },
+  "panel": {
+    "close_rows": 5961,
+    "dropped_close_rows": 58,
+    "dropped_return_rows": 59,
+    "first_return_time": "2003-01-03T21:00:00+00:00",
+    "instruments": [
+      "credit:baa-10y-spread",
+      "rates:us-10y-yield",
+      "index:sp500"
+    ],
+    "last_return_time": "2026-11-17T21:00:00+00:00",
+    "return_rows": 5960
+  },
+  "quality": {
+    "event_time_max": "2026-11-18T21:00:00+00:00",
+    "event_time_min": "2003-01-02T21:00:00+00:00",
+    "issues": [],
+    "missing_expected_series": [],
+    "row_count": 17950,
+    "unique_instrument_count": 3,
+    "unique_series_count": 3
+  },
+  "source_ids": [
+    "fred",
+    "yahoo-finance"
+  ],
+  "source_version": 1,
+  "study": "credit-spread-dgs10-012"
+}

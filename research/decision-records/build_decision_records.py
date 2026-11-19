@@ -83,9 +83,10 @@ PRIMARY_EDGES: dict[str, tuple[str, str]] = {
     "T0017": ("E0041", "H0014"),
     "T0018": ("E0042", "H0015"),
     "T0019": ("E0043", "H0016"),
+    "T0020": ("E0044", "H0017"),
 }
 
-# The 6 supported edges (from the registry) and the 13 rejected primary
+# The 6 supported edges (from the registry) and the 14 rejected primary
 # hypotheses (trial_id, hypothesis_id). Both lists are verified against
 # the registry/ledgers at run time.
 SUPPORTED_EDGE_IDS = ("E0023", "E0026", "E0030", "E0031", "E0032", "E0033")
@@ -103,6 +104,7 @@ REJECTED_HYPOTHESES = (
     ("T0017", "H0014"),
     ("T0018", "H0015"),
     ("T0019", "H0016"),
+    ("T0020", "H0017"),
 )
 
 # Ledger test fields copied into evidence, per test type. Only fields
@@ -307,6 +309,24 @@ LIMITATIONS: dict[str, tuple[str, ...]] = {
         "criterion by a hair (+0.000024, an MSE difference of 9.7e-08); "
         "the verdict rests on the two decisive criteria, which fail by "
         "orders of magnitude.",
+    ),
+    "DR-H0017": (
+        "The 2-trading-day BAA10Y publication lag was verified only at "
+        "fetch time and is assumed constant over the historical sample; "
+        "FRED's posting schedule may have changed over 2003-2026.",
+        "FRED revisions are unmodelled; the trial uses the current "
+        "vintage, not as-first-posted values.",
+        "BAA10Y contains minus DGS10 by definition, so the predictor "
+        "contains the target's own lag-2 change and the same-day "
+        "correlation (-0.3863) is mechanical, not evidence of "
+        "transmission; the baseline's lag-2 guard blocks the channel "
+        "and the rejection is of the guarded test.",
+        "The informational gross sign-rule edge is negative and its "
+        "confidence interval includes zero; it is descriptive only, on "
+        "a non-tradable yield, and not a verdict criterion.",
+        "The reverse placebo is nominally significant (p=0.0194) but "
+        "descriptive only, below the 0.005 threshold, and itself "
+        "mechanically confounded (its target contains minus DGS10).",
     ),
 }
 

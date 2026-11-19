@@ -1,6 +1,6 @@
 {
   "audit_notes": [
-    "Lab-wide family correction (40 tested edges): Holm adjusted p 0.3436 (not significant), BH adjusted p 0.06545 (not significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Lab-wide family correction (41 tested edges): Holm adjusted p 0.3534 (not significant), BH adjusted p 0.06709 (not significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
     "Known caveat (from the study report): Bootstrap-marginal: the HAC test is significant, but the block-bootstrap 95% CI for the mean difference just includes zero. The ETH leg (E0031) is significant by both methods.",
     "Power: observed Cohen's d 0.2466 vs MDE 0.2675, observed mean ratio 1.2504 vs MDE 1.2717 (n=116/2009, 80% power, alpha 0.05)."
   ],
@@ -27,10 +27,10 @@
     ],
     "holdout_oos": null,
     "lab_wide": {
-      "bh_adjusted_p_value": 0.0654512017859704,
+      "bh_adjusted_p_value": 0.06708748183061965,
       "bh_significant": false,
-      "family_size": 40,
-      "holm_adjusted_p_value": 0.34361880937634454,
+      "family_size": 41,
+      "holm_adjusted_p_value": 0.3534364896442401,
       "holm_significant": false
     },
     "primary_test": {

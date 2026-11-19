@@ -1123,6 +1123,61 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
             "family.",
         ),
     ),
+    # Study 012 (H0017, T0020): 1-test Holm family. The predictor is
+    # the BAA10Y level change in basis points lagged 2 trading days by
+    # availability (the latest change available at the decision close,
+    # under the verified 2-trading-day BAA10Y posting lag); the SPX
+    # control carries no lag (Yahoo posts the close the same evening,
+    # so SPX[t] is knowable at the decision close — study 003's
+    # factor-alignment precedent). The target is the DGS10 daily
+    # LEVEL change in basis points, not the log change — a yield has
+    # no meaningful log return. Mechanical confound (same class as
+    # E0026's caveat): BAA10Y = BAA − DGS10 by definition, so the
+    # predictor contains minus the target's own lag-2 change, and the
+    # mechanical sign coincides with the preregistered negative
+    # direction. The baseline therefore controls for the target's own
+    # lag-2 change as a PIT-clean mechanical guard (retained in the
+    # no-factor bound). The naive (unlagged, lookahead) alignment is
+    # also null, so the publication lag is not what killed the effect.
+    # Full window (2003-2026). Fifth real use of the 6c scaffold; see
+    # the study report's scaffold-feedback section. H0017 was amended
+    # pre-trial from v1 to v2 (FRED BAA is monthly only, so the
+    # decomposition leg derives ΔBAA from the identity instead).
+    EdgeSpec(
+        edge_id="E0044",
+        study="credit-spread-dgs10-012",
+        trial_id="T0020",
+        ledger_test_key="daily_baa10y_dgs10",
+        source="credit:baa-10y-spread",
+        target="rates:us-10y-yield",
+        frequency="daily",
+        condition=(
+            "predictor is the BAA10Y bp change lagged 2 trading days "
+            "by availability (latest available at the decision close); "
+            "next-day DGS10 level change in bp; baseline controls for "
+            "the target's own lag-2 change as a mechanical guard"
+        ),
+        method=PARTIAL_LEAD_LAG_DAILY,
+        control=(
+            "SPX[t] log return (Yahoo posts the close the same evening) "
+            "+ DGS10 lag-2 change (mechanical guard)"
+        ),
+        is_primary=True,
+        panel_key="daily",
+        notes=(
+            "Planner rank-1 candidate pair (6a, total score 1.00). "
+            "Primary coefficient -0.049085 per bp, preregistered "
+            "negative sign, p=0.1819; partial R² 0.000576.",
+            "Mechanical caveat: BAA10Y contains minus DGS10 by "
+            "definition, so the predictor contains the target's own "
+            "lag-2 change; the baseline's lag-2 guard blocks the "
+            "channel (predictor-guard correlation -0.3869; DGS10 "
+            "change autocorrelations lag-1 -0.0118, lag-2 -0.0503). "
+            "The reverse placebo (DGS10->BAA10Y) is nominally "
+            "significant (p=0.0194) but descriptive only, below the "
+            "0.005 threshold, and itself mechanically confounded.",
+        ),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
@@ -1155,6 +1210,7 @@ TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0017", "credit-spread-tyvix-009", "H0014", 1, "docs/studies/credit-spread-tyvix-009.md"),
     ("T0018", "credit-spread-vix-010", "H0015", 1, "docs/studies/credit-spread-vix-010.md"),
     ("T0019", "credit-spread-vxn-011", "H0016", 1, "docs/studies/credit-spread-vxn-011.md"),
+    ("T0020", "credit-spread-dgs10-012", "H0017", 2, "docs/studies/credit-spread-dgs10-012.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -1438,6 +1494,25 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
                 "CFE but are not currently listed, and no free VXN "
                 "futures price series exists (Yahoo VN=F returns no "
                 "data). Not a verdict criterion."
+            ),
+        )
+    if data.trial_id == "T0020":
+        gate = data.metrics["cost_gate_informational"]
+        return CostGateRecord(
+            verdict=CostGateVerdict.INFORMATIONAL,
+            net_daily_edge=None,
+            gross_daily_edge=gate["gross_daily_edge"],
+            bootstrap_p_value=gate["gross_edge_bootstrap_p_value"],
+            ci_lower=gate["gross_edge_ci_lower"],
+            ci_upper=gate["gross_edge_ci_upper"],
+            days=gate["days"],
+            note=(
+                "Informational only: no costs applied. DGS10 is a "
+                "yield and is not directly tradable; free proxy series "
+                "exist (Yahoo ZN=F and IEF) but the DV01/duration "
+                "conversion and futures roll handling are not modelled, "
+                "so no clean cost measurement is available. Gross edge "
+                "in basis points per day. Not a verdict criterion."
             ),
         )
     gate = data.metrics["cost_gate"]
