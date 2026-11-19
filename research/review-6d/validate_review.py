@@ -318,6 +318,7 @@ def render_validation_report(
 ) -> str:
     counts = review.counts
     total_rules = sum(len(rules) for rules in REPORT_RULES.values())
+    total_reports = len(REPORT_RULES)
     verified_rows = 0
     failed_rows = 0
     for study in review.studies:
@@ -445,7 +446,7 @@ def render_validation_report(
             "",
             "### Report coverage",
             "",
-            f"- {total_rules} report rules across the 7 reports; "
+            f"- {total_rules} report rules across the {total_reports} reports; "
             f"{verified_rows} rows verified, {failed_rows} rows disagree.",
             f"- {margins['cells_compared']} numeric cells compared "
             "(window-count and bootstrap-CI cells compared separately).",

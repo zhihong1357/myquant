@@ -39,12 +39,6 @@
     {
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
-      "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "rates:us-10y-yield"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
       "source_instrument": "crypto:btc-usdt-perp",
       "target_instrument": "credit:baa-10y-spread"
     },
@@ -715,7 +709,7 @@
       "target_instrument": "macro:cpi-mom"
     }
   ],
-  "content_hash": "b193f5a19ff26d1c71487786764fad1e2ae876d405ea43e4c455e2943f963edf",
+  "content_hash": "e99854775b2e487630109f15ecd9589f2aad9bfcdbd09f45da192005fe00d6a2",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -2875,6 +2869,64 @@
       "trial_record_hash": "44686089ef56366aed448d23b43672a4dd868504511cd10be788a5f5b8228be4",
       "verdict_summary": "Hypothesis H0016 REJECTED (trial T0019): this test did not reject (Holm-adjusted p = 0.800); partial R² 2.2859e-05 below the 0.005 threshold; holdout OOS incremental R² +0.00002; cost gate informational (gross daily edge +0.3062%, 95% CI includes zero) — no net edge measurable without a tradable SPX price series.",
       "version": 1
+    },
+    {
+      "coefficient": -0.04908523422364984,
+      "common_factor_control": "SPX[t] log return (Yahoo posts the close the same evening) + DGS10 lag-2 change (mechanical guard)",
+      "condition": "predictor is the BAA10Y bp change lagged 2 trading days by availability (latest available at the decision close); next-day DGS10 level change in bp; baseline controls for the target's own lag-2 change as a mechanical guard",
+      "cost_gate": {
+        "bootstrap_p_value": 0.41879060469765117,
+        "ci_lower": -0.5586941340782174,
+        "ci_upper": 0.22905027932960503,
+        "days": 716,
+        "gross_daily_edge": -0.16480446927374592,
+        "net_daily_edge": null,
+        "note": "Informational only: no costs applied. DGS10 is a yield and is not directly tradable; free proxy series exist (Yahoo ZN=F and IEF) but the DV01/duration conversion and futures roll handling are not modelled, so no clean cost measurement is available. Gross edge in basis points per day. Not a verdict criterion.",
+        "verdict": "informational"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1"
+      ],
+      "edge_id": "E0044",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": -0.004562630917088306,
+      "holdout_oos_note": "Holdout window only (7 folds, 716 rows).",
+      "holm_adjusted_p_value": 0.18193995324442797,
+      "hypothesis_id": "H0017",
+      "hypothesis_version": 2,
+      "incremental_r_squared": 0.000574363599866845,
+      "lag_steps": 1,
+      "ledger_path": "research/credit-spread-dgs10-012/trials.jsonl",
+      "ledger_test_key": "daily_baa10y_dgs10",
+      "method": "partial lead-lag OLS, lag 1, Newey-West HAC (max lag 5 daily)",
+      "notes": [
+        "Planner rank-1 candidate pair (6a, total score 1.00). Primary coefficient -0.049085 per bp, preregistered negative sign, p=0.1819; partial R² 0.000576.",
+        "Mechanical caveat: BAA10Y contains minus DGS10 by definition, so the predictor contains the target's own lag-2 change; the baseline's lag-2 guard blocks the channel (predictor-guard correlation -0.3869; DGS10 change autocorrelations lag-1 -0.0118, lag-2 -0.0503). The reverse placebo (DGS10->BAA10Y) is nominally significant (p=0.0194) but descriptive only, below the 0.005 threshold, and itself mechanically confounded."
+      ],
+      "observations": 5957,
+      "p_value": 0.18193995324442797,
+      "partial_r_squared": 0.0005757200231859039,
+      "preregistration_fingerprint": "dd5e04a370da48c0185eedb78990dea2164d44f1097db646d5e9764a1e9eed2a",
+      "report_path": "docs/studies/credit-spread-dgs10-012.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2026-11-17T21:00:00Z",
+        "observations": 5957,
+        "panel_rows": 5960
+      },
+      "source_instrument": "credit:baa-10y-spread",
+      "standard_error": 0.03677331829977272,
+      "status": "rejected",
+      "t_statistic": -1.334805682302356,
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "trial_id": "T0020",
+      "trial_record_hash": "6b87286c14dd70b572665cda0e1dac85b2888f6d3fb9b70d3bd2c290c2b7ad13",
+      "verdict_summary": "Hypothesis H0017 REJECTED (trial T0020): this test did not reject (Holm-adjusted p = 0.182); partial R² 0.00057572 below the 0.005 threshold; holdout OOS incremental R² -0.00456; cost gate informational (gross daily edge -16.4804%, 95% CI includes zero) — no net edge measurable without a tradable SPX price series.",
+      "version": 1
     }
   ],
   "nodes": [
@@ -2886,6 +2938,7 @@
       "name": "Moody's Seasoned Baa Corporate Bond Yield Relative to 10-Year Treasury (BAA10Y)",
       "short_label": "BAA10Y",
       "studies": [
+        "credit-spread-dgs10-012",
         "credit-spread-spx-008",
         "credit-spread-tyvix-009",
         "credit-spread-vix-010",
@@ -2964,6 +3017,7 @@
       "name": "S&P 500 Index",
       "short_label": "SPX",
       "studies": [
+        "credit-spread-dgs10-012",
         "credit-spread-spx-008",
         "credit-spread-vix-010",
         "credit-spread-vxn-011",
@@ -3033,6 +3087,7 @@
       "name": "Market Yield on US Treasury Securities at 10 Years (DGS10)",
       "short_label": "DGS10",
       "studies": [
+        "credit-spread-dgs10-012",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"

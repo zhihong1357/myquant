@@ -68,6 +68,7 @@ STUDY_SLUGS = (
     "credit-spread-tyvix-009",
     "credit-spread-vix-010",
     "credit-spread-vxn-011",
+    "credit-spread-dgs10-012",
 )
 
 
@@ -213,7 +214,7 @@ def test_parse_markdown_tables_and_find() -> None:
 def test_report_rules_cover_all_studies() -> None:
     assert set(REPORT_RULES) == set(STUDY_SLUGS)
     total = sum(len(rules) for rules in REPORT_RULES.values())
-    assert total == 68
+    assert total == 73
 
 
 # ---------------------------------------------------------------------------
@@ -737,6 +738,7 @@ def test_power_note_never_fails() -> None:
         "T0017",
         "T0018",
         "T0019",
+        "T0020",
     }
     result = power_note("T0001", entries["T0001"], "btc-eth-001")
     assert result.verdict is ReviewVerdict.NOTE
@@ -758,9 +760,9 @@ def test_review_study_001_counts() -> None:
 
 
 def test_review_lab_counts_pin_current_lab_state() -> None:
-    # Pins the lab state at delivery time: 111 pass, 0 fail, 8 unverified
-    # (7 PIT caches not retained + study 005's missing anchor), 15 notes.
-    # Studies 008, 009, 010 and 011 are the only studies whose PIT caches
+    # Pins the lab state at delivery time: 120 pass, 0 fail, 8 unverified
+    # (7 PIT caches not retained + study 005's missing anchor), 16 notes.
+    # Studies 008, 009, 010, 011 and 012 are the only studies whose PIT caches
     # are retained locally, so their pit_spot_checks pass where the other
     # seven are unverified.
     # The reviewer's first run found 3 genuine report-ledger
@@ -768,7 +770,7 @@ def test_review_lab_counts_pin_current_lab_state() -> None:
     # the ledgers and fixed in the same delivery, so the current state
     # is clean — update this test if a future review finds a new FAIL.
     review = review_lab(REPO_ROOT, REVIEWED_AT)
-    assert review.counts == {"pass": 111, "fail": 0, "unverified": 8, "note": 15}
+    assert review.counts == {"pass": 120, "fail": 0, "unverified": 8, "note": 16}
     failing = [
         (study.study, check.subject)
         for study in review.studies

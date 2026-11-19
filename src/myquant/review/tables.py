@@ -279,6 +279,18 @@ REPORT_RULES: dict[str, tuple[ReportRule, ...]] = {
         _rule("T0019", "daily_vxn_baa10y_reverse", _LEAD_LAG_HEADERS,
               r"reverse placebo \(VXN→BAA10Y\)", LEAD_LAG_COLUMNS),
     ),
+    "credit-spread-dgs10-012": (
+        _rule("T0020", "daily_baa10y_dgs10", _LEAD_LAG_HEADERS,
+              r"daily BAA10Y→DGS10, SPX \+ guard \(primary\)", LEAD_LAG_COLUMNS),
+        _rule("T0020", "daily_baa10y_dgs10_no_factor", _LEAD_LAG_HEADERS,
+              r"no-factor control \(guard retained\)", LEAD_LAG_COLUMNS),
+        _rule("T0020", "daily_baa10y_dgs10_naive", _LEAD_LAG_HEADERS,
+              r"naive \(unlagged\) alignment", LEAD_LAG_COLUMNS),
+        _rule("T0020", "daily_dgs10_baa10y_reverse", _LEAD_LAG_HEADERS,
+              r"reverse placebo \(DGS10→BAA10Y\)", LEAD_LAG_COLUMNS),
+        _rule("T0020", "daily_baa_dgs10_decomposition", _LEAD_LAG_HEADERS,
+              r"ΔBAA decomposition \(identity-derived\)", LEAD_LAG_COLUMNS),
+    ),
 }
 
 

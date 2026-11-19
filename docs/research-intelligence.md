@@ -1179,6 +1179,56 @@ historically (CFE, CFTC-certified 2012) but are no longer
 listed — the informational cost-gate treatment stands on the
 corrected facts.
 
+### Regeneration after study 012
+
+The catalog and lab report were regenerated when study 012
+landed (generated 2026-11-19T15:51Z): 12 studies, 17
+hypotheses (19 versions), 19 trial records (16 completed, 3
+failed, T0003 reserved), 44 edges (6 supported, 35 rejected,
+1 pending, 2 descriptive), 20 decision records, 118
+candidates (106 ranked, 12 unrankable), 82 source files.
+Integrity still holds: **0 broken links**, and the only
+missing optional file is still the study-005 anchor. The
+regenerated report quotes the 6d review at 144 checks (120
+pass, 0 fail, 8 unverified, 16 note) and the 2B audit at
+family 41 (3 Holm survivors, 5 BH survivors) — E0033's BH p
+rose to 0.01499 (from 0.01462 at family 40) and it remains a
+BH survivor; E0030's BH p rose to 0.06709 and it remains
+outside both survivor sets. The counts in the Validation
+results section above are the 6e validation's own record
+(2026-11-18T23:52Z) and are left as they were.
+
+One generator fix landed with this regeneration:
+`validate_review.py` hard-coded "across the 7 reports" in its
+coverage line — stale since study 008. The report count now
+comes from `REPORT_RULES` (12 reports, 73 rules), the same
+class of fix as study 008's `lab_wide_note` and study 009's
+audit literal. The review re-run is otherwise unchanged.
+
+Independent review of study 012 (plain numpy, no repo
+imports, panel rebuilt from the raw cached FRED/Yahoo
+payloads): the panel counts, the guard diagnostics
+(misalignment 10 rows, predictor–guard correlation −0.3869,
+DGS10 autocorrelations −0.0118/−0.0503), all five partial
+tests (45 numbers — primary, no-factor, naive, reverse
+placebo and the identity-derived ΔBAA decomposition, which
+reproduces the primary test numerically as the design
+states), all six scan correlations, all five sub-periods,
+the MDE, the walk-forward evaluation (40 folds, both MSEs,
+both OOS R² values, all 40 per-fold values) and the full
+informational cost gate (gross edge, sign accuracy excluding
+the 44 zero-change days, bootstrap CI and the two-sided
+centered bootstrap p) all match the T0020 ledger record.
+Three mismatches in the first review pass were all in the
+reviewer's own script, not the ledger: sub-period rows need
+both decision and target dates inside the block, the
+holdout cut applies to decision dates (the row targeting
+2024-01-02 was decided on 2023-12-29), and the cost-gate p
+is the shared two-sided bootstrap test, not a one-sided
+tail count. E0033's BH survival was confirmed from the
+audit summary itself (family 41, BH p 0.014986, Holm p
+0.055558 — still outside the Holm set).
+
 Stage 6 is complete with this item: the planner (§1), the
 evidence analyst (§2), the experiment assistant (§3), the
 adversarial reviewer (§4) and the research librarian (§5)

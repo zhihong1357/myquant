@@ -1,15 +1,15 @@
 # Adversarial review report (Stage 6d)
 
-Reviewed at: 2026-11-19T03:58:29+00:00
+Reviewed at: 2026-11-19T15:50:38.164512+00:00
 
-Read-only review of the lab's 11 empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
+Read-only review of the lab's 12 empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
 
 ## Summary
 
-- PASS: 111
+- PASS: 120
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 15
+- NOTE: 16
 
 ## btc-eth-001
 
@@ -404,7 +404,37 @@ Read-only review of the lab's 11 empirical studies: ledger integrity, preregistr
 - **[PASS]** `pit_spot_check` (credit-spread-vxn-011): available_at >= event_time for all 17986 retained observation(s)
   - credit-spread-vxn-011: 17986 observation(s) in 3 batch(es)
 
+## credit-spread-dgs10-012
+
+- Report: `docs/studies/credit-spread-dgs10-012.md`
+- Checks: 9 pass, 0 fail, 0 unverified, 1 note
+
+- **[PASS]** `ledger_chain` (research/credit-spread-dgs10-012/trials.jsonl): hash chain intact (1 record(s))
+  - research/credit-spread-dgs10-012/trials.jsonl: 1 record(s), latest record hash 6b87286c14dd...
+- **[PASS]** `ledger_anchor` (research/credit-spread-dgs10-012/trials.jsonl): ledger matches its anchor (1 record(s))
+  - research/credit-spread-dgs10-012/trials.jsonl: anchor record count and latest hash agree
+- **[PASS]** `registry_events` (research/credit-spread-dgs10-012/hypotheses): event chain intact (5 event(s))
+  - research/credit-spread-dgs10-012/hypotheses: 5 lifecycle event(s), all transitions legal
+- **[PASS]** `prereg_binding` (T0020): bound to H0017 v2 (fingerprint, plan, spec hash)
+  - T0020: fingerprint dd5e04a370da..., spec hash 83537ec283e6...
+- **[PASS]** `multiple_testing` (T0020): holm adjustment recomputes (1 test(s), family size matches plan)
+  - T0020: 1 adjusted p-value(s) and reject flag(s) agree
+- **[PASS]** `verdict_consistency` (T0020): verdict re-derives from metrics and spec (primary test daily_baa10y_dgs10)
+  - T0020: supported=False equals the conjunction of 3 criteria; holm_adjusted_primary_p_below_0.05=False (adjusted p 0.18193995324442797); primary_partial_r_squared_at_least_0.005=False (partial_r_squared 0.0005757200231859039 >= 0.005)
+- **[NOTE]** `power_note` (T0020): MDE annotation from the 2B audit (1 entry)
+  - E0044: lead-lag n=5957, MDE partial R²=0.0013158555887334818, observed=0.0005757200231859039 (below MDE)
+- **[PASS]** `hypothesis_state` (H0017 v2): lifecycle state rejected matches the trial verdict
+  - credit-spread-dgs10-012 H0017 v2: supported=False, state=rejected
+- **[PASS]** `report_ledger` (credit-spread-dgs10-012): 5/5 report row(s) verified against the ledger
+  - T0020 daily_baa10y_dgs10: 8 column(s) match
+  - T0020 daily_baa10y_dgs10_no_factor: 7 column(s) match
+  - T0020 daily_baa10y_dgs10_naive: 7 column(s) match
+  - T0020 daily_dgs10_baa10y_reverse: 7 column(s) match
+  - T0020 daily_baa_dgs10_decomposition: 7 column(s) match
+- **[PASS]** `pit_spot_check` (credit-spread-dgs10-012): available_at >= event_time for all 17950 retained observation(s)
+  - credit-spread-dgs10-012: 17950 observation(s) in 3 batch(es)
+
 ## Lab-wide checks
 
-- **[PASS]** `trial_sequence` (lab): sequence T0001..T0019 complete (18 trial(s), T0003 reserved, 3 failed trial(s) recorded)
-  - lab: 18 trial(s); reserved: T0003; failed: T0006, T0008, T0014
+- **[PASS]** `trial_sequence` (lab): sequence T0001..T0020 complete (19 trial(s), T0003 reserved, 3 failed trial(s) recorded)
+  - lab: 19 trial(s); reserved: T0003; failed: T0006, T0008, T0014
