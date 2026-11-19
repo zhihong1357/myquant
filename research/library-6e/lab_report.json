@@ -1,0 +1,623 @@
+{
+  "audit": {
+    "bh_survivors": 5,
+    "family_size": 36,
+    "holm_survivors": 4,
+    "supported_total": 6
+  },
+  "candidates": {
+    "ranked": 111,
+    "tiers": {
+      "0.50": 18,
+      "0.60": 2,
+      "0.70": 47,
+      "0.80": 9,
+      "1.00": 35
+    },
+    "top_10": [
+      {
+        "mechanism": "transmission",
+        "pair": "BAA10Y→SPX",
+        "rank": 1,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "BAA10Y→TYVIX",
+        "rank": 2,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "BAA10Y→VIX",
+        "rank": 3,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "BAA10Y→VXN",
+        "rank": 4,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "BAA10Y→DGS10",
+        "rank": 5,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "BTC→BTC_DVOL",
+        "rank": 6,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "BTC→ETH_DVOL",
+        "rank": 7,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "ETH→BTC",
+        "rank": 8,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "ETH→SOL",
+        "rank": 9,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      },
+      {
+        "mechanism": "transmission",
+        "pair": "ETH→BTC_DVOL",
+        "rank": 10,
+        "test_type": "lead_lag",
+        "total_score": 1.0
+      }
+    ],
+    "total": 123,
+    "unrankable": 12
+  },
+  "counts": {
+    "broken_links": 0,
+    "candidates_ranked": 111,
+    "candidates_total": 123,
+    "candidates_unrankable": 12,
+    "decision_records": 15,
+    "edges_descriptive": 2,
+    "edges_pending": 1,
+    "edges_rejected": 30,
+    "edges_supported": 6,
+    "edges_total": 39,
+    "hypotheses": 12,
+    "hypothesis_versions": 13,
+    "missing_optional": 1,
+    "nodes": 12,
+    "panels": 12,
+    "sources": 8,
+    "studies": 7,
+    "templates": 10,
+    "trials_completed": 11,
+    "trials_failed": 3,
+    "trials_reserved": 1,
+    "trials_total": 14
+  },
+  "failed_trials": [
+    {
+      "failure_reason": "bootstrap point estimate does not match the OLS coefficient: 5.931247862987306e-10 vs 1.2603901708849118e-06",
+      "hypothesis_id": "H0006",
+      "study": "options-expiry-004",
+      "trial_id": "T0006"
+    },
+    {
+      "failure_reason": "cycle boundary 2015-12-17 (cycle_hiking_2) is neither a scheduled statement day nor an unscheduled meeting day",
+      "hypothesis_id": "H0007",
+      "study": "fomc-event-study-005",
+      "trial_id": "T0008"
+    },
+    {
+      "failure_reason": "releases without a usable MoM: ('2025-11', '2026-11'), expected ('2025-11',)",
+      "hypothesis_id": "H0012",
+      "study": "publication-lag-007",
+      "trial_id": "T0014"
+    }
+  ],
+  "freshness": {
+    "panels_fresh": 5,
+    "panels_stale": 7,
+    "post_probe_updates": [
+      {
+        "instrument_id": "index:vxn",
+        "note": "Re-fetched past 2020-05-15 after the probe: full series 2001-02-02 to 2026-11-17 (6487 rows, 242 missing)",
+        "source_file": "research/planner-6a/vxn_refresh.json"
+      }
+    ],
+    "probed_at": "2026-11-18T21:45:56.107388Z",
+    "sources": [
+      {
+        "last_verified": "2026-11-18",
+        "probe_fail": 0,
+        "probe_kind": "manual-only",
+        "probe_pass": 0,
+        "probe_skip": 1,
+        "quirks": 3,
+        "recorded_only": 3,
+        "source_id": "bls"
+      },
+      {
+        "last_verified": "2026-11-18",
+        "probe_fail": 0,
+        "probe_kind": "automatic",
+        "probe_pass": 4,
+        "probe_skip": 0,
+        "quirks": 7,
+        "recorded_only": 4,
+        "source_id": "deribit"
+      },
+      {
+        "last_verified": "2026-11-18",
+        "probe_fail": 0,
+        "probe_kind": "automatic",
+        "probe_pass": 2,
+        "probe_skip": 0,
+        "quirks": 3,
+        "recorded_only": 3,
+        "source_id": "federalreserve"
+      },
+      {
+        "last_verified": "2026-11-18",
+        "probe_fail": 0,
+        "probe_kind": "automatic",
+        "probe_pass": 2,
+        "probe_skip": 0,
+        "quirks": 4,
+        "recorded_only": 3,
+        "source_id": "fiscaldata"
+      },
+      {
+        "last_verified": "2026-11-18",
+        "probe_fail": 0,
+        "probe_kind": "automatic",
+        "probe_pass": 13,
+        "probe_skip": 0,
+        "quirks": 10,
+        "recorded_only": 7,
+        "source_id": "fred"
+      },
+      {
+        "last_verified": "2026-11-18",
+        "probe_fail": 0,
+        "probe_kind": "automatic",
+        "probe_pass": 2,
+        "probe_skip": 0,
+        "quirks": 2,
+        "recorded_only": 2,
+        "source_id": "hyperliquid"
+      },
+      {
+        "last_verified": "2026-11-19",
+        "probe_fail": 0,
+        "probe_kind": "automatic",
+        "probe_pass": 2,
+        "probe_skip": 0,
+        "quirks": 8,
+        "recorded_only": 7,
+        "source_id": "okx-public"
+      },
+      {
+        "last_verified": "2026-11-18",
+        "probe_fail": 0,
+        "probe_kind": "automatic",
+        "probe_pass": 2,
+        "probe_skip": 0,
+        "quirks": 4,
+        "recorded_only": 4,
+        "source_id": "yahoo-finance"
+      }
+    ],
+    "stale_panels": [
+      {
+        "days_behind": 1,
+        "expected_latest": "2026-11-17",
+        "instrument_id": "crypto:btc-usdt-perp",
+        "panel_last": "2026-11-16",
+        "source_id": "okx-public"
+      },
+      {
+        "days_behind": 1,
+        "expected_latest": "2026-11-17",
+        "instrument_id": "crypto:eth-usdt-perp",
+        "panel_last": "2026-11-16",
+        "source_id": "okx-public"
+      },
+      {
+        "days_behind": 1,
+        "expected_latest": "2026-11-17",
+        "instrument_id": "crypto:sol-usdt-perp",
+        "panel_last": "2026-11-16",
+        "source_id": "okx-public"
+      },
+      {
+        "days_behind": 2,
+        "expected_latest": "2026-11-18",
+        "instrument_id": "index:sp500",
+        "panel_last": "2026-11-16",
+        "source_id": "yahoo-finance"
+      },
+      {
+        "days_behind": 1,
+        "expected_latest": "2026-11-17",
+        "instrument_id": "index:vix",
+        "panel_last": "2026-11-16",
+        "source_id": "fred"
+      },
+      {
+        "days_behind": 2377,
+        "expected_latest": "2026-11-17",
+        "instrument_id": "index:vxn",
+        "panel_last": "2020-05-15",
+        "source_id": "fred"
+      },
+      {
+        "days_behind": 1,
+        "expected_latest": "2026-11-17",
+        "instrument_id": "rates:us-10y-yield",
+        "panel_last": "2026-11-16",
+        "source_id": "fred"
+      }
+    ]
+  },
+  "generated_at": "2026-11-18T23:52:00+00:00",
+  "graph": {
+    "edges_by_status": {
+      "descriptive": 2,
+      "pending": 1,
+      "rejected": 30,
+      "supported": 6
+    },
+    "edges_total": 39,
+    "nodes": 12,
+    "supported_edges": [
+      {
+        "audit_caveat": null,
+        "bh_significant": true,
+        "decision_record_id": "DR-E0023",
+        "edge_id": "E0023",
+        "holm_significant": true,
+        "hypothesis_id": "H0007",
+        "pair": "TYVIX→TYVIX",
+        "trial_id": "T0010"
+      },
+      {
+        "audit_caveat": "Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md.",
+        "bh_significant": true,
+        "decision_record_id": "DR-E0026",
+        "edge_id": "E0026",
+        "holm_significant": true,
+        "hypothesis_id": "H0008",
+        "pair": "DGS10→BAA10Y",
+        "trial_id": "T0009"
+      },
+      {
+        "audit_caveat": "Bootstrap-marginal: the HAC test is significant, but the block-bootstrap 95% CI for the mean difference just includes zero. The ETH leg (E0031) is significant by both methods.",
+        "bh_significant": false,
+        "decision_record_id": "DR-E0030",
+        "edge_id": "E0030",
+        "holm_significant": false,
+        "hypothesis_id": "H0010",
+        "pair": "BTC→BTC",
+        "trial_id": "T0012"
+      },
+      {
+        "audit_caveat": null,
+        "bh_significant": true,
+        "decision_record_id": "DR-E0031",
+        "edge_id": "E0031",
+        "holm_significant": false,
+        "hypothesis_id": "H0010",
+        "pair": "ETH→ETH",
+        "trial_id": "T0012"
+      },
+      {
+        "audit_caveat": null,
+        "bh_significant": true,
+        "decision_record_id": "DR-E0032",
+        "edge_id": "E0032",
+        "holm_significant": true,
+        "hypothesis_id": "H0011",
+        "pair": "TYVIX→TYVIX",
+        "trial_id": "T0013"
+      },
+      {
+        "audit_caveat": null,
+        "bh_significant": true,
+        "decision_record_id": "DR-E0033",
+        "edge_id": "E0033",
+        "holm_significant": true,
+        "hypothesis_id": "H0011",
+        "pair": "VIX→VIX",
+        "trial_id": "T0013"
+      }
+    ]
+  },
+  "integrity": {
+    "broken_links": [],
+    "missing_optional": [
+      {
+        "path": "research/fomc-event-study-005/trials.jsonl.anchor",
+        "reason": "ledger anchor absent; truncation undetectable"
+      }
+    ]
+  },
+  "pending_items": [
+    "Forward test pending: hypothesis H0003 (edge E0011, BTC→ETH); no trial run yet; 0/60 low-vol rows observed, not ready (window 2026-11-18T16:00:00Z to 2027-03-31T16:00:00Z); sample check at research/lowvol-002/h0003-sample-check.json",
+    "Trial id T0003 is reserved (sequence gap with a recorded reservation); no ledger record exists yet",
+    "12 candidate pairs unrankable (no overlapping panel window): BTC_DVOL→TYVIX, BTC→TYVIX, CPI_MoM→TYVIX, ETH_DVOL→TYVIX, ETH→TYVIX, SOL→TYVIX, TYVIX→BTC, TYVIX→BTC_DVOL, TYVIX→CPI_MoM, TYVIX→ETH, TYVIX→ETH_DVOL, TYVIX→SOL",
+    "Missing ledger anchor: research/fomc-event-study-005/trials.jsonl.anchor — ledger anchor absent; truncation undetectable",
+    "PIT discipline unverified for 7 studies (no PIT parquet retained locally) — see Review status"
+  ],
+  "review": {
+    "counts": {
+      "fail": 0,
+      "note": 11,
+      "pass": 75,
+      "unverified": 8
+    },
+    "reviewed_at": "2026-11-18T23:30:00Z",
+    "unverified_items": [
+      "btc-eth-001: pit_spot_check — no PIT parquet retained locally for this study",
+      "fomc-event-study-005: ledger_anchor — no anchor file; truncation undetectable",
+      "fomc-event-study-005: pit_spot_check — no PIT parquet retained locally for this study",
+      "lowvol-002: pit_spot_check — no PIT parquet retained locally for this study",
+      "macro-windows-006: pit_spot_check — no PIT parquet retained locally for this study",
+      "move-vix-003: pit_spot_check — no PIT parquet retained locally for this study",
+      "options-expiry-004: pit_spot_check — no PIT parquet retained locally for this study",
+      "publication-lag-007: pit_spot_check — no PIT parquet retained locally for this study"
+    ]
+  },
+  "schema_version": 1,
+  "source_files": [
+    "research/btc-eth-001/hypotheses/hypothesis-events.jsonl",
+    "research/btc-eth-001/hypotheses/registrations/H0001/v1.json",
+    "research/btc-eth-001/trials.jsonl",
+    "research/decision-records/records/DR-E0023.json",
+    "research/decision-records/records/DR-E0026.json",
+    "research/decision-records/records/DR-E0030.json",
+    "research/decision-records/records/DR-E0031.json",
+    "research/decision-records/records/DR-E0032.json",
+    "research/decision-records/records/DR-E0033.json",
+    "research/decision-records/records/DR-H0001.json",
+    "research/decision-records/records/DR-H0002.json",
+    "research/decision-records/records/DR-H0004.json",
+    "research/decision-records/records/DR-H0005.json",
+    "research/decision-records/records/DR-H0006.json",
+    "research/decision-records/records/DR-H0007.json",
+    "research/decision-records/records/DR-H0008.json",
+    "research/decision-records/records/DR-H0009.json",
+    "research/decision-records/records/DR-H0012.json",
+    "research/evidence-6b/evidence_report.json",
+    "research/evidence-6b/panel_freshness.json",
+    "research/evidence-6b/sources.json",
+    "research/fomc-event-study-005/hypotheses/hypothesis-events.jsonl",
+    "research/fomc-event-study-005/hypotheses/registrations/H0007/v1.json",
+    "research/fomc-event-study-005/hypotheses/registrations/H0008/v1.json",
+    "research/fomc-event-study-005/trials.jsonl",
+    "research/graph/registry.json",
+    "research/lowvol-002/hypotheses/hypothesis-events.jsonl",
+    "research/lowvol-002/hypotheses/registrations/H0002/v1.json",
+    "research/lowvol-002/hypotheses/registrations/H0003/v1.json",
+    "research/lowvol-002/trials.jsonl",
+    "research/macro-windows-006/hypotheses/hypothesis-events.jsonl",
+    "research/macro-windows-006/hypotheses/registrations/H0009/v1.json",
+    "research/macro-windows-006/hypotheses/registrations/H0010/v1.json",
+    "research/macro-windows-006/trials.jsonl",
+    "research/move-vix-003/hypotheses/hypothesis-events.jsonl",
+    "research/move-vix-003/hypotheses/registrations/H0004/v1.json",
+    "research/move-vix-003/hypotheses/registrations/H0004/v2.json",
+    "research/move-vix-003/trials.jsonl",
+    "research/options-expiry-004/hypotheses/hypothesis-events.jsonl",
+    "research/options-expiry-004/hypotheses/registrations/H0005/v1.json",
+    "research/options-expiry-004/hypotheses/registrations/H0006/v1.json",
+    "research/options-expiry-004/trials.jsonl",
+    "research/planner-6a/data_availability.json",
+    "research/planner-6a/ranking.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-sp500.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-tyvix.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-vix.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-vxn.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__rates-us-10y-yield.json",
+    "research/planner-6a/templates/crypto-btc-usdt-perp__index-btc-dvol.json",
+    "research/planner-6a/templates/crypto-btc-usdt-perp__index-eth-dvol.json",
+    "research/planner-6a/templates/crypto-eth-usdt-perp__crypto-btc-usdt-perp.json",
+    "research/planner-6a/templates/crypto-eth-usdt-perp__crypto-sol-usdt-perp.json",
+    "research/planner-6a/templates/crypto-eth-usdt-perp__index-btc-dvol.json",
+    "research/planner-6a/vxn_refresh.json",
+    "research/publication-lag-007/hypotheses/hypothesis-events.jsonl",
+    "research/publication-lag-007/hypotheses/registrations/H0011/v1.json",
+    "research/publication-lag-007/hypotheses/registrations/H0012/v1.json",
+    "research/publication-lag-007/trials.jsonl",
+    "research/review-6d/review_report.json",
+    "research/statistical-audit-2b/summary.json"
+  ],
+  "studies": [
+    {
+      "hypothesis_id": "H0001",
+      "observations": 1414,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "coef",
+      "primary_effect_value": 0.025176549532828104,
+      "primary_raw_p_value": 0.7177902744418998,
+      "primary_test": "daily_btc_eth",
+      "primary_test_type": "lead_lag",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 0.00010990546273016321,
+      "study": "btc-eth-001",
+      "supported": false,
+      "trial_id": "T0001"
+    },
+    {
+      "hypothesis_id": "H0002",
+      "observations": 1133,
+      "primary_adjusted_p_value": 0.28314473469230644,
+      "primary_effect_label": "coef",
+      "primary_effect_value": 0.22170054929722913,
+      "primary_raw_p_value": 0.07078618367307661,
+      "primary_test": "daily_btc_sol_interaction",
+      "primary_test_type": "lead_lag",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 0.0037592235722866065,
+      "study": "lowvol-002",
+      "supported": false,
+      "trial_id": "T0002"
+    },
+    {
+      "hypothesis_id": "H0004",
+      "observations": 4327,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "coef",
+      "primary_effect_value": -0.00934091218242084,
+      "primary_raw_p_value": 0.775855063381256,
+      "primary_test": "daily_tyvix_vix",
+      "primary_test_type": "lead_lag",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 3.484028991192486e-05,
+      "study": "move-vix-003",
+      "supported": false,
+      "trial_id": "T0004"
+    },
+    {
+      "hypothesis_id": "H0005",
+      "observations": 2124,
+      "primary_adjusted_p_value": 0.6938231572768055,
+      "primary_effect_label": "coef",
+      "primary_effect_value": -0.035832376979457355,
+      "primary_raw_p_value": 0.6938231572768055,
+      "primary_test": "daily_btc_eth_interaction",
+      "primary_test_type": "lead_lag",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 8.365601959676024e-05,
+      "study": "options-expiry-004",
+      "supported": false,
+      "trial_id": "T0005"
+    },
+    {
+      "hypothesis_id": "H0006",
+      "observations": 2125,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "effect ratio",
+      "primary_effect_value": 1.0000634084216993,
+      "primary_raw_p_value": 0.9993039488153056,
+      "primary_test": "btc_mean_abs_return_comparison",
+      "primary_test_type": "mean_comparison",
+      "secondary_effect_label": null,
+      "secondary_effect_value": null,
+      "study": "options-expiry-004",
+      "supported": false,
+      "trial_id": "T0007"
+    },
+    {
+      "hypothesis_id": "H0008",
+      "observations": 135,
+      "primary_adjusted_p_value": 0.7262425610107872,
+      "primary_effect_label": "slope",
+      "primary_effect_value": 0.00011738285112419084,
+      "primary_raw_p_value": 0.7262425610107872,
+      "primary_test": "spx_on_dgs10",
+      "primary_test_type": "cross_section",
+      "secondary_effect_label": "R²",
+      "secondary_effect_value": 0.005714659904412223,
+      "study": "fomc-event-study-005",
+      "supported": false,
+      "trial_id": "T0009"
+    },
+    {
+      "hypothesis_id": "H0007",
+      "observations": 135,
+      "primary_adjusted_p_value": 0.1599620103450956,
+      "primary_effect_label": "std mean CAR",
+      "primary_effect_value": -0.15068455311467216,
+      "primary_raw_p_value": 0.0399905025862739,
+      "primary_test": "vix_car",
+      "primary_test_type": "event_study",
+      "secondary_effect_label": "mean CAR",
+      "secondary_effect_value": -0.015517379813770384,
+      "study": "fomc-event-study-005",
+      "supported": false,
+      "trial_id": "T0010"
+    },
+    {
+      "hypothesis_id": "H0009",
+      "observations": 2124,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "coef",
+      "primary_effect_value": 0.00029048848616874457,
+      "primary_raw_p_value": 0.9982087768740697,
+      "primary_test": "daily_btc_eth_interaction",
+      "primary_test_type": "lead_lag",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 3.081259166245943e-09,
+      "study": "macro-windows-006",
+      "supported": false,
+      "trial_id": "T0011"
+    },
+    {
+      "hypothesis_id": "H0010",
+      "observations": 2125,
+      "primary_adjusted_p_value": 0.009817680267895559,
+      "primary_effect_label": "effect ratio",
+      "primary_effect_value": 1.250433717580785,
+      "primary_raw_p_value": 0.009817680267895559,
+      "primary_test": "btc_mean_abs_return_comparison",
+      "primary_test_type": "mean_comparison",
+      "secondary_effect_label": null,
+      "secondary_effect_value": null,
+      "study": "macro-windows-006",
+      "supported": true,
+      "trial_id": "T0012"
+    },
+    {
+      "hypothesis_id": "H0011",
+      "observations": 135,
+      "primary_adjusted_p_value": 5.201439834401356e-09,
+      "primary_effect_label": "std mean CAR",
+      "primary_effect_value": -0.5156565761431623,
+      "primary_raw_p_value": 1.0402879668802711e-09,
+      "primary_test": "tyvix_lagged_car",
+      "primary_test_type": "event_study",
+      "secondary_effect_label": "mean CAR",
+      "secondary_effect_value": -0.03021596706540259,
+      "study": "publication-lag-007",
+      "supported": true,
+      "trial_id": "T0013"
+    },
+    {
+      "hypothesis_id": "H0012",
+      "observations": 1468,
+      "primary_adjusted_p_value": 0.7548740391336041,
+      "primary_effect_label": "coef",
+      "primary_effect_value": -0.037402090072185715,
+      "primary_raw_p_value": 0.7548740391336041,
+      "primary_test": "spx_daily",
+      "primary_test_type": "lead_lag",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 0.00010223875705747534,
+      "study": "publication-lag-007",
+      "supported": false,
+      "trial_id": "T0015"
+    }
+  ],
+  "studies_open": [
+    "lowvol-002"
+  ]
+}

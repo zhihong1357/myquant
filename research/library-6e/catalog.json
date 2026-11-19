@@ -1,0 +1,3477 @@
+{
+  "audit": {
+    "bh_survivors": 5,
+    "family_size": 36,
+    "holm_survivors": 4,
+    "registry_content_hash": "3d0515bd4fa1f7c3922d10a4e1cbb805b4cba3e6ccbd630f26b6973704ec4ae0",
+    "supported_total": 6
+  },
+  "broken_links": [],
+  "candidates": [
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 1,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 2,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 3,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 4,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 5,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 6,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 7,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 8,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 9,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": true,
+      "mechanism": "transmission",
+      "rank": 10,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 11,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 12,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 13,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 14,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 15,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 16,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 17,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 18,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 19,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 20,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 21,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 22,
+      "ranked": true,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 23,
+      "ranked": true,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 24,
+      "ranked": true,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 25,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 26,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 27,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 28,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 29,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 30,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 31,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 32,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 33,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 34,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 35,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:vxn",
+      "test_type": "cross_section",
+      "total_score": 1.0,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 36,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 37,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 38,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 39,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 40,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 41,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 42,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 43,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 44,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 45,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 46,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 47,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 48,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 49,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 50,
+      "ranked": true,
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 51,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 52,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 53,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 54,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 55,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 56,
+      "ranked": true,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 57,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 58,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 59,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 60,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 61,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 62,
+      "ranked": true,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 63,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 64,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 65,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 66,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 67,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 68,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 69,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 70,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 71,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 72,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 73,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 74,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 75,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 76,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 77,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 78,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 79,
+      "ranked": true,
+      "source_instrument": "index:vix",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 80,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 81,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 82,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 83,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 84,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 85,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "cross_section",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 86,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "cross_section",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 87,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "cross_section",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 88,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "cross_section",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 89,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "cross_section",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 90,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:tyvix",
+      "test_type": "cross_section",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 91,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 92,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.6,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 93,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.6,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 94,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 95,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 96,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 97,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 98,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 99,
+      "ranked": true,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 100,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 101,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 102,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 103,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 104,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 105,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 106,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 107,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 108,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 109,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "index:eth-dvol",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 110,
+      "ranked": true,
+      "source_instrument": "index:vxn",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 111,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:tyvix",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "index:tyvix",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:tyvix",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:tyvix",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "index:tyvix",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "index:btc-dvol",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "index:eth-dvol",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (no overlapping panel window)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "index:tyvix",
+      "target_instrument": "macro:cpi-mom",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (calendar months in the overlap of the monthly panel with the other panel)"
+    },
+    {
+      "has_template": false,
+      "mechanism": null,
+      "rank": null,
+      "ranked": false,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "index:tyvix",
+      "test_type": null,
+      "total_score": null,
+      "unrankable_reason": "no overlapping panel window for the suggested lead_lag test (estimated daily rows of the target panel inside the step-predictor window (first release to panel end))"
+    }
+  ],
+  "counts": {
+    "broken_links": 0,
+    "candidates_ranked": 111,
+    "candidates_total": 123,
+    "candidates_unrankable": 12,
+    "decision_records": 15,
+    "edges_descriptive": 2,
+    "edges_pending": 1,
+    "edges_rejected": 30,
+    "edges_supported": 6,
+    "edges_total": 39,
+    "hypotheses": 12,
+    "hypothesis_versions": 13,
+    "missing_optional": 1,
+    "nodes": 12,
+    "panels": 12,
+    "sources": 8,
+    "studies": 7,
+    "templates": 10,
+    "trials_completed": 11,
+    "trials_failed": 3,
+    "trials_reserved": 1,
+    "trials_total": 14
+  },
+  "decision_records": [
+    {
+      "conclusion": "SUPPORTED",
+      "edge_id": "E0023",
+      "hypothesis_id": "H0007",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "record_id": "DR-E0023",
+      "record_type": "supported_edge",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "study": "fomc-event-study-005",
+      "trial_id": "T0010"
+    },
+    {
+      "conclusion": "SUPPORTED",
+      "edge_id": "E0026",
+      "hypothesis_id": "H0008",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "record_id": "DR-E0026",
+      "record_type": "supported_edge",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "study": "fomc-event-study-005",
+      "trial_id": "T0009"
+    },
+    {
+      "conclusion": "SUPPORTED",
+      "edge_id": "E0030",
+      "hypothesis_id": "H0010",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "record_id": "DR-E0030",
+      "record_type": "supported_edge",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "study": "macro-windows-006",
+      "trial_id": "T0012"
+    },
+    {
+      "conclusion": "SUPPORTED",
+      "edge_id": "E0031",
+      "hypothesis_id": "H0010",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "record_id": "DR-E0031",
+      "record_type": "supported_edge",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "study": "macro-windows-006",
+      "trial_id": "T0012"
+    },
+    {
+      "conclusion": "SUPPORTED",
+      "edge_id": "E0032",
+      "hypothesis_id": "H0011",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "record_id": "DR-E0032",
+      "record_type": "supported_edge",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "study": "publication-lag-007",
+      "trial_id": "T0013"
+    },
+    {
+      "conclusion": "SUPPORTED",
+      "edge_id": "E0033",
+      "hypothesis_id": "H0011",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "record_id": "DR-E0033",
+      "record_type": "supported_edge",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "study": "publication-lag-007",
+      "trial_id": "T0013"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0001",
+      "hypothesis_id": "H0001",
+      "ledger_path": "research/btc-eth-001/trials.jsonl",
+      "record_id": "DR-H0001",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/btc-eth-transmission-001.md",
+      "study": "btc-eth-001",
+      "trial_id": "T0001"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0004",
+      "hypothesis_id": "H0002",
+      "ledger_path": "research/lowvol-002/trials.jsonl",
+      "record_id": "DR-H0002",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "study": "lowvol-002",
+      "trial_id": "T0002"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0008",
+      "hypothesis_id": "H0004",
+      "ledger_path": "research/move-vix-003/trials.jsonl",
+      "record_id": "DR-H0004",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/move-vix-transmission-003.md",
+      "study": "move-vix-003",
+      "trial_id": "T0004"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0014",
+      "hypothesis_id": "H0005",
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "record_id": "DR-H0005",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "study": "options-expiry-004",
+      "trial_id": "T0005"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0017",
+      "hypothesis_id": "H0006",
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "record_id": "DR-H0006",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "study": "options-expiry-004",
+      "trial_id": "T0007"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0019",
+      "hypothesis_id": "H0007",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "record_id": "DR-H0007",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "study": "fomc-event-study-005",
+      "trial_id": "T0010"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0024",
+      "hypothesis_id": "H0008",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "record_id": "DR-H0008",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "study": "fomc-event-study-005",
+      "trial_id": "T0009"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0027",
+      "hypothesis_id": "H0009",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "record_id": "DR-H0009",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "study": "macro-windows-006",
+      "trial_id": "T0011"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0037",
+      "hypothesis_id": "H0012",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "record_id": "DR-H0012",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "study": "publication-lag-007",
+      "trial_id": "T0015"
+    }
+  ],
+  "edges": [
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0001",
+      "edge_id": "E0001",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0001",
+      "ledger_path": "research/btc-eth-001/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth",
+      "report_path": "docs/studies/btc-eth-transmission-001.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0001"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0002",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0001",
+      "ledger_path": "research/btc-eth-001/trials.jsonl",
+      "ledger_test_key": "daily_btc_sol",
+      "report_path": "docs/studies/btc-eth-transmission-001.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0001"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0003",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0001",
+      "ledger_path": "research/btc-eth-001/trials.jsonl",
+      "ledger_test_key": "hourly_btc_eth",
+      "report_path": "docs/studies/btc-eth-transmission-001.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0001"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0002",
+      "edge_id": "E0004",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0002",
+      "ledger_path": "research/lowvol-002/trials.jsonl",
+      "ledger_test_key": "daily_btc_sol_interaction",
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0002"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0005",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0002",
+      "ledger_path": "research/lowvol-002/trials.jsonl",
+      "ledger_test_key": "daily_btc_sol_lowvol",
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0002"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0006",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0002",
+      "ledger_path": "research/lowvol-002/trials.jsonl",
+      "ledger_test_key": "hourly_btc_eth_interaction",
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0002"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0007",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0002",
+      "ledger_path": "research/lowvol-002/trials.jsonl",
+      "ledger_test_key": "hourly_btc_eth_lowvol",
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0002"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0004",
+      "edge_id": "E0008",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0004",
+      "ledger_path": "research/move-vix-003/trials.jsonl",
+      "ledger_test_key": "daily_tyvix_vix",
+      "report_path": "docs/studies/move-vix-transmission-003.md",
+      "source_instrument": "index:tyvix",
+      "status": "rejected",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "trial_id": "T0004"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0009",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0004",
+      "ledger_path": "research/move-vix-003/trials.jsonl",
+      "ledger_test_key": "daily_tyvix_vxn",
+      "report_path": "docs/studies/move-vix-transmission-003.md",
+      "source_instrument": "index:tyvix",
+      "status": "rejected",
+      "target_instrument": "index:vxn",
+      "test_type": "lead_lag",
+      "trial_id": "T0004"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0010",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0004",
+      "ledger_path": "research/move-vix-003/trials.jsonl",
+      "ledger_test_key": "weekly_tyvix_vix",
+      "report_path": "docs/studies/move-vix-transmission-003.md",
+      "source_instrument": "index:tyvix",
+      "status": "rejected",
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "trial_id": "T0004"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0011",
+      "forward_sample": {
+        "checked_at": "2026-11-18T01:35:34.778494Z",
+        "forward_rows": 0,
+        "minimum_lowvol_rows": 60,
+        "observed_lowvol_rows": 0,
+        "ready": false,
+        "window_end": "2027-03-31T16:00:00Z",
+        "window_start": "2026-11-18T16:00:00Z"
+      },
+      "holm_significant": null,
+      "hypothesis_id": "H0003",
+      "ledger_path": "research/lowvol-002/h0003-sample-check.json",
+      "ledger_test_key": null,
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "pending",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": null
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0012",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0002",
+      "ledger_path": "research/lowvol-002/trials.jsonl",
+      "ledger_test_key": null,
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "descriptive",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0002"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0013",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0004",
+      "ledger_path": "research/move-vix-003/trials.jsonl",
+      "ledger_test_key": null,
+      "report_path": "docs/studies/move-vix-transmission-003.md",
+      "source_instrument": "index:vix",
+      "status": "descriptive",
+      "target_instrument": "index:tyvix",
+      "test_type": "lead_lag",
+      "trial_id": "T0004"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0005",
+      "edge_id": "E0014",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0005",
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_interaction",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0005"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0015",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0005",
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_window",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0005"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0016",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0005",
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "hourly_btc_eth_interaction",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0005"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0006",
+      "edge_id": "E0017",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0006",
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "btc_mean_abs_return_comparison",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0007"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0018",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0006",
+      "ledger_path": "research/options-expiry-004/trials.jsonl",
+      "ledger_test_key": "eth_mean_abs_return_comparison",
+      "report_path": "docs/studies/options-expiry-004.md",
+      "source_instrument": "crypto:eth-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0007"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0007",
+      "edge_id": "E0019",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0007",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "vix_car",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "index:vix",
+      "status": "rejected",
+      "target_instrument": "index:vix",
+      "test_type": "event_study",
+      "trial_id": "T0010"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0020",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0007",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "spx_car",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "index:sp500",
+      "status": "rejected",
+      "target_instrument": "index:sp500",
+      "test_type": "event_study",
+      "trial_id": "T0010"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0021",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0007",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "dgs10_car",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "rates:us-10y-yield",
+      "status": "rejected",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "event_study",
+      "trial_id": "T0010"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0022",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0007",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "baa10y_car",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "credit:baa-10y-spread",
+      "status": "rejected",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "event_study",
+      "trial_id": "T0010"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": true,
+      "decision_record_id": "DR-E0023",
+      "edge_id": "E0023",
+      "forward_sample": null,
+      "holm_significant": true,
+      "hypothesis_id": "H0007",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "tyvix_car",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "index:tyvix",
+      "status": "supported",
+      "target_instrument": "index:tyvix",
+      "test_type": "event_study",
+      "trial_id": "T0010"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0008",
+      "edge_id": "E0024",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0008",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "spx_on_dgs10",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "rates:us-10y-yield",
+      "status": "rejected",
+      "target_instrument": "index:sp500",
+      "test_type": "cross_section",
+      "trial_id": "T0009"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0025",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0008",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "vix_on_dgs10",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "rates:us-10y-yield",
+      "status": "rejected",
+      "target_instrument": "index:vix",
+      "test_type": "cross_section",
+      "trial_id": "T0009"
+    },
+    {
+      "audit_caveat": "Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md.",
+      "bh_significant": true,
+      "decision_record_id": "DR-E0026",
+      "edge_id": "E0026",
+      "forward_sample": null,
+      "holm_significant": true,
+      "hypothesis_id": "H0008",
+      "ledger_path": "research/fomc-event-study-005/trials.jsonl",
+      "ledger_test_key": "baa10y_on_dgs10",
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "source_instrument": "rates:us-10y-yield",
+      "status": "supported",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "cross_section",
+      "trial_id": "T0009"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0009",
+      "edge_id": "E0027",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0009",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_interaction",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0011"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0028",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0009",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "daily_btc_eth_window",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0011"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0029",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0009",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "hourly_btc_eth_interaction",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "rejected",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0011"
+    },
+    {
+      "audit_caveat": "Bootstrap-marginal: the HAC test is significant, but the block-bootstrap 95% CI for the mean difference just includes zero. The ETH leg (E0031) is significant by both methods.",
+      "bh_significant": false,
+      "decision_record_id": "DR-E0030",
+      "edge_id": "E0030",
+      "forward_sample": null,
+      "holm_significant": false,
+      "hypothesis_id": "H0010",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "btc_mean_abs_return_comparison",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "status": "supported",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0012"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": true,
+      "decision_record_id": "DR-E0031",
+      "edge_id": "E0031",
+      "forward_sample": null,
+      "holm_significant": false,
+      "hypothesis_id": "H0010",
+      "ledger_path": "research/macro-windows-006/trials.jsonl",
+      "ledger_test_key": "eth_mean_abs_return_comparison",
+      "report_path": "docs/studies/macro-windows-006.md",
+      "source_instrument": "crypto:eth-usdt-perp",
+      "status": "supported",
+      "target_instrument": "crypto:eth-usdt-perp",
+      "test_type": "mean_comparison",
+      "trial_id": "T0012"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": true,
+      "decision_record_id": "DR-E0032",
+      "edge_id": "E0032",
+      "forward_sample": null,
+      "holm_significant": true,
+      "hypothesis_id": "H0011",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "tyvix_lagged_car",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "index:tyvix",
+      "status": "supported",
+      "target_instrument": "index:tyvix",
+      "test_type": "event_study",
+      "trial_id": "T0013"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": true,
+      "decision_record_id": "DR-E0033",
+      "edge_id": "E0033",
+      "forward_sample": null,
+      "holm_significant": true,
+      "hypothesis_id": "H0011",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "vix_lagged_car",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "index:vix",
+      "status": "supported",
+      "target_instrument": "index:vix",
+      "test_type": "event_study",
+      "trial_id": "T0013"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0034",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0011",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "dgs10_lagged_car",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "rates:us-10y-yield",
+      "status": "rejected",
+      "target_instrument": "rates:us-10y-yield",
+      "test_type": "event_study",
+      "trial_id": "T0013"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0035",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0011",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "baa10y_lagged_car",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "credit:baa-10y-spread",
+      "status": "rejected",
+      "target_instrument": "credit:baa-10y-spread",
+      "test_type": "event_study",
+      "trial_id": "T0013"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0036",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0011",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "spx_car",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "index:sp500",
+      "status": "rejected",
+      "target_instrument": "index:sp500",
+      "test_type": "event_study",
+      "trial_id": "T0013"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0012",
+      "edge_id": "E0037",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0012",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "spx_daily",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "macro:cpi-mom",
+      "status": "rejected",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "trial_id": "T0015"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0038",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0012",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "spx_release_day",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "macro:cpi-mom",
+      "status": "rejected",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "trial_id": "T0015"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": null,
+      "edge_id": "E0039",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0012",
+      "ledger_path": "research/publication-lag-007/trials.jsonl",
+      "ledger_test_key": "btc_daily",
+      "report_path": "docs/studies/publication-lag-007.md",
+      "source_instrument": "macro:cpi-mom",
+      "status": "rejected",
+      "target_instrument": "crypto:btc-usdt-perp",
+      "test_type": "lead_lag",
+      "trial_id": "T0015"
+    }
+  ],
+  "evidence_probed_at": "2026-11-18T21:45:56.107388Z",
+  "generated_at": "2026-11-18T23:52:00Z",
+  "hypotheses": [
+    {
+      "decision_records": [
+        "DR-H0001"
+      ],
+      "edges": [
+        "E0001",
+        "E0002",
+        "E0003"
+      ],
+      "hypothesis_id": "H0001",
+      "latest_state": "rejected",
+      "study": "btc-eth-001",
+      "trials": [
+        "T0001"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T00:46:20.850976Z",
+          "registration_hash": "126672f6dd160c2b69cd53a5296eadecf36e562959a114152dbc43e7cd65f45c",
+          "spec_fingerprint": "1938d1bd8e5aef94c938ef0576987fa42f6d0f02649cd4955cb432511a21d008",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-H0002"
+      ],
+      "edges": [
+        "E0004",
+        "E0005",
+        "E0006",
+        "E0007",
+        "E0012"
+      ],
+      "hypothesis_id": "H0002",
+      "latest_state": "rejected",
+      "study": "lowvol-002",
+      "trials": [
+        "T0002"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T01:28:45.601678Z",
+          "registration_hash": "874353f1b3c652e0e05632466e24db86b60892efd24444e8c205bb1d019c9ae0",
+          "spec_fingerprint": "08b43b7d4769885f86e37007783ece903b42eec772783a6124b14032b06a82df",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [],
+      "edges": [
+        "E0011"
+      ],
+      "hypothesis_id": "H0003",
+      "latest_state": "registered",
+      "study": "lowvol-002",
+      "trials": [],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T01:28:45.643547Z",
+          "registration_hash": "85f51033a3b13e4075f8ce7677278346b09212a7e3acfcdaac37b9c6652b9550",
+          "spec_fingerprint": "488dbf031f23a0544ae281643e54debefcfcad41f1337eb11492206f52aec4d0",
+          "state": "registered",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-H0004"
+      ],
+      "edges": [
+        "E0008",
+        "E0009",
+        "E0010",
+        "E0013"
+      ],
+      "hypothesis_id": "H0004",
+      "latest_state": "rejected",
+      "study": "move-vix-003",
+      "trials": [
+        "T0004"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T02:16:33.806827Z",
+          "registration_hash": "4f5efb468a417cf67ea96555b8332a184304c0d3eb844230416d5f75ea58b1f3",
+          "spec_fingerprint": "e188b2ff99df563d4ed6a4869e4c4a4f7a89c8c8724105cb2e6078c22877d27b",
+          "state": "superseded",
+          "version": 1
+        },
+        {
+          "registered_at": "2026-11-18T02:31:19.507316Z",
+          "registration_hash": "815e949a4fc706048a7c406456381b1f8c354fdfdca68d7c7cbfd68ccaaa1394",
+          "spec_fingerprint": "c3923f5a530e924b68cce06ca8eb8c1d7aa4368f65d396d4f5dfbf4f454c5050",
+          "state": "rejected",
+          "version": 2
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-H0005"
+      ],
+      "edges": [
+        "E0014",
+        "E0015",
+        "E0016"
+      ],
+      "hypothesis_id": "H0005",
+      "latest_state": "rejected",
+      "study": "options-expiry-004",
+      "trials": [
+        "T0005"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T04:09:15.111063Z",
+          "registration_hash": "9727a20954de82e79fd612d96cff7c14433e959bfb595f2c6a6b8af8a85391a5",
+          "spec_fingerprint": "5c9d73af2bd7efae02f7113c1b6f868dc5492efdb24da2d1ccd150f172f7f133",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-H0006"
+      ],
+      "edges": [
+        "E0017",
+        "E0018"
+      ],
+      "hypothesis_id": "H0006",
+      "latest_state": "rejected",
+      "study": "options-expiry-004",
+      "trials": [
+        "T0006",
+        "T0007"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T04:09:15.140666Z",
+          "registration_hash": "a7c631af7389cf005abdf71bd6aa6496251877842f54a20f636d375e9af27347",
+          "spec_fingerprint": "0c48d2ac4fc37be0d5ba46b530823be332040cf387a2027bb57f45f5e619845f",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-E0023",
+        "DR-H0007"
+      ],
+      "edges": [
+        "E0019",
+        "E0020",
+        "E0021",
+        "E0022",
+        "E0023"
+      ],
+      "hypothesis_id": "H0007",
+      "latest_state": "rejected",
+      "study": "fomc-event-study-005",
+      "trials": [
+        "T0008",
+        "T0010"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T05:09:14.880198Z",
+          "registration_hash": "18aacf605ec6f9e91620c111afef70c531d3ed8de50133214e7c9f0497f5dfa0",
+          "spec_fingerprint": "c9a278bf137182d5491a5e496c1e5533b92c56d4b2067194d117dad7c7d30782",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-E0026",
+        "DR-H0008"
+      ],
+      "edges": [
+        "E0024",
+        "E0025",
+        "E0026"
+      ],
+      "hypothesis_id": "H0008",
+      "latest_state": "rejected",
+      "study": "fomc-event-study-005",
+      "trials": [
+        "T0009"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T05:09:14.920110Z",
+          "registration_hash": "1e26a52f22b042668c6aed9edfdf4a5b4494e5214bff5f09d864c20ed8f86c81",
+          "spec_fingerprint": "f76d5b6075672990d3462715e48a9109d062c99fa837bd4d03ef7d9daec7582b",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-H0009"
+      ],
+      "edges": [
+        "E0027",
+        "E0028",
+        "E0029"
+      ],
+      "hypothesis_id": "H0009",
+      "latest_state": "rejected",
+      "study": "macro-windows-006",
+      "trials": [
+        "T0011"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T05:45:45.649611Z",
+          "registration_hash": "d19b5c4dc4b624f11af833927bde65d976c1c221afc47acf9f7e05f819b1d847",
+          "spec_fingerprint": "0e1ec3d3768c5da2b044c531e624857eee53be2939ee9e8ac0adc3d3fdf0b94e",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-E0030",
+        "DR-E0031"
+      ],
+      "edges": [
+        "E0030",
+        "E0031"
+      ],
+      "hypothesis_id": "H0010",
+      "latest_state": "supported",
+      "study": "macro-windows-006",
+      "trials": [
+        "T0012"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T05:45:45.683751Z",
+          "registration_hash": "f50c9a250b216bd61b2defe330008489a089cc6a8965c2747433bc02252e0132",
+          "spec_fingerprint": "a10ddda9553151ecaff7afc57394f1cc1674ce0733b8b663d6e878872a471656",
+          "state": "supported",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-E0032",
+        "DR-E0033"
+      ],
+      "edges": [
+        "E0032",
+        "E0033",
+        "E0034",
+        "E0035",
+        "E0036"
+      ],
+      "hypothesis_id": "H0011",
+      "latest_state": "supported",
+      "study": "publication-lag-007",
+      "trials": [
+        "T0013"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T06:37:04.020246Z",
+          "registration_hash": "9efd7f8517d40fda4a5adcd26edcc68669ad26f75f94f29784999bf541d945a6",
+          "spec_fingerprint": "b1d626ddffb3d3be4564011edca6ec5b2b0b58d98a1e451a4faf69b474048b63",
+          "state": "supported",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "decision_records": [
+        "DR-H0012"
+      ],
+      "edges": [
+        "E0037",
+        "E0038",
+        "E0039"
+      ],
+      "hypothesis_id": "H0012",
+      "latest_state": "rejected",
+      "study": "publication-lag-007",
+      "trials": [
+        "T0014",
+        "T0015"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-18T06:37:04.060299Z",
+          "registration_hash": "909f49a3e20e5f49a718fd88da25273fa82c7ea468f93dc28c0807e946808c4b",
+          "spec_fingerprint": "8526ef1ce9d5620463668319c9d3e7b0b31293dd524f157e90032207fccdc6e5",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
+    }
+  ],
+  "missing_optional": [
+    {
+      "path": "research/fomc-event-study-005/trials.jsonl.anchor",
+      "reason": "ledger anchor absent; truncation undetectable"
+    }
+  ],
+  "nodes": [
+    {
+      "asset_class": "credit",
+      "instrument_id": "credit:baa-10y-spread",
+      "name": "Moody's Seasoned Baa Corporate Bond Yield Relative to 10-Year Treasury (BAA10Y)",
+      "short_label": "BAA10Y"
+    },
+    {
+      "asset_class": "crypto",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "name": "BTC-USDT perpetual swap (OKX)",
+      "short_label": "BTC"
+    },
+    {
+      "asset_class": "crypto",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "name": "ETH-USDT perpetual swap (OKX)",
+      "short_label": "ETH"
+    },
+    {
+      "asset_class": "crypto",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "name": "SOL-USDT perpetual swap (OKX)",
+      "short_label": "SOL"
+    },
+    {
+      "asset_class": "volatility",
+      "instrument_id": "index:btc-dvol",
+      "name": "Deribit Volatility Index (BTC DVOL)",
+      "short_label": "BTC_DVOL"
+    },
+    {
+      "asset_class": "volatility",
+      "instrument_id": "index:eth-dvol",
+      "name": "Deribit Volatility Index (ETH DVOL)",
+      "short_label": "ETH_DVOL"
+    },
+    {
+      "asset_class": "index",
+      "instrument_id": "index:sp500",
+      "name": "S&P 500 Index",
+      "short_label": "SPX"
+    },
+    {
+      "asset_class": "volatility",
+      "instrument_id": "index:tyvix",
+      "name": "CBOE/CBOT 10-Year Treasury Note Volatility Index (TYVIX)",
+      "short_label": "TYVIX"
+    },
+    {
+      "asset_class": "volatility",
+      "instrument_id": "index:vix",
+      "name": "CBOE Volatility Index (VIX)",
+      "short_label": "VIX"
+    },
+    {
+      "asset_class": "volatility",
+      "instrument_id": "index:vxn",
+      "name": "CBOE Nasdaq-100 Volatility Index (VXN)",
+      "short_label": "VXN"
+    },
+    {
+      "asset_class": "macro",
+      "instrument_id": "macro:cpi-mom",
+      "name": "Consumer Price Index for All Urban Consumers, All Items, month-on-month log change (CPIAUCSL, seasonally adjusted)",
+      "short_label": "CPI_MoM"
+    },
+    {
+      "asset_class": "rates",
+      "instrument_id": "rates:us-10y-yield",
+      "name": "Market Yield on US Treasury Securities at 10 Years (DGS10)",
+      "short_label": "DGS10"
+    }
+  ],
+  "panels": [
+    {
+      "days_behind": 0,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "credit:baa-10y-spread",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:BAA10Y",
+      "panel_last": "2026-11-16",
+      "source_id": "fred",
+      "status": "fresh"
+    },
+    {
+      "days_behind": 1,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "lag_kind": "okx_daily_bar",
+      "latest_from": "okx:BTC-1D",
+      "panel_last": "2026-11-16",
+      "source_id": "okx-public",
+      "status": "stale"
+    },
+    {
+      "days_behind": 1,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "lag_kind": "okx_daily_bar",
+      "latest_from": "okx:BTC-1D",
+      "panel_last": "2026-11-16",
+      "source_id": "okx-public",
+      "status": "stale"
+    },
+    {
+      "days_behind": 1,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "crypto:sol-usdt-perp",
+      "lag_kind": "okx_daily_bar",
+      "latest_from": "okx:BTC-1D",
+      "panel_last": "2026-11-16",
+      "source_id": "okx-public",
+      "status": "stale"
+    },
+    {
+      "days_behind": 0,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "index:btc-dvol",
+      "lag_kind": "dvol_daily",
+      "latest_from": "deribit:DVOL-BTC",
+      "panel_last": "2026-11-17",
+      "source_id": "deribit",
+      "status": "fresh"
+    },
+    {
+      "days_behind": 0,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "index:eth-dvol",
+      "lag_kind": "dvol_daily",
+      "latest_from": "deribit:DVOL-BTC",
+      "panel_last": "2026-11-17",
+      "source_id": "deribit",
+      "status": "fresh"
+    },
+    {
+      "days_behind": 2,
+      "expected_latest": "2026-11-18",
+      "instrument_id": "index:sp500",
+      "lag_kind": "yahoo_close",
+      "latest_from": "yahoo:^GSPC",
+      "panel_last": "2026-11-16",
+      "source_id": "yahoo-finance",
+      "status": "stale"
+    },
+    {
+      "days_behind": 0,
+      "expected_latest": "2020-05-15",
+      "instrument_id": "index:tyvix",
+      "lag_kind": "discontinued",
+      "latest_from": "fred:VXTYN",
+      "panel_last": "2020-05-15",
+      "source_id": "fred",
+      "status": "fresh"
+    },
+    {
+      "days_behind": 1,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "index:vix",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:VIXCLS",
+      "panel_last": "2026-11-16",
+      "source_id": "fred",
+      "status": "stale"
+    },
+    {
+      "days_behind": 2377,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "index:vxn",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:VXNCLS",
+      "panel_last": "2020-05-15",
+      "source_id": "fred",
+      "status": "stale"
+    },
+    {
+      "days_behind": 0,
+      "expected_latest": "2026-10-01",
+      "instrument_id": "macro:cpi-mom",
+      "lag_kind": "cpi_monthly",
+      "latest_from": "fred:CPIAUCSL",
+      "panel_last": "2026-10-01",
+      "source_id": "fred",
+      "status": "fresh"
+    },
+    {
+      "days_behind": 1,
+      "expected_latest": "2026-11-17",
+      "instrument_id": "rates:us-10y-yield",
+      "lag_kind": "fred_business_day",
+      "latest_from": "fred:DGS10",
+      "panel_last": "2026-11-16",
+      "source_id": "fred",
+      "status": "stale"
+    }
+  ],
+  "post_probe_updates": [
+    {
+      "instrument_id": "index:vxn",
+      "note": "Re-fetched past 2020-05-15 after the probe: full series 2001-02-02 to 2026-11-17 (6487 rows, 242 missing)",
+      "source_file": "research/planner-6a/vxn_refresh.json"
+    }
+  ],
+  "reserved_trial_ids": [
+    "T0003"
+  ],
+  "review": {
+    "counts": {
+      "fail": 0,
+      "note": 11,
+      "pass": 75,
+      "unverified": 8
+    },
+    "per_study_counts": {
+      "btc-eth-001": {
+        "fail": 0,
+        "note": 1,
+        "pass": 8,
+        "unverified": 1
+      },
+      "fomc-event-study-005": {
+        "fail": 0,
+        "note": 2,
+        "pass": 12,
+        "unverified": 2
+      },
+      "lowvol-002": {
+        "fail": 0,
+        "note": 1,
+        "pass": 8,
+        "unverified": 1
+      },
+      "macro-windows-006": {
+        "fail": 0,
+        "note": 2,
+        "pass": 12,
+        "unverified": 1
+      },
+      "move-vix-003": {
+        "fail": 0,
+        "note": 1,
+        "pass": 8,
+        "unverified": 1
+      },
+      "options-expiry-004": {
+        "fail": 0,
+        "note": 2,
+        "pass": 13,
+        "unverified": 1
+      },
+      "publication-lag-007": {
+        "fail": 0,
+        "note": 2,
+        "pass": 13,
+        "unverified": 1
+      }
+    },
+    "reviewed_at": "2026-11-18T23:30:00Z",
+    "unverified_items": [
+      "btc-eth-001: pit_spot_check — no PIT parquet retained locally for this study",
+      "fomc-event-study-005: ledger_anchor — no anchor file; truncation undetectable",
+      "fomc-event-study-005: pit_spot_check — no PIT parquet retained locally for this study",
+      "lowvol-002: pit_spot_check — no PIT parquet retained locally for this study",
+      "macro-windows-006: pit_spot_check — no PIT parquet retained locally for this study",
+      "move-vix-003: pit_spot_check — no PIT parquet retained locally for this study",
+      "options-expiry-004: pit_spot_check — no PIT parquet retained locally for this study",
+      "publication-lag-007: pit_spot_check — no PIT parquet retained locally for this study"
+    ]
+  },
+  "schema_version": 1,
+  "source_files": [
+    "research/btc-eth-001/hypotheses/hypothesis-events.jsonl",
+    "research/btc-eth-001/hypotheses/registrations/H0001/v1.json",
+    "research/btc-eth-001/trials.jsonl",
+    "research/decision-records/records/DR-E0023.json",
+    "research/decision-records/records/DR-E0026.json",
+    "research/decision-records/records/DR-E0030.json",
+    "research/decision-records/records/DR-E0031.json",
+    "research/decision-records/records/DR-E0032.json",
+    "research/decision-records/records/DR-E0033.json",
+    "research/decision-records/records/DR-H0001.json",
+    "research/decision-records/records/DR-H0002.json",
+    "research/decision-records/records/DR-H0004.json",
+    "research/decision-records/records/DR-H0005.json",
+    "research/decision-records/records/DR-H0006.json",
+    "research/decision-records/records/DR-H0007.json",
+    "research/decision-records/records/DR-H0008.json",
+    "research/decision-records/records/DR-H0009.json",
+    "research/decision-records/records/DR-H0012.json",
+    "research/evidence-6b/evidence_report.json",
+    "research/evidence-6b/panel_freshness.json",
+    "research/evidence-6b/sources.json",
+    "research/fomc-event-study-005/hypotheses/hypothesis-events.jsonl",
+    "research/fomc-event-study-005/hypotheses/registrations/H0007/v1.json",
+    "research/fomc-event-study-005/hypotheses/registrations/H0008/v1.json",
+    "research/fomc-event-study-005/trials.jsonl",
+    "research/graph/registry.json",
+    "research/lowvol-002/hypotheses/hypothesis-events.jsonl",
+    "research/lowvol-002/hypotheses/registrations/H0002/v1.json",
+    "research/lowvol-002/hypotheses/registrations/H0003/v1.json",
+    "research/lowvol-002/trials.jsonl",
+    "research/macro-windows-006/hypotheses/hypothesis-events.jsonl",
+    "research/macro-windows-006/hypotheses/registrations/H0009/v1.json",
+    "research/macro-windows-006/hypotheses/registrations/H0010/v1.json",
+    "research/macro-windows-006/trials.jsonl",
+    "research/move-vix-003/hypotheses/hypothesis-events.jsonl",
+    "research/move-vix-003/hypotheses/registrations/H0004/v1.json",
+    "research/move-vix-003/hypotheses/registrations/H0004/v2.json",
+    "research/move-vix-003/trials.jsonl",
+    "research/options-expiry-004/hypotheses/hypothesis-events.jsonl",
+    "research/options-expiry-004/hypotheses/registrations/H0005/v1.json",
+    "research/options-expiry-004/hypotheses/registrations/H0006/v1.json",
+    "research/options-expiry-004/trials.jsonl",
+    "research/planner-6a/data_availability.json",
+    "research/planner-6a/ranking.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-sp500.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-tyvix.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-vix.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__index-vxn.json",
+    "research/planner-6a/templates/credit-baa-10y-spread__rates-us-10y-yield.json",
+    "research/planner-6a/templates/crypto-btc-usdt-perp__index-btc-dvol.json",
+    "research/planner-6a/templates/crypto-btc-usdt-perp__index-eth-dvol.json",
+    "research/planner-6a/templates/crypto-eth-usdt-perp__crypto-btc-usdt-perp.json",
+    "research/planner-6a/templates/crypto-eth-usdt-perp__crypto-sol-usdt-perp.json",
+    "research/planner-6a/templates/crypto-eth-usdt-perp__index-btc-dvol.json",
+    "research/planner-6a/vxn_refresh.json",
+    "research/publication-lag-007/hypotheses/hypothesis-events.jsonl",
+    "research/publication-lag-007/hypotheses/registrations/H0011/v1.json",
+    "research/publication-lag-007/hypotheses/registrations/H0012/v1.json",
+    "research/publication-lag-007/trials.jsonl",
+    "research/review-6d/review_report.json",
+    "research/statistical-audit-2b/summary.json"
+  ],
+  "sources": [
+    {
+      "last_verified": "2026-11-18",
+      "probe_fail": 0,
+      "probe_kind": "manual-only",
+      "probe_pass": 0,
+      "probe_skip": 1,
+      "provider": "U.S. Bureau of Labor Statistics",
+      "quirks": 3,
+      "recorded_only": 3,
+      "source_id": "bls",
+      "used_by": [
+        "macro-windows-006",
+        "publication-lag-007"
+      ]
+    },
+    {
+      "last_verified": "2026-11-18",
+      "probe_fail": 0,
+      "probe_kind": "automatic",
+      "probe_pass": 4,
+      "probe_skip": 0,
+      "provider": "Deribit",
+      "quirks": 7,
+      "recorded_only": 4,
+      "source_id": "deribit",
+      "used_by": [
+        "options-expiry-004"
+      ]
+    },
+    {
+      "last_verified": "2026-11-18",
+      "probe_fail": 0,
+      "probe_kind": "automatic",
+      "probe_pass": 2,
+      "probe_skip": 0,
+      "provider": "Board of Governors of the Federal Reserve System",
+      "quirks": 3,
+      "recorded_only": 3,
+      "source_id": "federalreserve",
+      "used_by": [
+        "fomc-event-study-005",
+        "macro-windows-006"
+      ]
+    },
+    {
+      "last_verified": "2026-11-18",
+      "probe_fail": 0,
+      "probe_kind": "automatic",
+      "probe_pass": 2,
+      "probe_skip": 0,
+      "provider": "U.S. Treasury, Fiscal Data API (with TreasuryDirect as cross-check)",
+      "quirks": 4,
+      "recorded_only": 3,
+      "source_id": "fiscaldata",
+      "used_by": [
+        "macro-windows-006"
+      ]
+    },
+    {
+      "last_verified": "2026-11-18",
+      "probe_fail": 0,
+      "probe_kind": "automatic",
+      "probe_pass": 13,
+      "probe_skip": 0,
+      "provider": "Federal Reserve Bank of St. Louis (FRED)",
+      "quirks": 10,
+      "recorded_only": 7,
+      "source_id": "fred",
+      "used_by": [
+        "move-vix-003",
+        "fomc-event-study-005",
+        "publication-lag-007"
+      ]
+    },
+    {
+      "last_verified": "2026-11-18",
+      "probe_fail": 0,
+      "probe_kind": "automatic",
+      "probe_pass": 2,
+      "probe_skip": 0,
+      "provider": "Hyperliquid",
+      "quirks": 2,
+      "recorded_only": 2,
+      "source_id": "hyperliquid",
+      "used_by": [
+        "lowvol-002 (preparation only — verified reachable, not used)"
+      ]
+    },
+    {
+      "last_verified": "2026-11-19",
+      "probe_fail": 0,
+      "probe_kind": "automatic",
+      "probe_pass": 2,
+      "probe_skip": 0,
+      "provider": "OKX",
+      "quirks": 8,
+      "recorded_only": 7,
+      "source_id": "okx-public",
+      "used_by": [
+        "btc-eth-001",
+        "lowvol-002",
+        "options-expiry-004",
+        "macro-windows-006",
+        "publication-lag-007",
+        "microstructure-4a",
+        "microstructure-4b",
+        "funding-history",
+        "portfolio-5a"
+      ]
+    },
+    {
+      "last_verified": "2026-11-18",
+      "probe_fail": 0,
+      "probe_kind": "automatic",
+      "probe_pass": 2,
+      "probe_skip": 0,
+      "provider": "Yahoo Finance",
+      "quirks": 4,
+      "recorded_only": 4,
+      "source_id": "yahoo-finance",
+      "used_by": [
+        "move-vix-003",
+        "fomc-event-study-005",
+        "publication-lag-007"
+      ]
+    }
+  ],
+  "studies": [
+    {
+      "anchor_present": true,
+      "hypotheses": [
+        "H0001"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/btc-eth-transmission-001.md",
+      "slug": "btc-eth-001",
+      "status": "closed",
+      "trials": [
+        "T0001"
+      ]
+    },
+    {
+      "anchor_present": false,
+      "hypotheses": [
+        "H0007",
+        "H0008"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/fomc-event-study-005.md",
+      "slug": "fomc-event-study-005",
+      "status": "closed",
+      "trials": [
+        "T0008",
+        "T0009",
+        "T0010"
+      ]
+    },
+    {
+      "anchor_present": true,
+      "hypotheses": [
+        "H0002",
+        "H0003"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/lowvol-transmission-002.md",
+      "slug": "lowvol-002",
+      "status": "open",
+      "trials": [
+        "T0002"
+      ]
+    },
+    {
+      "anchor_present": true,
+      "hypotheses": [
+        "H0009",
+        "H0010"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/macro-windows-006.md",
+      "slug": "macro-windows-006",
+      "status": "closed",
+      "trials": [
+        "T0011",
+        "T0012"
+      ]
+    },
+    {
+      "anchor_present": true,
+      "hypotheses": [
+        "H0004"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/move-vix-transmission-003.md",
+      "slug": "move-vix-003",
+      "status": "closed",
+      "trials": [
+        "T0004"
+      ]
+    },
+    {
+      "anchor_present": true,
+      "hypotheses": [
+        "H0005",
+        "H0006"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/options-expiry-004.md",
+      "slug": "options-expiry-004",
+      "status": "closed",
+      "trials": [
+        "T0005",
+        "T0006",
+        "T0007"
+      ]
+    },
+    {
+      "anchor_present": true,
+      "hypotheses": [
+        "H0011",
+        "H0012"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/publication-lag-007.md",
+      "slug": "publication-lag-007",
+      "status": "closed",
+      "trials": [
+        "T0013",
+        "T0014",
+        "T0015"
+      ]
+    }
+  ],
+  "trials": [
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0001",
+      "observations": 1414,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "coef",
+      "primary_effect_value": 0.025176549532828104,
+      "primary_raw_p_value": 0.7177902744418998,
+      "primary_test": "daily_btc_eth",
+      "primary_test_type": "lead_lag",
+      "record_hash": "7cf678cdaffae790217827a2b3c3c7b5ab27231972f27edb9407bb1229c8dd1d",
+      "recorded_at": "2026-11-18T00:58:34.879586+00:00",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 0.00010990546273016321,
+      "status": "completed",
+      "study": "btc-eth-001",
+      "supported": false,
+      "test_keys": [
+        "daily_btc_eth",
+        "daily_btc_eth_no_factor",
+        "daily_btc_sol",
+        "daily_btc_sol_no_factor",
+        "hourly_btc_eth",
+        "hourly_btc_eth_no_factor"
+      ],
+      "trial_id": "T0001"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0002",
+      "observations": 1133,
+      "primary_adjusted_p_value": 0.28314473469230644,
+      "primary_effect_label": "coef",
+      "primary_effect_value": 0.22170054929722913,
+      "primary_raw_p_value": 0.07078618367307661,
+      "primary_test": "daily_btc_sol_interaction",
+      "primary_test_type": "lead_lag",
+      "record_hash": "1240f8d7a520897f5525c3ca8be9dcc1145c32fb8c420e8e8e7497af823d5024",
+      "recorded_at": "2026-11-18T01:36:26.824159+00:00",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 0.0037592235722866065,
+      "status": "completed",
+      "study": "lowvol-002",
+      "supported": false,
+      "test_keys": [
+        "daily_btc_sol_interaction",
+        "daily_btc_sol_interaction_no_factor",
+        "daily_btc_sol_lowvol",
+        "daily_btc_sol_lowvol_no_factor",
+        "hourly_btc_eth_interaction",
+        "hourly_btc_eth_interaction_no_factor",
+        "hourly_btc_eth_lowvol",
+        "hourly_btc_eth_lowvol_no_factor"
+      ],
+      "trial_id": "T0002"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0004",
+      "observations": 4327,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "coef",
+      "primary_effect_value": -0.00934091218242084,
+      "primary_raw_p_value": 0.775855063381256,
+      "primary_test": "daily_tyvix_vix",
+      "primary_test_type": "lead_lag",
+      "record_hash": "77f2789ca1ea9540e0f89baede80cad82c8e80c2ea0b8eae39c8b1ba0494375b",
+      "recorded_at": "2026-11-18T02:35:21.158127+00:00",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 3.484028991192486e-05,
+      "status": "completed",
+      "study": "move-vix-003",
+      "supported": false,
+      "test_keys": [
+        "daily_tyvix_vix",
+        "daily_tyvix_vix_no_factor",
+        "daily_tyvix_vxn",
+        "daily_tyvix_vxn_no_factor",
+        "weekly_tyvix_vix",
+        "weekly_tyvix_vix_no_factor"
+      ],
+      "trial_id": "T0004"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0005",
+      "observations": 2124,
+      "primary_adjusted_p_value": 0.6938231572768055,
+      "primary_effect_label": "coef",
+      "primary_effect_value": -0.035832376979457355,
+      "primary_raw_p_value": 0.6938231572768055,
+      "primary_test": "daily_btc_eth_interaction",
+      "primary_test_type": "lead_lag",
+      "record_hash": "644b4221b24643bdf95470bde06b26911727b9281c1de8aafcd5845008bff935",
+      "recorded_at": "2026-11-18T04:30:06.808882+00:00",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 8.365601959676024e-05,
+      "status": "completed",
+      "study": "options-expiry-004",
+      "supported": false,
+      "test_keys": [
+        "daily_btc_eth_interaction",
+        "daily_btc_eth_interaction_no_factor",
+        "daily_btc_eth_window",
+        "daily_btc_eth_window_no_factor",
+        "hourly_btc_eth_interaction",
+        "hourly_btc_eth_interaction_no_factor"
+      ],
+      "trial_id": "T0005"
+    },
+    {
+      "failure_reason": "bootstrap point estimate does not match the OLS coefficient: 5.931247862987306e-10 vs 1.2603901708849118e-06",
+      "hypothesis_id": "H0006",
+      "observations": null,
+      "primary_adjusted_p_value": null,
+      "primary_effect_label": null,
+      "primary_effect_value": null,
+      "primary_raw_p_value": null,
+      "primary_test": null,
+      "primary_test_type": null,
+      "record_hash": "0525941f072a1674a4a9da58b06bf92b41fbcab10ef88d9bf50854421dc3834d",
+      "recorded_at": "2026-11-18T04:30:16.194212+00:00",
+      "secondary_effect_label": null,
+      "secondary_effect_value": null,
+      "status": "failed",
+      "study": "options-expiry-004",
+      "supported": null,
+      "test_keys": [],
+      "trial_id": "T0006"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0006",
+      "observations": 2125,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "effect ratio",
+      "primary_effect_value": 1.0000634084216993,
+      "primary_raw_p_value": 0.9993039488153056,
+      "primary_test": "btc_mean_abs_return_comparison",
+      "primary_test_type": "mean_comparison",
+      "record_hash": "69d75c944b750c9b90a9b08f2f5aa7cb635e2f4bc58ad5c44b966add4f9d480d",
+      "recorded_at": "2026-11-18T04:31:46.202788+00:00",
+      "secondary_effect_label": null,
+      "secondary_effect_value": null,
+      "status": "completed",
+      "study": "options-expiry-004",
+      "supported": false,
+      "test_keys": [
+        "btc_mean_abs_return_comparison",
+        "eth_mean_abs_return_comparison"
+      ],
+      "trial_id": "T0007"
+    },
+    {
+      "failure_reason": "cycle boundary 2015-12-17 (cycle_hiking_2) is neither a scheduled statement day nor an unscheduled meeting day",
+      "hypothesis_id": "H0007",
+      "observations": null,
+      "primary_adjusted_p_value": null,
+      "primary_effect_label": null,
+      "primary_effect_value": null,
+      "primary_raw_p_value": null,
+      "primary_test": null,
+      "primary_test_type": null,
+      "record_hash": "d685bb2142b5d1d07a7d0e673eeac3848e04721c59af43913d47b268eb62929e",
+      "recorded_at": "2026-11-18T05:18:41.127244+00:00",
+      "secondary_effect_label": null,
+      "secondary_effect_value": null,
+      "status": "failed",
+      "study": "fomc-event-study-005",
+      "supported": null,
+      "test_keys": [],
+      "trial_id": "T0008"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0008",
+      "observations": 135,
+      "primary_adjusted_p_value": 0.7262425610107872,
+      "primary_effect_label": "slope",
+      "primary_effect_value": 0.00011738285112419084,
+      "primary_raw_p_value": 0.7262425610107872,
+      "primary_test": "spx_on_dgs10",
+      "primary_test_type": "cross_section",
+      "record_hash": "c82c6182f15f4177c43fc4265c699864fb5e305484dcb93cb7d28f96645324af",
+      "recorded_at": "2026-11-18T05:20:42.050522+00:00",
+      "secondary_effect_label": "R²",
+      "secondary_effect_value": 0.005714659904412223,
+      "status": "completed",
+      "study": "fomc-event-study-005",
+      "supported": false,
+      "test_keys": [
+        "baa10y_on_dgs10",
+        "spx_on_dgs10",
+        "vix_on_dgs10"
+      ],
+      "trial_id": "T0009"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0007",
+      "observations": 135,
+      "primary_adjusted_p_value": 0.1599620103450956,
+      "primary_effect_label": "std mean CAR",
+      "primary_effect_value": -0.15068455311467216,
+      "primary_raw_p_value": 0.0399905025862739,
+      "primary_test": "vix_car",
+      "primary_test_type": "event_study",
+      "record_hash": "4942fb6135ac364d57cee042518dd81cfb8680126ffe54a9c9a0b9898d042f56",
+      "recorded_at": "2026-11-18T05:20:30.736420+00:00",
+      "secondary_effect_label": "mean CAR",
+      "secondary_effect_value": -0.015517379813770384,
+      "status": "completed",
+      "study": "fomc-event-study-005",
+      "supported": false,
+      "test_keys": [
+        "baa10y_car",
+        "dgs10_car",
+        "spx_car",
+        "tyvix_car",
+        "vix_car"
+      ],
+      "trial_id": "T0010"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0009",
+      "observations": 2124,
+      "primary_adjusted_p_value": 1.0,
+      "primary_effect_label": "coef",
+      "primary_effect_value": 0.00029048848616874457,
+      "primary_raw_p_value": 0.9982087768740697,
+      "primary_test": "daily_btc_eth_interaction",
+      "primary_test_type": "lead_lag",
+      "record_hash": "af641748117fe8fe3077fab5bd5f56ff082e6fafd6b913b704cc5c5a9f69e186",
+      "recorded_at": "2026-11-18T06:06:15.482236+00:00",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 3.081259166245943e-09,
+      "status": "completed",
+      "study": "macro-windows-006",
+      "supported": false,
+      "test_keys": [
+        "daily_btc_eth_interaction",
+        "daily_btc_eth_interaction_no_factor",
+        "daily_btc_eth_window",
+        "daily_btc_eth_window_no_factor",
+        "hourly_btc_eth_interaction",
+        "hourly_btc_eth_interaction_no_factor"
+      ],
+      "trial_id": "T0011"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0010",
+      "observations": 2125,
+      "primary_adjusted_p_value": 0.009817680267895559,
+      "primary_effect_label": "effect ratio",
+      "primary_effect_value": 1.250433717580785,
+      "primary_raw_p_value": 0.009817680267895559,
+      "primary_test": "btc_mean_abs_return_comparison",
+      "primary_test_type": "mean_comparison",
+      "record_hash": "4b0dd1cce4fbe6e15849ba3ef80355d60591afdf9f3c0913f7cea8bf2681cb8d",
+      "recorded_at": "2026-11-18T06:06:27.124809+00:00",
+      "secondary_effect_label": null,
+      "secondary_effect_value": null,
+      "status": "completed",
+      "study": "macro-windows-006",
+      "supported": true,
+      "test_keys": [
+        "btc_mean_abs_return_comparison",
+        "eth_mean_abs_return_comparison"
+      ],
+      "trial_id": "T0012"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0011",
+      "observations": 135,
+      "primary_adjusted_p_value": 5.201439834401356e-09,
+      "primary_effect_label": "std mean CAR",
+      "primary_effect_value": -0.5156565761431623,
+      "primary_raw_p_value": 1.0402879668802711e-09,
+      "primary_test": "tyvix_lagged_car",
+      "primary_test_type": "event_study",
+      "record_hash": "a4852f550c5e11d555786712820c6c8b698c19cf566bef1f691fb5f3b119fa23",
+      "recorded_at": "2026-11-18T06:42:50.400386+00:00",
+      "secondary_effect_label": "mean CAR",
+      "secondary_effect_value": -0.03021596706540259,
+      "status": "completed",
+      "study": "publication-lag-007",
+      "supported": true,
+      "test_keys": [
+        "baa10y_lagged_car",
+        "dgs10_lagged_car",
+        "spx_car",
+        "tyvix_lagged_car",
+        "vix_lagged_car"
+      ],
+      "trial_id": "T0013"
+    },
+    {
+      "failure_reason": "releases without a usable MoM: ('2025-11', '2026-11'), expected ('2025-11',)",
+      "hypothesis_id": "H0012",
+      "observations": null,
+      "primary_adjusted_p_value": null,
+      "primary_effect_label": null,
+      "primary_effect_value": null,
+      "primary_raw_p_value": null,
+      "primary_test": null,
+      "primary_test_type": null,
+      "record_hash": "19a7c75980631eab20eeeb64d280c9de407f7e7cb8090e5a570dd4294d00c101",
+      "recorded_at": "2026-11-18T06:43:00.198445+00:00",
+      "secondary_effect_label": null,
+      "secondary_effect_value": null,
+      "status": "failed",
+      "study": "publication-lag-007",
+      "supported": null,
+      "test_keys": [],
+      "trial_id": "T0014"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0012",
+      "observations": 1468,
+      "primary_adjusted_p_value": 0.7548740391336041,
+      "primary_effect_label": "coef",
+      "primary_effect_value": -0.037402090072185715,
+      "primary_raw_p_value": 0.7548740391336041,
+      "primary_test": "spx_daily",
+      "primary_test_type": "lead_lag",
+      "record_hash": "6d757217ecab7b2e573ba8260579fc08bf643e22ce3a4ba7b3cd53f9eb6e9976",
+      "recorded_at": "2026-11-18T06:43:32.616299+00:00",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 0.00010223875705747534,
+      "status": "completed",
+      "study": "publication-lag-007",
+      "supported": false,
+      "test_keys": [
+        "btc_daily",
+        "spx_daily",
+        "spx_release_day"
+      ],
+      "trial_id": "T0015"
+    }
+  ]
+}
