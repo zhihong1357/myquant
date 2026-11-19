@@ -61,13 +61,10 @@ from myquant.sources import SourceRegistry  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 HERE = Path(__file__).resolve().parent
-TEMPLATE_PATH = (
-    REPO_ROOT
-    / "research"
-    / "planner-6a"
-    / "templates"
-    / "credit-baa-10y-spread__index-sp500.json"
-)
+# Frozen copy of the planner's BAA10Y->SPX template (see
+# tests/fixtures/planner-template-baa-spx.json). The live template is
+# deleted once its pair is studied (study 008 consumed it).
+TEMPLATE_PATH = REPO_ROOT / "tests" / "fixtures" / "planner-template-baa-spx.json"
 EVIDENCE_REGISTRY = REPO_ROOT / "research" / "evidence-6b" / "sources.json"
 
 SLUG = "baa-spx-transmission-008"
@@ -653,9 +650,11 @@ run, and nothing was written to `research/<new study>/`.
 
 ## Input
 
-- Planner template: `research/planner-6a/templates/credit-baa-10y-spread__index-sp500.json`
-  (rank 1, total score 1.00, daily lead-lag, minimum effect size 0.005,
-  estimated joint rows 5967, adjacent supported edge E0026).
+- Planner template: `tests/fixtures/planner-template-baa-spx.json`
+  (frozen copy of the planner's BAA10Y->SPX template; the live template
+  was deleted once study 008 consumed the pair. Rank 1, total score
+  1.00, daily lead-lag, minimum effect size 0.005, estimated joint
+  rows 5967, adjacent supported edge E0026).
 - Study spec: study 008, slug `{SLUG}`, hypothesis `{HYPOTHESIS_ID}`,
   trial `{TRIAL_ID}` (a synthetic wiring-test id, deliberately never a
   lab trial id — the next real trial id is T0016).

@@ -976,6 +976,39 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
         panel_key="btc_daily",
         notes=("Predeclared BTC robustness test.",),
     ),
+    # Study 008 (H0013, T0016): 1-test Holm family. The predictor is
+    # the BAA10Y level change in basis points lagged 2 trading days by
+    # availability (the latest change available at the decision close,
+    # under the verified 2-trading-day BAA10Y posting lag); the VIX
+    # control carries the standard 1-trading-day FRED lag. The naive
+    # (unlagged, lookahead) alignment is also null, so the publication
+    # lag is not what killed the effect. First real use of the 6c
+    # scaffold; see the study report's scaffold-feedback section.
+    EdgeSpec(
+        edge_id="E0040",
+        study="credit-spread-spx-008",
+        trial_id="T0016",
+        ledger_test_key="daily_baa10y_spx",
+        source="credit:baa-10y-spread",
+        target="index:sp500",
+        frequency="daily",
+        condition=(
+            "predictor is the BAA10Y bp change lagged 2 trading days "
+            "by availability (latest available at the decision close); "
+            "next-day SPX return"
+        ),
+        method=PARTIAL_LEAD_LAG_DAILY,
+        control="lagged VIX[t] log change (1-trading-day FRED lag)",
+        is_primary=True,
+        panel_key="daily",
+        notes=(
+            "Planner rank-1 candidate pair (6a, total score 1.00). "
+            "Primary coefficient +1.80e-05 per bp, wrong sign vs the "
+            "preregistered negative expectation; partial R² 2.19e-05.",
+            "The reverse placebo (SPX->BAA10Y) is nominally significant "
+            "but descriptive only, not in the family.",
+        ),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
@@ -1004,6 +1037,7 @@ TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0012", "macro-windows-006", "H0010", 1, "docs/studies/macro-windows-006.md"),
     ("T0013", "publication-lag-007", "H0011", 1, "docs/studies/publication-lag-007.md"),
     ("T0015", "publication-lag-007", "H0012", 1, "docs/studies/publication-lag-007.md"),
+    ("T0016", "credit-spread-spx-008", "H0013", 1, "docs/studies/credit-spread-spx-008.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -1262,6 +1296,12 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
             f"{gate['days']} holdout rows (including {gate['window_days']} "
             "macro-window rows). 0.05% taker fee per side; funding, "
             "slippage and market impact ignored."
+        )
+    elif data.trial_id == "T0016":
+        note = (
+            "Sign rule on holdout OOS forecasts. SPY bid-ask spread "
+            "1bp per side (2bp round trip per flip); slippage and "
+            "market impact ignored."
         )
     else:
         note = (

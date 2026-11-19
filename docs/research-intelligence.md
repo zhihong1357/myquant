@@ -642,6 +642,14 @@ the next real hypothesis id is H0013):
 - The scaffold knows nothing about economics and does not try:
   it cannot tell a sensible study from a nonsensical one. That
   judgement stays with the researcher — which is the point.
+- Fixed after first real use (study 008): the scaffold used to
+  generate `bar_seconds=86400` for daily studies, which would
+  invalidate every Monday/post-holiday return on a trading
+  calendar (~30% of rows). Daily now generates no gap
+  invalidation (per-trading-day returns, the study-003
+  convention); 1h keeps it, monthly never had it. The other six
+  items of study 008's scaffold feedback are recorded in that
+  study's report, not fixed here.
 
 ### Independent review
 
@@ -873,18 +881,18 @@ answer is to never type a number in the first place.
 
 | section | contents | source |
 | --- | --- | --- |
-| studies | 7 empirical studies: report path, hypotheses, trials, anchor/manifest/panel-summary presence, open/closed | `research/*/trials.jsonl` |
-| hypotheses | 12 hypotheses, 13 versions: fingerprints, registration hashes, lifecycle states, trials, edges, decision records | `hypotheses/registrations/`, event logs |
-| trials | 14 records: status, verdict, primary-test summary (effect, adjusted p, n) | trial ledgers |
-| edges | 39 edges: endpoints, status, trial/test key, decision record, audit survival | `research/graph/registry.json` |
-| decision records | 15 records: edge/hypothesis/trial/study links | `research/decision-records/records/` |
-| candidates | 123 pairs: rank, score, mechanism, template presence | `research/planner-6a/ranking.json` |
+| studies | 8 empirical studies: report path, hypotheses, trials, anchor/manifest/panel-summary presence, open/closed | `research/*/trials.jsonl` |
+| hypotheses | 13 hypotheses, 14 versions: fingerprints, registration hashes, lifecycle states, trials, edges, decision records | `hypotheses/registrations/`, event logs |
+| trials | 15 records: status, verdict, primary-test summary (effect, adjusted p, n) | trial ledgers |
+| edges | 40 edges: endpoints, status, trial/test key, decision record, audit survival | `research/graph/registry.json` |
+| decision records | 16 records: edge/hypothesis/trial/study links | `research/decision-records/records/` |
+| candidates | 122 pairs: rank, score, mechanism, template presence | `research/planner-6a/ranking.json` |
 | sources | 8 sources: quirks, recorded-only counts, probe outcomes | `research/evidence-6b/` |
 | panels | 12 panels: probe-time freshness | evidence report |
 | review | 6d counts and unverified items, quoted | `research/review-6d/review_report.json` |
 | audit | lab-wide Holm/BH survivors, quoted | `research/statistical-audit-2b/summary.json` |
 
-The catalog also records its own provenance: the 61 source
+The catalog also records its own provenance: the 65 source
 files read (repo-relative paths), the generation timestamp,
 the broken-link list and the missing-optional list.
 
@@ -931,7 +939,7 @@ manifests, panel summaries) are recorded separately in
 `lab_report.md` is the one-page view of the lab: a studies
 table (one row per completed trial, with the primary effect,
 adjusted p-value and sample size from the ledger), the graph
-summary (39 edges by status; the 6 supported edges with their
+summary (40 edges by status; the 6 supported edges with their
 lab-wide audit survival, quoted from the 2B summary), the
 candidate queue (top-10 and tier counts), data freshness
 (probe-time snapshot, plus post-probe updates recorded in
@@ -1026,10 +1034,26 @@ catalog's 0 broken links.
   from the 6b evidence report (probed 2026-11-18T21:45Z),
   not from a live check. Post-probe updates appear only when
   a committed record exists.
-- **The catalog covers the seven empirical studies**: stages
+- **The catalog covers the eight empirical studies**: stages
   without trial ledgers (microstructure, portfolio, planner,
   evidence, scaffolding, review) appear only through their
   outputs, not as catalogued studies.
+
+### Regeneration after study 008
+
+The catalog and lab report were regenerated when study 008
+landed (generated 2026-11-19T00:37Z): 8 studies, 13
+hypotheses (14 versions), 15 trial records (12 completed, 3
+failed, T0003 reserved), 40 edges (6 supported, 31 rejected,
+1 pending, 2 descriptive), 16 decision records, 122
+candidates (110 ranked, 12 unrankable), 65 source files.
+Integrity still holds: **0 broken links**, and the only
+missing optional file is still the study-005 anchor. The
+regenerated report quotes the 6d review at 104 checks (84
+pass, 0 fail, 8 unverified, 12 note) and the 2B audit at
+family 37 (4 Holm survivors, 5 BH survivors). The counts in
+the Validation results section above are the 6e validation's
+own record (2026-11-18T23:52Z) and are left as they were.
 
 Stage 6 is complete with this item: the planner (§1), the
 evidence analyst (§2), the experiment assistant (§3), the

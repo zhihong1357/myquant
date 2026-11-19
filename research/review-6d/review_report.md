@@ -1,15 +1,15 @@
 # Adversarial review report (Stage 6d)
 
-Reviewed at: 2026-11-18T23:30:00+00:00
+Reviewed at: 2026-11-19T00:36:42+00:00
 
-Read-only review of the lab's seven empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
+Read-only review of the lab's 8 empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
 
 ## Summary
 
-- PASS: 75
+- PASS: 84
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 11
+- NOTE: 12
 
 ## btc-eth-001
 
@@ -288,7 +288,36 @@ Read-only review of the lab's seven empirical studies: ledger integrity, preregi
 - **[UNVERIFIED]** `pit_spot_check` (publication-lag-007): no PIT parquet retained locally for this study
   - publication-lag-007: data/cache/publication-lag-007/ holds no *.parquet batches
 
+## credit-spread-spx-008
+
+- Report: `docs/studies/credit-spread-spx-008.md`
+- Checks: 9 pass, 0 fail, 0 unverified, 1 note
+
+- **[PASS]** `ledger_chain` (research/credit-spread-spx-008/trials.jsonl): hash chain intact (1 record(s))
+  - research/credit-spread-spx-008/trials.jsonl: 1 record(s), latest record hash 5e2ca06ab5c3...
+- **[PASS]** `ledger_anchor` (research/credit-spread-spx-008/trials.jsonl): ledger matches its anchor (1 record(s))
+  - research/credit-spread-spx-008/trials.jsonl: anchor record count and latest hash agree
+- **[PASS]** `registry_events` (research/credit-spread-spx-008/hypotheses): event chain intact (3 event(s))
+  - research/credit-spread-spx-008/hypotheses: 3 lifecycle event(s), all transitions legal
+- **[PASS]** `prereg_binding` (T0016): bound to H0013 v1 (fingerprint, plan, spec hash)
+  - T0016: fingerprint e7f98ea75dd4..., spec hash 1f1916a0b0fb...
+- **[PASS]** `multiple_testing` (T0016): holm adjustment recomputes (1 test(s), family size matches plan)
+  - T0016: 1 adjusted p-value(s) and reject flag(s) agree
+- **[PASS]** `verdict_consistency` (T0016): verdict re-derives from metrics and spec (primary test daily_baa10y_spx)
+  - T0016: supported=False equals the conjunction of 4 criteria; holm_adjusted_primary_p_below_0.05=False (adjusted p 0.8935170696924368); primary_partial_r_squared_at_least_0.005=False (partial_r_squared 2.1926421937872296e-05 >= 0.005)
+- **[NOTE]** `power_note` (T0016): MDE annotation from the 2B audit (1 entry)
+  - E0040: lead-lag n=5957, MDE partial R²=0.0013158555887334818, observed=2.1926421937872296e-05 (below MDE)
+- **[PASS]** `hypothesis_state` (H0013 v1): lifecycle state rejected matches the trial verdict
+  - credit-spread-spx-008 H0013 v1: supported=False, state=rejected
+- **[PASS]** `report_ledger` (credit-spread-spx-008): 4/4 report row(s) verified against the ledger
+  - T0016 daily_baa10y_spx: 8 column(s) match
+  - T0016 daily_baa10y_spx_no_factor: 7 column(s) match
+  - T0016 daily_baa10y_spx_naive: 7 column(s) match
+  - T0016 daily_spx_baa10y_reverse: 7 column(s) match
+- **[PASS]** `pit_spot_check` (credit-spread-spx-008): available_at >= event_time for all 18018 retained observation(s)
+  - credit-spread-spx-008: 18018 observation(s) in 3 batch(es)
+
 ## Lab-wide checks
 
-- **[PASS]** `trial_sequence` (lab): sequence T0001..T0015 complete (14 trial(s), T0003 reserved, 3 failed trial(s) recorded)
-  - lab: 14 trial(s); reserved: T0003; failed: T0006, T0008, T0014
+- **[PASS]** `trial_sequence` (lab): sequence T0001..T0016 complete (15 trial(s), T0003 reserved, 3 failed trial(s) recorded)
+  - lab: 15 trial(s); reserved: T0003; failed: T0006, T0008, T0014

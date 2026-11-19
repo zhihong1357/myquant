@@ -1,9 +1,9 @@
 {
   "audit": {
     "bh_survivors": 5,
-    "family_size": 36,
+    "family_size": 37,
     "holm_survivors": 4,
-    "registry_content_hash": "3d0515bd4fa1f7c3922d10a4e1cbb805b4cba3e6ccbd630f26b6973704ec4ae0",
+    "registry_content_hash": "65a4b04639537b99f3beaffef2e5ab84a4cbdbfeff2ec91a8c78358967664b28",
     "supported_total": 6
   },
   "broken_links": [],
@@ -14,7 +14,7 @@
       "rank": 1,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:sp500",
+      "target_instrument": "index:tyvix",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -25,7 +25,7 @@
       "rank": 2,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:tyvix",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -36,7 +36,7 @@
       "rank": 3,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:vix",
+      "target_instrument": "index:vxn",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -47,7 +47,7 @@
       "rank": 4,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:vxn",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -57,8 +57,8 @@
       "mechanism": "transmission",
       "rank": 5,
       "ranked": true,
-      "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "index:btc-dvol",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -69,7 +69,7 @@
       "rank": 6,
       "ranked": true,
       "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -79,8 +79,8 @@
       "mechanism": "transmission",
       "rank": 7,
       "ranked": true,
-      "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "index:eth-dvol",
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -91,7 +91,7 @@
       "rank": 8,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "crypto:sol-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -102,7 +102,7 @@
       "rank": 9,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:btc-dvol",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -113,7 +113,7 @@
       "rank": 10,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -123,8 +123,8 @@
       "mechanism": "transmission",
       "rank": 11,
       "ranked": true,
-      "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "index:eth-dvol",
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -135,7 +135,7 @@
       "rank": 12,
       "ranked": true,
       "source_instrument": "crypto:sol-usdt-perp",
-      "target_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -145,8 +145,8 @@
       "mechanism": "transmission",
       "rank": 13,
       "ranked": true,
-      "source_instrument": "crypto:sol-usdt-perp",
-      "target_instrument": "crypto:eth-usdt-perp",
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -157,7 +157,7 @@
       "rank": 14,
       "ranked": true,
       "source_instrument": "index:btc-dvol",
-      "target_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -167,8 +167,8 @@
       "mechanism": "transmission",
       "rank": 15,
       "ranked": true,
-      "source_instrument": "index:btc-dvol",
-      "target_instrument": "crypto:eth-usdt-perp",
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -179,7 +179,7 @@
       "rank": 16,
       "ranked": true,
       "source_instrument": "index:eth-dvol",
-      "target_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -189,8 +189,8 @@
       "mechanism": "transmission",
       "rank": 17,
       "ranked": true,
-      "source_instrument": "index:eth-dvol",
-      "target_instrument": "crypto:eth-usdt-perp",
+      "source_instrument": "index:sp500",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -201,7 +201,7 @@
       "rank": 18,
       "ranked": true,
       "source_instrument": "index:sp500",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:tyvix",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -212,7 +212,7 @@
       "rank": 19,
       "ranked": true,
       "source_instrument": "index:sp500",
-      "target_instrument": "index:tyvix",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -223,7 +223,7 @@
       "rank": 20,
       "ranked": true,
       "source_instrument": "index:sp500",
-      "target_instrument": "index:vix",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -233,8 +233,8 @@
       "mechanism": "transmission",
       "rank": 21,
       "ranked": true,
-      "source_instrument": "index:sp500",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "index:tyvix",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -245,7 +245,7 @@
       "rank": 22,
       "ranked": true,
       "source_instrument": "index:tyvix",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:sp500",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -256,7 +256,7 @@
       "rank": 23,
       "ranked": true,
       "source_instrument": "index:tyvix",
-      "target_instrument": "index:sp500",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -266,8 +266,8 @@
       "mechanism": "transmission",
       "rank": 24,
       "ranked": true,
-      "source_instrument": "index:tyvix",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "index:vix",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -278,7 +278,7 @@
       "rank": 25,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:sp500",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -289,7 +289,7 @@
       "rank": 26,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "index:sp500",
+      "target_instrument": "index:tyvix",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -300,7 +300,7 @@
       "rank": 27,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "index:tyvix",
+      "target_instrument": "index:vxn",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -311,7 +311,7 @@
       "rank": 28,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "index:vxn",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -321,8 +321,8 @@
       "mechanism": "transmission",
       "rank": 29,
       "ranked": true,
-      "source_instrument": "index:vix",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "index:vxn",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -333,7 +333,7 @@
       "rank": 30,
       "ranked": true,
       "source_instrument": "index:vxn",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:tyvix",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -344,7 +344,7 @@
       "rank": 31,
       "ranked": true,
       "source_instrument": "index:vxn",
-      "target_instrument": "index:tyvix",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 1.0,
       "unrankable_reason": null
@@ -355,17 +355,6 @@
       "rank": 32,
       "ranked": true,
       "source_instrument": "index:vxn",
-      "target_instrument": "index:vix",
-      "test_type": "lead_lag",
-      "total_score": 1.0,
-      "unrankable_reason": null
-    },
-    {
-      "has_template": false,
-      "mechanism": "transmission",
-      "rank": 33,
-      "ranked": true,
-      "source_instrument": "index:vxn",
       "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 1.0,
@@ -374,7 +363,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 34,
+      "rank": 33,
       "ranked": true,
       "source_instrument": "macro:cpi-mom",
       "target_instrument": "crypto:eth-usdt-perp",
@@ -385,7 +374,7 @@
     {
       "has_template": false,
       "mechanism": "cross-section",
-      "rank": 35,
+      "rank": 34,
       "ranked": true,
       "source_instrument": "rates:us-10y-yield",
       "target_instrument": "index:vxn",
@@ -396,7 +385,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 36,
+      "rank": 35,
       "ranked": true,
       "source_instrument": "crypto:sol-usdt-perp",
       "target_instrument": "index:btc-dvol",
@@ -407,7 +396,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 37,
+      "rank": 36,
       "ranked": true,
       "source_instrument": "crypto:sol-usdt-perp",
       "target_instrument": "index:eth-dvol",
@@ -418,9 +407,20 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 38,
+      "rank": 37,
       "ranked": true,
       "source_instrument": "index:btc-dvol",
+      "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 38,
+      "ranked": true,
+      "source_instrument": "index:eth-dvol",
       "target_instrument": "crypto:sol-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.8,
@@ -431,17 +431,6 @@
       "mechanism": "transmission",
       "rank": 39,
       "ranked": true,
-      "source_instrument": "index:eth-dvol",
-      "target_instrument": "crypto:sol-usdt-perp",
-      "test_type": "lead_lag",
-      "total_score": 0.8,
-      "unrankable_reason": null
-    },
-    {
-      "has_template": false,
-      "mechanism": "transmission",
-      "rank": 40,
-      "ranked": true,
       "source_instrument": "index:sp500",
       "target_instrument": "index:vxn",
       "test_type": "lead_lag",
@@ -451,10 +440,21 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 41,
+      "rank": 40,
       "ranked": true,
       "source_instrument": "index:vxn",
       "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.8,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 41,
+      "ranked": true,
+      "source_instrument": "macro:cpi-mom",
+      "target_instrument": "crypto:sol-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.8,
       "unrankable_reason": null
@@ -465,7 +465,7 @@
       "rank": 42,
       "ranked": true,
       "source_instrument": "macro:cpi-mom",
-      "target_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:btc-dvol",
       "test_type": "lead_lag",
       "total_score": 0.8,
       "unrankable_reason": null
@@ -476,7 +476,7 @@
       "rank": 43,
       "ranked": true,
       "source_instrument": "macro:cpi-mom",
-      "target_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
       "test_type": "lead_lag",
       "total_score": 0.8,
       "unrankable_reason": null
@@ -486,10 +486,10 @@
       "mechanism": "transmission",
       "rank": 44,
       "ranked": true,
-      "source_instrument": "macro:cpi-mom",
-      "target_instrument": "index:eth-dvol",
+      "source_instrument": "credit:baa-10y-spread",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
-      "total_score": 0.8,
+      "total_score": 0.7,
       "unrankable_reason": null
     },
     {
@@ -498,7 +498,7 @@
       "rank": 45,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -509,7 +509,7 @@
       "rank": 46,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "crypto:sol-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -520,7 +520,7 @@
       "rank": 47,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:btc-dvol",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -531,7 +531,7 @@
       "rank": 48,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -542,7 +542,7 @@
       "rank": 49,
       "ranked": true,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:eth-dvol",
+      "target_instrument": "macro:cpi-mom",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -552,8 +552,8 @@
       "mechanism": "transmission",
       "rank": 50,
       "ranked": true,
-      "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "macro:cpi-mom",
+      "source_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -564,7 +564,7 @@
       "rank": 51,
       "ranked": true,
       "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:sp500",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -575,7 +575,7 @@
       "rank": 52,
       "ranked": true,
       "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "index:sp500",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -586,7 +586,7 @@
       "rank": 53,
       "ranked": true,
       "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "index:vix",
+      "target_instrument": "index:vxn",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -597,7 +597,7 @@
       "rank": 54,
       "ranked": true,
       "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "index:vxn",
+      "target_instrument": "macro:cpi-mom",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -608,7 +608,7 @@
       "rank": 55,
       "ranked": true,
       "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "macro:cpi-mom",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -618,8 +618,8 @@
       "mechanism": "transmission",
       "rank": 56,
       "ranked": true,
-      "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -630,7 +630,7 @@
       "rank": 57,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:sp500",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -641,7 +641,7 @@
       "rank": 58,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "index:sp500",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -652,7 +652,7 @@
       "rank": 59,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "index:vix",
+      "target_instrument": "index:vxn",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -663,7 +663,7 @@
       "rank": 60,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "index:vxn",
+      "target_instrument": "macro:cpi-mom",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -674,7 +674,7 @@
       "rank": 61,
       "ranked": true,
       "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "macro:cpi-mom",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -684,8 +684,8 @@
       "mechanism": "transmission",
       "rank": 62,
       "ranked": true,
-      "source_instrument": "crypto:eth-usdt-perp",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -696,7 +696,7 @@
       "rank": 63,
       "ranked": true,
       "source_instrument": "crypto:sol-usdt-perp",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -707,7 +707,7 @@
       "rank": 64,
       "ranked": true,
       "source_instrument": "crypto:sol-usdt-perp",
-      "target_instrument": "index:vix",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -717,8 +717,8 @@
       "mechanism": "transmission",
       "rank": 65,
       "ranked": true,
-      "source_instrument": "crypto:sol-usdt-perp",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -729,7 +729,7 @@
       "rank": 66,
       "ranked": true,
       "source_instrument": "index:btc-dvol",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -740,7 +740,7 @@
       "rank": 67,
       "ranked": true,
       "source_instrument": "index:btc-dvol",
-      "target_instrument": "index:vix",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -750,8 +750,8 @@
       "mechanism": "transmission",
       "rank": 68,
       "ranked": true,
-      "source_instrument": "index:btc-dvol",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "index:eth-dvol",
+      "target_instrument": "credit:baa-10y-spread",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -762,7 +762,7 @@
       "rank": 69,
       "ranked": true,
       "source_instrument": "index:eth-dvol",
-      "target_instrument": "credit:baa-10y-spread",
+      "target_instrument": "index:vix",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -773,7 +773,7 @@
       "rank": 70,
       "ranked": true,
       "source_instrument": "index:eth-dvol",
-      "target_instrument": "index:vix",
+      "target_instrument": "rates:us-10y-yield",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -783,8 +783,8 @@
       "mechanism": "transmission",
       "rank": 71,
       "ranked": true,
-      "source_instrument": "index:eth-dvol",
-      "target_instrument": "rates:us-10y-yield",
+      "source_instrument": "index:sp500",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -795,7 +795,7 @@
       "rank": 72,
       "ranked": true,
       "source_instrument": "index:sp500",
-      "target_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -805,8 +805,8 @@
       "mechanism": "transmission",
       "rank": 73,
       "ranked": true,
-      "source_instrument": "index:sp500",
-      "target_instrument": "crypto:eth-usdt-perp",
+      "source_instrument": "index:vix",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -817,7 +817,7 @@
       "rank": 74,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "crypto:btc-usdt-perp",
+      "target_instrument": "crypto:eth-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -828,7 +828,7 @@
       "rank": 75,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "crypto:eth-usdt-perp",
+      "target_instrument": "crypto:sol-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -839,7 +839,7 @@
       "rank": 76,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:btc-dvol",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -850,7 +850,7 @@
       "rank": 77,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -861,7 +861,7 @@
       "rank": 78,
       "ranked": true,
       "source_instrument": "index:vix",
-      "target_instrument": "index:eth-dvol",
+      "target_instrument": "macro:cpi-mom",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -871,8 +871,8 @@
       "mechanism": "transmission",
       "rank": 79,
       "ranked": true,
-      "source_instrument": "index:vix",
-      "target_instrument": "macro:cpi-mom",
+      "source_instrument": "index:vxn",
+      "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -883,17 +883,6 @@
       "rank": 80,
       "ranked": true,
       "source_instrument": "index:vxn",
-      "target_instrument": "crypto:btc-usdt-perp",
-      "test_type": "lead_lag",
-      "total_score": 0.7,
-      "unrankable_reason": null
-    },
-    {
-      "has_template": false,
-      "mechanism": "transmission",
-      "rank": 81,
-      "ranked": true,
-      "source_instrument": "index:vxn",
       "target_instrument": "crypto:eth-usdt-perp",
       "test_type": "lead_lag",
       "total_score": 0.7,
@@ -902,7 +891,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 82,
+      "rank": 81,
       "ranked": true,
       "source_instrument": "macro:cpi-mom",
       "target_instrument": "credit:baa-10y-spread",
@@ -913,7 +902,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 83,
+      "rank": 82,
       "ranked": true,
       "source_instrument": "macro:cpi-mom",
       "target_instrument": "index:vix",
@@ -924,7 +913,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 84,
+      "rank": 83,
       "ranked": true,
       "source_instrument": "macro:cpi-mom",
       "target_instrument": "rates:us-10y-yield",
@@ -935,7 +924,7 @@
     {
       "has_template": false,
       "mechanism": "cross-section",
-      "rank": 85,
+      "rank": 84,
       "ranked": true,
       "source_instrument": "rates:us-10y-yield",
       "target_instrument": "crypto:btc-usdt-perp",
@@ -946,7 +935,7 @@
     {
       "has_template": false,
       "mechanism": "cross-section",
-      "rank": 86,
+      "rank": 85,
       "ranked": true,
       "source_instrument": "rates:us-10y-yield",
       "target_instrument": "crypto:eth-usdt-perp",
@@ -957,10 +946,21 @@
     {
       "has_template": false,
       "mechanism": "cross-section",
-      "rank": 87,
+      "rank": 86,
       "ranked": true,
       "source_instrument": "rates:us-10y-yield",
       "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "cross_section",
+      "total_score": 0.7,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "cross-section",
+      "rank": 87,
+      "ranked": true,
+      "source_instrument": "rates:us-10y-yield",
+      "target_instrument": "index:btc-dvol",
       "test_type": "cross_section",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -971,7 +971,7 @@
       "rank": 88,
       "ranked": true,
       "source_instrument": "rates:us-10y-yield",
-      "target_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
       "test_type": "cross_section",
       "total_score": 0.7,
       "unrankable_reason": null
@@ -982,17 +982,6 @@
       "rank": 89,
       "ranked": true,
       "source_instrument": "rates:us-10y-yield",
-      "target_instrument": "index:eth-dvol",
-      "test_type": "cross_section",
-      "total_score": 0.7,
-      "unrankable_reason": null
-    },
-    {
-      "has_template": false,
-      "mechanism": "cross-section",
-      "rank": 90,
-      "ranked": true,
-      "source_instrument": "rates:us-10y-yield",
       "target_instrument": "index:tyvix",
       "test_type": "cross_section",
       "total_score": 0.7,
@@ -1001,7 +990,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 91,
+      "rank": 90,
       "ranked": true,
       "source_instrument": "rates:us-10y-yield",
       "target_instrument": "macro:cpi-mom",
@@ -1012,7 +1001,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 92,
+      "rank": 91,
       "ranked": true,
       "source_instrument": "index:btc-dvol",
       "target_instrument": "index:eth-dvol",
@@ -1023,7 +1012,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 93,
+      "rank": 92,
       "ranked": true,
       "source_instrument": "index:eth-dvol",
       "target_instrument": "index:btc-dvol",
@@ -1034,10 +1023,21 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 94,
+      "rank": 93,
       "ranked": true,
       "source_instrument": "crypto:sol-usdt-perp",
       "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 94,
+      "ranked": true,
+      "source_instrument": "crypto:sol-usdt-perp",
+      "target_instrument": "index:vxn",
       "test_type": "lead_lag",
       "total_score": 0.5,
       "unrankable_reason": null
@@ -1048,7 +1048,7 @@
       "rank": 95,
       "ranked": true,
       "source_instrument": "crypto:sol-usdt-perp",
-      "target_instrument": "index:vxn",
+      "target_instrument": "macro:cpi-mom",
       "test_type": "lead_lag",
       "total_score": 0.5,
       "unrankable_reason": null
@@ -1058,8 +1058,8 @@
       "mechanism": "transmission",
       "rank": 96,
       "ranked": true,
-      "source_instrument": "crypto:sol-usdt-perp",
-      "target_instrument": "macro:cpi-mom",
+      "source_instrument": "index:btc-dvol",
+      "target_instrument": "index:sp500",
       "test_type": "lead_lag",
       "total_score": 0.5,
       "unrankable_reason": null
@@ -1070,7 +1070,7 @@
       "rank": 97,
       "ranked": true,
       "source_instrument": "index:btc-dvol",
-      "target_instrument": "index:sp500",
+      "target_instrument": "index:vxn",
       "test_type": "lead_lag",
       "total_score": 0.5,
       "unrankable_reason": null
@@ -1081,17 +1081,6 @@
       "rank": 98,
       "ranked": true,
       "source_instrument": "index:btc-dvol",
-      "target_instrument": "index:vxn",
-      "test_type": "lead_lag",
-      "total_score": 0.5,
-      "unrankable_reason": null
-    },
-    {
-      "has_template": false,
-      "mechanism": "transmission",
-      "rank": 99,
-      "ranked": true,
-      "source_instrument": "index:btc-dvol",
       "target_instrument": "macro:cpi-mom",
       "test_type": "lead_lag",
       "total_score": 0.5,
@@ -1100,7 +1089,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 100,
+      "rank": 99,
       "ranked": true,
       "source_instrument": "index:eth-dvol",
       "target_instrument": "index:sp500",
@@ -1111,7 +1100,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 101,
+      "rank": 100,
       "ranked": true,
       "source_instrument": "index:eth-dvol",
       "target_instrument": "index:vxn",
@@ -1122,7 +1111,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 102,
+      "rank": 101,
       "ranked": true,
       "source_instrument": "index:eth-dvol",
       "target_instrument": "macro:cpi-mom",
@@ -1133,10 +1122,21 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 103,
+      "rank": 102,
       "ranked": true,
       "source_instrument": "index:sp500",
       "target_instrument": "crypto:sol-usdt-perp",
+      "test_type": "lead_lag",
+      "total_score": 0.5,
+      "unrankable_reason": null
+    },
+    {
+      "has_template": false,
+      "mechanism": "transmission",
+      "rank": 103,
+      "ranked": true,
+      "source_instrument": "index:sp500",
+      "target_instrument": "index:btc-dvol",
       "test_type": "lead_lag",
       "total_score": 0.5,
       "unrankable_reason": null
@@ -1147,7 +1147,7 @@
       "rank": 104,
       "ranked": true,
       "source_instrument": "index:sp500",
-      "target_instrument": "index:btc-dvol",
+      "target_instrument": "index:eth-dvol",
       "test_type": "lead_lag",
       "total_score": 0.5,
       "unrankable_reason": null
@@ -1158,17 +1158,6 @@
       "rank": 105,
       "ranked": true,
       "source_instrument": "index:sp500",
-      "target_instrument": "index:eth-dvol",
-      "test_type": "lead_lag",
-      "total_score": 0.5,
-      "unrankable_reason": null
-    },
-    {
-      "has_template": false,
-      "mechanism": "transmission",
-      "rank": 106,
-      "ranked": true,
-      "source_instrument": "index:sp500",
       "target_instrument": "macro:cpi-mom",
       "test_type": "lead_lag",
       "total_score": 0.5,
@@ -1177,7 +1166,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 107,
+      "rank": 106,
       "ranked": true,
       "source_instrument": "index:vxn",
       "target_instrument": "crypto:sol-usdt-perp",
@@ -1188,7 +1177,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 108,
+      "rank": 107,
       "ranked": true,
       "source_instrument": "index:vxn",
       "target_instrument": "index:btc-dvol",
@@ -1199,7 +1188,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 109,
+      "rank": 108,
       "ranked": true,
       "source_instrument": "index:vxn",
       "target_instrument": "index:eth-dvol",
@@ -1210,7 +1199,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 110,
+      "rank": 109,
       "ranked": true,
       "source_instrument": "index:vxn",
       "target_instrument": "macro:cpi-mom",
@@ -1221,7 +1210,7 @@
     {
       "has_template": false,
       "mechanism": "transmission",
-      "rank": 111,
+      "rank": 110,
       "ranked": true,
       "source_instrument": "macro:cpi-mom",
       "target_instrument": "index:vxn",
@@ -1364,27 +1353,27 @@
   ],
   "counts": {
     "broken_links": 0,
-    "candidates_ranked": 111,
-    "candidates_total": 123,
+    "candidates_ranked": 110,
+    "candidates_total": 122,
     "candidates_unrankable": 12,
-    "decision_records": 15,
+    "decision_records": 16,
     "edges_descriptive": 2,
     "edges_pending": 1,
-    "edges_rejected": 30,
+    "edges_rejected": 31,
     "edges_supported": 6,
-    "edges_total": 39,
-    "hypotheses": 12,
-    "hypothesis_versions": 13,
+    "edges_total": 40,
+    "hypotheses": 13,
+    "hypothesis_versions": 14,
     "missing_optional": 1,
     "nodes": 12,
     "panels": 12,
     "sources": 8,
-    "studies": 7,
+    "studies": 8,
     "templates": 10,
-    "trials_completed": 11,
+    "trials_completed": 12,
     "trials_failed": 3,
     "trials_reserved": 1,
-    "trials_total": 14
+    "trials_total": 15
   },
   "decision_records": [
     {
@@ -1551,6 +1540,17 @@
       "report_path": "docs/studies/publication-lag-007.md",
       "study": "publication-lag-007",
       "trial_id": "T0015"
+    },
+    {
+      "conclusion": "REJECTED",
+      "edge_id": "E0040",
+      "hypothesis_id": "H0013",
+      "ledger_path": "research/credit-spread-spx-008/trials.jsonl",
+      "record_id": "DR-H0013",
+      "record_type": "rejected_hypothesis",
+      "report_path": "docs/studies/credit-spread-spx-008.md",
+      "study": "credit-spread-spx-008",
+      "trial_id": "T0016"
     }
   ],
   "edges": [
@@ -2224,10 +2224,27 @@
       "target_instrument": "crypto:btc-usdt-perp",
       "test_type": "lead_lag",
       "trial_id": "T0015"
+    },
+    {
+      "audit_caveat": null,
+      "bh_significant": null,
+      "decision_record_id": "DR-H0013",
+      "edge_id": "E0040",
+      "forward_sample": null,
+      "holm_significant": null,
+      "hypothesis_id": "H0013",
+      "ledger_path": "research/credit-spread-spx-008/trials.jsonl",
+      "ledger_test_key": "daily_baa10y_spx",
+      "report_path": "docs/studies/credit-spread-spx-008.md",
+      "source_instrument": "credit:baa-10y-spread",
+      "status": "rejected",
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "trial_id": "T0016"
     }
   ],
   "evidence_probed_at": "2026-11-18T21:45:56.107388Z",
-  "generated_at": "2026-11-18T23:52:00Z",
+  "generated_at": "2026-11-19T00:37:02Z",
   "hypotheses": [
     {
       "decision_records": [
@@ -2541,6 +2558,29 @@
           "version": 1
         }
       ]
+    },
+    {
+      "decision_records": [
+        "DR-H0013"
+      ],
+      "edges": [
+        "E0040"
+      ],
+      "hypothesis_id": "H0013",
+      "latest_state": "rejected",
+      "study": "credit-spread-spx-008",
+      "trials": [
+        "T0016"
+      ],
+      "versions": [
+        {
+          "registered_at": "2026-11-19T00:22:03.114900Z",
+          "registration_hash": "be3aa894038671c10e4f0c47355d06d6e496ec606e3084e3877bfb7e263b792a",
+          "spec_fingerprint": "e7f98ea75dd4c2a9b545e71b3f2fd0c9dd1d8dcef42add42987dd1d44861a39a",
+          "state": "rejected",
+          "version": 1
+        }
+      ]
     }
   ],
   "missing_optional": [
@@ -2758,8 +2798,8 @@
   "review": {
     "counts": {
       "fail": 0,
-      "note": 11,
-      "pass": 75,
+      "note": 12,
+      "pass": 84,
       "unverified": 8
     },
     "per_study_counts": {
@@ -2768,6 +2808,12 @@
         "note": 1,
         "pass": 8,
         "unverified": 1
+      },
+      "credit-spread-spx-008": {
+        "fail": 0,
+        "note": 1,
+        "pass": 9,
+        "unverified": 0
       },
       "fomc-event-study-005": {
         "fail": 0,
@@ -2806,7 +2852,7 @@
         "unverified": 1
       }
     },
-    "reviewed_at": "2026-11-18T23:30:00Z",
+    "reviewed_at": "2026-11-19T00:36:42Z",
     "unverified_items": [
       "btc-eth-001: pit_spot_check — no PIT parquet retained locally for this study",
       "fomc-event-study-005: ledger_anchor — no anchor file; truncation undetectable",
@@ -2823,6 +2869,9 @@
     "research/btc-eth-001/hypotheses/hypothesis-events.jsonl",
     "research/btc-eth-001/hypotheses/registrations/H0001/v1.json",
     "research/btc-eth-001/trials.jsonl",
+    "research/credit-spread-spx-008/hypotheses/hypothesis-events.jsonl",
+    "research/credit-spread-spx-008/hypotheses/registrations/H0013/v1.json",
+    "research/credit-spread-spx-008/trials.jsonl",
     "research/decision-records/records/DR-E0023.json",
     "research/decision-records/records/DR-E0026.json",
     "research/decision-records/records/DR-E0030.json",
@@ -2838,6 +2887,7 @@
     "research/decision-records/records/DR-H0008.json",
     "research/decision-records/records/DR-H0009.json",
     "research/decision-records/records/DR-H0012.json",
+    "research/decision-records/records/DR-H0013.json",
     "research/evidence-6b/evidence_report.json",
     "research/evidence-6b/panel_freshness.json",
     "research/evidence-6b/sources.json",
@@ -2864,7 +2914,6 @@
     "research/options-expiry-004/trials.jsonl",
     "research/planner-6a/data_availability.json",
     "research/planner-6a/ranking.json",
-    "research/planner-6a/templates/credit-baa-10y-spread__index-sp500.json",
     "research/planner-6a/templates/credit-baa-10y-spread__index-tyvix.json",
     "research/planner-6a/templates/credit-baa-10y-spread__index-vix.json",
     "research/planner-6a/templates/credit-baa-10y-spread__index-vxn.json",
@@ -2874,6 +2923,7 @@
     "research/planner-6a/templates/crypto-eth-usdt-perp__crypto-btc-usdt-perp.json",
     "research/planner-6a/templates/crypto-eth-usdt-perp__crypto-sol-usdt-perp.json",
     "research/planner-6a/templates/crypto-eth-usdt-perp__index-btc-dvol.json",
+    "research/planner-6a/templates/crypto-eth-usdt-perp__index-eth-dvol.json",
     "research/planner-6a/vxn_refresh.json",
     "research/publication-lag-007/hypotheses/hypothesis-events.jsonl",
     "research/publication-lag-007/hypotheses/registrations/H0011/v1.json",
@@ -3024,6 +3074,21 @@
       "status": "closed",
       "trials": [
         "T0001"
+      ]
+    },
+    {
+      "anchor_present": true,
+      "hypotheses": [
+        "H0013"
+      ],
+      "manifest_present": true,
+      "panel_summary_present": true,
+      "report_exists": true,
+      "report_path": "docs/studies/credit-spread-spx-008.md",
+      "slug": "credit-spread-spx-008",
+      "status": "closed",
+      "trials": [
+        "T0016"
       ]
     },
     {
@@ -3472,6 +3537,31 @@
         "spx_release_day"
       ],
       "trial_id": "T0015"
+    },
+    {
+      "failure_reason": null,
+      "hypothesis_id": "H0013",
+      "observations": 5957,
+      "primary_adjusted_p_value": 0.8935170696924368,
+      "primary_effect_label": "coef",
+      "primary_effect_value": 1.8048891686904616e-05,
+      "primary_raw_p_value": 0.8935170696924368,
+      "primary_test": "daily_baa10y_spx",
+      "primary_test_type": "lead_lag",
+      "record_hash": "5e2ca06ab5c3c417df84dac18f71e435ec10114411c1c867d4beb10d98426170",
+      "recorded_at": "2026-11-19T00:28:28.799331+00:00",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 2.1926421937872296e-05,
+      "status": "completed",
+      "study": "credit-spread-spx-008",
+      "supported": false,
+      "test_keys": [
+        "daily_baa10y_spx",
+        "daily_baa10y_spx_naive",
+        "daily_baa10y_spx_no_factor",
+        "daily_spx_baa10y_reverse"
+      ],
+      "trial_id": "T0016"
     }
   ]
 }

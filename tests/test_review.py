@@ -64,6 +64,7 @@ STUDY_SLUGS = (
     "fomc-event-study-005",
     "macro-windows-006",
     "publication-lag-007",
+    "credit-spread-spx-008",
 )
 
 
@@ -209,7 +210,7 @@ def test_parse_markdown_tables_and_find() -> None:
 def test_report_rules_cover_all_studies() -> None:
     assert set(REPORT_RULES) == set(STUDY_SLUGS)
     total = sum(len(rules) for rules in REPORT_RULES.values())
-    assert total == 52
+    assert total == 56
 
 
 # ---------------------------------------------------------------------------
@@ -729,6 +730,7 @@ def test_power_note_never_fails() -> None:
         "T0012",
         "T0013",
         "T0015",
+        "T0016",
     }
     result = power_note("T0001", entries["T0001"], "btc-eth-001")
     assert result.verdict is ReviewVerdict.NOTE
@@ -750,14 +752,16 @@ def test_review_study_001_counts() -> None:
 
 
 def test_review_lab_counts_pin_current_lab_state() -> None:
-    # Pins the lab state at delivery time: 75 pass, 0 fail, 8 unverified
-    # (7 PIT caches not retained + study 005's missing anchor), 11 notes.
+    # Pins the lab state at delivery time: 84 pass, 0 fail, 8 unverified
+    # (7 PIT caches not retained + study 005's missing anchor), 12 notes.
+    # Study 008 is the only study whose PIT cache is retained locally, so
+    # its pit_spot_check passes where the other seven are unverified.
     # The reviewer's first run found 3 genuine report-ledger
     # discrepancies (studies 003/004/007); they were confirmed against
     # the ledgers and fixed in the same delivery, so the current state
     # is clean — update this test if a future review finds a new FAIL.
     review = review_lab(REPO_ROOT, REVIEWED_AT)
-    assert review.counts == {"pass": 75, "fail": 0, "unverified": 8, "note": 11}
+    assert review.counts == {"pass": 84, "fail": 0, "unverified": 8, "note": 12}
     failing = [
         (study.study, check.subject)
         for study in review.studies
