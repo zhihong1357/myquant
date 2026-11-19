@@ -841,3 +841,198 @@ is not tuned to pass.
   p-values, verdicts, spec fingerprints — but the hash-chain
   primitive itself is reused by design, not re-derived.
 
+## 5. Research librarian and report generator (6e)
+
+### What the librarian is (and is not)
+
+The librarian is the lab's catalogue: it scans the committed
+records — registrations, trial ledgers, the graph registry,
+decision records, planner output, the evidence registry, the
+6d review report and the 2B audit summary — and builds a
+unified catalog (`research/library-6e/catalog.json`) plus a
+lab status report (`lab_report.md` + `lab_report.json`). The
+records live in a dozen directories; the librarian is the one
+place that knows how they link together.
+
+It is not a study: it registers no hypothesis, runs no trial,
+fetches no market data and makes no alpha claim. It is not a
+fixer: it never modifies a source record — a broken link or a
+missing file is reported in the catalog and the report, and
+the repair is a separate delivery decision. It is not a
+judge of correctness: it checks that references *resolve*,
+not that the referenced values are right. Catching wrong
+numbers is the reviewer's job; the librarian quotes the
+reviewer's verdicts.
+
+Every number in the catalog is derived by reading a record —
+nothing is transcribed by hand. The 6d review proved
+hand-transcribed report numbers drift; the librarian's
+answer is to never type a number in the first place.
+
+### Catalog contents
+
+| section | contents | source |
+| --- | --- | --- |
+| studies | 7 empirical studies: report path, hypotheses, trials, anchor/manifest/panel-summary presence, open/closed | `research/*/trials.jsonl` |
+| hypotheses | 12 hypotheses, 13 versions: fingerprints, registration hashes, lifecycle states, trials, edges, decision records | `hypotheses/registrations/`, event logs |
+| trials | 14 records: status, verdict, primary-test summary (effect, adjusted p, n) | trial ledgers |
+| edges | 39 edges: endpoints, status, trial/test key, decision record, audit survival | `research/graph/registry.json` |
+| decision records | 15 records: edge/hypothesis/trial/study links | `research/decision-records/records/` |
+| candidates | 123 pairs: rank, score, mechanism, template presence | `research/planner-6a/ranking.json` |
+| sources | 8 sources: quirks, recorded-only counts, probe outcomes | `research/evidence-6b/` |
+| panels | 12 panels: probe-time freshness | evidence report |
+| review | 6d counts and unverified items, quoted | `research/review-6d/review_report.json` |
+| audit | lab-wide Holm/BH survivors, quoted | `research/statistical-audit-2b/summary.json` |
+
+The catalog also records its own provenance: the 61 source
+files read (repo-relative paths), the generation timestamp,
+the broken-link list and the missing-optional list.
+
+Two conventions the catalog relies on, both verified against
+the current lab and stated here so a future deviation is
+visible: the primary test of a trial is the first entry of
+its recorded Holm family (the same convention as the 6d
+reviewer); and a trial-id gap counts as *reserved* only when
+its number matches a hypothesis with no trial yet and a
+pending edge — the lab numbers a hypothesis's first trial
+after the hypothesis (T0001 ran H0001, T0002 ran H0002, …),
+so the pending H0003 reserves T0003. A gap with no such basis
+is flagged as a broken link, not silently treated as
+reserved.
+
+### Integrity: references must resolve
+
+The builder runs eleven cross-reference checks and records
+every failure as a broken link (referrer, kind, referenced
+id, reason):
+
+- edges to their trial, test key, hypothesis, nodes and files
+- planner candidates to registry candidates and nodes
+- decision records to their edge, hypothesis, trial, study
+  and files
+- planner templates to their ranked pair and rank
+- the 6d review to the studies it must cover (and no others)
+- the 2B audit's supported edges to the registry
+- availability panels to their nodes and cited files
+- evidence sources' `used_by` entries to research directories
+- the trial-id sequence (gaps need a recorded reservation)
+- hypotheses with no trial (need a pending edge or an open
+  state)
+- studies to their report files
+
+Pending edges have no trial and no test key by design; the
+two descriptive edges have a trial but no test key. Neither
+is a broken link. Missing *optional* files (ledger anchors,
+manifests, panel summaries) are recorded separately in
+`missing_optional` — absence is a fact, not a failure.
+
+### The lab status report
+
+`lab_report.md` is the one-page view of the lab: a studies
+table (one row per completed trial, with the primary effect,
+adjusted p-value and sample size from the ledger), the graph
+summary (39 edges by status; the 6 supported edges with their
+lab-wide audit survival, quoted from the 2B summary), the
+candidate queue (top-10 and tier counts), data freshness
+(probe-time snapshot, plus post-probe updates recorded in
+committed files — currently the VXN re-fetch), the 6d review
+status (quoted, UNVERIFIED items listed as not-passes), the
+pending items (H0003 forward test, T0003 reserved, 12
+unrankable TYVIX pairs, the study-005 anchor, PIT discipline
+unverified for 7 studies), the integrity section, and the
+full source list. `lab_report.json` carries the same content
+as structured data.
+
+### Validation results
+
+From `research/library-6e/validation_report.md` (catalog
+generated 2026-11-18T23:52Z):
+
+**Counts — every catalog count re-derived from the raw files
+with plain Python, all matching**: 7 studies, 12 hypotheses
+(13 versions), 14 trial records (11 completed, 3 failed, 1
+reserved), 39 edges (6 supported, 30 rejected, 1 pending, 2
+descriptive), 15 decision records, 123 candidates (111
+ranked, 12 unrankable), 10 templates, 8 sources (41 quirks,
+33 recorded-only), 27 probe passes / 1 skip, 12 panels (5
+fresh, 7 stale).
+
+**Number spot-check — all 11 completed trials' primary
+numbers re-derived from the raw ledgers and matching
+exactly** (effect, Holm-adjusted p, raw p, n, verdict,
+secondary effect). The 6 supported edges' Holm/BH survival,
+the planner top-10 and tier counts, and the 6d review counts
+were likewise re-derived and match.
+
+**Integrity — 0 broken links**, confirmed by a second,
+independent cross-reference pass over the raw files (written
+without importing the librarian). No new inconsistency was
+found in the lab's records. The only gap is the one already
+known from the 6d review: study 005 has no ledger anchor,
+recorded in `missing_optional` and in the report's pending
+items, not repaired.
+
+**Broken-link validation — the checks catch real breaks.**
+Two damaged copies of the lab in tmp dirs: deleting study
+001's only trial record surfaces as `edge_trial`,
+`record_trial`, `trial_gap` and `hypothesis_no_trial`; changing
+decision record DR-E0023's edge id to E9999 surfaces as
+`record_edge`. A third copy with two optional files removed
+builds without crashing and records both as missing.
+
+**Determinism and drift.** Two builds with one timestamp
+are byte-identical across all three artifacts, and the
+committed artifacts equal a fresh rebuild with the committed
+timestamp (drift test in `tests/test_librarian.py`).
+
+**Independent review.** The build was re-run with the
+committed timestamp and reproduced all three artifacts
+byte-identically. Every count was re-derived a second time
+from the raw files with plain Python (no librarian imports):
+7 studies, 13 hypothesis versions across 12 hypotheses, 14
+trial records (11 completed, 3 failed, T0003 the only gap),
+39 edges (30 rejected, 6 supported, 2 descriptive, 1
+pending), 12 nodes, 15 decision records, 123 candidates
+(111 ranked, 12 unrankable), tiers 35/9/47/2/18, 8 sources.
+All 11 primary-test numbers were re-derived from the trial
+ledgers (effect, Holm-adjusted p, n, verdict — including the
+mean-comparison ratios and the event-study standardized CARs,
+which the report renders as the primary effect). The 6
+supported edges' Holm/BH survival was re-derived from the 2B
+audit summary (4 Holm survivors, 5 BH survivors; E0030
+survives neither, E0031 BH only), as were the quirks
+(41 / 33 recorded-only), the probe counts (27 pass, 1 skip —
+BLS has a single skip check; its `manual_check` field is the
+instruction text, not a second skip) and the panels (5 fresh,
+7 stale). Three link classes were checked independently of
+the librarian's own pass: all 39 edges resolve to a trial and
+a hypothesis, all 15 decision records resolve to an edge and
+a hypothesis, and all 10 templates resolve to ranked pairs
+with matching ranks 1–10. Everything agrees with the
+catalog's 0 broken links.
+
+### Limitations
+
+- **The catalog trusts the records it reads**: a wrong-but-
+  resolving number passes the integrity checks. Correctness
+  of values is the reviewer's job, not the librarian's.
+- **The primary test is the first Holm-family entry** (see
+  above). A future trial that orders its family differently
+  would be misread by the primary-test summary.
+- **Reserved trial ids rest on a numbering convention** (see
+  above). If the lab ever numbers a trial out of sequence,
+  the reservation logic would misread the gap.
+- **Freshness is a probe-time snapshot**: panel status comes
+  from the 6b evidence report (probed 2026-11-18T21:45Z),
+  not from a live check. Post-probe updates appear only when
+  a committed record exists.
+- **The catalog covers the seven empirical studies**: stages
+  without trial ledgers (microstructure, portfolio, planner,
+  evidence, scaffolding, review) appear only through their
+  outputs, not as catalogued studies.
+
+Stage 6 is complete with this item: the planner (§1), the
+evidence analyst (§2), the experiment assistant (§3), the
+adversarial reviewer (§4) and the research librarian (§5)
+are all in place.
+
