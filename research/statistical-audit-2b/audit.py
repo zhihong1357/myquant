@@ -104,6 +104,7 @@ PRIMARY_EDGES: dict[str, tuple[str, str]] = {
     "T0016": ("E0040", "H0013"),
     "T0017": ("E0041", "H0014"),
     "T0018": ("E0042", "H0015"),
+    "T0019": ("E0043", "H0016"),
 }
 # Lead-lag primaries feeding the partial-R^2 power table.
 LEAD_LAG_PRIMARIES = (
@@ -116,6 +117,7 @@ LEAD_LAG_PRIMARIES = (
     "T0016",
     "T0017",
     "T0018",
+    "T0019",
 )
 # CAR edges feeding the event-study power table (primary/secondary label).
 CAR_EDGES = (

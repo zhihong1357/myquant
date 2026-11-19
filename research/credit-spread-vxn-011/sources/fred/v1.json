@@ -1,0 +1,11 @@
+{
+  "attribution": "Source: Federal Reserve Bank of St. Louis",
+  "description": "FRED free fredgraph CSV: daily economic series (VIXCLS, VXNCLS, VXTYN, DGS10, BAA10Y, CPIAUCSL). No API key.",
+  "license_status": "approved",
+  "nominal_delay_seconds": 0,
+  "permission_basis": "Public economic data published by the Federal Reserve Bank of St. Louis, free to use with attribution; the fredgraph.csv endpoint requires no API key. Used for research only; raw payloads are not redistributed. FRED terms of use reviewed 2026-11-18. This registry entry is an explicit research-use assertion, not a legal determination.",
+  "provider": "Federal Reserve Bank of St. Louis (FRED)",
+  "source_id": "fred",
+  "terms_url": "https://fred.stlouisfed.org/docs/api/terms_of_use.html",
+  "timestamp_basis": "Daily closing values dated observation_date; the event time is the US equity close (16:00 ET) recorded as 21:00 UTC (fixed; DST is not modelled). The adapter records available_at equal to the event time; the study models the publication lag explicitly in the panel construction (BAA10Y: 2 trading days; VXN: 1 trading day \u2014 see the preregistration and manifest)."
+}

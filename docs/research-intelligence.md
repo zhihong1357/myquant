@@ -662,6 +662,13 @@ the next real hypothesis id is H0013):
   The generated files contain no real-ID placeholder specs
   (only the real H0015; the H9002/H9003/H9004 placeholders
   live only in the 6c validation). See that study's report.
+- Fourth real use (study 011): generated from the planner's
+  BAA10Y→VXN template, it exposed no new gaps either — every
+  hand-adaptation was a repeat of a study-008 item — and the
+  `bar_seconds` fix was verified again in the generated file.
+  The generated files contain no real-ID placeholder specs
+  (only the real H0016; the H9002/H9003/H9004 placeholders
+  live only in the 6c validation). See that study's report.
 
 ### Independent review
 
@@ -1134,6 +1141,43 @@ CI and p) all match the T0018 ledger record. E0033's BH
 survival was confirmed from the audit summary itself (family
 39, BH p 0.014255, Holm p 0.052634 — still outside the Holm
 set).
+
+### Regeneration after study 011
+
+The catalog and lab report were regenerated when study 011
+landed (generated 2026-11-19T03:58Z): 11 studies, 16
+hypotheses (17 versions), 18 trial records (15 completed, 3
+failed, T0003 reserved), 43 edges (6 supported, 34 rejected,
+1 pending, 2 descriptive), 19 decision records, 119
+candidates (107 ranked, 12 unrankable), 77 source files.
+Integrity still holds: **0 broken links**, and the only
+missing optional file is still the study-005 anchor. The
+regenerated report quotes the 6d review at 134 checks (111
+pass, 0 fail, 8 unverified, 15 note) and the 2B audit at
+family 40 (3 Holm survivors, 5 BH survivors) — E0033's BH p
+rose to 0.01462 (from 0.01426 at family 39) and it remains a
+BH survivor; E0030's BH p rose to 0.06545 and it remains
+outside both survivor sets. The counts in the Validation
+results section above are the 6e validation's own record
+(2026-11-18T23:52Z) and are left as they were.
+
+Independent review of study 011 (plain numpy, no repo
+imports, panel rebuilt from the raw cached FRED/Yahoo
+payloads): the panel counts, all four partial tests (36
+numbers), all six scan correlations, all five sub-periods,
+the MDE, the walk-forward evaluation (40 folds, both MSEs,
+both OOS R² values — including the hairline holdout
++0.000024 — and all 40 per-fold values) and the full
+informational cost gate (gross edge, sign accuracy, bootstrap
+CI and p) all match the T0019 ledger record. E0033's BH
+survival was confirmed from the audit summary itself (family
+40, BH p 0.014621, Holm p 0.054096 — still outside the Holm
+set). The VXN futures correction in the study report was
+also confirmed as recorded: the brief assumed VXN futures do
+not exist, and verification established they existed
+historically (CFE, CFTC-certified 2012) but are no longer
+listed — the informational cost-gate treatment stands on the
+corrected facts.
 
 Stage 6 is complete with this item: the planner (§1), the
 evidence analyst (§2), the experiment assistant (§3), the
