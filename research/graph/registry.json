@@ -34,12 +34,6 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:vix"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
-      "source_instrument": "credit:baa-10y-spread",
       "target_instrument": "index:vxn"
     },
     {
@@ -727,7 +721,7 @@
       "target_instrument": "macro:cpi-mom"
     }
   ],
-  "content_hash": "827c23df1a08983feef4f09b7e81e228625296a75bb10055140e63ed144a8b00",
+  "content_hash": "e8e304d179d5fabaf3364a1490f15ae54e6be8d0940509f6bd534dc5c428efd2",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -2771,6 +2765,64 @@
       "trial_record_hash": "4daa54ed5167d4644bbe65ebcff4ef10d5a53cd3ac85c9361e8eaf3e5813d7c5",
       "verdict_summary": "Hypothesis H0014 REJECTED (trial T0017): this test did not reject (Holm-adjusted p = 0.754); partial R² 6.10033e-05 below the 0.005 threshold; holdout OOS incremental R² -0.00098; cost gate informational (gross daily edge +0.4572%, 95% CI excludes zero) — no net edge measurable: TYVIX is not tradable and no listed TYVIX futures exist.",
       "version": 1
+    },
+    {
+      "coefficient": -6.25819143355815e-05,
+      "common_factor_control": "SPX[t] log return (Yahoo posts the close the same evening)",
+      "condition": "predictor is the BAA10Y bp change lagged 2 trading days by availability (latest available at the decision close); next-day VIX log change",
+      "cost_gate": {
+        "bootstrap_p_value": 0.12843578210894552,
+        "ci_lower": -0.0010760969531500519,
+        "ci_upper": 0.01034858170996285,
+        "days": 716,
+        "gross_daily_edge": 0.00452286393316557,
+        "net_daily_edge": null,
+        "note": "Informational only: no costs applied. VIX is not tradable; VIX futures roll costs are unmeasurable from free data (Yahoo VX=F returns no data). Not a verdict criterion.",
+        "verdict": "informational"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1"
+      ],
+      "edge_id": "E0042",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": -1.890300769247233e-05,
+      "holdout_oos_note": "Holdout window only (7 folds, 716 rows).",
+      "holm_adjusted_p_value": 0.8896402464379096,
+      "hypothesis_id": "H0015",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 6.482251708850306e-06,
+      "lag_steps": 1,
+      "ledger_path": "research/credit-spread-vix-010/trials.jsonl",
+      "ledger_test_key": "daily_baa10y_vix",
+      "method": "partial lead-lag OLS, lag 1, Newey-West HAC (max lag 5 daily)",
+      "notes": [
+        "Planner rank-1 candidate pair (6a, total score 1.00). Primary coefficient -0.000063 per bp, wrong sign vs the preregistered positive expectation; partial R² 6.55e-06.",
+        "Full window (2003-2026): VIX is still published. The reverse placebo (VIX->BAA10Y) is not significant and descriptive only, not in the family."
+      ],
+      "observations": 5957,
+      "p_value": 0.8896402464379096,
+      "partial_r_squared": 6.552628668666667e-06,
+      "preregistration_fingerprint": "eb8b21955fcf8ece287a15372b6ee845297a47d348325f5eae2bc728a1f001cf",
+      "report_path": "docs/studies/credit-spread-vix-010.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2026-11-17T21:00:00Z",
+        "observations": 5957,
+        "panel_rows": 5960
+      },
+      "source_instrument": "credit:baa-10y-spread",
+      "standard_error": 0.0004510101407588949,
+      "status": "rejected",
+      "t_statistic": -0.1387594394890493,
+      "target_instrument": "index:vix",
+      "test_type": "lead_lag",
+      "trial_id": "T0018",
+      "trial_record_hash": "f97982756713de749850358a86a51e788bc134401ff3e24ef808dd6c4e7c8a2a",
+      "verdict_summary": "Hypothesis H0015 REJECTED (trial T0018): this test did not reject (Holm-adjusted p = 0.890); partial R² 6.55263e-06 below the 0.005 threshold; holdout OOS incremental R² -0.00002; cost gate informational (gross daily edge +0.4523%, 95% CI includes zero) — no net edge measurable: VIX is not tradable and no free VIX futures series exists.",
+      "version": 1
     }
   ],
   "nodes": [
@@ -2784,6 +2836,7 @@
       "studies": [
         "credit-spread-spx-008",
         "credit-spread-tyvix-009",
+        "credit-spread-vix-010",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"
@@ -2859,6 +2912,7 @@
       "short_label": "SPX",
       "studies": [
         "credit-spread-spx-008",
+        "credit-spread-vix-010",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"
@@ -2888,6 +2942,7 @@
       "studies": [
         "credit-spread-spx-008",
         "credit-spread-tyvix-009",
+        "credit-spread-vix-010",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"

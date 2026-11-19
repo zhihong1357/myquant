@@ -1,0 +1,59 @@
+{
+  "acceptance_criteria": [
+    "Holm-adjusted primary p-value below 0.05",
+    "Primary partial R-squared at least 0.005",
+    "Holdout out-of-sample incremental R-squared above 0",
+    "Net daily edge after the round-trip taker cost is positive (TODO: confirm the tradable instrument and fee schedule)"
+  ],
+  "adjacent_supported_edges": [
+    "E0026",
+    "E0033"
+  ],
+  "alternative_hypothesis": "Lagged BAA10Y returns explain a positive, out-of-sample component of next day VIX returns beyond the target's own history and the common-factor control.",
+  "calendar_ids": [
+    "us-equity"
+  ],
+  "decision_records": [
+    "DR-E0026",
+    "DR-E0033"
+  ],
+  "estimated_joint_rows": 5967,
+  "estimated_joint_rows_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+  "frequency": "daily",
+  "hypothesis_id": "H0015",
+  "minimum_effect_size": 0.005,
+  "missing_data_policy": "No forward filling; drop incomplete synchronized rows and report the dropped count",
+  "model_definition": [
+    "Partial lead-lag OLS with Newey-West HAC standard errors",
+    "TODO: robustness checks (frequency, subsample, venue)"
+  ],
+  "multiple_testing_method": "holm",
+  "null_hypothesis": "Lagged BAA10Y returns have no incremental predictive value for next day VIX returns over the target's own history and the common-factor control.",
+  "planner_notes": [],
+  "planner_rank": 1,
+  "planner_total_score": 1.0,
+  "primary_metric": "Partial R-squared of lag-1 BAA10Y return in the daily BAA10Y->VIX partial lead-lag regression",
+  "rejection_criteria": [
+    "Primary test fails any acceptance criterion",
+    "TODO: state the verdict rule for secondary tests"
+  ],
+  "research_question": "Does the lagged BAA10Y return contain incremental information about the next day VIX return, beyond the target's own history and a common-factor control?",
+  "schema_version": 1,
+  "slug": "credit-spread-vix-010",
+  "source_ids": [
+    "fred",
+    "yahoo-finance"
+  ],
+  "source_instrument": "credit:baa-10y-spread",
+  "study_number": 10,
+  "suggested_test_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+  "target_definition": "daily log return of VIX at t+1; predictor is the daily log return of BAA10Y at t",
+  "target_error_rate": 0.05,
+  "target_instrument": "index:vix",
+  "test_type": "lead_lag",
+  "trial_id": "T0018",
+  "universe": [
+    "credit:baa-10y-spread",
+    "index:vix"
+  ]
+}

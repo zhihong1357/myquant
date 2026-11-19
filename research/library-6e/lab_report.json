@@ -1,117 +1,117 @@
 {
   "audit": {
     "bh_survivors": 5,
-    "family_size": 38,
+    "family_size": 39,
     "holm_survivors": 3,
     "supported_total": 6
   },
   "candidates": {
-    "ranked": 109,
+    "ranked": 108,
     "tiers": {
       "0.50": 18,
       "0.60": 2,
       "0.70": 47,
       "0.80": 9,
-      "1.00": 33
+      "1.00": 32
     },
     "top_10": [
       {
         "mechanism": "transmission",
-        "pair": "BAA10Y→VIX",
+        "pair": "BAA10Y→VXN",
         "rank": 1,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "BAA10Y→VXN",
+        "pair": "BAA10Y→DGS10",
         "rank": 2,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "BAA10Y→DGS10",
+        "pair": "BTC→BTC_DVOL",
         "rank": 3,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "BTC→BTC_DVOL",
+        "pair": "BTC→ETH_DVOL",
         "rank": 4,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "BTC→ETH_DVOL",
+        "pair": "ETH→BTC",
         "rank": 5,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "ETH→BTC",
+        "pair": "ETH→SOL",
         "rank": 6,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "ETH→SOL",
+        "pair": "ETH→BTC_DVOL",
         "rank": 7,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "ETH→BTC_DVOL",
+        "pair": "ETH→ETH_DVOL",
         "rank": 8,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "ETH→ETH_DVOL",
+        "pair": "SOL→BTC",
         "rank": 9,
         "test_type": "lead_lag",
         "total_score": 1.0
       },
       {
         "mechanism": "transmission",
-        "pair": "SOL→BTC",
+        "pair": "SOL→ETH",
         "rank": 10,
         "test_type": "lead_lag",
         "total_score": 1.0
       }
     ],
-    "total": 121,
+    "total": 120,
     "unrankable": 12
   },
   "counts": {
     "broken_links": 0,
-    "candidates_ranked": 109,
-    "candidates_total": 121,
+    "candidates_ranked": 108,
+    "candidates_total": 120,
     "candidates_unrankable": 12,
-    "decision_records": 17,
+    "decision_records": 18,
     "edges_descriptive": 2,
     "edges_pending": 1,
-    "edges_rejected": 32,
+    "edges_rejected": 33,
     "edges_supported": 6,
-    "edges_total": 41,
-    "hypotheses": 14,
-    "hypothesis_versions": 15,
+    "edges_total": 42,
+    "hypotheses": 15,
+    "hypothesis_versions": 16,
     "missing_optional": 1,
     "nodes": 12,
     "panels": 12,
     "sources": 8,
-    "studies": 9,
+    "studies": 10,
     "templates": 10,
-    "trials_completed": 13,
+    "trials_completed": 14,
     "trials_failed": 3,
     "trials_reserved": 1,
-    "trials_total": 16
+    "trials_total": 17
   },
   "failed_trials": [
     {
@@ -278,15 +278,15 @@
       }
     ]
   },
-  "generated_at": "2026-11-19T02:13:44.313117+00:00",
+  "generated_at": "2026-11-19T03:01:11+00:00",
   "graph": {
     "edges_by_status": {
       "descriptive": 2,
       "pending": 1,
-      "rejected": 32,
+      "rejected": 33,
       "supported": 6
     },
-    "edges_total": 41,
+    "edges_total": 42,
     "nodes": 12,
     "supported_edges": [
       {
@@ -370,11 +370,11 @@
   "review": {
     "counts": {
       "fail": 0,
-      "note": 13,
-      "pass": 93,
+      "note": 14,
+      "pass": 102,
       "unverified": 8
     },
-    "reviewed_at": "2026-11-19T02:13:30.990499Z",
+    "reviewed_at": "2026-11-19T03:00:55Z",
     "unverified_items": [
       "btc-eth-001: pit_spot_check — no PIT parquet retained locally for this study",
       "fomc-event-study-005: ledger_anchor — no anchor file; truncation undetectable",
@@ -397,6 +397,9 @@
     "research/credit-spread-tyvix-009/hypotheses/hypothesis-events.jsonl",
     "research/credit-spread-tyvix-009/hypotheses/registrations/H0014/v1.json",
     "research/credit-spread-tyvix-009/trials.jsonl",
+    "research/credit-spread-vix-010/hypotheses/hypothesis-events.jsonl",
+    "research/credit-spread-vix-010/hypotheses/registrations/H0015/v1.json",
+    "research/credit-spread-vix-010/trials.jsonl",
     "research/decision-records/records/DR-E0023.json",
     "research/decision-records/records/DR-E0026.json",
     "research/decision-records/records/DR-E0030.json",
@@ -414,6 +417,7 @@
     "research/decision-records/records/DR-H0012.json",
     "research/decision-records/records/DR-H0013.json",
     "research/decision-records/records/DR-H0014.json",
+    "research/decision-records/records/DR-H0015.json",
     "research/evidence-6b/evidence_report.json",
     "research/evidence-6b/panel_freshness.json",
     "research/evidence-6b/sources.json",
@@ -440,7 +444,6 @@
     "research/options-expiry-004/trials.jsonl",
     "research/planner-6a/data_availability.json",
     "research/planner-6a/ranking.json",
-    "research/planner-6a/templates/credit-baa-10y-spread__index-vix.json",
     "research/planner-6a/templates/credit-baa-10y-spread__index-vxn.json",
     "research/planner-6a/templates/credit-baa-10y-spread__rates-us-10y-yield.json",
     "research/planner-6a/templates/crypto-btc-usdt-perp__index-btc-dvol.json",
@@ -450,6 +453,7 @@
     "research/planner-6a/templates/crypto-eth-usdt-perp__index-btc-dvol.json",
     "research/planner-6a/templates/crypto-eth-usdt-perp__index-eth-dvol.json",
     "research/planner-6a/templates/crypto-sol-usdt-perp__crypto-btc-usdt-perp.json",
+    "research/planner-6a/templates/crypto-sol-usdt-perp__crypto-eth-usdt-perp.json",
     "research/planner-6a/vxn_refresh.json",
     "research/publication-lag-007/hypotheses/hypothesis-events.jsonl",
     "research/publication-lag-007/hypotheses/registrations/H0011/v1.json",
@@ -653,6 +657,21 @@
       "study": "credit-spread-tyvix-009",
       "supported": false,
       "trial_id": "T0017"
+    },
+    {
+      "hypothesis_id": "H0015",
+      "observations": 5957,
+      "primary_adjusted_p_value": 0.8896402464379096,
+      "primary_effect_label": "coef",
+      "primary_effect_value": -6.25819143355815e-05,
+      "primary_raw_p_value": 0.8896402464379096,
+      "primary_test": "daily_baa10y_vix",
+      "primary_test_type": "lead_lag",
+      "secondary_effect_label": "partial R²",
+      "secondary_effect_value": 6.552628668666667e-06,
+      "study": "credit-spread-vix-010",
+      "supported": false,
+      "trial_id": "T0018"
     }
   ],
   "studies_open": [

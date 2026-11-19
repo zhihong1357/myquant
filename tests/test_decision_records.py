@@ -44,6 +44,7 @@ EXPECTED_RECORD_IDS = {
     "DR-H0012",
     "DR-H0013",
     "DR-H0014",
+    "DR-H0015",
 }
 
 # Numeric fields that must match the ledger test record exactly, per type.
