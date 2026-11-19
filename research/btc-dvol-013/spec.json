@@ -1,0 +1,57 @@
+{
+  "acceptance_criteria": [
+    "Holm-adjusted primary p-value below 0.05",
+    "Primary partial R-squared at least 0.005",
+    "Holdout out-of-sample incremental R-squared above 0",
+    "Net daily edge after the round-trip taker cost is positive (TODO: confirm the tradable instrument and fee schedule)"
+  ],
+  "adjacent_supported_edges": [
+    "E0030"
+  ],
+  "alternative_hypothesis": "Lagged BTC returns explain a positive, out-of-sample component of next day BTC_DVOL returns beyond the target's own history and the common-factor control.",
+  "calendar_ids": [
+    "crypto-24-7"
+  ],
+  "decision_records": [
+    "DR-E0030"
+  ],
+  "estimated_joint_rows": 2064,
+  "estimated_joint_rows_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
+  "frequency": "daily",
+  "hypothesis_id": "H0018",
+  "minimum_effect_size": 0.005,
+  "missing_data_policy": "No forward filling; drop incomplete synchronized rows and report the dropped count",
+  "model_definition": [
+    "Partial lead-lag OLS with Newey-West HAC standard errors",
+    "TODO: robustness checks (frequency, subsample, venue)"
+  ],
+  "multiple_testing_method": "holm",
+  "null_hypothesis": "Lagged BTC returns have no incremental predictive value for next day BTC_DVOL returns over the target's own history and the common-factor control.",
+  "planner_notes": [],
+  "planner_rank": 1,
+  "planner_total_score": 1.0,
+  "primary_metric": "Partial R-squared of lag-1 BTC return in the daily BTC->BTC_DVOL partial lead-lag regression",
+  "rejection_criteria": [
+    "Primary test fails any acceptance criterion",
+    "TODO: state the verdict rule for secondary tests"
+  ],
+  "research_question": "Does the lagged BTC return contain incremental information about the next day BTC_DVOL return, beyond the target's own history and a common-factor control?",
+  "schema_version": 1,
+  "slug": "btc-dvol-013",
+  "source_ids": [
+    "okx-public",
+    "deribit"
+  ],
+  "source_instrument": "crypto:btc-usdt-perp",
+  "study_number": 13,
+  "suggested_test_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
+  "target_definition": "daily log return of BTC_DVOL at t+1; predictor is the daily log return of BTC at t",
+  "target_error_rate": 0.05,
+  "target_instrument": "index:btc-dvol",
+  "test_type": "lead_lag",
+  "trial_id": "T0021",
+  "universe": [
+    "crypto:btc-usdt-perp",
+    "index:btc-dvol"
+  ]
+}

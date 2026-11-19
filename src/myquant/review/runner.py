@@ -31,7 +31,7 @@ from myquant.review.models import (
 )
 from myquant.review.tables import REPORT_RULES
 
-# The twelve empirical studies, in lab order, with their main reports.
+# The thirteen empirical studies, in lab order, with their main reports.
 STUDY_REPORTS: dict[str, str] = {
     "btc-eth-001": "docs/studies/btc-eth-transmission-001.md",
     "lowvol-002": "docs/studies/lowvol-transmission-002.md",
@@ -45,6 +45,7 @@ STUDY_REPORTS: dict[str, str] = {
     "credit-spread-vix-010": "docs/studies/credit-spread-vix-010.md",
     "credit-spread-vxn-011": "docs/studies/credit-spread-vxn-011.md",
     "credit-spread-dgs10-012": "docs/studies/credit-spread-dgs10-012.md",
+    "btc-dvol-013": "docs/studies/btc-dvol-013.md",
 }
 
 AUDIT_SUMMARY_PATH = "research/statistical-audit-2b/summary.json"

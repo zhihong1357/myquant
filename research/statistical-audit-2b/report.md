@@ -2,11 +2,11 @@
 
 > **Scope.** This is a post-hoc second-layer analysis of the lab's completed studies. It does NOT change any preregistered verdict: each study's within-family Holm correction remains its formal conclusion. The audit answers a different question — what is the lab's overall false-discovery posture when all tested edges are viewed as one family? — and it reports calibration, power and overfitting diagnostics for the lab's methods. Language throughout is descriptive: "under lab-wide family correction, X of the 6 supported edges remain significant", never "edge Y is actually not significant".
 
-Provenance: registry content hash `e99854775b2e487630109f15ecd9589f2aad9bfcdbd09f45da192005fe00d6a2`; generated deterministically by `research/statistical-audit-2b/audit.py` (no timestamps in the output; re-running reproduces this file byte-identically). All numbers are computed from the trial ledgers and the registry or from fixed-seed simulations; none are hand-copied.
+Provenance: registry content hash `756b0cc0756e5f787a02b01d18d6f49c93a445461881b52c3e5eb19d7da07926`; generated deterministically by `research/statistical-audit-2b/audit.py` (no timestamps in the output; re-running reproduces this file byte-identically). All numbers are computed from the trial ledgers and the registry or from fixed-seed simulations; none are hand-copied.
 
 ## 1. Lab-wide multiple-testing audit
 
-The lab-wide family is all 41 tested edges (status supported or rejected) across the seven completed studies, each contributing the raw p-value of its Holm-family test as recorded in its trial ledger (cross-checked against the registry at generation time). Two corrections are applied to the whole family at alpha = 0.05:
+The lab-wide family is all 42 tested edges (status supported or rejected) across the seven completed studies, each contributing the raw p-value of its Holm-family test as recorded in its trial ledger (cross-checked against the registry at generation time). Two corrections are applied to the whole family at alpha = 0.05:
 
 - **Holm** (controls the family-wise error rate under arbitrary dependence — the conservative reading, and the valid one here, because the lab's tests reuse the same data);
 - **Benjamini–Hochberg** (controls the false-discovery rate under independence or positive dependence — indicative only, because the lab's tests are not independent).
@@ -17,12 +17,12 @@ The family mixes one-sided p-values (the directional event-study legs) and two-s
 
 | Edge | Hypothesis | Trial | Raw p | Holm adj. p | BH adj. p | Holm sig. | BH sig. |
 |------|------------|-------|-------|-------------|-----------|-----------|---------|
-| E0023 | H0007 | T0010 | 1.007e-08 | 4.029e-07 | 2.065e-07 | yes | yes |
-| E0026 | H0008 | T0009 | 0.000169 | 0.00659 | 0.002309 | yes | yes |
-| E0030 | H0010 | T0012 | 0.009818 | 0.3534 | 0.06709 | no | no |
-| E0031 | H0010 | T0012 | 0.0029 | 0.1073 | 0.02378 | no | yes |
-| E0032 | H0011 | T0013 | 1.04e-09 | 4.265e-08 | 4.265e-08 | yes | yes |
-| E0033 | H0011 | T0013 | 0.001462 | 0.05556 | 0.01499 | no | yes |
+| E0023 | H0007 | T0010 | 1.007e-08 | 4.13e-07 | 2.115e-07 | yes | yes |
+| E0026 | H0008 | T0009 | 0.000169 | 0.006759 | 0.002366 | yes | yes |
+| E0030 | H0010 | T0012 | 0.009818 | 0.3633 | 0.06872 | no | no |
+| E0031 | H0010 | T0012 | 0.0029 | 0.1102 | 0.02436 | no | yes |
+| E0032 | H0011 | T0013 | 1.04e-09 | 4.369e-08 | 4.369e-08 | yes | yes |
+| E0033 | H0011 | T0013 | 0.001462 | 0.05702 | 0.01535 | no | yes |
 
 **Headline.** Under lab-wide Holm correction, **3 of 6** supported edges remain significant; under lab-wide BH correction, **5 of 6**. These counts describe the lab-wide family reading only; the within-study verdicts stand unchanged.
 
@@ -31,26 +31,27 @@ The family mixes one-sided p-values (the directional event-study legs) and two-s
 
 ### 1.2 Expected false discoveries
 
-At the uncorrected 5% level, the family of 41 tests would be expected to produce **2.1** false positives under the global null; the observed count of raw p-values at or below 0.05 is **8**. The Storey pi0 estimate (lambda = 0.5) is **1.000**, meaning the p-value distribution is consistent with most of the family being null — which is expected: 35 of the 41 tested edges were rejected in their own studies. Across all 41 edges, lab-wide Holm rejects 3 and lab-wide BH rejects 5; the BH rejection set carries an expected-false-discovery upper bound of 0.25 (alpha x rejections, under BH's independence assumption).
+At the uncorrected 5% level, the family of 42 tests would be expected to produce **2.1** false positives under the global null; the observed count of raw p-values at or below 0.05 is **8**. The Storey pi0 estimate (lambda = 0.5) is **1.000**, meaning the p-value distribution is consistent with most of the family being null — which is expected: 36 of the 42 tested edges were rejected in their own studies. Across all 42 edges, lab-wide Holm rejects 3 and lab-wide BH rejects 5; the BH rejection set carries an expected-false-discovery upper bound of 0.25 (alpha x rejections, under BH's independence assumption).
 
 ### 1.3 Per-study breakdown
 
 | Study | Tested | Supported | Holm survivors | BH survivors | Max Holm adj. p (supported) |
 |-------|--------|-----------|---------------|--------------|-----------------------------|
+| btc-dvol-013 | 1 | 0 | 0 | 0 | — |
 | btc-eth-001 | 3 | 0 | 0 | 0 | — |
 | credit-spread-dgs10-012 | 1 | 0 | 0 | 0 | — |
 | credit-spread-spx-008 | 1 | 0 | 0 | 0 | — |
 | credit-spread-tyvix-009 | 1 | 0 | 0 | 0 | — |
 | credit-spread-vix-010 | 1 | 0 | 0 | 0 | — |
 | credit-spread-vxn-011 | 1 | 0 | 0 | 0 | — |
-| fomc-event-study-005 | 8 | 2 | 2 | 2 | 0.00659 |
+| fomc-event-study-005 | 8 | 2 | 2 | 2 | 0.006759 |
 | lowvol-002 | 4 | 0 | 0 | 0 | — |
-| macro-windows-006 | 5 | 2 | 0 | 1 | 0.3534 |
+| macro-windows-006 | 5 | 2 | 0 | 1 | 0.3633 |
 | move-vix-003 | 3 | 0 | 0 | 0 | — |
 | options-expiry-004 | 5 | 0 | 0 | 0 | — |
-| publication-lag-007 | 8 | 2 | 1 | 2 | 0.05556 |
+| publication-lag-007 | 8 | 2 | 1 | 2 | 0.05702 |
 
-The most fragile study under the lab-wide reading is **macro-windows-006** (0 of 2 supported edges survive Holm): E0030 (does not survive Holm, does not survive BH); E0031 (does not survive Holm, survives BH). The most fragile single survivor is E0026 (H0008, study fomc-event-study-005), whose lab-wide Holm adjusted p-value of 0.00659 sits just below 0.05. Again: fragility under a post-hoc pooled correction is a statement about the lab-wide family, not a re-judgement of the study's own verdict.
+The most fragile study under the lab-wide reading is **macro-windows-006** (0 of 2 supported edges survive Holm): E0030 (does not survive Holm, does not survive BH); E0031 (does not survive Holm, survives BH). The most fragile single survivor is E0026 (H0008, study fomc-event-study-005), whose lab-wide Holm adjusted p-value of 0.006759 sits just below 0.05. Again: fragility under a post-hoc pooled correction is a statement about the lab-wide family, not a re-judgement of the study's own verdict.
 
 ## 2. Calibration
 
@@ -86,8 +87,9 @@ Minimum detectable effects (MDE) at 80% power, alpha = 0.05, computed analytical
 | T0018 | H0015 | 5957 | 0.00132 | 0.00001 | 0.0013 | -0.0001 |
 | T0019 | H0016 | 5955 | 0.00132 | 0.00002 | 0.0011 | -0.0001 |
 | T0020 | H0017 | 5957 | 0.00132 | 0.00058 | 0.1030 | -0.0491 |
+| T0021 | H0018 | 2065 | 0.00379 | 0.00119 | 0.2322 | 0.1002 |
 
-Note the first row: at n = 1,414 the partial-R^2 MDE is 0.00552, essentially the lab's preregistered 0.005 effect-size threshold. The threshold was chosen as a minimum interesting effect; the design can reliably detect only effects at least that large. 11 of the 11 observed lead-lag partial R^2 values sit below their MDE — the null results are consistent with 'no effect' and also with 'an effect too small for this design to see'. The two readings are not distinguished by these studies.
+Note the first row: at n = 1,414 the partial-R^2 MDE is 0.00552, essentially the lab's preregistered 0.005 effect-size threshold. The threshold was chosen as a minimum interesting effect; the design can reliably detect only effects at least that large. 12 of the 12 observed lead-lag partial R^2 values sit below their MDE — the null results are consistent with 'no effect' and also with 'an effect too small for this design to see'. The two readings are not distinguished by these studies.
 
 Cross-section (T0009, H0008, n = 135): the single-predictor R^2 MDE is 0.0549 (same formula as partial R^2 for one added regressor), against an observed R^2 of 0.0057 — again far below the detection limit, and the preregistered 0.05 threshold sits just below the MDE.
 
@@ -146,9 +148,9 @@ The method behaves as theory requires: PBO near 0 when the in-sample-optimal str
 
 ## 5. Interpretation and limitations
 
-1. **The lab-wide reading is harsher than the within-study reading, as it should be.** Pooling 41 tests into one family raises the bar; 3 of 6 supported edges clear the Holm bar and 5 of 6 clear the BH bar. The 3 that do not clear Holm are E0030, E0031, E0033, spanning hypotheses H0010, H0011; each hypothesis-level verdict was decided by its own preregistered family, which stands.
+1. **The lab-wide reading is harsher than the within-study reading, as it should be.** Pooling 42 tests into one family raises the bar; 3 of 6 supported edges clear the Holm bar and 5 of 6 clear the BH bar. The 3 that do not clear Holm are E0030, E0031, E0033, spanning hypotheses H0010, H0011; each hypothesis-level verdict was decided by its own preregistered family, which stands.
 2. **The procedures are calibrated.** The HAC test holds its size, Holm controls FWER, and the bootstrap interval is approximately calibrated at the lab's sample sizes. Nothing in the calibration suggests the lab's null results come from broken machinery.
-3. **The designs are powered for large effects only.** 3 of 11 lead-lag MDEs sit at or above the lab's own 0.005 partial-R^2 threshold (below it: T0004, T0005, T0011, T0016, T0017, T0018, T0019, T0020, whose larger samples push their MDEs down), and every observed lead-lag effect sits below its MDE. The lab's null results rule out large effects; they do not rule out small ones. Future studies that hunt small effects need larger samples or sharper designs, not more tests on the same data.
+3. **The designs are powered for large effects only.** 3 of 12 lead-lag MDEs sit at or above the lab's own 0.005 partial-R^2 threshold (below it: T0004, T0005, T0011, T0016, T0017, T0018, T0019, T0020, T0021, whose larger samples push their MDEs down), and every observed lead-lag effect sits below its MDE. The lab's null results rule out large effects; they do not rule out small ones. Future studies that hunt small effects need larger samples or sharper designs, not more tests on the same data.
 4. **Known caveats are restated, not resolved.** E0026's mechanicality and E0030's bootstrap marginality are properties of the underlying studies; this audit records them alongside the corrected p-values rather than letting the corrections stand alone.
-5. **Dependence limits the pooled reading.** The 41 tests reuse the same data (the same FOMC events feed E0023 and E0032; the same BTC/ETH daily panel feeds several lead-lag tests), so the lab-wide family is not 41 independent draws. Holm remains valid under arbitrary dependence; BH is indicative only, and the Storey pi0 estimate assumes independence too.
+5. **Dependence limits the pooled reading.** The 42 tests reuse the same data (the same FOMC events feed E0023 and E0032; the same BTC/ETH daily panel feeds several lead-lag tests), so the lab-wide family is not 42 independent draws. Holm remains valid under arbitrary dependence; BH is indicative only, and the Storey pi0 estimate assumes independence too.
 6. **What this audit does not do.** It does not re-judge any verdict, does not compute a lab-real-data PBO/DSR (no strategy series exist), and does not turn the H0010/H0011 findings into trading signals — both are level/event effects on known dates, not forecasts.

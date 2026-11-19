@@ -1,6 +1,6 @@
 {
   "audit_notes": [
-    "Lab-wide family correction (41 tested edges): Holm adjusted p 0.1073 (not significant), BH adjusted p 0.02378 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Lab-wide family correction (42 tested edges): Holm adjusted p 0.1102 (not significant), BH adjusted p 0.02436 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
     "Power: observed Cohen's d 0.2844 vs MDE 0.2675, observed mean ratio 1.2976 vs MDE 1.2799 (n=116/2009, 80% power, alpha 0.05)."
   ],
   "conclusion": "SUPPORTED",
@@ -26,10 +26,10 @@
     ],
     "holdout_oos": null,
     "lab_wide": {
-      "bh_adjusted_p_value": 0.023777122119212207,
+      "bh_adjusted_p_value": 0.02435705192699787,
       "bh_significant": true,
-      "family_size": 41,
-      "holm_adjusted_p_value": 0.10728701444034776,
+      "family_size": 42,
+      "holm_adjusted_p_value": 0.11018666347927608,
       "holm_significant": false
     },
     "primary_test": {

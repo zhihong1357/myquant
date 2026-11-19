@@ -291,6 +291,18 @@ REPORT_RULES: dict[str, tuple[ReportRule, ...]] = {
         _rule("T0020", "daily_baa_dgs10_decomposition", _LEAD_LAG_HEADERS,
               r"ΔBAA decomposition \(identity-derived\)", LEAD_LAG_COLUMNS),
     ),
+    "btc-dvol-013": (
+        _rule("T0021", "daily_btc_dvol", _LEAD_LAG_HEADERS,
+              r"daily BTC→BTC_DVOL, ETH factor \(primary\)", LEAD_LAG_COLUMNS),
+        _rule("T0021", "daily_btc_dvol_no_factor", _LEAD_LAG_HEADERS,
+              r"no-factor control", LEAD_LAG_COLUMNS),
+        _rule("T0021", "daily_btc_dvol_naive", _LEAD_LAG_HEADERS,
+              r"naive \(same-bar\) alignment", LEAD_LAG_COLUMNS),
+        _rule("T0021", "daily_dvol_btc_reverse", _LEAD_LAG_HEADERS,
+              r"reverse placebo \(BTC_DVOL→BTC\)", LEAD_LAG_COLUMNS),
+        _rule("T0021", "daily_btc_abs_dvol_amplitude", _LEAD_LAG_HEADERS,
+              r"amplitude check \(abs BTC→BTC_DVOL\)", LEAD_LAG_COLUMNS),
+    ),
 }
 
 

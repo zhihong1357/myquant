@@ -1,6 +1,6 @@
 {
   "audit_notes": [
-    "Lab-wide family correction (41 tested edges): Holm adjusted p 0.05556 (not significant), BH adjusted p 0.01499 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
+    "Lab-wide family correction (42 tested edges): Holm adjusted p 0.05702 (not significant), BH adjusted p 0.01535 (significant). This is a post-hoc second-layer reading; it does not change the within-study verdict.",
     "Power: |observed standardized mean CAR| 0.2561 vs MDE 0.2140 at n=135 (80% power, alpha 0.05, one-sided) \u2014 the effect sits above the detection limit of the design."
   ],
   "conclusion": "SUPPORTED",
@@ -47,10 +47,10 @@
     ],
     "holdout_oos": null,
     "lab_wide": {
-      "bh_adjusted_p_value": 0.014986119820243365,
+      "bh_adjusted_p_value": 0.015351634937810277,
       "bh_significant": true,
-      "family_size": 41,
-      "holm_adjusted_p_value": 0.055558297870170525,
+      "family_size": 42,
+      "holm_adjusted_p_value": 0.05702035834043817,
       "holm_significant": false
     },
     "primary_test": {

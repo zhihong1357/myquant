@@ -1,0 +1,561 @@
+{
+  "cache_root": "data/cache/btc-dvol-013",
+  "fetched_at": "2026-11-19T17:16:09.426340+00:00",
+  "fetches": [
+    {
+      "bar": "1D",
+      "candles": 2089,
+      "endpoint": "https://www.okx.com/api/v5/market/history-candles",
+      "expected_confirmed_bars": 2089,
+      "first_bar_open": "2021-03-01T16:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-18T16:00:00+00:00",
+      "missing_bar_opens": [],
+      "missing_bars": 0,
+      "observation_rows": 10445,
+      "okx_inst_id": "BTC-USDT-SWAP",
+      "pages": [
+        {
+          "payload_sha256": "16a92a9bb404edccd53db72efcbd3d06f783752a814c124a98564727e1782c66",
+          "record_id": "cb89bf67955d8c0beeb222b9e5c3527e64cfe33e605181580cc791a7827e9343",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1795104000000&limit=100"
+        },
+        {
+          "payload_sha256": "bd6634fcfa5f63aa839918d716981866d109472331d332ed780251e44f0c6c07",
+          "record_id": "1128d9bd97e06342292b10cbb5a3e235a4e55060c6e9f82e289a332a071988fd",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1786464000000&limit=100"
+        },
+        {
+          "payload_sha256": "2130e967486392a8ffd8327bb842a63648e3a0a0f3c89b83ef9399e35fcca399",
+          "record_id": "fa78e54d2ade4ba906ee4d3dad153b3ada2479e01b2c9e6abc90e15003e60631",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1777824000000&limit=100"
+        },
+        {
+          "payload_sha256": "35328f8b0ed6cde22c07af4ee5f191d592132902c65e8799830b68a0dd1d8bb5",
+          "record_id": "32ae064f950164ea169d4751e9935af0f590976bd22da81a062ae9185c8f1e51",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1769184000000&limit=100"
+        },
+        {
+          "payload_sha256": "537213e4516e037ca27f72e08c584e5db1205f6142eec5b98e85cf53ee495fd6",
+          "record_id": "7bc42297d43e943459236bdf582c7ac259c816d790296338889885605fa02578",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1760544000000&limit=100"
+        },
+        {
+          "payload_sha256": "9fbc3f4c6579ad69c03eb8e415d8622c520558f381fa5c228b2543d2c3c1e94a",
+          "record_id": "21ee821301f2a916278e7d2628b54892f41a1673da29475b41b353f4a896873d",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1751904000000&limit=100"
+        },
+        {
+          "payload_sha256": "bceaa3e8410c5f0a384d063b052332ead85da9fce9dd025e0ca3a8c3c92435ce",
+          "record_id": "db7c65182c463936a4828591acef6a54c7d0c889815fbc145111335389c91242",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1743264000000&limit=100"
+        },
+        {
+          "payload_sha256": "ab3adb721157c9ca526cb2144889723f59e0381694a23513e2248b7ff771b1e1",
+          "record_id": "4c08494e2af457b99f1c0b19e17b718f51161da2f1d04ffb248d136c12658a59",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1734624000000&limit=100"
+        },
+        {
+          "payload_sha256": "69267a1eeaac5e733a575393544f81ccc87b71885ecbfbca47da5469da110228",
+          "record_id": "27714cfd20bc1377163e3fb114853c24db1ba4ebe4fb1ee442b4d642cb9a38db",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1725984000000&limit=100"
+        },
+        {
+          "payload_sha256": "d9e0f9a6f254cca2f302d2d086e5475d8e76d07e0880ce2066f2b8da90264863",
+          "record_id": "52cc48737618f0f3862d2873e6794f14b9cd68b49eb4c85d24c6c991c5c84070",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1717344000000&limit=100"
+        },
+        {
+          "payload_sha256": "6d78e7151cd619aaa82323addd0f538ce2271ed434bba1874bb01c774b4b8cb8",
+          "record_id": "719713a82d2a67f57ba76b3b7de18afd10be5c457306c9d5cce598611116e038",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1708704000000&limit=100"
+        },
+        {
+          "payload_sha256": "ecf840d32da73d35453afe00539208b6bef5a0b4e5945a335f3cdd1d3355af54",
+          "record_id": "f4934dcc3e46e817d7b5e49a726de130d5296438be8e417317ad89963b1aa889",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1700064000000&limit=100"
+        },
+        {
+          "payload_sha256": "c19fbe951d94de5d1531bda6d6a4548789ae15802ca37455b1d7d4a341994cf6",
+          "record_id": "815709df48a5694072ee67ab337e2be8a4d8304d8fcee710ed4bbb5d5c287351",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1691424000000&limit=100"
+        },
+        {
+          "payload_sha256": "4b28740b4768bb1d02f9aaf7f6ccc0365fa81b3e937e649e6e89d1745ba1886b",
+          "record_id": "fd8f8b433ca2ad1017c76f0335fa812f52b5da053338be7f45b1e544892bd0b3",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1682784000000&limit=100"
+        },
+        {
+          "payload_sha256": "899f16b2e55178b08b07c10f8d5c131e46dfb932372a0336b99f2fd87176d77b",
+          "record_id": "255bd4fad771171f72c3c789dcffec7838feadf5f6db590ead9e696cfb5c233c",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1674144000000&limit=100"
+        },
+        {
+          "payload_sha256": "7312d649acccd00ad9eb2498371b53680270ac4f2d9bc76e75dd4ac04620b960",
+          "record_id": "41e17964d36bcabe5c4591693a5ec93de8577e75a7bb64b3d71e7e7b57ef63bb",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1665504000000&limit=100"
+        },
+        {
+          "payload_sha256": "e34ad1bd2abea637f0e83a65029ded22cf0c56b308cfd52c10b595e95c3f205f",
+          "record_id": "f195c58cdb809e1c5fa7b2de1dbe773a561ad5c6494310a9f9824a6cf6e2be09",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1656864000000&limit=100"
+        },
+        {
+          "payload_sha256": "245516938a9bfea496f74bd44f9cc5072d53f80c7495c9bf2625184518c2191a",
+          "record_id": "2982f430896e52ace8c33e5d4e113e8625c2c8b30bdf099cf2ddf1c57575abe4",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1648224000000&limit=100"
+        },
+        {
+          "payload_sha256": "0f99108792c8345a63aec69cda593230df837ab99bde6f70c3eb3bb0bc9ad7db",
+          "record_id": "6af852668eeaa48057f1d4f57385e60177c1d19b256acd81aa1c7fe43fc7c785",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1639584000000&limit=100"
+        },
+        {
+          "payload_sha256": "74d87534b7d0d4870679048f65c4d58436d6a3db7b241dd35c86e6754085298b",
+          "record_id": "139b207eaeed997e1f88868d1d27453523a18feb8bb0a7a313e16147ac93c92d",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1630944000000&limit=100"
+        },
+        {
+          "payload_sha256": "4ace3c5dce3f9c734515697d4cd2fd0fa1a3bda2b5632cfcf246ea14c322dc23",
+          "record_id": "dc504c86af7486c35bd37c96717f2b70dc6161b296981abc57cfaf5f4d958399",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&after=1622304000000&limit=100"
+        }
+      ],
+      "pit_parquet": "37811488729303f0b1ddb2bd3922c0db4f6c4c6e59d4f03f29203bf78d09e292.parquet",
+      "pit_parquet_sha256": "37811488729303f0b1ddb2bd3922c0db4f6c4c6e59d4f03f29203bf78d09e292",
+      "pit_store": "pit-1d",
+      "window_end": "2026-11-19T16:00:00+00:00",
+      "window_start": "2021-03-01T16:00:00+00:00"
+    },
+    {
+      "bar": "1D",
+      "candles": 2089,
+      "endpoint": "https://www.okx.com/api/v5/market/history-candles",
+      "expected_confirmed_bars": 2089,
+      "first_bar_open": "2021-03-01T16:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-18T16:00:00+00:00",
+      "missing_bar_opens": [],
+      "missing_bars": 0,
+      "observation_rows": 10445,
+      "okx_inst_id": "ETH-USDT-SWAP",
+      "pages": [
+        {
+          "payload_sha256": "cd615ba49372575652a289ff85181a62f06cf7c622c643fa9381ac8d461d6612",
+          "record_id": "b9dbfba478027544eae5693f3bc4ff9d54caba53628da100a0fbc604abdd17f6",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1795104000000&limit=100"
+        },
+        {
+          "payload_sha256": "a08199a0894089d3d7bca5becbf0ba143e3aebbfca69bfdafc597bd207002f87",
+          "record_id": "26c4b58d7804bd7f189eb23174b8c672841359c2fc959b5b8cdfab7846b990a5",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1786464000000&limit=100"
+        },
+        {
+          "payload_sha256": "a479d8876c5b97d0cb79aae63f2439ae438ae8272ba1373f7531522915e8b9a3",
+          "record_id": "aae88e2fc8b375c3655424b4bef4882e38708d5e4c3b8a8bfe467949560ae906",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1777824000000&limit=100"
+        },
+        {
+          "payload_sha256": "3e17c01d0736d523fa50dd1153afb53b5852f6c0ae9be63ef9361a72b6e3afcb",
+          "record_id": "3262043dbff0a862c36c5249c202065b8215869928479b687709291ab47aff66",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1769184000000&limit=100"
+        },
+        {
+          "payload_sha256": "9c0652302e25bbdd273a22455e65afcd0b2b1ce49aa3b82e2338628b68ad46e9",
+          "record_id": "aae142b606fbb1ed51ac0c278410f57501b869aa2edb338fb48becd21f44ceca",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1760544000000&limit=100"
+        },
+        {
+          "payload_sha256": "f6b00a75ad578d77c49e5f94186f96e4eb49146821b38dafd887255fe36cd751",
+          "record_id": "69dae236ddaf4148342c79264ef06a023e40de542521d09f974135c84a29e8ea",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1751904000000&limit=100"
+        },
+        {
+          "payload_sha256": "ddaf9df17cce55f28a511eddd7c22a562c79c5f169f8a981ac188e001c574d41",
+          "record_id": "bd7c753536ea42b50756e1ae4a1bc2a874ff1055b442d764b5ccde3ef90eb3bc",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1743264000000&limit=100"
+        },
+        {
+          "payload_sha256": "f336c5e2aad7a5f8368b14a133c19acff0e9254e8d661b36ab3692779681f27a",
+          "record_id": "5a8faa5e6160dbf1c9b61bf01a2e35973050be541030fb6154a9bd90eaba4847",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1734624000000&limit=100"
+        },
+        {
+          "payload_sha256": "784b64cc991b4d3c73fe334e8424606b702503c08459807dc0c7b218c46bcb4c",
+          "record_id": "c733ea90f9fa5f768c7536f9c3f26241a54849fdee80cc4961c72668a2193cf3",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1725984000000&limit=100"
+        },
+        {
+          "payload_sha256": "7a4a39c0641237f4302db201cdaebda88837a9e82d88e111e20012e2b94d45a0",
+          "record_id": "102367a5e299e2def820d8f69962f10eb9fb375a099a5a079d6cdfc95dde89b0",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1717344000000&limit=100"
+        },
+        {
+          "payload_sha256": "055d28378a71af66c8b19078512dead6a867b8ae50d2ff5c52f874f9408f3e4d",
+          "record_id": "8c0885666ca855c2a9125c9b4632b20eaf68327bc396e911463fa9d558cedcc8",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1708704000000&limit=100"
+        },
+        {
+          "payload_sha256": "80c0626637be4629fc66b2efa112e9a199d9d4b55d89da77353d01857146a3b7",
+          "record_id": "df3dd55692e44bd426fb8ff95169e3d95e40b2d386a6d18968de37304f717607",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1700064000000&limit=100"
+        },
+        {
+          "payload_sha256": "df06a64c505eecdd83ff1bcbec195e10bfc834ea4d77c39c73f34d13d6232a55",
+          "record_id": "e00c318b6b34f4e455f8af67c3d78b9017daea860bf8afb823237fb6cd385592",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1691424000000&limit=100"
+        },
+        {
+          "payload_sha256": "d91cbf431ac4045aa1fb422fbf8216fc385d51afe3f3895a7fda7adf09c578ad",
+          "record_id": "1792dc42615138df12d6957f306292e9f2a066acc99053a01e8aaafb19bed91c",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1682784000000&limit=100"
+        },
+        {
+          "payload_sha256": "8c5aa9b03ecd4c10f5ef3090f1b449ecc4033ae588a7175891d1c41984e7f285",
+          "record_id": "7c32daa626523b99bcb8abc957ee521f57c9793d6bcd419b52b8dc0ff7d723c3",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1674144000000&limit=100"
+        },
+        {
+          "payload_sha256": "830c9ac7961db1b9b0d6ba0594e9765097c9d3fe11c8364327d992a67e24b8b8",
+          "record_id": "45a00efbc454e73d55fe0765a13394aa05bd6118ccc8b7a6aa6b247d43d5cd6b",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1665504000000&limit=100"
+        },
+        {
+          "payload_sha256": "8562b154e7f81efaae86cc27f6e3a225eddf7f7f5080b8601a668c5b83b461f8",
+          "record_id": "c63d02607dbdb524bca33a9f874af02c9f5fc5318aae48b51d00ac360688ea3a",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1656864000000&limit=100"
+        },
+        {
+          "payload_sha256": "4c217f49444737a35b7f071b587fed63b19dc8f12d33b675359e3694bc4c9343",
+          "record_id": "b43bf7d5e4c2c4b846e106e0795e5762cc7ad116d2f3255ea556bd5094f56a5d",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1648224000000&limit=100"
+        },
+        {
+          "payload_sha256": "9eb3b47b6cf194d6ff242ea966bfa9f7b254d6b46d514c5a7768707136fbdce8",
+          "record_id": "69144effc7aafa9040233878114078b76eda995aceeec2ee399989e9a6809b7b",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1639584000000&limit=100"
+        },
+        {
+          "payload_sha256": "d0d9c57cde79c9b6f0a5b8bc318f3f689657586d13072daadefa25117c55d1de",
+          "record_id": "33cd67d32d57f6ff9b5282839dd1d64baf5ff70b2bbb25beab52c9d42cf611d0",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1630944000000&limit=100"
+        },
+        {
+          "payload_sha256": "07a3ded362cb35e7f7415b41aec31475c2468a68061bbc904f73986fbbbb70a6",
+          "record_id": "95a4f0cba0e0e2f73a128b596af22c6982632323feae4932193ca2751e46dff2",
+          "url": "https://www.okx.com/api/v5/market/history-candles?instId=ETH-USDT-SWAP&bar=1D&after=1622304000000&limit=100"
+        }
+      ],
+      "pit_parquet": "4d21e0abc0d1db45d1b0b4aabdb44c651d521bfba1769d854d9fccad6c9304bb.parquet",
+      "pit_parquet_sha256": "4d21e0abc0d1db45d1b0b4aabdb44c651d521bfba1769d854d9fccad6c9304bb",
+      "pit_store": "pit-1d",
+      "window_end": "2026-11-19T16:00:00+00:00",
+      "window_start": "2021-03-01T16:00:00+00:00"
+    },
+    {
+      "chunk_days": 40,
+      "chunks": 52,
+      "deribit_currency": "BTC",
+      "dvol_endpoint_note": "Verified 2026-11-19: the hourly endpoint (resolution 3600) returns OHLC rows [timestamp_ms, open, high, low, close] on the hour grid, inclusive of both window endpoints, and caps at 1,000 points per call (a 60-day hourly window returned exactly 1,000 rows, truncated from the start). Chunks of 40 days return at most 961 points; a chunk returning 1,000 points is refused as truncation.",
+      "endpoint": "https://www.deribit.com/api/v2/public/get_volatility_index_data",
+      "first_hourly_point": "2021-03-24T00:00:00+00:00",
+      "first_snapshot": "2021-03-24T16:00:00+00:00",
+      "hourly_points": 49601,
+      "instrument_id": "index:btc-dvol",
+      "last_hourly_point": "2026-11-19T16:00:00+00:00",
+      "last_snapshot": "2026-11-19T16:00:00+00:00",
+      "missing_snapshot_times": [],
+      "missing_snapshots": 0,
+      "observation_rows": 2067,
+      "pages": [
+        {
+          "payload_sha256": "37daa17ae2325923ed7b5ee9336b0920f848ee0c21912638a2ece29b0a5e7eb1",
+          "record_id": "e16e5dc7289cab7f5534c4a79f956dbdc20250dc1ba5da18c8fd4da9d92bdc88",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1616544000000&end_timestamp=1620000000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "cc6b56adad87df73bd8c68c38e64c2574e3d173bbdcc41adde8e656b3890cf86",
+          "record_id": "f6d3187bd95253ab28a37919a1de17418e801243d34bb30e11398fb61f72b465",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1620000000000&end_timestamp=1623456000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "68bafa1667b1a373b174fac1ded56b3359910a5293531a43be98d9ed5d0387ff",
+          "record_id": "91d30eb8ddeacb05a9a373fd5b2fa758dab73d4c25d55fd6225dc82d145cec0d",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1623456000000&end_timestamp=1626912000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "ac3189646d0ae9c847864a19fb8f286791572ea7f061606bf42c4051fa64365a",
+          "record_id": "ff0916c1b21b57620b873a818c9d3d18ab1086b73e1a52dd00f1da9dfb083824",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1626912000000&end_timestamp=1630368000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "adda75a5076f255526633776e9e53661fea543463f6aa69bee446ce59971e286",
+          "record_id": "8c6756e35c1fdd14785219b7a31155e207e50b1aa150ed03649368e2dd190f1c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1630368000000&end_timestamp=1633824000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "769e094cabbd4a4230fa334265df0cfb71503aa78ab8c94e84f1051bef51334e",
+          "record_id": "a71069605a2c69254e77891f5c8f7fc969127961c685c66db86be075e472269c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1633824000000&end_timestamp=1637280000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "7b8cde39c6e1903eec4fc009defd650f682448b8085db6c49733cd00c5d6aeb3",
+          "record_id": "f2bd6bbafdcfdf9c8f3c19dbe16076118bc3d0dca7a49810f918d45e46af07ba",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1637280000000&end_timestamp=1640736000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "cd1ec4a40dad0a8cda61b762633b48a4fc7f60ca414533a074bea55040a14ee1",
+          "record_id": "f43a1dc1943abf2d6991b2842eacb71179cb6ae2e3478476a7d0ab725dcd9017",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1640736000000&end_timestamp=1644192000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "64b5a601e93abac4d936eee3cd63d192cd94e0cf4daca6cc19d47911841957e5",
+          "record_id": "f6c93d7c47dd79e1752a22a7a60af97a6a9e8e2103e4802554feb9b8cf53802d",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1644192000000&end_timestamp=1647648000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "58c07280881dc5d5ed6fdccaf96f47c951e67ffa32c3ecd5c3fc69b0204759c9",
+          "record_id": "47787ab04a79b341430246b5de688c7c3e3500869a8f42c004a1c581dabd9281",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1647648000000&end_timestamp=1651104000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "1f38a9d8ae9f2da45d66e54f469e11fda3ece62f28fe190c5abdf03a697f4c28",
+          "record_id": "0a8b13b4588701425d2f5cb44edb913b51fb5877a9df24b62587ee1549a0e83f",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1651104000000&end_timestamp=1654560000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "34dd90327d13a0e64a3fcc33e811d279cfa0050244b81739c5486386e9f5adda",
+          "record_id": "f657c07432a23db3cac593897ca80af9fdbf28909cafe28e7f87f025d864db00",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1654560000000&end_timestamp=1658016000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "f8052109c853398a37d0b802fa424a2841fe2b621fea525890c48ecd23e3362a",
+          "record_id": "461c9ea39792971136a92bc27e081b12b661cedc1b4aa1d641e7a0d871679b3c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1658016000000&end_timestamp=1661472000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "8faefb14b620eff7cdef2ca758231854fe2a2f4f0bea1d77d6d688fc3d1d2337",
+          "record_id": "b499bea10e85c180c4f3be58d58d4d4869a5abe22a90bad637d3d91da974f410",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1661472000000&end_timestamp=1664928000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "45cec909d57446b2ff11ab1fc4238a674025685a3095a1406ed9068c26a94815",
+          "record_id": "1c6edaa1894ba43a4ace7310bdc91d6459601aff3dcf051005ddc83a849c5b9c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1664928000000&end_timestamp=1668384000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "9835341556089643ab4b31ad3dc06eb90ddd8fcd7f595368ddec312f7e01111e",
+          "record_id": "3bd9aef5340ef4f1ce788ecc27b546690a5273a752fae90d843bef628a293137",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1668384000000&end_timestamp=1671840000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "1a2320a0184be3b393f570c281270fdb11719c06458bf0abfb20bfef88f5f951",
+          "record_id": "5f19691093099235e08c8457f987c6aec73cb5359761f9aff14bc42f07c0617e",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1671840000000&end_timestamp=1675296000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "5a84ccd61e0d29048ba7cdac33e930b801e8ac3ed73c02250e070e037899763f",
+          "record_id": "241263eaf6790ec2876db11a203ad7edcfca584ab234d1eee94c8e9c85a0dc1c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1675296000000&end_timestamp=1678752000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "1b7b13c79580ce443efa5ee22318ffcef722f9dd5add63aebcfd687f66c5cb12",
+          "record_id": "57f7a0471337e4767749c2f66ff90f9ce34b55a75a2568cc1f3b73df7358286c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1678752000000&end_timestamp=1682208000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "a5fbe8d4e383fbb2ecee13c4e49801c0c9e444793852b56518bf3c05e4dde60d",
+          "record_id": "680746880e8cd88c1c62641f33a30f38752ae134b00e309741d1c68e41168e55",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1682208000000&end_timestamp=1685664000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "104df745a06e620be53c4c09adbdd1d0f72c58f8e8018600ffc697a056057dbc",
+          "record_id": "fc8ef9984526299f2591da8310b3eb1eac47cc85d3b7bb613072c887a0df02ff",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1685664000000&end_timestamp=1689120000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "a8824d282ba97dd882b964a7706bdfa6ff2e5bc26fe2b688ba12468bb3091e73",
+          "record_id": "cb3aca04d2ddfc9be203166ac3a61efc3c0478ae1ec0191e140cc352387846e5",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1689120000000&end_timestamp=1692576000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "ee888cd3a1742e2d1606758b11e1bad715433a6791d9d50aca5128ac08df6fe2",
+          "record_id": "b110101b9557abd0c5018df30895a026c0c0d26356e1af4270947aa2b70019af",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1692576000000&end_timestamp=1696032000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "bc1bd342fefa3a4c3b483c95006400ad823d8e17a88a150916965e5f9212cb6d",
+          "record_id": "b51545db8914ed4bb0c1cedd79244cb5602d08485b40570d9db7c07737c4d589",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1696032000000&end_timestamp=1699488000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "7c49912c9dec07f781302083596b10386c5a25b25d3414f9ed848cab6ad5e523",
+          "record_id": "595e91f73a9363fc77e30e1624906ce4c3e003c11a06e06ce961d0b35a449baa",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1699488000000&end_timestamp=1702944000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "3f76cdb6f5a7e4535794b44f50d896194f00ae63f335c26f7b2ce60e4e177ff1",
+          "record_id": "91d5580e8e7b1c1307f0ab938f1acd714ed2fb8869f4b233be3abcfb49d2939c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1702944000000&end_timestamp=1706400000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "0ee7f5fca5f7ce3206475679f4bc87f9a4aa67d28bd87f281c2c3c28ee395daa",
+          "record_id": "a34fcc208749768360ed8c38b8e7489b1da27d239d79616a2d63a481600e7f25",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1706400000000&end_timestamp=1709856000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "e04aeba1c44bdc58131d63fdadd9755818e39b4b289ee3b8e79aee5b156af8c1",
+          "record_id": "d96f07b9fd313af87e89655174eefc229d0cc0bf8482906e231c7b7bae1a97a7",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1709856000000&end_timestamp=1713312000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "54c3b140456fe880a1a8ddadde3721240c32dc38982e4eaea18561b5eee72d5a",
+          "record_id": "2e0c4266b3791ccb2bc5e361280e6615cb3cf8ca0a7ac3d0e91ca4f643fc4cb9",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1713312000000&end_timestamp=1716768000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "4753311b643f0d6251c671736c8752ce70f0ef910152303758bae4f6443f8492",
+          "record_id": "37c24cdff4dfcf0b720aad280cb04fbf1974e45d083315be7d8ab28c9ff84ba9",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1716768000000&end_timestamp=1720224000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "86fdb20615bceff71393f91b7a8ff4b4ce83ebce109facaef62c9cac9ece7063",
+          "record_id": "3a9e0dd750d27120c3f3a5dc23ae57facf253093a257f5daf0a78f15ca7a9ec6",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1720224000000&end_timestamp=1723680000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "bd6c2e324f301d3231c339be478e2174325c647dd23b37bf864b67b44ac9fe5f",
+          "record_id": "d3ca9d709f10cf65769b3111770dbe7373bbb83981d894850a82cbd2477baa13",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1723680000000&end_timestamp=1727136000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "f8ac1deff8ffe36a6db1352b07242e1e26b9a92fb55dc5f1aa38f7e440ebe042",
+          "record_id": "c8e9e8ed7da3a36ce7782f75cfff7edd7450bd70627c313ffbd312d857f980f9",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1727136000000&end_timestamp=1730592000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "a48704cb00a946ffdbd7ef85c460aec7c020bec548545b5079471b9b82579952",
+          "record_id": "3d253e88580a7ec679a4f0797a13aa650188953b495675c0ee7da6d63551d297",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1730592000000&end_timestamp=1734048000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "d9ad1d8c4e2b263e5c8ca9fb7cb86699a9d466c165302f5e1537c0afd64e3e01",
+          "record_id": "a821f3f4844fce5e44309abedf5336106cf2ce8b3bccaf4e6c94b717dff42fc5",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1734048000000&end_timestamp=1737504000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "483f936124f4a3dbb2b1464954a7743b3c2069054258dce68f40e82b94213e8e",
+          "record_id": "133ad88e87a43bbb441daa37076a4cfbbd4af17c7034465fe78cc646608373d9",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1737504000000&end_timestamp=1740960000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "6422f73ec0a62909b509cfe76aacd20259688dc923a8aefc98c0429188c877dc",
+          "record_id": "3d1e5847cdf7f2c8c089c05c9b0ca520ea4c21d266b9921b47d26118c6aee0af",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1740960000000&end_timestamp=1744416000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "227bb106f1282ebd193af13668c907cab49977040b19ccde09e7bdb298ff151e",
+          "record_id": "8991db731c4cf5073ea841afd05bd67074474227718b60d98737d98116da8b5b",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1744416000000&end_timestamp=1747872000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "22c28f04c46d96d86bc81f5aa6e781e429ff5f944eba8a7ba072a39cd173977e",
+          "record_id": "4cfd9b24bb7576b18cd1217730d8a544324a3a2bc411f0c646cd1b3c3b4e859a",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1747872000000&end_timestamp=1751328000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "678eafcf209be8104af3747e87e3768284c5d36bcfd63e8ea3620498fb39e1b4",
+          "record_id": "f56485f3694717dd5740a16bbe3cc1f6ac04741528d435ee67296bb64764f550",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1751328000000&end_timestamp=1754784000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "93e612b60e81d19f7bfebced9b28884f7baa41e1ada937420fd60d3c05c8ba1d",
+          "record_id": "a5b407d687c24053386d142218e2287c3eb090708c2bf2c0e664cb8f5150b3a6",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1754784000000&end_timestamp=1758240000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "3979c1572c01feefc15974e5660ed6d6afb3b64cceede34b8e097d500a2e2ec4",
+          "record_id": "ea9c54bd557c298087094697c4c9d74dfcc449cdd2f5181887040078c78d2ba4",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1758240000000&end_timestamp=1761696000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "0d0886a6137a6d43c0c85c8e2b6d36422403cb51db446b787a4821f6c8b899bf",
+          "record_id": "35c50a8032581e4fc7701bc6131d2b00482cb118f313ef3ded79298ffb3f1ba9",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1761696000000&end_timestamp=1765152000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "cbd75de4528fa23210fc0c19d925753cb1e051f8fa29f6182ff7e50f07440e14",
+          "record_id": "9bc443b3838a99085026b8cce5233f9d2506001da2ac1df085a89c10667ccef1",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1765152000000&end_timestamp=1768608000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "dcc26a0dd63cb763689ac7a7a5be0658126b8fe9d1fd91d819180873605e2a6c",
+          "record_id": "cc0fa71f91e39bfb8072f6bc871dea9d69b09f7cec44885e39c343ebd5fe8446",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1768608000000&end_timestamp=1772064000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "16393617e5242df154b0a26cebaf16d2ee58025c705ba3894dd89c5a66da81b1",
+          "record_id": "a1677c97c4226b91fa3aac6a33a030c48475c9ddc2a997f0b3d4dc2498926493",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1772064000000&end_timestamp=1775520000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "7e3b7eadbd5c39e24c6346aa1ac4f9166c5b3eed289024849afee906787350ee",
+          "record_id": "181aef36237eb54ca0617075776a7c9ba37b1cace4bf76dc691de78f9a1b13aa",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1775520000000&end_timestamp=1778976000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "afa26e9ae7db6c0e9a29dfde8abafddaebefd66d5dd40d2c7b9444167b9c982c",
+          "record_id": "96ce24dc098ef49481229403e2a4a85eda819598f81ce8882409a8a447b844ca",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1778976000000&end_timestamp=1782432000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "94bdc1ac86540a640d87934a8b57dd2311f7751b2878535b2bfd499a3634584e",
+          "record_id": "07a1954838ac1d9c6efe4d24ffb710c1d3e81ca614d17394faf866d7acfe7e3c",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1782432000000&end_timestamp=1785888000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "6e1c6f5b30e13182c091c727db001607652e6dd8138175413cf6f2e1cf9c8766",
+          "record_id": "bd171b116e0a75073ac0a54a3a22eb4287b90aa83f3ae02c116bb26884f9ee5b",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1785888000000&end_timestamp=1789344000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "d47532e5fdd69dcbe845ffa8bbb7be5006510a423d5b9194b4e51479af32445d",
+          "record_id": "377952c461c7dc09221d0cf3ef54ac0dec1d4f70503f3f0b6d29d4a1a5dd7bb0",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1789344000000&end_timestamp=1792800000000&resolution=3600"
+        },
+        {
+          "payload_sha256": "753fff44f0135fbf447ad7fbf2d4f3d5d879f3ae86d95f2e9a7dd1ce74ec28f1",
+          "record_id": "f6402966321bc118013dee84f63f820c3e5a60557c1b992ee2487c3de31f875f",
+          "url": "https://www.deribit.com/api/v2/public/get_volatility_index_data?currency=BTC&index_name=btc_vol&start_timestamp=1792800000000&end_timestamp=1795107600000&resolution=3600"
+        }
+      ],
+      "pit_parquet": "633011e31a787aaca715d06cefa1c822f59ac9a4a1b43efb9b874bb755b492ad.parquet",
+      "pit_parquet_sha256": "633011e31a787aaca715d06cefa1c822f59ac9a4a1b43efb9b874bb755b492ad",
+      "pit_store": "pit-1d",
+      "resolution_seconds": 3600,
+      "snapshots": 2067,
+      "window_end": "2026-11-19T17:00:00+00:00",
+      "window_start": "2021-03-24T00:00:00+00:00"
+    }
+  ],
+  "quality": {
+    "pit-1d": {
+      "event_time_max": "2026-11-18T16:00:00+00:00",
+      "event_time_min": "2021-03-01T16:00:00+00:00",
+      "issues": [],
+      "missing_expected_series": [],
+      "row_count": 22957,
+      "unique_instrument_count": 3,
+      "unique_series_count": 11
+    }
+  },
+  "source_ids": [
+    "okx-public",
+    "deribit"
+  ],
+  "source_versions": {
+    "deribit": 1,
+    "okx-public": 1
+  },
+  "study": "btc-dvol-013"
+}

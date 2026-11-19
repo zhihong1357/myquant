@@ -1,6 +1,6 @@
 # MyQuant lab status report
 
-Generated at: 2026-11-19T15:51:22.398250+00:00
+Generated at: 2026-11-19T17:28:45.968505+00:00
 
 Read-only report generated from the lab's committed records by the research librarian (Stage 6e). Every number below is derived by reading a record — nothing is transcribed by hand. The report states what the records say; it draws no new conclusions, and a supported edge is a statistical result, not a tradeable signal.
 
@@ -26,6 +26,7 @@ One row per completed trial. The primary test is the first entry of the trial's 
 | credit-spread-vix-010 | T0018 | H0015 | REJECTED | daily_baa10y_vix | coef -6.25819e-05 (partial R² 6.55263e-06) | 0.88964 | 5957 |
 | credit-spread-vxn-011 | T0019 | H0016 | REJECTED | daily_baa10y_vxn | coef -9.71477e-05 (partial R² 2.2859e-05) | 0.800103 | 5955 |
 | credit-spread-dgs10-012 | T0020 | H0017 | REJECTED | daily_baa10y_dgs10 | coef -0.0490852 (partial R² 0.00057572) | 0.18194 | 5957 |
+| btc-dvol-013 | T0021 | H0018 | REJECTED | daily_btc_dvol | coef 0.100154 (partial R² 0.00119487) | 0.226898 | 2065 |
 
 Failed trials (recorded in the ledgers, no metrics):
 
@@ -37,7 +38,7 @@ Open studies (a hypothesis still registered/testing): lowvol-002.
 
 ## Graph
 
-12 nodes, 44 edges: 6 supported, 35 rejected, 1 pending, 2 descriptive.
+12 nodes, 45 edges: 6 supported, 36 rejected, 1 pending, 2 descriptive.
 
 Supported edges (within-study verdicts; the lab-wide audit columns are quoted from the 2B audit summary, not recomputed):
 
@@ -53,26 +54,26 @@ Supported edges (within-study verdicts; the lab-wide audit columns are quoted fr
 - E0026: Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md.
 - E0030: Bootstrap-marginal: the HAC test is significant, but the block-bootstrap 95% CI for the mean difference just includes zero. The ETH leg (E0031) is significant by both methods.
 
-Lab-wide audit (2B): family of 41 tested edges; 3 of 6 supported edges survive Holm, 5 survive BH. This is a post-hoc second-layer reading; it does not change any within-study verdict.
+Lab-wide audit (2B): family of 42 tested edges; 3 of 6 supported edges survive Holm, 5 survive BH. This is a post-hoc second-layer reading; it does not change any within-study verdict.
 
 ## Candidate queue
 
-118 untested candidate pairs: 106 ranked, 12 unrankable. Score tiers: 1.00 × 30, 0.80 × 9, 0.70 × 47, 0.60 × 2, 0.50 × 18.
+117 untested candidate pairs: 105 ranked, 12 unrankable. Score tiers: 1.00 × 29, 0.80 × 11, 0.70 × 47, 0.50 × 18.
 
 Top 10 (the ranking is a heuristic; the top tier is a tie broken lexicographically — see the planner report):
 
 | rank | pair | score | mechanism | test |
 | --- | --- | --- | --- | --- |
-| 1 | BTC→BTC_DVOL | 1.00 | transmission | lead_lag |
-| 2 | BTC→ETH_DVOL | 1.00 | transmission | lead_lag |
-| 3 | ETH→BTC | 1.00 | transmission | lead_lag |
-| 4 | ETH→SOL | 1.00 | transmission | lead_lag |
-| 5 | ETH→BTC_DVOL | 1.00 | transmission | lead_lag |
-| 6 | ETH→ETH_DVOL | 1.00 | transmission | lead_lag |
-| 7 | SOL→BTC | 1.00 | transmission | lead_lag |
-| 8 | SOL→ETH | 1.00 | transmission | lead_lag |
-| 9 | BTC_DVOL→BTC | 1.00 | transmission | lead_lag |
-| 10 | BTC_DVOL→ETH | 1.00 | transmission | lead_lag |
+| 1 | BTC→ETH_DVOL | 1.00 | transmission | lead_lag |
+| 2 | ETH→BTC | 1.00 | transmission | lead_lag |
+| 3 | ETH→SOL | 1.00 | transmission | lead_lag |
+| 4 | ETH→BTC_DVOL | 1.00 | transmission | lead_lag |
+| 5 | ETH→ETH_DVOL | 1.00 | transmission | lead_lag |
+| 6 | SOL→BTC | 1.00 | transmission | lead_lag |
+| 7 | SOL→ETH | 1.00 | transmission | lead_lag |
+| 8 | BTC_DVOL→BTC | 1.00 | transmission | lead_lag |
+| 9 | BTC_DVOL→ETH | 1.00 | transmission | lead_lag |
+| 10 | ETH_DVOL→BTC | 1.00 | transmission | lead_lag |
 
 ## Data freshness
 
@@ -103,7 +104,7 @@ Update after the probe: index:vxn — Re-fetched past 2020-05-15 after the probe
 
 ## Review status (6d, quoted)
 
-Full-lab review at 2026-11-19T15:50:38.164512Z: 120 pass, 0 fail, 8 unverified, 16 note.
+Full-lab review at 2026-11-19T17:28:01.794967Z: 129 pass, 0 fail, 8 unverified, 17 note.
 
 Unverified items (not passes):
 
@@ -136,6 +137,9 @@ Missing optional files (recorded, not failures):
 
 Files read to build this report (repo-relative paths):
 
+- `research/btc-dvol-013/hypotheses/hypothesis-events.jsonl`
+- `research/btc-dvol-013/hypotheses/registrations/H0018/v1.json`
+- `research/btc-dvol-013/trials.jsonl`
 - `research/btc-eth-001/hypotheses/hypothesis-events.jsonl`
 - `research/btc-eth-001/hypotheses/registrations/H0001/v1.json`
 - `research/btc-eth-001/trials.jsonl`
@@ -175,6 +179,7 @@ Files read to build this report (repo-relative paths):
 - `research/decision-records/records/DR-H0015.json`
 - `research/decision-records/records/DR-H0016.json`
 - `research/decision-records/records/DR-H0017.json`
+- `research/decision-records/records/DR-H0018.json`
 - `research/evidence-6b/evidence_report.json`
 - `research/evidence-6b/panel_freshness.json`
 - `research/evidence-6b/sources.json`
@@ -201,7 +206,6 @@ Files read to build this report (repo-relative paths):
 - `research/options-expiry-004/trials.jsonl`
 - `research/planner-6a/data_availability.json`
 - `research/planner-6a/ranking.json`
-- `research/planner-6a/templates/crypto-btc-usdt-perp__index-btc-dvol.json`
 - `research/planner-6a/templates/crypto-btc-usdt-perp__index-eth-dvol.json`
 - `research/planner-6a/templates/crypto-eth-usdt-perp__crypto-btc-usdt-perp.json`
 - `research/planner-6a/templates/crypto-eth-usdt-perp__crypto-sol-usdt-perp.json`
@@ -211,6 +215,7 @@ Files read to build this report (repo-relative paths):
 - `research/planner-6a/templates/crypto-sol-usdt-perp__crypto-eth-usdt-perp.json`
 - `research/planner-6a/templates/index-btc-dvol__crypto-btc-usdt-perp.json`
 - `research/planner-6a/templates/index-btc-dvol__crypto-eth-usdt-perp.json`
+- `research/planner-6a/templates/index-eth-dvol__crypto-btc-usdt-perp.json`
 - `research/planner-6a/vxn_refresh.json`
 - `research/publication-lag-007/hypotheses/hypothesis-events.jsonl`
 - `research/publication-lag-007/hypotheses/registrations/H0011/v1.json`

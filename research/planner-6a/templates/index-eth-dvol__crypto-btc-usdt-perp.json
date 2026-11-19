@@ -8,7 +8,7 @@
   "adjacent_supported_edges": [
     "E0030"
   ],
-  "alternative_hypothesis": "Lagged BTC returns explain a positive, out-of-sample component of next day BTC_DVOL returns beyond the target's own history and the common-factor control.",
+  "alternative_hypothesis": "Lagged ETH_DVOL returns explain a positive, out-of-sample component of next day BTC returns beyond the target's own history and the common-factor control.",
   "benchmark": "TODO",
   "cost_assumptions": [
     "TODO"
@@ -47,25 +47,25 @@
   ],
   "multiple_testing_family": "TODO",
   "multiple_testing_method": "holm",
-  "null_hypothesis": "Lagged BTC returns have no incremental predictive value for next day BTC_DVOL returns over the target's own history and the common-factor control.",
+  "null_hypothesis": "Lagged ETH_DVOL returns have no incremental predictive value for next day BTC returns over the target's own history and the common-factor control.",
   "observation_frequency": "daily",
   "planned_test_count": "TODO",
   "planner_notes": [],
-  "planner_rank": 1,
+  "planner_rank": 10,
   "planner_scores": {
     "adjacency": 1.0,
     "data": 1.0,
     "power": 1.0
   },
   "planner_total_score": 1.0,
-  "primary_metric": "Partial R-squared of lag-1 BTC return in the daily BTC->BTC_DVOL partial lead-lag regression",
+  "primary_metric": "Partial R-squared of lag-1 ETH_DVOL return in the daily ETH_DVOL->BTC partial lead-lag regression",
   "purge_gap_seconds": 86400,
   "random_seed": "TODO",
   "rejection_criteria": [
     "Primary test fails any acceptance criterion",
     "TODO: state the verdict rule for secondary tests"
   ],
-  "research_question": "Does the lagged BTC return contain incremental information about the next day BTC_DVOL return, beyond the target's own history and a common-factor control?",
+  "research_question": "Does the lagged ETH_DVOL return contain incremental information about the next day BTC return, beyond the target's own history and a common-factor control?",
   "sample_period": {
     "estimated_joint_rows": 2064,
     "estimated_joint_rows_basis": "estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)",
@@ -73,18 +73,18 @@
   },
   "schema_version": 1,
   "source_versions": [
-    "OKX public REST 1D candles (BTC-USDT-SWAP), bars open 16:00 UTC",
-    "Deribit public DVOL endpoint (BTC), daily points"
+    "Deribit public DVOL endpoint (ETH), daily points",
+    "OKX public REST 1D candles (BTC-USDT-SWAP), bars open 16:00 UTC"
   ],
   "suggested_test_reason": "Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.",
   "suggested_test_type": "lead_lag",
-  "target_definition": "daily log return of BTC_DVOL at t+1; predictor is the daily log return of BTC at t",
+  "target_definition": "daily log return of BTC at t+1; predictor is the daily log return of ETH_DVOL at t",
   "target_error_rate": 0.05,
   "title": "TODO",
   "train_window": "TODO",
   "universe": [
-    "crypto:btc-usdt-perp",
-    "index:btc-dvol"
+    "index:eth-dvol",
+    "crypto:btc-usdt-perp"
   ],
   "validation_window": "TODO"
 }

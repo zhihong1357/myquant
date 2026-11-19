@@ -1,6 +1,6 @@
 # Adversarial reviewer validation (Stage 6d)
 
-Validated at: 2026-11-19T15:50:38.164512+00:00
+Validated at: 2026-11-19T17:28:01.794967+00:00
 
 ## What was validated
 
@@ -10,27 +10,27 @@ Validated at: 2026-11-19T15:50:38.164512+00:00
 
 ## Full-lab review summary
 
-- Checks run: 144
-- PASS: 120
+- Checks run: 154
+- PASS: 129
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 16
+- NOTE: 17
 
 ### Per-check breakdown
 
 | check | pass | fail | unverified | note |
 | --- | --- | --- | --- | --- |
-| `hypothesis_state` | 16 | 0 | 0 | 0 |
-| `ledger_anchor` | 11 | 0 | 1 | 0 |
-| `ledger_chain` | 12 | 0 | 0 | 0 |
-| `multiple_testing` | 16 | 0 | 0 | 0 |
-| `pit_spot_check` | 5 | 0 | 7 | 0 |
-| `power_note` | 0 | 0 | 0 | 16 |
-| `prereg_binding` | 19 | 0 | 0 | 0 |
-| `registry_events` | 12 | 0 | 0 | 0 |
-| `report_ledger` | 12 | 0 | 0 | 0 |
+| `hypothesis_state` | 17 | 0 | 0 | 0 |
+| `ledger_anchor` | 12 | 0 | 1 | 0 |
+| `ledger_chain` | 13 | 0 | 0 | 0 |
+| `multiple_testing` | 17 | 0 | 0 | 0 |
+| `pit_spot_check` | 6 | 0 | 7 | 0 |
+| `power_note` | 0 | 0 | 0 | 17 |
+| `prereg_binding` | 20 | 0 | 0 | 0 |
+| `registry_events` | 13 | 0 | 0 | 0 |
+| `report_ledger` | 13 | 0 | 0 | 0 |
 | `trial_sequence` | 1 | 0 | 0 | 0 |
-| `verdict_consistency` | 16 | 0 | 0 | 0 |
+| `verdict_consistency` | 17 | 0 | 0 | 0 |
 
 ### The FAILs
 
@@ -62,8 +62,8 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ### Report coverage
 
-- 73 report rules across the 12 reports; 73 rows verified, 0 rows disagree.
-- 467 numeric cells compared (window-count and bootstrap-CI cells compared separately).
+- 78 report rules across the 13 reports; 78 rows verified, 0 rows disagree.
+- 498 numeric cells compared (window-count and bootstrap-CI cells compared separately).
 
 ## Adversarial fixtures
 
@@ -80,7 +80,7 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ## Rounding-margin diagnostic
 
-- Numeric cells compared: 467
+- Numeric cells compared: 498
 - Cells outside tolerance: 0
 - Highest passing ratio (|diff| / tolerance): 0.999
 - Lowest failing ratio: none (no cell outside tolerance)

@@ -1,0 +1,124 @@
+{
+  "acceptance_criteria": [
+    "Holm-adjusted primary p-value below 0.05",
+    "Primary partial R-squared at least 0.005",
+    "Holdout out-of-sample incremental R-squared above 0"
+  ],
+  "alternative_hypothesis": "The lagged BTC return has a negative coefficient in the daily BTC->BTC_DVOL partial lead-lag regression (a BTC fall predicts a higher next-day BTC_DVOL change, the leverage-effect direction), with partial R-squared at least 0.005 and a positive holdout out-of-sample incremental R-squared. Note on wording: the planner draft's 'positive, out-of-sample component' refers to positive incremental explanatory power (incremental R-squared above zero), not to a positive coefficient \u2014 the expected coefficient sign is negative on the economic argument in the mechanism, independently of that wording.",
+  "benchmark": "Own-history baseline: next-day BTC_DVOL log change predicted from its own lagged log change (lag 1) and the ETH common-factor control only, without the lagged BTC return",
+  "cost_assumptions": [
+    "BTC_DVOL is an index and is not directly tradable. The tradable proxy would be a Deribit BTC straddle (a call plus a put at the same strike and expiry), but Deribit's public API provides no usable historical option price series: public/get_tradingview_chart_data returns status 'no_data' for BTC option instruments (verified 2026-11-19 on three instruments \u2014 a near-term at-the-money call BTC-20NOV26-62500-C, a weekly near-money call BTC-4DEC26-62000-C, a monthly near-money call BTC-25DEC26-62000-C \u2014 across daily and hourly resolutions and 7-day to 6-month windows), even though the instruments trade (verified via public/get_last_trades_by_instrument) and the same endpoint returns data for BTC-PERPETUAL (31 ticks over 30 days). In addition, public/get_instruments with expired=true returns only the most recent expired batch (48 contracts, all expiring 2026-11-19), so a multi-year straddle series cannot be reconstructed from expired listings either.",
+    "Even with option prices, a straddle needs strike and expiry selection, roll rules across expiries, and bid-ask spread data to measure trading costs \u2014 none of which the public API provides as a clean cost series.",
+    "The cost gate is therefore informational, not a verdict criterion; the holdout out-of-sample incremental R-squared carries the economic weight",
+    "The reported gross sign-rule edge applies no costs at all, is measured in log-change units per day on the BTC_DVOL log change itself, and is an upper bound on any tradable edge"
+  ],
+  "cost_model": "Informational only (study 003's precedent for a non-tradable target): BTC_DVOL is an index and is not directly tradable, and Deribit's public API provides no usable historical option price series (public/get_tradingview_chart_data returns no_data for BTC option instruments, verified 2026-11-19; expired listings return only the most recent batch), so no clean cost measurement is available for a straddle proxy. The trial reports the gross sign-rule edge on holdout out-of-sample augmented forecasts (1x, always invested while positioned, no costs applied, in log-change units per day) as an informational upper bound on any tradable edge, with a block-bootstrap confidence interval; the holdout out-of-sample incremental R-squared carries the economic weight. The cost gate is not a verdict criterion.",
+  "design_note": "Researcher decisions beyond the planner draft (rank 1, crypto-btc-usdt-perp__index-btc-dvol): (1) the target is the daily LOG change of BTC_DVOL \u2014 DVOL is an index level like VIX, so the log change is the correct transform (same as studies 003/010/011; unlike study 012's DGS10 yield target, which took the level change). The draft's target_definition already says 'daily log return of BTC_DVOL', so no correction is needed \u2014 the log-change definition is restated here explicitly; (2) the DVOL daily value is the 16:00 UTC snapshot: the close of the Deribit hourly DVOL row timestamped 15:00 UTC, aligned to the OKX 1D bar grid (bars open 16:00 UTC). The daily DVOL endpoint (resolution 86400) timestamps points at 00:00 UTC, which would leave an 8-hour overlap between the predictor window (16:00-16:00 UTC) and the target window (00:00-00:00 UTC) \u2014 the hourly snapshot removes it: both legs are snapshotted at 16:00 UTC, so the target change over bar t+1 starts exactly when the predictor window ends. The DVOL observation at bar-open time 16:00 UTC on day D carries the snapshot value at 16:00 UTC on day D+1 (the bar-close value, matching the OKX candle convention: event_time is the bar open, the close value is the price at the bar close, available_at is the bar close). Verified behaviorally 2026-11-19: the hourly endpoint (resolution 3600) returns OHLC rows on the hour grid, inclusive of both window endpoints, and caps at 1,000 points per call (a 60-day hourly window returned exactly 1,000 rows, truncated from the start) \u2014 the fetch therefore chunks in 40-day windows (961 points) and deduplicates by timestamp; (3) the universe adds crypto:eth-usdt-perp as the common-factor control leg \u2014 the draft's research question assumes a common-factor control but names none. ETH (not SPX) is the control: the panel is a 24/7 crypto calendar, and SPX has no weekend values, so an SPX control would force dropping ~28% of rows (weekends) or violating the no-forward-fill rule; ETH is crypto-native, 24/7, same venue (OKX), and captures the crypto-market common factor (the BTC->ETH link is the lab's original study 001). SPX comparability with studies 010/011/012 is traded for sample completeness \u2014 the no-factor upper bound shows what the control absorbs either way; (4) the predictor is lag-1 (no FRED-style publication lag): BTC perpetual prices and the DVOL index are both published in real time, so the BTC return over bar t is knowable at the decision close (16:00 UTC) with no posting delay. The naive unlagged alignment is still run as a descriptive check (it measures the lag-1 vs lag-0 difference here, not a publication-lag effect); (5) the control uses control_lag_steps=0 (the ETH log return over day t, ETH[t]): OKX posts the close at 16:00 UTC, so it is knowable at the decision close \u2014 the same factor-alignment precedent as study 003; (6) the cost gate is informational, not a verdict criterion, following study 003's precedent for a non-tradable target \u2014 the verdict therefore has three criteria, not four. Note the contrast with study 012: there the proxy series existed (Yahoo ZN=F) and the informational treatment rested on a modelling gap; here the proxy series does not exist (Deribit option chart data returns no_data), so the informational treatment rests on missing data \u2014 the design does not claim otherwise; (7) the sample is the full overlap window (DVOL hourly history from 2021-03-24 to the fetch date): the windows follow calendar-year boundaries (train to 2024, validation 2024, holdout 2025 to the fetch date) with minimum observations scaled to the shorter sample (500/300/300, vs 1000/500/300 in the BAA10Y studies); (8) the sub-periods are yearly blocks (2021, 2022, 2023, 2024, 2025-2026), not study 003's 5-year blocks \u2014 the sample is ~2,060 rows, so 5-year blocks would give only one full block. Each yearly block's MDE at n~365 is ~0.021, far above the 0.005 threshold, so sub-periods are descriptive only (as always); (9) the amplitude dimension (|BTC return| -> next-day DVOL change) is a descriptive supplementary test only \u2014 the leverage effect has a magnitude dimension, but the preregistered primary test is the signed return; the amplitude check is not in the test family and must not be promoted to the primary after the fact.",
+  "exclusions": [
+    "Bars outside the sample window (2021-03-24 to 2026-11-20) are out of sample; the panel ends where the data ends (the DVOL leg binds: hourly DVOL history starts 2021-03-24).",
+    "Incomplete synchronized rows are excluded and counted.",
+    "DVOL snapshot days with a missing hourly row at 15:00 UTC are excluded (no forward filling) and counted.",
+    "The first panel return row has no lag-1 BTC return and is dropped.",
+    "The naive unlagged alignment, the no-factor control, the reverse placebo, the sub-period stability split and the amplitude check (|BTC return| as the predictor) are descriptive only and are not in the test family."
+  ],
+  "expected_direction": "negative",
+  "feature_set": [
+    "btc-log-return-lag-1@v1",
+    "dvol-log-change-lag-1@v1",
+    "eth-log-return-lag-0@v1",
+    "dvol-log-change-lag-0@v1",
+    "btc-abs-log-return-lag-1@v1"
+  ],
+  "fixed_parameters": [
+    "lag=1",
+    "predictor_lag_steps=1",
+    "control_lag_steps=0",
+    "predictor_transform=log-change",
+    "control_transform=log-change",
+    "target_transform=log-change",
+    "dvol_snapshot=16:00 UTC (close of the hourly DVOL row timestamped 15:00 UTC)",
+    "daily_max_hac_lag=5",
+    "bootstrap_block_length=10",
+    "bootstrap_resamples=2000",
+    "bootstrap_seed=42",
+    "walk_forward_initial_train=1000",
+    "walk_forward_test_size=126",
+    "walk_forward_embargo_days=1",
+    "sample_start=2021-03-24",
+    "sample_end=2026-11-20",
+    "subperiods=2021-2021,2022-2022,2023-2023,2024-2024,2025-2026"
+  ],
+  "holdout_window": {
+    "end": "2026-11-20T16:00:00+00:00",
+    "start": "2025-01-02T16:00:00+00:00"
+  },
+  "horizon_seconds": 86400,
+  "hypothesis_id": "H0018",
+  "known_confounders": [
+    "Leverage effect vs volatility feedback: the test measures whether lagged BTC returns predict next-day DVOL changes beyond DVOL's own history and the ETH control. A significant result would be consistent with the leverage effect (falling prices raise implied volatility through risk repricing and deleveraging), but the regression cannot distinguish the leverage effect from volatility feedback (rising expected volatility depressing prices) or from a common shock with a lagged response \u2014 the mechanism is a hypothesis, not a conclusion. A null result rules out the predictive association at the preregistered effect size; it does not rule out intraday leverage dynamics.",
+    "The amplitude dimension: the leverage effect has a magnitude component (|BTC return| -> next-day DVOL change) as well as a sign component. The preregistered primary test is the signed return; the amplitude check is descriptive only (not in the test family) and must not be promoted to the primary after the fact.",
+    "DVOL is an index computed from Deribit option prices. Its changes reflect the option market's repricing; the study reports numerical relationships only and makes no claim about trader expectations, dealer positioning, or market-maker behaviour \u2014 participant identity and intent cannot be inferred from public index data.",
+    "The 16:00 UTC snapshot uses the close of the hourly DVOL row timestamped 15:00 UTC. DVOL is a continuous index; the hourly close is the last computed value within the hour. The snapshot is the endpoint's own close, not an interpolated value.",
+    "The BTC leg is the OKX perpetual swap and the DVOL leg is the Deribit options index \u2014 different venues. A venue basis (OKX vs Deribit price differences) is unmodelled; the test uses each venue's own series and the basis would have to vary systematically with lagged BTC returns to confound the result.",
+    "The ETH control absorbs the crypto-market common factor by design \u2014 that is what a same-day control is for. BTC and ETH returns are highly correlated (lag-0 correlation 0.81 in study 001), so the control may absorb much of the BTC signal; the no-factor upper bound shows what it absorbs.",
+    "The sample covers the 2021 bull run, the 2022 crash, and the 2023-2026 recovery; transmission may be regime-dependent. Sub-period stability is descriptive only.",
+    "The DVOL hourly endpoint caps at 1,000 points per call (verified 2026-11-19: a 60-day hourly window returned exactly 1,000 rows, truncated from the start). The fetch chunks in 40-day windows (961 points) and deduplicates by timestamp; a chunk that returned exactly 1,000 points would signal truncation and is refused by the fetch script.",
+    "The sample (~2,060 rows) is far smaller than the BAA10Y studies' 5,957, so the minimum detectable effect is larger (partial R-squared ~0.0038 at 80% power, vs 0.0013 for the BAA10Y studies) \u2014 the power boundary is weaker and the report states it.",
+    "Both legs are real-time: the OKX bar close and the DVOL snapshot at 16:00 UTC are knowable at the decision close, so the baseline's lag-1 DVOL change uses values known at the close \u2014 unlike the FRED studies, no source-lag concession is needed here. The PIT store records available_at equal to the bar close (the OKX adapter convention) and the DVOL snapshot's available_at is its 16:00 UTC snapshot moment.",
+    "DVOL changes are close to unpredictable (study 003's base-model R-squared for next-day VIX log changes was about 0.012, and implied-volatility changes are similarly close to a random walk); the baseline explains little, so the incremental R-squared is measured against a weak baseline."
+  ],
+  "mechanism": "The leverage effect: a fall in the BTC price raises the market's implied volatility the next day. The economic channels are risk repricing (a price fall raises perceived downside risk, so option buyers pay more for protection and implied volatility rises) and deleveraging (falling prices trigger liquidations and margin calls on leveraged long positions, which raises realised volatility expectations). The expected sign is negative: a negative lagged BTC return predicts a positive next-day BTC_DVOL change. The effect is a next-day predictive association in daily data; the regression cannot identify which channel operates, and the amplitude dimension (|BTC return| -> DVOL change) is tested descriptively only.",
+  "minimum_effect_size": 0.005,
+  "minimum_holdout_observations": 300,
+  "minimum_train_observations": 500,
+  "minimum_validation_observations": 300,
+  "missing_data_policy": "No forward filling; drop incomplete synchronized rows and report the dropped count. DVOL snapshot days with a missing hourly row at 15:00 UTC are excluded and counted.",
+  "model_definition": [
+    "Partial lead-lag OLS with Newey-West HAC standard errors (daily lagged BTC log return -> next-day BTC_DVOL log change); the baseline controls for the target's own lag-1 log change and the ETH common-factor control",
+    "Purged walk-forward out-of-sample evaluation of the primary model (baseline: own history plus ETH control; augmented: plus lagged BTC return)",
+    "Naive lead-lag scan (lags 0-5, raw Pearson correlations) as a descriptive upper bound (not in the test family)",
+    "Descriptive only: unlagged (naive) alignment, no-factor upper-bound control, reverse placebo (BTC_DVOL->BTC), sub-period stability (yearly blocks), amplitude check (|BTC return| as the predictor)",
+    "Cost gate is informational only (study 003's precedent): the gross sign-rule edge on holdout out-of-sample augmented forecasts, no costs applied, in log-change units per day, with a block-bootstrap confidence interval \u2014 not a verdict criterion"
+  ],
+  "multiple_testing_family": "BTC to BTC_DVOL transmission (1 test: daily lagged BTC return -> next-day BTC_DVOL log change)",
+  "multiple_testing_method": "holm",
+  "null_hypothesis": "Lagged BTC returns have no incremental predictive value for next-day BTC_DVOL log changes over BTC_DVOL's own history and the ETH common-factor control, with dependence controls.",
+  "observation_frequency": "daily",
+  "planned_test_count": 1,
+  "primary_metric": "Partial R-squared of lag-1 BTC return in the daily BTC->BTC_DVOL partial lead-lag regression",
+  "purge_gap_note": "The purge gap equals the horizon (the minimum the validator allows). Raise it if the design needs a longer embargo; never lower it.",
+  "purge_gap_seconds": 86400,
+  "random_seed": 42,
+  "rejection_criteria": [
+    "Holm-adjusted primary p-value at or above 0.05",
+    "Primary partial R-squared below 0.005",
+    "Holdout out-of-sample incremental R-squared at or below 0"
+  ],
+  "research_question": "Does the lagged BTC return contain incremental information about the next day BTC_DVOL return, beyond the target's own history and a common-factor control?",
+  "slug": "btc-dvol-013",
+  "source_instrument": "crypto:btc-usdt-perp",
+  "source_versions": [
+    "okx-public@v1",
+    "deribit@v1"
+  ],
+  "study_number": 13,
+  "target_definition": "Next-day BTC_DVOL daily log change, where the DVOL daily value is the 16:00 UTC snapshot (the close of the Deribit hourly DVOL row timestamped 15:00 UTC), aligned to the OKX 1D bar grid (bars open 16:00 UTC); the predictor is the BTC daily log return over the OKX bar (lag-1 in regression terms: the return over bar t forecasts the DVOL log change over bar t+1).",
+  "target_error_rate": 0.05,
+  "target_instrument": "index:btc-dvol",
+  "test_type": "lead_lag",
+  "title": "Lagged BTC returns lead BTC_DVOL changes (leverage effect)",
+  "train_window": {
+    "end": "2024-01-01T16:00:00+00:00",
+    "start": "2021-03-24T16:00:00+00:00"
+  },
+  "trial_id": "T0021",
+  "universe": [
+    "crypto:btc-usdt-perp",
+    "index:btc-dvol",
+    "crypto:eth-usdt-perp"
+  ],
+  "validation_window": {
+    "end": "2025-01-01T16:00:00+00:00",
+    "start": "2024-01-02T16:00:00+00:00"
+  }
+}

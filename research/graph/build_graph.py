@@ -1178,6 +1178,53 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
             "0.005 threshold, and itself mechanically confounded.",
         ),
     ),
+    # Study 013 (H0018, T0021): 1-test Holm family. The predictor is
+    # the BTC daily log return (OKX BTC-USDT-SWAP 1D, bars open 16:00
+    # UTC), lag-1; the ETH control carries no lag (same bar as the
+    # predictor). The target is the BTC_DVOL daily log change, where
+    # the daily DVOL value is the 16:00 UTC snapshot (the close of
+    # the Deribit hourly DVOL row timestamped 15:00 UTC), aligned to
+    # the OKX bar grid — the daily DVOL endpoint timestamps points at
+    # 00:00 UTC, which would leave an 8-hour overlap between the
+    # predictor and target windows. There is no FRED-style
+    # publication lag: both legs are real-time. The same-bar (naive)
+    # alignment is also null, so the lag is not what killed the
+    # effect. The amplitude check (|BTC| -> DVOL) is nominally
+    # significant (p=6.6e-06, partial R² 0.00993) but with a NEGATIVE
+    # coefficient and descriptive only — consistent with DVOL level
+    # mean-reversion, not a leverage channel; not promoted. First
+    # DVOL study; first fully crypto-native panel (24/7 calendar).
+    # Sixth real use of the 6c scaffold; see the study report's
+    # scaffold-feedback section.
+    EdgeSpec(
+        edge_id="E0045",
+        study="btc-dvol-013",
+        trial_id="T0021",
+        ledger_test_key="daily_btc_dvol",
+        source="crypto:btc-usdt-perp",
+        target="index:btc-dvol",
+        frequency="daily",
+        condition=(
+            "predictor is the BTC daily log return lag-1 (no "
+            "publication lag — both legs real-time); next-day "
+            "BTC_DVOL log change (16:00 UTC snapshot)"
+        ),
+        method=PARTIAL_LEAD_LAG_DAILY,
+        control="ETH[t] log return (same bar as the predictor)",
+        is_primary=True,
+        panel_key="daily",
+        notes=(
+            "Planner rank-1 candidate pair (6a, total score 1.00). "
+            "Primary coefficient +0.100154 per unit log return, "
+            "wrong sign vs the preregistered negative leverage-effect "
+            "expectation, p=0.2269; partial R² 0.001195.",
+            "Same-bar correlation -0.2691 (the leverage effect is "
+            "contemporaneous); lag-1 correlation +0.0270 (null). "
+            "The reverse placebo (BTC_DVOL->BTC) is nominally "
+            "significant (p=0.0317) but descriptive only, below the "
+            "0.005 threshold and the MDE (0.003787).",
+        ),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
@@ -1211,6 +1258,7 @@ TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0018", "credit-spread-vix-010", "H0015", 1, "docs/studies/credit-spread-vix-010.md"),
     ("T0019", "credit-spread-vxn-011", "H0016", 1, "docs/studies/credit-spread-vxn-011.md"),
     ("T0020", "credit-spread-dgs10-012", "H0017", 2, "docs/studies/credit-spread-dgs10-012.md"),
+    ("T0021", "btc-dvol-013", "H0018", 1, "docs/studies/btc-dvol-013.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -1515,6 +1563,27 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
                 "in basis points per day. Not a verdict criterion."
             ),
         )
+    if data.trial_id == "T0021":
+        gate = data.metrics["cost_gate_informational"]
+        return CostGateRecord(
+            verdict=CostGateVerdict.INFORMATIONAL,
+            net_daily_edge=None,
+            gross_daily_edge=gate["gross_daily_edge"],
+            bootstrap_p_value=gate["gross_edge_bootstrap_p_value"],
+            ci_lower=gate["gross_edge_ci_lower"],
+            ci_upper=gate["gross_edge_ci_upper"],
+            days=gate["days"],
+            note=(
+                "Informational only: no costs applied. BTC_DVOL is an "
+                "index and is not directly tradable; the tradable "
+                "proxy (a Deribit BTC options straddle) has no clean "
+                "free cost series — Deribit's public API returns "
+                "no_data for BTC option chart data and expired "
+                "listings return only the most recent batch. Gross "
+                "edge in log-change units per day. Not a verdict "
+                "criterion."
+            ),
+        )
     gate = data.metrics["cost_gate"]
     if data.trial_id == "T0002":
         note = (
@@ -1637,6 +1706,36 @@ def _lead_lag_primary_verdict(
                 f"edge {cost_gate.gross_daily_edge:+.4%}, {ci_part}) — no "
                 "net edge measurable: VIX is not tradable and no free "
                 "VIX futures series exists."
+            )
+        if data.trial_id == "T0019":
+            return (
+                f"Hypothesis {data.hypothesis_id} {verdict} "
+                f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
+                "cost gate informational (gross daily "
+                f"edge {cost_gate.gross_daily_edge:+.4%}, {ci_part}) — no "
+                "net edge measurable: VXN is not tradable; VXN futures "
+                "(VN) existed historically on CFE but are not currently "
+                "listed, and no free VXN futures price series exists."
+            )
+        if data.trial_id == "T0020":
+            return (
+                f"Hypothesis {data.hypothesis_id} {verdict} "
+                f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
+                "cost gate informational (gross daily "
+                f"edge {cost_gate.gross_daily_edge:+.4%}, {ci_part}) — no "
+                "net edge measurable: DGS10 is a yield and is not "
+                "directly tradable; the DV01/duration conversion and "
+                "futures roll handling are not modelled."
+            )
+        if data.trial_id == "T0021":
+            return (
+                f"Hypothesis {data.hypothesis_id} {verdict} "
+                f"(trial {data.trial_id}): {p_part}; {r2_part}; {oos_part}; "
+                "cost gate informational (gross daily "
+                f"edge {cost_gate.gross_daily_edge:+.4%}, {ci_part}) — no "
+                "net edge measurable: BTC_DVOL is not tradable and no "
+                "clean straddle cost series exists (Deribit's public "
+                "API returns no_data for BTC option chart data)."
             )
         return (
             f"Hypothesis {data.hypothesis_id} {verdict} "

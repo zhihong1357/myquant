@@ -1,15 +1,15 @@
 # Adversarial review report (Stage 6d)
 
-Reviewed at: 2026-11-19T15:50:38.164512+00:00
+Reviewed at: 2026-11-19T17:28:01.794967+00:00
 
-Read-only review of the lab's 12 empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
+Read-only review of the lab's 13 empirical studies: ledger integrity, preregistration binding, multiple-testing recomputation, verdict consistency, lifecycle state, report-ledger agreement, trial-ID sequence and point-in-time discipline. UNVERIFIED means the check could not be performed — it is not a pass. NOTE entries are informational MDE annotations from the 2B audit and never fail.
 
 ## Summary
 
-- PASS: 120
+- PASS: 129
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 16
+- NOTE: 17
 
 ## btc-eth-001
 
@@ -434,7 +434,37 @@ Read-only review of the lab's 12 empirical studies: ledger integrity, preregistr
 - **[PASS]** `pit_spot_check` (credit-spread-dgs10-012): available_at >= event_time for all 17950 retained observation(s)
   - credit-spread-dgs10-012: 17950 observation(s) in 3 batch(es)
 
+## btc-dvol-013
+
+- Report: `docs/studies/btc-dvol-013.md`
+- Checks: 9 pass, 0 fail, 0 unverified, 1 note
+
+- **[PASS]** `ledger_chain` (research/btc-dvol-013/trials.jsonl): hash chain intact (1 record(s))
+  - research/btc-dvol-013/trials.jsonl: 1 record(s), latest record hash 302631f46521...
+- **[PASS]** `ledger_anchor` (research/btc-dvol-013/trials.jsonl): ledger matches its anchor (1 record(s))
+  - research/btc-dvol-013/trials.jsonl: anchor record count and latest hash agree
+- **[PASS]** `registry_events` (research/btc-dvol-013/hypotheses): event chain intact (3 event(s))
+  - research/btc-dvol-013/hypotheses: 3 lifecycle event(s), all transitions legal
+- **[PASS]** `prereg_binding` (T0021): bound to H0018 v1 (fingerprint, plan, spec hash)
+  - T0021: fingerprint 463f8e794623..., spec hash 7c42cee02837...
+- **[PASS]** `multiple_testing` (T0021): holm adjustment recomputes (1 test(s), family size matches plan)
+  - T0021: 1 adjusted p-value(s) and reject flag(s) agree
+- **[PASS]** `verdict_consistency` (T0021): verdict re-derives from metrics and spec (primary test daily_btc_dvol)
+  - T0021: supported=False equals the conjunction of 3 criteria; holm_adjusted_primary_p_below_0.05=False (adjusted p 0.22689759457928088); primary_partial_r_squared_at_least_0.005=False (partial_r_squared 0.0011948687716307742 >= 0.005)
+- **[NOTE]** `power_note` (T0021): MDE annotation from the 2B audit (1 entry)
+  - E0045: lead-lag n=2065, MDE partial R²=0.003786518067518257, observed=0.0011948687716307742 (below MDE)
+- **[PASS]** `hypothesis_state` (H0018 v1): lifecycle state rejected matches the trial verdict
+  - btc-dvol-013 H0018 v1: supported=False, state=rejected
+- **[PASS]** `report_ledger` (btc-dvol-013): 5/5 report row(s) verified against the ledger
+  - T0021 daily_btc_dvol: 8 column(s) match
+  - T0021 daily_btc_dvol_no_factor: 7 column(s) match
+  - T0021 daily_btc_dvol_naive: 7 column(s) match
+  - T0021 daily_dvol_btc_reverse: 7 column(s) match
+  - T0021 daily_btc_abs_dvol_amplitude: 7 column(s) match
+- **[PASS]** `pit_spot_check` (btc-dvol-013): available_at >= event_time for all 22957 retained observation(s)
+  - btc-dvol-013: 22957 observation(s) in 3 batch(es)
+
 ## Lab-wide checks
 
-- **[PASS]** `trial_sequence` (lab): sequence T0001..T0020 complete (19 trial(s), T0003 reserved, 3 failed trial(s) recorded)
-  - lab: 19 trial(s); reserved: T0003; failed: T0006, T0008, T0014
+- **[PASS]** `trial_sequence` (lab): sequence T0001..T0021 complete (20 trial(s), T0003 reserved, 3 failed trial(s) recorded)
+  - lab: 20 trial(s); reserved: T0003; failed: T0006, T0008, T0014
