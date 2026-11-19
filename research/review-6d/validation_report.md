@@ -1,6 +1,6 @@
 # Adversarial reviewer validation (Stage 6d)
 
-Validated at: 2026-11-19T03:00:55+00:00
+Validated at: 2026-11-19T03:58:29+00:00
 
 ## What was validated
 
@@ -10,27 +10,27 @@ Validated at: 2026-11-19T03:00:55+00:00
 
 ## Full-lab review summary
 
-- Checks run: 124
-- PASS: 102
+- Checks run: 134
+- PASS: 111
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 14
+- NOTE: 15
 
 ### Per-check breakdown
 
 | check | pass | fail | unverified | note |
 | --- | --- | --- | --- | --- |
-| `hypothesis_state` | 14 | 0 | 0 | 0 |
-| `ledger_anchor` | 9 | 0 | 1 | 0 |
-| `ledger_chain` | 10 | 0 | 0 | 0 |
-| `multiple_testing` | 14 | 0 | 0 | 0 |
-| `pit_spot_check` | 3 | 0 | 7 | 0 |
-| `power_note` | 0 | 0 | 0 | 14 |
-| `prereg_binding` | 17 | 0 | 0 | 0 |
-| `registry_events` | 10 | 0 | 0 | 0 |
-| `report_ledger` | 10 | 0 | 0 | 0 |
+| `hypothesis_state` | 15 | 0 | 0 | 0 |
+| `ledger_anchor` | 10 | 0 | 1 | 0 |
+| `ledger_chain` | 11 | 0 | 0 | 0 |
+| `multiple_testing` | 15 | 0 | 0 | 0 |
+| `pit_spot_check` | 4 | 0 | 7 | 0 |
+| `power_note` | 0 | 0 | 0 | 15 |
+| `prereg_binding` | 18 | 0 | 0 | 0 |
+| `registry_events` | 11 | 0 | 0 | 0 |
+| `report_ledger` | 11 | 0 | 0 | 0 |
 | `trial_sequence` | 1 | 0 | 0 | 0 |
-| `verdict_consistency` | 14 | 0 | 0 | 0 |
+| `verdict_consistency` | 15 | 0 | 0 | 0 |
 
 ### The FAILs
 
@@ -62,8 +62,8 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ### Report coverage
 
-- 64 report rules across the 7 reports; 64 rows verified, 0 rows disagree.
-- 411 numeric cells compared (window-count and bootstrap-CI cells compared separately).
+- 68 report rules across the 7 reports; 68 rows verified, 0 rows disagree.
+- 436 numeric cells compared (window-count and bootstrap-CI cells compared separately).
 
 ## Adversarial fixtures
 
@@ -80,7 +80,7 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ## Rounding-margin diagnostic
 
-- Numeric cells compared: 411
+- Numeric cells compared: 436
 - Cells outside tolerance: 0
 - Highest passing ratio (|diff| / tolerance): 0.999
 - Lowest failing ratio: none (no cell outside tolerance)

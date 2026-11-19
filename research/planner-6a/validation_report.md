@@ -1,8 +1,8 @@
 # Stage 6a hypothesis-planner validation report
 
-- Validated at: 2026-11-19T03:00:06.065868+00:00
+- Validated at: 2026-11-19T04:10:25.232764+00:00
 - Offline and deterministic: fixed inputs, no network, no clock reads inside the scoring. Re-running reproduces `ranking.json` byte-identically and this report except this timestamp line.
-- Registry: 12 nodes, 42 edges, 120 candidates; content hash `e8e304d179d5...`
+- Registry: 12 nodes, 43 edges, 119 candidates; content hash `b193f5a19ff2...`
 - Availability: 12 nodes, all verified from study manifests (see `data_availability.json`); no unknown nodes.
 
 ## What the planner is (and is not)
@@ -22,6 +22,7 @@ Every audit MDE entry recomputed from its sample size with the planner's formula
 - PASS: lead-lag partial R² MDE (E0040, n=5957): audit 0.00131586, recomputed 0.00131586
 - PASS: lead-lag partial R² MDE (E0041, n=4327): audit 0.00181065, recomputed 0.00181065
 - PASS: lead-lag partial R² MDE (E0042, n=5957): audit 0.00131586, recomputed 0.00131586
+- PASS: lead-lag partial R² MDE (E0043, n=5955): audit 0.0013163, recomputed 0.0013163
 - PASS: cross-section R² MDE (E0024, n=135): audit 0.0549453, recomputed 0.0549453
 - PASS: standardized CAR MDE (E0019, n=135): audit 0.214002, recomputed 0.214002
 - PASS: standardized CAR MDE (E0023, n=135): audit 0.214002, recomputed 0.214002
@@ -34,27 +35,18 @@ Every audit MDE entry recomputed from its sample size with the planner's formula
 
 ## Ranking summary (default weights)
 
-- Candidates: 120
-- Ranked: 108
+- Candidates: 119
+- Ranked: 107
 - Excluded by the anti-retest guard: 0
 - Unrankable: 12
 
-Score tiers (default weights): 1.00 x 32, 0.80 x 9, 0.70 x 47, 0.60 x 2, 0.50 x 18.
+Score tiers (default weights): 1.00 x 31, 0.80 x 9, 0.70 x 47, 0.60 x 2, 0.50 x 18.
 
-The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a supported edge, both panels verified, MDE below the lab threshold). The top-10 is the first ten of that tier in lexicographic order — the tie, not the weights, decides it.
+The top tier holds 31 pairs at 1.00: every component saturated (adjacent to a supported edge, both panels verified, MDE below the lab threshold). The top-10 is the first ten of that tier in lexicographic order — the tie, not the weights, decides it.
 
 ## Top-10 shortlist
 
-### 1. credit:baa-10y-spread -> index:vxn
-
-- Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
-- Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
-- Joint n (estimated): 5967 — estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)
-- MDE: 0.00131 (partial_r_squared, threshold 0.005)
-- Adjacent supported edges: E0026; decision records: DR-E0026
-- Preregistration draft: `templates/credit-baa-10y-spread__index-vxn.json`
-
-### 2. credit:baa-10y-spread -> rates:us-10y-yield
+### 1. credit:baa-10y-spread -> rates:us-10y-yield
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -63,7 +55,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0026; decision records: DR-E0026
 - Preregistration draft: `templates/credit-baa-10y-spread__rates-us-10y-yield.json`
 
-### 3. crypto:btc-usdt-perp -> index:btc-dvol
+### 2. crypto:btc-usdt-perp -> index:btc-dvol
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -72,7 +64,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0030; decision records: DR-E0030
 - Preregistration draft: `templates/crypto-btc-usdt-perp__index-btc-dvol.json`
 
-### 4. crypto:btc-usdt-perp -> index:eth-dvol
+### 3. crypto:btc-usdt-perp -> index:eth-dvol
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -81,7 +73,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0030; decision records: DR-E0030
 - Preregistration draft: `templates/crypto-btc-usdt-perp__index-eth-dvol.json`
 
-### 5. crypto:eth-usdt-perp -> crypto:btc-usdt-perp
+### 4. crypto:eth-usdt-perp -> crypto:btc-usdt-perp
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -90,7 +82,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0030, E0031; decision records: DR-E0030, DR-E0031
 - Preregistration draft: `templates/crypto-eth-usdt-perp__crypto-btc-usdt-perp.json`
 
-### 6. crypto:eth-usdt-perp -> crypto:sol-usdt-perp
+### 5. crypto:eth-usdt-perp -> crypto:sol-usdt-perp
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -99,7 +91,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0031; decision records: DR-E0031
 - Preregistration draft: `templates/crypto-eth-usdt-perp__crypto-sol-usdt-perp.json`
 
-### 7. crypto:eth-usdt-perp -> index:btc-dvol
+### 6. crypto:eth-usdt-perp -> index:btc-dvol
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -108,7 +100,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0031; decision records: DR-E0031
 - Preregistration draft: `templates/crypto-eth-usdt-perp__index-btc-dvol.json`
 
-### 8. crypto:eth-usdt-perp -> index:eth-dvol
+### 7. crypto:eth-usdt-perp -> index:eth-dvol
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -117,7 +109,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0031; decision records: DR-E0031
 - Preregistration draft: `templates/crypto-eth-usdt-perp__index-eth-dvol.json`
 
-### 9. crypto:sol-usdt-perp -> crypto:btc-usdt-perp
+### 8. crypto:sol-usdt-perp -> crypto:btc-usdt-perp
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -126,7 +118,7 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - Adjacent supported edges: E0030; decision records: DR-E0030
 - Preregistration draft: `templates/crypto-sol-usdt-perp__crypto-btc-usdt-perp.json`
 
-### 10. crypto:sol-usdt-perp -> crypto:eth-usdt-perp
+### 9. crypto:sol-usdt-perp -> crypto:eth-usdt-perp
 
 - Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
 - Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
@@ -134,6 +126,15 @@ The top tier holds 32 pairs at 1.00: every component saturated (adjacent to a su
 - MDE: 0.00368 (partial_r_squared, threshold 0.005)
 - Adjacent supported edges: E0031; decision records: DR-E0031
 - Preregistration draft: `templates/crypto-sol-usdt-perp__crypto-eth-usdt-perp.json`
+
+### 10. index:btc-dvol -> crypto:btc-usdt-perp
+
+- Suggested test: lead_lag (daily), mechanism transmission. Default first test for an untested cross-instrument pair: unconditional daily lead-lag transmission.
+- Score: 1.00 (adjacency 1.0, data 1.0, power 1.0)
+- Joint n (estimated): 2064 — estimated daily rows in the overlap window (pro-rata by days, sparser panel binds)
+- MDE: 0.00379 (partial_r_squared, threshold 0.005)
+- Adjacent supported edges: E0030; decision records: DR-E0030
+- Preregistration draft: `templates/index-btc-dvol__crypto-btc-usdt-perp.json`
 
 ## Excluded (anti-retest guard)
 
@@ -176,131 +177,130 @@ All 12 unrankable pairs are TYVIX against post-2020-only nodes (crypto perpetual
 - Entered the top-10: none
 - Left the top-10: none
 
-Conclusion: the top-10 is weight-invariant in this run. The 32 pairs in the top tier saturate all three components, so they score 1.00 under any weights, and the top-10 is the same lexicographic slice of that tier under every weighting. The weights only reorder the lower tiers (under adjacency-heavy weights the adjacency-1/power-0 tier outranks the adjacency-0.5/power-1 tier; under power-heavy weights it is the other way round). The ranking's discriminating power is limited by its coarse components — a finer power component (e.g. a continuous MDE margin) would be needed to break the 32-way tie, and that is a design decision for a later planner version, not something to smuggle in here.
+Conclusion: the top-10 is weight-invariant in this run. The 31 pairs in the top tier saturate all three components, so they score 1.00 under any weights, and the top-10 is the same lexicographic slice of that tier under every weighting. The weights only reorder the lower tiers (under adjacency-heavy weights the adjacency-1/power-0 tier outranks the adjacency-0.5/power-1 tier; under power-heavy weights it is the other way round). The ranking's discriminating power is limited by its coarse components — a finer power component (e.g. a continuous MDE margin) would be needed to break the 31-way tie, and that is a design decision for a later planner version, not something to smuggle in here.
 
 ## Mechanism distribution
 
-- All ranked pairs: transmission 101, cross-section 7.
+- All ranked pairs: transmission 100, cross-section 7.
 - Top-10: transmission 10.
 
-Cross-section pairs (7, all DGS10-sourced): 1 reaches the top tier — rates:us-10y-yield -> index:vxn (rank 32, 188 events, MDE 0.0401) — while the other 6 sit at ranks 82–87 with power 0 (MDE 0.1514 at 44 events, MDE 0.1485 at 45 events, MDE 0.0546 at 136 events, vs the 0.05 threshold). Vol-level, event-response and regime-conditional labels do not occur among candidates: level and event-response tests are self-loops (never candidates) and regime-conditional designs are follow-ups, not first tests.
+Cross-section pairs (7, all DGS10-sourced): 1 reaches the top tier — rates:us-10y-yield -> index:vxn (rank 31, 188 events, MDE 0.0401) — while the other 6 sit at ranks 81–86 with power 0 (MDE 0.1514 at 44 events, MDE 0.1485 at 45 events, MDE 0.0546 at 136 events, vs the 0.05 threshold). Vol-level, event-response and regime-conditional labels do not occur among candidates: level and event-response tests are self-loops (never candidates) and regime-conditional designs are follow-ups, not first tests.
 
 ## Full ranking (default weights)
 
 | Rank | Pair | Test | Score | Adj | Data | Power | Joint n | MDE | Mechanism |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | credit:baa-10y-spread -> index:vxn | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
-| 2 | credit:baa-10y-spread -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
-| 3 | crypto:btc-usdt-perp -> index:btc-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 4 | crypto:btc-usdt-perp -> index:eth-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 5 | crypto:eth-usdt-perp -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
-| 6 | crypto:eth-usdt-perp -> crypto:sol-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
-| 7 | crypto:eth-usdt-perp -> index:btc-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 8 | crypto:eth-usdt-perp -> index:eth-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 9 | crypto:sol-usdt-perp -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
-| 10 | crypto:sol-usdt-perp -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
-| 11 | index:btc-dvol -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 12 | index:btc-dvol -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 13 | index:eth-dvol -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 14 | index:eth-dvol -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 15 | index:sp500 -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
-| 16 | index:sp500 -> index:tyvix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
-| 17 | index:sp500 -> index:vix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6007 | 0.00130 | transmission |
-| 18 | index:sp500 -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5972 | 0.00131 | transmission |
-| 19 | index:tyvix -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4341 | 0.00180 | transmission |
-| 20 | index:tyvix -> index:sp500 | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
-| 21 | index:tyvix -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4344 | 0.00180 | transmission |
-| 22 | index:vix -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
-| 23 | index:vix -> index:sp500 | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6007 | 0.00130 | transmission |
-| 24 | index:vix -> index:tyvix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
-| 25 | index:vix -> index:vxn | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
-| 26 | index:vix -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5972 | 0.00131 | transmission |
-| 27 | index:vxn -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
-| 28 | index:vxn -> index:tyvix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
-| 29 | index:vxn -> index:vix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
-| 30 | index:vxn -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5972 | 0.00131 | transmission |
-| 31 | macro:cpi-mom -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
-| 32 | rates:us-10y-yield -> index:vxn | cross_section (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 188 | 0.04008 | cross-section |
-| 33 | crypto:sol-usdt-perp -> index:btc-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 34 | crypto:sol-usdt-perp -> index:eth-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 35 | index:btc-dvol -> crypto:sol-usdt-perp | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 36 | index:eth-dvol -> crypto:sol-usdt-perp | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
-| 37 | index:sp500 -> index:vxn | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
-| 38 | index:vxn -> index:sp500 | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
-| 39 | macro:cpi-mom -> crypto:sol-usdt-perp | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
-| 40 | macro:cpi-mom -> index:btc-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
-| 41 | macro:cpi-mom -> index:eth-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
-| 42 | credit:baa-10y-spread -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
-| 43 | credit:baa-10y-spread -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
-| 44 | credit:baa-10y-spread -> crypto:sol-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
-| 45 | credit:baa-10y-spread -> index:btc-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
-| 46 | credit:baa-10y-spread -> index:eth-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
-| 47 | credit:baa-10y-spread -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
-| 48 | crypto:btc-usdt-perp -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
-| 49 | crypto:btc-usdt-perp -> index:sp500 | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 50 | crypto:btc-usdt-perp -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
-| 51 | crypto:btc-usdt-perp -> index:vxn | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 52 | crypto:btc-usdt-perp -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 70 | 0.10082 | transmission |
-| 53 | crypto:btc-usdt-perp -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1456 | 0.00536 | transmission |
-| 54 | crypto:eth-usdt-perp -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
-| 55 | crypto:eth-usdt-perp -> index:sp500 | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 56 | crypto:eth-usdt-perp -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
-| 57 | crypto:eth-usdt-perp -> index:vxn | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 58 | crypto:eth-usdt-perp -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 70 | 0.10082 | transmission |
-| 59 | crypto:eth-usdt-perp -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1456 | 0.00536 | transmission |
-| 60 | crypto:sol-usdt-perp -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
-| 61 | crypto:sol-usdt-perp -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
-| 62 | crypto:sol-usdt-perp -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1456 | 0.00536 | transmission |
-| 63 | index:btc-dvol -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
-| 64 | index:btc-dvol -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
-| 65 | index:btc-dvol -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1413 | 0.00552 | transmission |
-| 66 | index:eth-dvol -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
-| 67 | index:eth-dvol -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
-| 68 | index:eth-dvol -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1413 | 0.00552 | transmission |
-| 69 | index:sp500 -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 70 | index:sp500 -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 71 | index:vix -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
-| 72 | index:vix -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
-| 73 | index:vix -> crypto:sol-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
-| 74 | index:vix -> index:btc-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
-| 75 | index:vix -> index:eth-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
-| 76 | index:vix -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
-| 77 | index:vxn -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 78 | index:vxn -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 79 | macro:cpi-mom -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1460 | 0.00535 | transmission |
-| 80 | macro:cpi-mom -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1478 | 0.00528 | transmission |
-| 81 | macro:cpi-mom -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1461 | 0.00534 | transmission |
-| 82 | rates:us-10y-yield -> crypto:btc-usdt-perp | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 45 | 0.14852 | cross-section |
-| 83 | rates:us-10y-yield -> crypto:eth-usdt-perp | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 45 | 0.14852 | cross-section |
-| 84 | rates:us-10y-yield -> crypto:sol-usdt-perp | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 45 | 0.14852 | cross-section |
-| 85 | rates:us-10y-yield -> index:btc-dvol | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 44 | 0.15138 | cross-section |
-| 86 | rates:us-10y-yield -> index:eth-dvol | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 44 | 0.15138 | cross-section |
-| 87 | rates:us-10y-yield -> index:tyvix | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 136 | 0.05456 | cross-section |
-| 88 | rates:us-10y-yield -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
-| 89 | index:btc-dvol -> index:eth-dvol | lead_lag (daily) | 0.60 | 0.0 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
-| 90 | index:eth-dvol -> index:btc-dvol | lead_lag (daily) | 0.60 | 0.0 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
-| 91 | crypto:sol-usdt-perp -> index:sp500 | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 92 | crypto:sol-usdt-perp -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 93 | crypto:sol-usdt-perp -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 70 | 0.10082 | transmission |
-| 94 | index:btc-dvol -> index:sp500 | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
-| 95 | index:btc-dvol -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
-| 96 | index:btc-dvol -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 68 | 0.10348 | transmission |
-| 97 | index:eth-dvol -> index:sp500 | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
-| 98 | index:eth-dvol -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
-| 99 | index:eth-dvol -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 68 | 0.10348 | transmission |
-| 100 | index:sp500 -> crypto:sol-usdt-perp | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 101 | index:sp500 -> index:btc-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
-| 102 | index:sp500 -> index:eth-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
-| 103 | index:sp500 -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
-| 104 | index:vxn -> crypto:sol-usdt-perp | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
-| 105 | index:vxn -> index:btc-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
-| 106 | index:vxn -> index:eth-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
-| 107 | index:vxn -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
-| 108 | macro:cpi-mom -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1470 | 0.00531 | transmission |
+| 1 | credit:baa-10y-spread -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
+| 2 | crypto:btc-usdt-perp -> index:btc-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 3 | crypto:btc-usdt-perp -> index:eth-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 4 | crypto:eth-usdt-perp -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
+| 5 | crypto:eth-usdt-perp -> crypto:sol-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
+| 6 | crypto:eth-usdt-perp -> index:btc-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 7 | crypto:eth-usdt-perp -> index:eth-dvol | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 8 | crypto:sol-usdt-perp -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
+| 9 | crypto:sol-usdt-perp -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
+| 10 | index:btc-dvol -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 11 | index:btc-dvol -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 12 | index:eth-dvol -> crypto:btc-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 13 | index:eth-dvol -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 14 | index:sp500 -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
+| 15 | index:sp500 -> index:tyvix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
+| 16 | index:sp500 -> index:vix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6007 | 0.00130 | transmission |
+| 17 | index:sp500 -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5972 | 0.00131 | transmission |
+| 18 | index:tyvix -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4341 | 0.00180 | transmission |
+| 19 | index:tyvix -> index:sp500 | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
+| 20 | index:tyvix -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4344 | 0.00180 | transmission |
+| 21 | index:vix -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
+| 22 | index:vix -> index:sp500 | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6007 | 0.00130 | transmission |
+| 23 | index:vix -> index:tyvix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
+| 24 | index:vix -> index:vxn | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
+| 25 | index:vix -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5972 | 0.00131 | transmission |
+| 26 | index:vxn -> credit:baa-10y-spread | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5967 | 0.00131 | transmission |
+| 27 | index:vxn -> index:tyvix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 4363 | 0.00180 | transmission |
+| 28 | index:vxn -> index:vix | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
+| 29 | index:vxn -> rates:us-10y-yield | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 5972 | 0.00131 | transmission |
+| 30 | macro:cpi-mom -> crypto:eth-usdt-perp | lead_lag (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
+| 31 | rates:us-10y-yield -> index:vxn | cross_section (daily) | 1.00 | 1.0 | 1.0 | 1.0 | 188 | 0.04008 | cross-section |
+| 32 | crypto:sol-usdt-perp -> index:btc-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 33 | crypto:sol-usdt-perp -> index:eth-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 34 | index:btc-dvol -> crypto:sol-usdt-perp | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 35 | index:eth-dvol -> crypto:sol-usdt-perp | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2064 | 0.00379 | transmission |
+| 36 | index:sp500 -> index:vxn | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
+| 37 | index:vxn -> index:sp500 | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 6004 | 0.00131 | transmission |
+| 38 | macro:cpi-mom -> crypto:sol-usdt-perp | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2126 | 0.00368 | transmission |
+| 39 | macro:cpi-mom -> index:btc-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
+| 40 | macro:cpi-mom -> index:eth-dvol | lead_lag (daily) | 0.80 | 0.5 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
+| 41 | credit:baa-10y-spread -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
+| 42 | credit:baa-10y-spread -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
+| 43 | credit:baa-10y-spread -> crypto:sol-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
+| 44 | credit:baa-10y-spread -> index:btc-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
+| 45 | credit:baa-10y-spread -> index:eth-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
+| 46 | credit:baa-10y-spread -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
+| 47 | crypto:btc-usdt-perp -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
+| 48 | crypto:btc-usdt-perp -> index:sp500 | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 49 | crypto:btc-usdt-perp -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
+| 50 | crypto:btc-usdt-perp -> index:vxn | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 51 | crypto:btc-usdt-perp -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 70 | 0.10082 | transmission |
+| 52 | crypto:btc-usdt-perp -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1456 | 0.00536 | transmission |
+| 53 | crypto:eth-usdt-perp -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
+| 54 | crypto:eth-usdt-perp -> index:sp500 | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 55 | crypto:eth-usdt-perp -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
+| 56 | crypto:eth-usdt-perp -> index:vxn | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 57 | crypto:eth-usdt-perp -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 70 | 0.10082 | transmission |
+| 58 | crypto:eth-usdt-perp -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1456 | 0.00536 | transmission |
+| 59 | crypto:sol-usdt-perp -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1454 | 0.00537 | transmission |
+| 60 | crypto:sol-usdt-perp -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
+| 61 | crypto:sol-usdt-perp -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1456 | 0.00536 | transmission |
+| 62 | index:btc-dvol -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
+| 63 | index:btc-dvol -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
+| 64 | index:btc-dvol -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1413 | 0.00552 | transmission |
+| 65 | index:eth-dvol -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1412 | 0.00553 | transmission |
+| 66 | index:eth-dvol -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
+| 67 | index:eth-dvol -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1413 | 0.00552 | transmission |
+| 68 | index:sp500 -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 69 | index:sp500 -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 70 | index:vix -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
+| 71 | index:vix -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
+| 72 | index:vix -> crypto:sol-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1472 | 0.00530 | transmission |
+| 73 | index:vix -> index:btc-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
+| 74 | index:vix -> index:eth-dvol | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1429 | 0.00546 | transmission |
+| 75 | index:vix -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
+| 76 | index:vxn -> crypto:btc-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 77 | index:vxn -> crypto:eth-usdt-perp | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 78 | macro:cpi-mom -> credit:baa-10y-spread | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1460 | 0.00535 | transmission |
+| 79 | macro:cpi-mom -> index:vix | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1478 | 0.00528 | transmission |
+| 80 | macro:cpi-mom -> rates:us-10y-yield | lead_lag (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 1461 | 0.00534 | transmission |
+| 81 | rates:us-10y-yield -> crypto:btc-usdt-perp | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 45 | 0.14852 | cross-section |
+| 82 | rates:us-10y-yield -> crypto:eth-usdt-perp | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 45 | 0.14852 | cross-section |
+| 83 | rates:us-10y-yield -> crypto:sol-usdt-perp | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 45 | 0.14852 | cross-section |
+| 84 | rates:us-10y-yield -> index:btc-dvol | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 44 | 0.15138 | cross-section |
+| 85 | rates:us-10y-yield -> index:eth-dvol | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 44 | 0.15138 | cross-section |
+| 86 | rates:us-10y-yield -> index:tyvix | cross_section (daily) | 0.70 | 1.0 | 1.0 | 0.0 | 136 | 0.05456 | cross-section |
+| 87 | rates:us-10y-yield -> macro:cpi-mom | lead_lag (monthly) | 0.70 | 1.0 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
+| 88 | index:btc-dvol -> index:eth-dvol | lead_lag (daily) | 0.60 | 0.0 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
+| 89 | index:eth-dvol -> index:btc-dvol | lead_lag (daily) | 0.60 | 0.0 | 1.0 | 1.0 | 2065 | 0.00379 | transmission |
+| 90 | crypto:sol-usdt-perp -> index:sp500 | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 91 | crypto:sol-usdt-perp -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 92 | crypto:sol-usdt-perp -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 70 | 0.10082 | transmission |
+| 93 | index:btc-dvol -> index:sp500 | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
+| 94 | index:btc-dvol -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
+| 95 | index:btc-dvol -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 68 | 0.10348 | transmission |
+| 96 | index:eth-dvol -> index:sp500 | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
+| 97 | index:eth-dvol -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
+| 98 | index:eth-dvol -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 68 | 0.10348 | transmission |
+| 99 | index:sp500 -> crypto:sol-usdt-perp | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 100 | index:sp500 -> index:btc-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
+| 101 | index:sp500 -> index:eth-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1421 | 0.00549 | transmission |
+| 102 | index:sp500 -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
+| 103 | index:vxn -> crypto:sol-usdt-perp | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1464 | 0.00533 | transmission |
+| 104 | index:vxn -> index:btc-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
+| 105 | index:vxn -> index:eth-dvol | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1422 | 0.00549 | transmission |
+| 106 | index:vxn -> macro:cpi-mom | lead_lag (monthly) | 0.50 | 0.5 | 1.0 | 0.0 | 72 | 0.09830 | transmission |
+| 107 | macro:cpi-mom -> index:vxn | lead_lag (daily) | 0.50 | 0.5 | 1.0 | 0.0 | 1470 | 0.00531 | transmission |
 
 ## Limitations
 
-- The ranking is a heuristic with coarse components: 32 pairs tie at the top score, so the top-10 is decided by the lexicographic tie-break, not by any discriminating evidence. Do not read it as a prediction.
+- The ranking is a heuristic with coarse components: 31 pairs tie at the top score, so the top-10 is decided by the lexicographic tie-break, not by any discriminating evidence. Do not read it as a prediction.
 - Joint sample sizes are estimates (pro-rata by days from the verified per-node panels), not verified joint counts. The true joint row count must be confirmed when the study panel is built; the preregistration drafts mark it TODO.
 - The power component uses the analytic normal-approximation MDE at 80% power, α = 0.05, and ignores HAC/autocorrelation adjustments that would raise the true MDE (the audit's own caveat: the lead-lag MDE at n = 1,414 is essentially the lab's 0.005 threshold). A pair scored power 1 is 'detectable in principle', not 'powered in practice'.
 - CPI-as-source pairs use daily rows for the MDE, matching the H0012 audit treatment; the effective sample size is 69 distinct step values, so their power scores are optimistic. Each such draft carries the caveat.

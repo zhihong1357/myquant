@@ -1084,6 +1084,45 @@ EDGE_SPECS: tuple[EdgeSpec, ...] = (
             "descriptive only, not in the family.",
         ),
     ),
+    # Study 011 (H0016, T0019): 1-test Holm family. The predictor is
+    # the BAA10Y level change in basis points lagged 2 trading days by
+    # availability (the latest change available at the decision close,
+    # under the verified 2-trading-day BAA10Y posting lag); the SPX
+    # control carries no lag (Yahoo posts the close the same evening,
+    # so SPX[t] is knowable at the decision close — study 003's
+    # factor-alignment precedent). The target is the VXN daily log
+    # change. The naive (unlagged, lookahead) alignment is also null,
+    # so the publication lag is not what killed the effect. First study
+    # to use the refreshed VXN panel (PR #25, VXNCLS to 2026-11-17);
+    # full window (2003-2026). Fourth real use of the 6c scaffold; see
+    # the study report's scaffold-feedback section.
+    EdgeSpec(
+        edge_id="E0043",
+        study="credit-spread-vxn-011",
+        trial_id="T0019",
+        ledger_test_key="daily_baa10y_vxn",
+        source="credit:baa-10y-spread",
+        target="index:vxn",
+        frequency="daily",
+        condition=(
+            "predictor is the BAA10Y bp change lagged 2 trading days "
+            "by availability (latest available at the decision close); "
+            "next-day VXN log change"
+        ),
+        method=PARTIAL_LEAD_LAG_DAILY,
+        control="SPX[t] log return (Yahoo posts the close the same evening)",
+        is_primary=True,
+        panel_key="daily",
+        notes=(
+            "Planner rank-1 candidate pair (6a, total score 1.00). "
+            "Primary coefficient -0.000097 per bp, wrong sign vs the "
+            "preregistered positive expectation; partial R² 2.29e-05.",
+            "Full window (2003-2026): first study on the refreshed "
+            "VXN panel (PR #25). The reverse placebo (VXN->BAA10Y) "
+            "is not significant and descriptive only, not in the "
+            "family.",
+        ),
+    ),
 )
 
 # One entry per trial: (trial id, study directory, hypothesis id,
@@ -1115,6 +1154,7 @@ TRIALS: tuple[tuple[str, str, str, int, str], ...] = (
     ("T0016", "credit-spread-spx-008", "H0013", 1, "docs/studies/credit-spread-spx-008.md"),
     ("T0017", "credit-spread-tyvix-009", "H0014", 1, "docs/studies/credit-spread-tyvix-009.md"),
     ("T0018", "credit-spread-vix-010", "H0015", 1, "docs/studies/credit-spread-vix-010.md"),
+    ("T0019", "credit-spread-vxn-011", "H0016", 1, "docs/studies/credit-spread-vxn-011.md"),
 )
 
 STUDY_DIRS: tuple[str, ...] = tuple(
@@ -1380,6 +1420,24 @@ def _trial_level_cost(data: StudyData) -> CostGateRecord:
                 "tradable; VIX futures roll costs are unmeasurable "
                 "from free data (Yahoo VX=F returns no data). Not a "
                 "verdict criterion."
+            ),
+        )
+    if data.trial_id == "T0019":
+        gate = data.metrics["cost_gate_informational"]
+        return CostGateRecord(
+            verdict=CostGateVerdict.INFORMATIONAL,
+            net_daily_edge=None,
+            gross_daily_edge=gate["gross_daily_edge"],
+            bootstrap_p_value=gate["gross_edge_bootstrap_p_value"],
+            ci_lower=gate["gross_edge_ci_lower"],
+            ci_upper=gate["gross_edge_ci_upper"],
+            days=gate["days"],
+            note=(
+                "Informational only: no costs applied. VXN is not "
+                "tradable; VXN futures (VN) existed historically on "
+                "CFE but are not currently listed, and no free VXN "
+                "futures price series exists (Yahoo VN=F returns no "
+                "data). Not a verdict criterion."
             ),
         )
     gate = data.metrics["cost_gate"]

@@ -503,8 +503,8 @@ def test_template_generation_does_not_touch_registry(tmp_path: Path) -> None:
 
 def test_loader_real_registry() -> None:
     inputs = load_planner_inputs(REPO_ROOT)
-    assert len(inputs.candidates) == 120
-    assert len(inputs.tested_edges) == 42
+    assert len(inputs.candidates) == 119
+    assert len(inputs.tested_edges) == 43
     assert inputs.node_count == 12
     assert len(inputs.fomc_statement_dates) == 199
     assert set(inputs.decision_records) == {
@@ -523,7 +523,7 @@ def test_mde_cross_check_real_audit() -> None:
         (REPO_ROOT / "research/statistical-audit-2b/summary.json").read_text()
     )
     checks = mde_cross_check(summary)
-    assert len(checks) == 18
+    assert len(checks) == 19
     assert all(check.passed for check in checks)
 
 
@@ -536,12 +536,12 @@ def test_real_ranking_counts_and_top() -> None:
         inputs.fomc_statement_dates,
         inputs.decision_records,
     )
-    assert len(result.ranked) == 108
+    assert len(result.ranked) == 107
     assert len(result.excluded) == 0
     assert len(result.unrankable) == 12
     top = result.ranked[0]
     assert top.source_instrument == "credit:baa-10y-spread"
-    assert top.target_instrument == "index:vxn"
+    assert top.target_instrument == "rates:us-10y-yield"
     assert top.total == 1.0
     # Every unrankable pair involves TYVIX (discontinued 2020-05-15)
     # against a post-2020-only node. VXN was re-fetched past 2020
@@ -552,8 +552,8 @@ def test_real_ranking_counts_and_top() -> None:
         or c.target_instrument == "index:tyvix"
         for c in result.unrankable
     )
-    # The top tier is a 32-way tie at 1.00.
-    assert sum(1 for c in result.ranked if c.total == 1.0) == 32
+    # The top tier is a 31-way tie at 1.00.
+    assert sum(1 for c in result.ranked if c.total == 1.0) == 31
     # Cross-section pairs: 7, all DGS10-sourced. One reaches the top
     # tier — DGS10->VXN, whose overlap window now runs to 2026 (188
     # FOMC events, MDE below the 0.05 threshold); the other six have
