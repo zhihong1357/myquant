@@ -1,7 +1,7 @@
 """Statistical decision-record builder (Stage 2B).
 
 Generates one structured record per lab conclusion: a record for each
-of the 6 SUPPORTED edges and a rejection record for each of the 11
+of the 6 SUPPORTED edges and a rejection record for each of the 12
 rejected primary hypotheses. Records live in
 ``research/decision-records/records/`` as ``DR-<id>.json``.
 
@@ -81,9 +81,10 @@ PRIMARY_EDGES: dict[str, tuple[str, str]] = {
     "T0015": ("E0037", "H0012"),
     "T0016": ("E0040", "H0013"),
     "T0017": ("E0041", "H0014"),
+    "T0018": ("E0042", "H0015"),
 }
 
-# The 6 supported edges (from the registry) and the 11 rejected primary
+# The 6 supported edges (from the registry) and the 12 rejected primary
 # hypotheses (trial_id, hypothesis_id). Both lists are verified against
 # the registry/ledgers at run time.
 SUPPORTED_EDGE_IDS = ("E0023", "E0026", "E0030", "E0031", "E0032", "E0033")
@@ -99,6 +100,7 @@ REJECTED_HYPOTHESES = (
     ("T0015", "H0012"),
     ("T0016", "H0013"),
     ("T0017", "H0014"),
+    ("T0018", "H0015"),
 )
 
 # Ledger test fields copied into evidence, per test type. Only fields
@@ -273,6 +275,19 @@ LIMITATIONS: dict[str, tuple[str, ...]] = {
         "The informational gross sign-rule edge is positive but "
         "descriptive only, on an untradable index, and not a verdict "
         "criterion.",
+    ),
+    "DR-H0015": (
+        "The 2-trading-day BAA10Y publication lag was verified only at "
+        "fetch time and is assumed constant over the historical sample; "
+        "FRED's posting schedule may have changed over 2003-2026.",
+        "FRED revisions are unmodelled; the trial uses the current "
+        "vintage, not as-first-posted values.",
+        "Same-day comovement is positive (see the study report "
+        "descriptives); the rejection is about next-day carryover, not "
+        "about same-day transmission.",
+        "The informational gross sign-rule edge is positive but its "
+        "confidence interval includes zero; it is descriptive only, on "
+        "an untradable index, and not a verdict criterion.",
     ),
 }
 

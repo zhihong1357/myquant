@@ -51,7 +51,7 @@
   "observation_frequency": "daily",
   "planned_test_count": "TODO",
   "planner_notes": [],
-  "planner_rank": 7,
+  "planner_rank": 6,
   "planner_scores": {
     "adjacency": 1.0,
     "data": 1.0,

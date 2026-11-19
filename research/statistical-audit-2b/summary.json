@@ -72,8 +72,8 @@
     "bh_expected_false_discoveries_upper_bound": 0.25,
     "bh_rejections_all_edges": 5,
     "bh_survivors": 5,
-    "expected_false_positives_uncorrected": 1.9000000000000001,
-    "family_size": 38,
+    "expected_false_positives_uncorrected": 1.9500000000000002,
+    "family_size": 39,
     "holm_rejections_all_edges": 3,
     "holm_survivors": 3,
     "per_study": [
@@ -105,10 +105,19 @@
         "tested_edges": 1
       },
       {
+        "bh_survivors": 0,
+        "holm_survivors": 0,
+        "max_holm_adjusted_p_supported": null,
+        "min_holm_adjusted_p_supported": null,
+        "study": "credit-spread-vix-010",
+        "supported_edges": 0,
+        "tested_edges": 1
+      },
+      {
         "bh_survivors": 2,
         "holm_survivors": 2,
-        "max_holm_adjusted_p_supported": 0.006083002606029685,
-        "min_holm_adjusted_p_supported": 3.72669283099647e-07,
+        "max_holm_adjusted_p_supported": 0.006251974900641622,
+        "min_holm_adjusted_p_supported": 3.827414258861239e-07,
         "study": "fomc-event-study-005",
         "supported_edges": 2,
         "tested_edges": 8
@@ -125,8 +134,8 @@
       {
         "bh_survivors": 1,
         "holm_survivors": 0,
-        "max_holm_adjusted_p_supported": 0.3239834488405534,
-        "min_holm_adjusted_p_supported": 0.0985880673235628,
+        "max_holm_adjusted_p_supported": 0.333801129108449,
+        "min_holm_adjusted_p_supported": 0.10148771636249113,
         "study": "macro-windows-006",
         "supported_edges": 2,
         "tested_edges": 5
@@ -152,22 +161,22 @@
       {
         "bh_survivors": 2,
         "holm_survivors": 1,
-        "max_holm_adjusted_p_supported": 0.05117211645936759,
-        "min_holm_adjusted_p_supported": 3.9530942741450303e-08,
+        "max_holm_adjusted_p_supported": 0.052634176929635235,
+        "min_holm_adjusted_p_supported": 4.0571230708330575e-08,
         "study": "publication-lag-007",
         "supported_edges": 2,
         "tested_edges": 8
       }
     ],
     "raw_rejections_at_alpha": 8,
-    "registry_content_hash": "827c23df1a08983feef4f09b7e81e228625296a75bb10055140e63ed144a8b00",
+    "registry_content_hash": "e8e304d179d5fabaf3364a1490f15ae54e6be8d0940509f6bd534dc5c428efd2",
     "storey_pi0_lambda_0.5": 1.0,
     "supported_edges": [
       {
-        "bh_adjusted_p_value": 1.9137071294306196e-07,
+        "bh_adjusted_p_value": 1.9640678433630043e-07,
         "bh_significant": true,
         "edge_id": "E0023",
-        "holm_adjusted_p_value": 3.72669283099647e-07,
+        "holm_adjusted_p_value": 3.827414258861239e-07,
         "holm_significant": true,
         "hypothesis_id": "H0007",
         "raw_p_value": 1.0072142786476945e-08,
@@ -176,11 +185,11 @@
         "trial_id": "T0010"
       },
       {
-        "bh_adjusted_p_value": 0.0021403157317511855,
+        "bh_adjusted_p_value": 0.0021966398299551643,
         "bh_significant": true,
         "caveat": "Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md.",
         "edge_id": "E0026",
-        "holm_adjusted_p_value": 0.006083002606029685,
+        "holm_adjusted_p_value": 0.006251974900641622,
         "holm_significant": true,
         "hypothesis_id": "H0008",
         "raw_p_value": 0.0001689722946119357,
@@ -189,13 +198,13 @@
         "trial_id": "T0009"
       },
       {
-        "bh_adjusted_p_value": 0.06217864169667187,
+        "bh_adjusted_p_value": 0.06381492174132113,
         "bh_significant": false,
         "bootstrap_ci_lower": -0.00022417664645229594,
         "bootstrap_ci_upper": 0.010362448703954627,
         "caveat": "Bootstrap-marginal: the HAC test is significant, but the block-bootstrap 95% CI for the mean difference just includes zero. The ETH leg (E0031) is significant by both methods.",
         "edge_id": "E0030",
-        "holm_adjusted_p_value": 0.3239834488405534,
+        "holm_adjusted_p_value": 0.333801129108449,
         "holm_significant": false,
         "hypothesis_id": "H0010",
         "raw_p_value": 0.009817680267895559,
@@ -204,10 +213,10 @@
         "trial_id": "T0012"
       },
       {
-        "bh_adjusted_p_value": 0.022037332695855217,
+        "bh_adjusted_p_value": 0.022617262503640878,
         "bh_significant": true,
         "edge_id": "E0031",
-        "holm_adjusted_p_value": 0.0985880673235628,
+        "holm_adjusted_p_value": 0.10148771636249113,
         "holm_significant": false,
         "hypothesis_id": "H0010",
         "raw_p_value": 0.002899649038928318,
@@ -216,10 +225,10 @@
         "trial_id": "T0012"
       },
       {
-        "bh_adjusted_p_value": 3.9530942741450303e-08,
+        "bh_adjusted_p_value": 4.0571230708330575e-08,
         "bh_significant": true,
         "edge_id": "E0032",
-        "holm_adjusted_p_value": 3.9530942741450303e-08,
+        "holm_adjusted_p_value": 4.0571230708330575e-08,
         "holm_significant": true,
         "hypothesis_id": "H0011",
         "raw_p_value": 1.0402879668802711e-09,
@@ -228,10 +237,10 @@
         "trial_id": "T0013"
       },
       {
-        "bh_adjusted_p_value": 0.013889574467542631,
+        "bh_adjusted_p_value": 0.014255089585109543,
         "bh_significant": true,
         "edge_id": "E0033",
-        "holm_adjusted_p_value": 0.05117211645936759,
+        "holm_adjusted_p_value": 0.052634176929635235,
         "holm_significant": false,
         "hypothesis_id": "H0011",
         "raw_p_value": 0.0014620604702676454,
@@ -475,6 +484,16 @@
         "observed_coefficient": -0.0001255730293832285,
         "observed_partial_r_squared": 6.1003316440060284e-05,
         "trial_id": "T0017"
+      },
+      {
+        "edge_id": "E0042",
+        "hypothesis_id": "H0015",
+        "mde_coefficient": 0.0012635433435691692,
+        "mde_partial_r_squared": 0.0013158555887334818,
+        "observations": 5957,
+        "observed_coefficient": -6.25819143355815e-05,
+        "observed_partial_r_squared": 6.552628668666667e-06,
+        "trial_id": "T0018"
       }
     ],
     "mean_comparison": [

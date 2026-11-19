@@ -1,0 +1,73 @@
+{
+  "fetched_at": "2026-11-19T02:53:32.824242+00:00",
+  "fred_lag_check": {
+    "consistent_with_baa10y_lag_steps": 2,
+    "consistent_with_reference_lag_steps": 1,
+    "fetched_at": "2026-11-19T02:53:32.824242+00:00",
+    "interpretation": "BAA10Y is level with the reference series at fetch time; the 6b probe (2026-11-18T21:45Z, 45 minutes after the US close) showed it one trading day behind at that time, so the posting happened after the close and the effective 2-trading-day lag for close-of-day decisions stands.",
+    "most_recent_trading_day": "2026-11-18",
+    "previous_trading_day": "2026-11-17",
+    "series": {
+      "BAA10Y": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAA10Y",
+        "last_available_date": "2026-11-17",
+        "payload_sha256": "d803ed7cbe5328b15f7953423ac5465fd7553c1d52c4dd56c3b1f294ae71054d",
+        "record_id": "51e3e0a866a650165ee113f468e8725f2b1ba686e279d369538ba7c6d2f82f0a",
+        "rows": 10219
+      },
+      "VIXCLS": {
+        "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
+        "last_available_date": "2026-11-17",
+        "payload_sha256": "eed5fb6b53326825a3e92ba7055749b45b29e9c79015f4263d7494e666573910",
+        "record_id": "dfa90f928234ecc4517acbd76552c7809dd4c6cbc1724e163ce9a4955cca3ff4",
+        "rows": 9319
+      }
+    },
+    "today_us_eastern": "2026-11-18"
+  },
+  "panel": {
+    "close_rows": 5961,
+    "dropped_close_rows": 88,
+    "dropped_return_rows": 89,
+    "first_return_time": "2003-01-03T21:00:00+00:00",
+    "instruments": [
+      "credit:baa-10y-spread",
+      "index:vix",
+      "index:sp500"
+    ],
+    "last_return_time": "2026-11-17T21:00:00+00:00",
+    "return_rows": 5960
+  },
+  "panels": [
+    {
+      "first_event": "2003-01-02T21:00:00+00:00",
+      "instrument_id": "credit:baa-10y-spread",
+      "items": 5968,
+      "last_event": "2026-11-17T21:00:00+00:00",
+      "missing": 261,
+      "observation_rows": 5968,
+      "source_id": "fred"
+    },
+    {
+      "first_event": "2003-01-02T21:00:00+00:00",
+      "instrument_id": "index:vix",
+      "items": 6042,
+      "last_event": "2026-11-17T21:00:00+00:00",
+      "missing": 187,
+      "observation_rows": 6042,
+      "source_id": "fred"
+    },
+    {
+      "first_event": "2003-01-02T21:00:00+00:00",
+      "instrument_id": "index:sp500",
+      "items": 6009,
+      "last_event": "2026-11-18T21:00:00+00:00",
+      "missing": 0,
+      "observation_rows": 6009,
+      "source_id": "yahoo-finance"
+    }
+  ],
+  "quality_issues": [],
+  "quality_row_count": 18019,
+  "study": "credit-spread-vix-010"
+}

@@ -5,7 +5,7 @@ Run from the repo root:
     .venv/bin/python research/review-6d/validate_review.py [--reviewed-at ISO]
 
 Offline and deterministic for a fixed --reviewed-at (the default is the
-current UTC time). Runs the reviewer over all nine studies, builds
+current UTC time). Runs the reviewer over all ten studies, builds
 six adversarial fixtures in tmp dirs — each isolating exactly one
 violation, with a valid hash chain everywhere except the tampered-ledger
 fixture — and writes:

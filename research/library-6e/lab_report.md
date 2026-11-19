@@ -1,6 +1,6 @@
 # MyQuant lab status report
 
-Generated at: 2026-11-19T02:13:44.313117+00:00
+Generated at: 2026-11-19T03:01:11+00:00
 
 Read-only report generated from the lab's committed records by the research librarian (Stage 6e). Every number below is derived by reading a record — nothing is transcribed by hand. The report states what the records say; it draws no new conclusions, and a supported edge is a statistical result, not a tradeable signal.
 
@@ -23,6 +23,7 @@ One row per completed trial. The primary test is the first entry of the trial's 
 | publication-lag-007 | T0015 | H0012 | REJECTED | spx_daily | coef -0.0374021 (partial R² 0.000102239) | 0.754874 | 1468 |
 | credit-spread-spx-008 | T0016 | H0013 | REJECTED | daily_baa10y_spx | coef 1.80489e-05 (partial R² 2.19264e-05) | 0.893517 | 5957 |
 | credit-spread-tyvix-009 | T0017 | H0014 | REJECTED | daily_baa10y_tyvix | coef -0.000125573 (partial R² 6.10033e-05) | 0.753984 | 4327 |
+| credit-spread-vix-010 | T0018 | H0015 | REJECTED | daily_baa10y_vix | coef -6.25819e-05 (partial R² 6.55263e-06) | 0.88964 | 5957 |
 
 Failed trials (recorded in the ledgers, no metrics):
 
@@ -34,7 +35,7 @@ Open studies (a hypothesis still registered/testing): lowvol-002.
 
 ## Graph
 
-12 nodes, 41 edges: 6 supported, 32 rejected, 1 pending, 2 descriptive.
+12 nodes, 42 edges: 6 supported, 33 rejected, 1 pending, 2 descriptive.
 
 Supported edges (within-study verdicts; the lab-wide audit columns are quoted from the 2B audit summary, not recomputed):
 
@@ -50,26 +51,26 @@ Supported edges (within-study verdicts; the lab-wide audit columns are quoted fr
 - E0026: Partly mechanical: BAA10Y is defined as the BAA yield minus the 10-year Treasury yield (DGS10), so the cross-sectional slope is (beta_BAA - 1) by construction, not a clean transmission estimate. See docs/studies/fomc-event-study-005.md.
 - E0030: Bootstrap-marginal: the HAC test is significant, but the block-bootstrap 95% CI for the mean difference just includes zero. The ETH leg (E0031) is significant by both methods.
 
-Lab-wide audit (2B): family of 38 tested edges; 3 of 6 supported edges survive Holm, 5 survive BH. This is a post-hoc second-layer reading; it does not change any within-study verdict.
+Lab-wide audit (2B): family of 39 tested edges; 3 of 6 supported edges survive Holm, 5 survive BH. This is a post-hoc second-layer reading; it does not change any within-study verdict.
 
 ## Candidate queue
 
-121 untested candidate pairs: 109 ranked, 12 unrankable. Score tiers: 1.00 × 33, 0.80 × 9, 0.70 × 47, 0.60 × 2, 0.50 × 18.
+120 untested candidate pairs: 108 ranked, 12 unrankable. Score tiers: 1.00 × 32, 0.80 × 9, 0.70 × 47, 0.60 × 2, 0.50 × 18.
 
 Top 10 (the ranking is a heuristic; the top tier is a tie broken lexicographically — see the planner report):
 
 | rank | pair | score | mechanism | test |
 | --- | --- | --- | --- | --- |
-| 1 | BAA10Y→VIX | 1.00 | transmission | lead_lag |
-| 2 | BAA10Y→VXN | 1.00 | transmission | lead_lag |
-| 3 | BAA10Y→DGS10 | 1.00 | transmission | lead_lag |
-| 4 | BTC→BTC_DVOL | 1.00 | transmission | lead_lag |
-| 5 | BTC→ETH_DVOL | 1.00 | transmission | lead_lag |
-| 6 | ETH→BTC | 1.00 | transmission | lead_lag |
-| 7 | ETH→SOL | 1.00 | transmission | lead_lag |
-| 8 | ETH→BTC_DVOL | 1.00 | transmission | lead_lag |
-| 9 | ETH→ETH_DVOL | 1.00 | transmission | lead_lag |
-| 10 | SOL→BTC | 1.00 | transmission | lead_lag |
+| 1 | BAA10Y→VXN | 1.00 | transmission | lead_lag |
+| 2 | BAA10Y→DGS10 | 1.00 | transmission | lead_lag |
+| 3 | BTC→BTC_DVOL | 1.00 | transmission | lead_lag |
+| 4 | BTC→ETH_DVOL | 1.00 | transmission | lead_lag |
+| 5 | ETH→BTC | 1.00 | transmission | lead_lag |
+| 6 | ETH→SOL | 1.00 | transmission | lead_lag |
+| 7 | ETH→BTC_DVOL | 1.00 | transmission | lead_lag |
+| 8 | ETH→ETH_DVOL | 1.00 | transmission | lead_lag |
+| 9 | SOL→BTC | 1.00 | transmission | lead_lag |
+| 10 | SOL→ETH | 1.00 | transmission | lead_lag |
 
 ## Data freshness
 
@@ -100,7 +101,7 @@ Update after the probe: index:vxn — Re-fetched past 2020-05-15 after the probe
 
 ## Review status (6d, quoted)
 
-Full-lab review at 2026-11-19T02:13:30.990499Z: 93 pass, 0 fail, 8 unverified, 13 note.
+Full-lab review at 2026-11-19T03:00:55Z: 102 pass, 0 fail, 8 unverified, 14 note.
 
 Unverified items (not passes):
 
@@ -142,6 +143,9 @@ Files read to build this report (repo-relative paths):
 - `research/credit-spread-tyvix-009/hypotheses/hypothesis-events.jsonl`
 - `research/credit-spread-tyvix-009/hypotheses/registrations/H0014/v1.json`
 - `research/credit-spread-tyvix-009/trials.jsonl`
+- `research/credit-spread-vix-010/hypotheses/hypothesis-events.jsonl`
+- `research/credit-spread-vix-010/hypotheses/registrations/H0015/v1.json`
+- `research/credit-spread-vix-010/trials.jsonl`
 - `research/decision-records/records/DR-E0023.json`
 - `research/decision-records/records/DR-E0026.json`
 - `research/decision-records/records/DR-E0030.json`
@@ -159,6 +163,7 @@ Files read to build this report (repo-relative paths):
 - `research/decision-records/records/DR-H0012.json`
 - `research/decision-records/records/DR-H0013.json`
 - `research/decision-records/records/DR-H0014.json`
+- `research/decision-records/records/DR-H0015.json`
 - `research/evidence-6b/evidence_report.json`
 - `research/evidence-6b/panel_freshness.json`
 - `research/evidence-6b/sources.json`
@@ -185,7 +190,6 @@ Files read to build this report (repo-relative paths):
 - `research/options-expiry-004/trials.jsonl`
 - `research/planner-6a/data_availability.json`
 - `research/planner-6a/ranking.json`
-- `research/planner-6a/templates/credit-baa-10y-spread__index-vix.json`
 - `research/planner-6a/templates/credit-baa-10y-spread__index-vxn.json`
 - `research/planner-6a/templates/credit-baa-10y-spread__rates-us-10y-yield.json`
 - `research/planner-6a/templates/crypto-btc-usdt-perp__index-btc-dvol.json`
@@ -195,6 +199,7 @@ Files read to build this report (repo-relative paths):
 - `research/planner-6a/templates/crypto-eth-usdt-perp__index-btc-dvol.json`
 - `research/planner-6a/templates/crypto-eth-usdt-perp__index-eth-dvol.json`
 - `research/planner-6a/templates/crypto-sol-usdt-perp__crypto-btc-usdt-perp.json`
+- `research/planner-6a/templates/crypto-sol-usdt-perp__crypto-eth-usdt-perp.json`
 - `research/planner-6a/vxn_refresh.json`
 - `research/publication-lag-007/hypotheses/hypothesis-events.jsonl`
 - `research/publication-lag-007/hypotheses/registrations/H0011/v1.json`
