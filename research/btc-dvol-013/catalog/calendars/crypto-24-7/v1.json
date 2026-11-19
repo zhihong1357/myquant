@@ -1,0 +1,19 @@
+{
+  "calendar_id": "crypto-24-7",
+  "close_day_offset": 1,
+  "early_closes": {},
+  "holidays": [],
+  "open_day_offset": 0,
+  "regular_close": "00:00:00",
+  "regular_open": "00:00:00",
+  "timezone_name": "UTC",
+  "weekdays": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ]
+}

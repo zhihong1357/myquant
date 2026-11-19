@@ -1229,6 +1229,93 @@ tail count. E0033's BH survival was confirmed from the
 audit summary itself (family 41, BH p 0.014986, Holm p
 0.055558 — still outside the Holm set).
 
+### Regeneration after study 013
+
+The catalog and lab report were regenerated when study 013
+landed (generated 2026-11-19T17:28Z): 13 studies, 18
+hypotheses (20 versions), 20 trial records (17 completed, 3
+failed, T0003 reserved), 45 edges (6 supported, 36 rejected,
+1 pending, 2 descriptive), 21 decision records, 117
+candidates (105 ranked, 12 unrankable), 86 source files.
+Integrity still holds: **0 broken links**, and the only
+missing optional file is still the study-005 anchor. The
+regenerated report quotes the 6d review at 154 checks (129
+pass, 0 fail, 8 unverified, 17 note) and the 2B audit at
+family 42 (3 Holm survivors, 5 BH survivors) — E0033's BH p
+rose to 0.01535 (from 0.01499 at family 41) and it remains a
+BH survivor; E0030's BH p rose to 0.06872 and it remains
+outside both survivor sets. The counts in the Validation
+results section above are the 6e validation's own record
+(2026-11-18T23:52Z) and are left as they were.
+
+Two fixes landed with this regeneration. First, the 6d
+reviewer's first run on study 013 caught a real gap: the
+H0018 lifecycle state was still `testing` after trial T0021
+completed — the trial runner moves a hypothesis to `testing`
+when the trial starts but does not record the verdict
+transition, which is a separate step. The transition to
+`rejected` (event `b8c9f541…`, with the trial numbers as the
+reason) was recorded and the review re-ran clean. Second,
+the graph builder's `verdict_summary` tails for E0043 (VXN)
+and E0044 (DGS10) fell through to the default "without a
+tradable SPX price series" tail — wrong for both studies.
+They now carry per-trial tails (the T0017/T0018 precedent),
+as does the new E0045. No test pinned those strings. The
+decision-record builder's docstring also fixed a stale count
+(12 → 15 rejected hypotheses, stale since study 008).
+
+Independent verification of study 013 (plain numpy, no repo
+imports, panel rebuilt from the raw cached OKX/Deribit
+payloads): the panel counts (2,066 return rows, 22 dropped
+close rows, 23 dropped return rows), all five partial tests
+(45 numbers — primary, no-factor, same-bar naive, reverse
+placebo and the amplitude check), all six scan correlations,
+all five sub-periods, the MDE (0.003787 at n = 2,065), the
+walk-forward evaluation (9 folds, both MSEs, both OOS R²
+values, all 9 per-fold values to 1.3e-16) and the full
+informational cost gate (gross edge, sign accuracy, bootstrap
+CI and the two-sided centered bootstrap p) all match the
+T0021 ledger record — 118 checks, 0 mismatches. Two
+mismatches in the first verification pass were both in the
+verifier's own script, not the ledger: the raw OKX pages
+overshoot the fetch window by 11 pre-window bars (the panel
+builder only sees the in-window observations), and the raw
+Deribit pages include the forming 17:00 hourly row on the
+fetch date (the adapter's `[start, end)` filter correctly
+excludes it). E0033's BH survival was confirmed from the
+audit summary itself (family 42, BH p 0.015352, Holm p
+0.057020 — still outside the Holm set).
+
+A second independent review (plain numpy + stdlib, no repo
+imports, panel rebuilt from the raw cached OKX/Deribit
+payloads, including the 16:00 UTC DVOL snapshot
+reconstruction from the hourly OHLC rows) reproduced the
+same result: all five partial tests (45 numbers, relative
+differences at most ~1e-13 — including the amplitude
+check's nominally significant p = 6.64e-06 and partial R² =
+0.009932, which is a real descriptive number, correctly
+not promoted), all six scan correlations, all five
+sub-periods, the MDE (0.003787), the walk-forward
+evaluation (9 folds, both MSEs, both OOS R² values, all 9
+per-fold values to 1.9e-15) and the full informational
+cost gate (gross edge, sign accuracy with 3 zero-realized
+days excluded, bootstrap CI and the two-sided centered
+p = 0.444278) all match the T0021 ledger record. The two
+raw-count differences against the manifest (2,100 OKX bars
+vs 2,089, 49,602 Deribit hourly points vs 49,601) were
+independently traced to the same two causes: the last OKX
+page overshoots the fetch window by 11 pre-window bars
+(2021-02-18→2021-02-28), and the Deribit pages include the
+forming 17:00 UTC hourly row on the fetch date. The
+planner's 0.60 tier disappearing (two DVOL↔DVOL pairs
+rising to 0.80 on the new E0045 adjacency) was confirmed
+from the ranking file, as were the per-trial
+verdict_summary tails for E0043/E0044/E0045 in the graph
+registry and the H0018 lifecycle (registered → testing →
+rejected, event `b8c9f541…`). pytest 905 passed, ruff
+clean, mypy src strict clean (87 files), all three study
+scripts mypy-strict clean.
+
 Stage 6 is complete with this item: the planner (§1), the
 evidence analyst (§2), the experiment assistant (§3), the
 adversarial reviewer (§4) and the research librarian (§5)

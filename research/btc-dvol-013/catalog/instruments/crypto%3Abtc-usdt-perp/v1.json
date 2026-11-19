@@ -1,0 +1,11 @@
+{
+  "asset_class": "crypto",
+  "calendar_id": "crypto-24-7",
+  "instrument_id": "crypto:btc-usdt-perp",
+  "instrument_type": "perpetual",
+  "metadata": {
+    "okx_inst_id": "BTC-USDT-SWAP"
+  },
+  "name": "BTC-USDT perpetual swap (OKX)",
+  "quote_currency": "USDT"
+}

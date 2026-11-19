@@ -46,12 +46,6 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "crypto:btc-usdt-perp",
-      "target_instrument": "index:btc-dvol"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
-      "source_instrument": "crypto:btc-usdt-perp",
       "target_instrument": "index:eth-dvol"
     },
     {
@@ -709,7 +703,7 @@
       "target_instrument": "macro:cpi-mom"
     }
   ],
-  "content_hash": "e99854775b2e487630109f15ecd9589f2aad9bfcdbd09f45da192005fe00d6a2",
+  "content_hash": "756b0cc0756e5f787a02b01d18d6f49c93a445461881b52c3e5eb19d7da07926",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -2867,7 +2861,7 @@
       "test_type": "lead_lag",
       "trial_id": "T0019",
       "trial_record_hash": "44686089ef56366aed448d23b43672a4dd868504511cd10be788a5f5b8228be4",
-      "verdict_summary": "Hypothesis H0016 REJECTED (trial T0019): this test did not reject (Holm-adjusted p = 0.800); partial R² 2.2859e-05 below the 0.005 threshold; holdout OOS incremental R² +0.00002; cost gate informational (gross daily edge +0.3062%, 95% CI includes zero) — no net edge measurable without a tradable SPX price series.",
+      "verdict_summary": "Hypothesis H0016 REJECTED (trial T0019): this test did not reject (Holm-adjusted p = 0.800); partial R² 2.2859e-05 below the 0.005 threshold; holdout OOS incremental R² +0.00002; cost gate informational (gross daily edge +0.3062%, 95% CI includes zero) — no net edge measurable: VXN is not tradable; VXN futures (VN) existed historically on CFE but are not currently listed, and no free VXN futures price series exists.",
       "version": 1
     },
     {
@@ -2925,7 +2919,65 @@
       "test_type": "lead_lag",
       "trial_id": "T0020",
       "trial_record_hash": "6b87286c14dd70b572665cda0e1dac85b2888f6d3fb9b70d3bd2c290c2b7ad13",
-      "verdict_summary": "Hypothesis H0017 REJECTED (trial T0020): this test did not reject (Holm-adjusted p = 0.182); partial R² 0.00057572 below the 0.005 threshold; holdout OOS incremental R² -0.00456; cost gate informational (gross daily edge -16.4804%, 95% CI includes zero) — no net edge measurable without a tradable SPX price series.",
+      "verdict_summary": "Hypothesis H0017 REJECTED (trial T0020): this test did not reject (Holm-adjusted p = 0.182); partial R² 0.00057572 below the 0.005 threshold; holdout OOS incremental R² -0.00456; cost gate informational (gross daily edge -16.4804%, 95% CI includes zero) — no net edge measurable: DGS10 is a yield and is not directly tradable; the DV01/duration conversion and futures roll handling are not modelled.",
+      "version": 1
+    },
+    {
+      "coefficient": 0.10015379137635966,
+      "common_factor_control": "ETH[t] log return (same bar as the predictor)",
+      "condition": "predictor is the BTC daily log return lag-1 (no publication lag — both legs real-time); next-day BTC_DVOL log change (16:00 UTC snapshot)",
+      "cost_gate": {
+        "bootstrap_p_value": 0.44427786106946526,
+        "ci_lower": -0.001485699856339889,
+        "ci_upper": 0.0035648126615170357,
+        "days": 685,
+        "gross_daily_edge": 0.0009676144161844736,
+        "net_daily_edge": null,
+        "note": "Informational only: no costs applied. BTC_DVOL is an index and is not directly tradable; the tradable proxy (a Deribit BTC options straddle) has no clean free cost series — Deribit's public API returns no_data for BTC option chart data and expired listings return only the most recent batch. Gross edge in log-change units per day. Not a verdict criterion.",
+        "verdict": "informational"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "okx-public@v1",
+        "deribit@v1"
+      ],
+      "edge_id": "E0045",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": 0.0025377040969690734,
+      "holdout_oos_note": "Holdout window only (6 folds, 685 rows).",
+      "holm_adjusted_p_value": 0.22689759457928088,
+      "hypothesis_id": "H0018",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 0.001194202191089122,
+      "lag_steps": 1,
+      "ledger_path": "research/btc-dvol-013/trials.jsonl",
+      "ledger_test_key": "daily_btc_dvol",
+      "method": "partial lead-lag OLS, lag 1, Newey-West HAC (max lag 5 daily)",
+      "notes": [
+        "Planner rank-1 candidate pair (6a, total score 1.00). Primary coefficient +0.100154 per unit log return, wrong sign vs the preregistered negative leverage-effect expectation, p=0.2269; partial R² 0.001195.",
+        "Same-bar correlation -0.2691 (the leverage effect is contemporaneous); lag-1 correlation +0.0270 (null). The reverse placebo (BTC_DVOL->BTC) is nominally significant (p=0.0317) but descriptive only, below the 0.005 threshold and the MDE (0.003787)."
+      ],
+      "observations": 2065,
+      "p_value": 0.22689759457928088,
+      "partial_r_squared": 0.0011948687716307742,
+      "preregistration_fingerprint": "463f8e79462335dbc872cb86b2e33b9972ad3b2407beeae0ef1479bd84c674c1",
+      "report_path": "docs/studies/btc-dvol-013.md",
+      "sample": {
+        "first": "2021-03-24T16:00:00Z",
+        "last": "2026-11-18T16:00:00Z",
+        "observations": 2065,
+        "panel_rows": 2066
+      },
+      "source_instrument": "crypto:btc-usdt-perp",
+      "standard_error": 0.08288206475466489,
+      "status": "rejected",
+      "t_statistic": 1.2083891934017323,
+      "target_instrument": "index:btc-dvol",
+      "test_type": "lead_lag",
+      "trial_id": "T0021",
+      "trial_record_hash": "302631f465211abdf1804f48eb12cc17168755ad02fceb9cf1052f0e47954cf4",
+      "verdict_summary": "Hypothesis H0018 REJECTED (trial T0021): this test did not reject (Holm-adjusted p = 0.227); partial R² 0.00119487 below the 0.005 threshold; holdout OOS incremental R² +0.00254; cost gate informational (gross daily edge +0.0968%, 95% CI includes zero) — no net edge measurable: BTC_DVOL is not tradable and no clean straddle cost series exists (Deribit's public API returns no_data for BTC option chart data).",
       "version": 1
     }
   ],
@@ -2956,6 +3008,7 @@
       "name": "BTC-USDT perpetual swap (OKX)",
       "short_label": "BTC",
       "studies": [
+        "btc-dvol-013",
         "btc-eth-001",
         "lowvol-002",
         "macro-windows-006",
@@ -2971,6 +3024,7 @@
       "name": "ETH-USDT perpetual swap (OKX)",
       "short_label": "ETH",
       "studies": [
+        "btc-dvol-013",
         "btc-eth-001",
         "lowvol-002",
         "macro-windows-006",
@@ -2998,7 +3052,9 @@
       "instrument_type": "index",
       "name": "Deribit Volatility Index (BTC DVOL)",
       "short_label": "BTC_DVOL",
-      "studies": []
+      "studies": [
+        "btc-dvol-013"
+      ]
     },
     {
       "asset_class": "volatility",

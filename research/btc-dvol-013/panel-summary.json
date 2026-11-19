@@ -1,0 +1,40 @@
+{
+  "dvol_panel": {
+    "first_hourly_point": "2021-03-24T00:00:00+00:00",
+    "first_snapshot": "2021-03-24T16:00:00+00:00",
+    "hourly_points": 49601,
+    "instrument_id": "index:btc-dvol",
+    "last_hourly_point": "2026-11-19T16:00:00+00:00",
+    "last_snapshot": "2026-11-19T16:00:00+00:00",
+    "missing_snapshots": 0,
+    "snapshots": 2067
+  },
+  "fetched_at": "2026-11-19T17:16:09.426340+00:00",
+  "okx_panels": [
+    {
+      "bar": "1D",
+      "candles": 2089,
+      "expected_confirmed_bars": 2089,
+      "first_bar_open": "2021-03-01T16:00:00+00:00",
+      "instrument_id": "crypto:btc-usdt-perp",
+      "last_bar_open": "2026-11-18T16:00:00+00:00",
+      "missing_bars": 0
+    },
+    {
+      "bar": "1D",
+      "candles": 2089,
+      "expected_confirmed_bars": 2089,
+      "first_bar_open": "2021-03-01T16:00:00+00:00",
+      "instrument_id": "crypto:eth-usdt-perp",
+      "last_bar_open": "2026-11-18T16:00:00+00:00",
+      "missing_bars": 0
+    }
+  ],
+  "quality_issues": {
+    "pit-1d": []
+  },
+  "quality_row_count": {
+    "pit-1d": 22957
+  },
+  "study": "btc-dvol-013"
+}

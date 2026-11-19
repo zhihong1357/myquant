@@ -1,7 +1,7 @@
 """Statistical decision-record builder (Stage 2B).
 
 Generates one structured record per lab conclusion: a record for each
-of the 6 SUPPORTED edges and a rejection record for each of the 12
+of the 6 SUPPORTED edges and a rejection record for each of the 15
 rejected primary hypotheses. Records live in
 ``research/decision-records/records/`` as ``DR-<id>.json``.
 
@@ -84,9 +84,10 @@ PRIMARY_EDGES: dict[str, tuple[str, str]] = {
     "T0018": ("E0042", "H0015"),
     "T0019": ("E0043", "H0016"),
     "T0020": ("E0044", "H0017"),
+    "T0021": ("E0045", "H0018"),
 }
 
-# The 6 supported edges (from the registry) and the 14 rejected primary
+# The 6 supported edges (from the registry) and the 15 rejected primary
 # hypotheses (trial_id, hypothesis_id). Both lists are verified against
 # the registry/ledgers at run time.
 SUPPORTED_EDGE_IDS = ("E0023", "E0026", "E0030", "E0031", "E0032", "E0033")
@@ -105,6 +106,7 @@ REJECTED_HYPOTHESES = (
     ("T0018", "H0015"),
     ("T0019", "H0016"),
     ("T0020", "H0017"),
+    ("T0021", "H0018"),
 )
 
 # Ledger test fields copied into evidence, per test type. Only fields
@@ -327,6 +329,29 @@ LIMITATIONS: dict[str, tuple[str, ...]] = {
         "The reverse placebo is nominally significant (p=0.0194) but "
         "descriptive only, below the 0.005 threshold, and itself "
         "mechanically confounded (its target contains minus DGS10).",
+    ),
+    "DR-H0018": (
+        "The daily DVOL value is the 16:00 UTC snapshot (close of the "
+        "hourly DVOL row timestamped 15:00 UTC); a different snapshot "
+        "time would give a different panel, and this study's numbers "
+        "speak only to the preregistered convention.",
+        "Same-day comovement is strongly negative (-0.2691: the "
+        "leverage effect is contemporaneous); the rejection is about "
+        "next-day carryover, not about same-day transmission.",
+        "The informational gross sign-rule edge is positive but its "
+        "confidence interval includes zero; it is descriptive only, on "
+        "an untradable index, and not a verdict criterion.",
+        "The reverse placebo is nominally significant (p=0.0317) but "
+        "descriptive only, below the 0.005 threshold and the MDE.",
+        "The amplitude check (|BTC return| -> next-day DVOL change) "
+        "is nominally significant (p=6.6e-06, partial R-squared "
+        "0.00993) but was preregistered as descriptive only, has the "
+        "opposite sign to the naive amplitude story, and is "
+        "consistent with DVOL level mean-reversion; it was not "
+        "promoted and enters no verdict.",
+        "The sample (n=2065) gives an MDE of 0.003787, nearly 3x the "
+        "BAA10Y studies' MDE; the null rules out effects at or above "
+        "that bound, not smaller ones.",
     ),
 }
 
