@@ -113,22 +113,22 @@ def _edge_entry(
 def test_catalog_counts_match_known_lab_state() -> None:
     catalog = _catalog()
     assert catalog.counts == {
-        "studies": 7,
-        "hypotheses": 12,
-        "hypothesis_versions": 13,
-        "trials_total": 14,
-        "trials_completed": 11,
+        "studies": 8,
+        "hypotheses": 13,
+        "hypothesis_versions": 14,
+        "trials_total": 15,
+        "trials_completed": 12,
         "trials_failed": 3,
         "trials_reserved": 1,
         "nodes": 12,
-        "edges_total": 39,
+        "edges_total": 40,
         "edges_supported": 6,
-        "edges_rejected": 30,
+        "edges_rejected": 31,
         "edges_pending": 1,
         "edges_descriptive": 2,
-        "decision_records": 15,
-        "candidates_total": 123,
-        "candidates_ranked": 111,
+        "decision_records": 16,
+        "candidates_total": 122,
+        "candidates_ranked": 110,
         "candidates_unrankable": 12,
         "templates": 10,
         "sources": 8,
@@ -204,7 +204,7 @@ def test_catalog_edges_link_to_decision_records_and_audit() -> None:
     assert by_id["E0026"].audit_caveat is not None
     assert "mechanical" in by_id["E0026"].audit_caveat
     assert catalog.audit is not None
-    assert catalog.audit.family_size == 36
+    assert catalog.audit.family_size == 37
     assert catalog.audit.holm_survivors == 4
     assert catalog.audit.bh_survivors == 5
 
@@ -232,7 +232,7 @@ def test_catalog_candidates_and_templates() -> None:
     tiers = {}
     for candidate in ranked:
         tiers[candidate.total_score] = tiers.get(candidate.total_score, 0) + 1
-    assert tiers == {1.0: 35, 0.8: 9, 0.7: 47, 0.6: 2, 0.5: 18}
+    assert tiers == {1.0: 34, 0.8: 9, 0.7: 47, 0.6: 2, 0.5: 18}
 
 
 def test_catalog_sources_and_panels() -> None:
@@ -262,12 +262,12 @@ def test_catalog_review_summary_quoted() -> None:
     assert catalog.review is not None
     assert catalog.review.counts == {
         "fail": 0,
-        "note": 11,
-        "pass": 75,
+        "note": 12,
+        "pass": 84,
         "unverified": 8,
     }
     assert len(catalog.review.unverified_items) == 8
-    assert catalog.review.reviewed_at == "2026-11-18T23:30:00Z"
+    assert catalog.review.reviewed_at == "2026-11-19T00:36:42Z"
 
 
 # --- Integrity: the real lab has no broken links ------------------------
@@ -327,7 +327,7 @@ def test_trial_numbers_derive_from_raw_ledgers() -> None:
         if secondary_field is not None:
             assert trial.secondary_effect_value == test[secondary_field]
         checked += 1
-    assert checked == 11
+    assert checked == 12
 
 
 def test_fmt_num_keeps_significant_digits() -> None:
@@ -635,7 +635,7 @@ def test_missing_optional_file_does_not_crash_build(tmp_path: Path) -> None:
     missing = {m.path for m in catalog.missing_optional}
     assert "research/lowvol-002/panel-summary.json" in missing
     assert "research/lowvol-002/manifest.json" in missing
-    assert catalog.counts["studies"] == 7
+    assert catalog.counts["studies"] == 8
     study = next(s for s in catalog.studies if s.slug == "lowvol-002")
     assert study.panel_summary_present is False
     assert study.manifest_present is False

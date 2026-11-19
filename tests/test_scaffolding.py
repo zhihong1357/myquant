@@ -31,6 +31,7 @@ from myquant.pit import ParquetPITStore
 from myquant.registry import read_and_verify
 from myquant.scaffolding import (
     ScaffoldError,
+    ScaffoldFrequency,
     StudySpec,
     generate,
     load_source_metadata,
@@ -39,13 +40,12 @@ from myquant.scaffolding import (
 from myquant.sources import SourceRegistry
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-TEMPLATE_PATH = (
-    REPO_ROOT
-    / "research"
-    / "planner-6a"
-    / "templates"
-    / "credit-baa-10y-spread__index-sp500.json"
-)
+# Frozen copy of the planner's BAA10Y->SPX template (byte-identical to
+# research/planner-6a/templates/credit-baa-10y-spread__index-sp500.json
+# at the 6c validation). The live template is deleted once its pair is
+# studied (study 008 consumed it), so the scaffolding tests cannot read
+# it from the planner directory — the fixture is the stable input.
+TEMPLATE_PATH = REPO_ROOT / "tests" / "fixtures" / "planner-template-baa-spx.json"
 EVIDENCE_REGISTRY = REPO_ROOT / "research" / "evidence-6b" / "sources.json"
 
 KNOWN_SOURCES = frozenset(
@@ -375,6 +375,32 @@ def test_spec_rejects_duplicates_and_bad_ids() -> None:
 
 
 # --- Planner input ---
+
+
+def test_daily_spec_has_no_bar_seconds(tmp_path: Path) -> None:
+    """Daily specs must not generate a one-day bar filter.
+
+    Regression guard for the bug study 008's first real use exposed:
+    the scaffold generated ``bar_seconds=86400`` for daily studies,
+    which invalidates every Monday/post-holiday return on a trading
+    calendar (~30% of rows). Daily now generates no gap invalidation;
+    1h keeps it (a missing hour in a 24/7 series is a genuine gap).
+    """
+    daily_spec = _baa_spx_spec()
+    assert daily_spec.frequency.value == "daily"
+    assert daily_spec.bar_seconds is None
+    hourly_spec = daily_spec.model_copy(
+        update={"frequency": ScaffoldFrequency.HOURLY}
+    )
+    assert hourly_spec.bar_seconds == 3_600
+    monthly_spec = daily_spec.model_copy(
+        update={"frequency": ScaffoldFrequency.MONTHLY}
+    )
+    assert monthly_spec.bar_seconds is None
+    target, _ = _generate(daily_spec, tmp_path)
+    run_trial = (target / "run_trial.py").read_text(encoding="utf-8")
+    assert "BAR_SECONDS = None" in run_trial
+    assert "BAR_SECONDS = 86400" not in run_trial
 
 
 def test_planner_draft_maps_known_fields_and_keeps_todos() -> None:

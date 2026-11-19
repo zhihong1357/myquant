@@ -239,6 +239,16 @@ REPORT_RULES: dict[str, tuple[ReportRule, ...]] = {
         _rule("T0015", "btc_daily", _LEAD_LAG_HEADERS_007,
               r"btc_daily", LEAD_LAG_COLUMNS),
     ),
+    "credit-spread-spx-008": (
+        _rule("T0016", "daily_baa10y_spx", _LEAD_LAG_HEADERS,
+              r"daily BAA10Y→SPX, VIX control \(primary\)", LEAD_LAG_COLUMNS),
+        _rule("T0016", "daily_baa10y_spx_no_factor", _LEAD_LAG_HEADERS,
+              r"no-factor control", LEAD_LAG_COLUMNS),
+        _rule("T0016", "daily_baa10y_spx_naive", _LEAD_LAG_HEADERS,
+              r"naive \(unlagged\) alignment", LEAD_LAG_COLUMNS),
+        _rule("T0016", "daily_spx_baa10y_reverse", _LEAD_LAG_HEADERS,
+              r"reverse placebo \(SPX→BAA10Y\)", LEAD_LAG_COLUMNS),
+    ),
 }
 
 

@@ -31,7 +31,7 @@ from myquant.review.models import (
 )
 from myquant.review.tables import REPORT_RULES
 
-# The seven empirical studies, in lab order, with their main reports.
+# The eight empirical studies, in lab order, with their main reports.
 STUDY_REPORTS: dict[str, str] = {
     "btc-eth-001": "docs/studies/btc-eth-transmission-001.md",
     "lowvol-002": "docs/studies/lowvol-transmission-002.md",
@@ -40,6 +40,7 @@ STUDY_REPORTS: dict[str, str] = {
     "fomc-event-study-005": "docs/studies/fomc-event-study-005.md",
     "macro-windows-006": "docs/studies/macro-windows-006.md",
     "publication-lag-007": "docs/studies/publication-lag-007.md",
+    "credit-spread-spx-008": "docs/studies/credit-spread-spx-008.md",
 }
 
 AUDIT_SUMMARY_PATH = "research/statistical-audit-2b/summary.json"
@@ -258,7 +259,8 @@ def render_markdown(review: LabReview) -> str:
         "",
         f"Reviewed at: {review.reviewed_at.isoformat()}",
         "",
-        "Read-only review of the lab's seven empirical studies: ledger "
+        f"Read-only review of the lab's {len(review.studies)} empirical "
+        "studies: ledger "
         "integrity, preregistration binding, multiple-testing "
         "recomputation, verdict consistency, lifecycle state, report-"
         "ledger agreement, trial-ID sequence and point-in-time "

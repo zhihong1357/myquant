@@ -148,7 +148,7 @@ def test_audit_summary_headlines_match_registry():
         if edge["status"] in ("supported", "rejected")
     ]
     supported = [edge for edge in tested if edge["status"] == "supported"]
-    assert lab["family_size"] == len(tested) == 36
+    assert lab["family_size"] == len(tested) == 37
     assert lab["supported_total"] == len(supported) == 6
     assert lab["registry_content_hash"] == registry["content_hash"]
     # The summary's supported-edge rows must be exactly the registry's

@@ -34,12 +34,6 @@
       "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
       "related_descriptive": null,
       "source_instrument": "credit:baa-10y-spread",
-      "target_instrument": "index:sp500"
-    },
-    {
-      "note": "No test registered for this pair; it is an untested candidate, not evidence of any relationship.",
-      "related_descriptive": null,
-      "source_instrument": "credit:baa-10y-spread",
       "target_instrument": "index:tyvix"
     },
     {
@@ -739,7 +733,7 @@
       "target_instrument": "macro:cpi-mom"
     }
   ],
-  "content_hash": "3d0515bd4fa1f7c3922d10a4e1cbb805b4cba3e6ccbd630f26b6973704ec4ae0",
+  "content_hash": "65a4b04639537b99f3beaffef2e5ab84a4cbdbfeff2ec91a8c78358967664b28",
   "edges": [
     {
       "coefficient": 0.025176549532828104,
@@ -2668,6 +2662,64 @@
       "trial_record_hash": "6d757217ecab7b2e573ba8260579fc08bf643e22ce3a4ba7b3cd53f9eb6e9976",
       "verdict_summary": "Hypothesis H0012 REJECTED (trial T0015): this test did not reject (Holm-adjusted p = 0.169, partial R² 0.00216764).",
       "version": 1
+    },
+    {
+      "coefficient": 1.8048891686904616e-05,
+      "common_factor_control": "lagged VIX[t] log change (1-trading-day FRED lag)",
+      "condition": "predictor is the BAA10Y bp change lagged 2 trading days by availability (latest available at the decision close); next-day SPX return",
+      "cost_gate": {
+        "bootstrap_p_value": 0.7236381809095452,
+        "ci_lower": -0.000445843999253563,
+        "ci_upper": 0.0007185269032618734,
+        "days": 716,
+        "gross_daily_edge": 0.00020834761451500727,
+        "net_daily_edge": 0.00010583364803456034,
+        "note": "Sign rule on holdout OOS forecasts. SPY bid-ask spread 1bp per side (2bp round trip per flip); slippage and market impact ignored.",
+        "verdict": "pass"
+      },
+      "cost_gate_note": null,
+      "data_sources": [
+        "fred@v1",
+        "yahoo-finance@v1"
+      ],
+      "edge_id": "E0040",
+      "forward_sample": null,
+      "frequency": "daily",
+      "holdout_oos_incremental_r_squared": 0.00014643570654560012,
+      "holdout_oos_note": "Holdout window only (7 folds, 716 rows).",
+      "holm_adjusted_p_value": 0.8935170696924368,
+      "hypothesis_id": "H0013",
+      "hypothesis_version": 1,
+      "incremental_r_squared": 2.1611614540728574e-05,
+      "lag_steps": 1,
+      "ledger_path": "research/credit-spread-spx-008/trials.jsonl",
+      "ledger_test_key": "daily_baa10y_spx",
+      "method": "partial lead-lag OLS, lag 1, Newey-West HAC (max lag 5 daily)",
+      "notes": [
+        "Planner rank-1 candidate pair (6a, total score 1.00). Primary coefficient +1.80e-05 per bp, wrong sign vs the preregistered negative expectation; partial R² 2.19e-05.",
+        "The reverse placebo (SPX->BAA10Y) is nominally significant but descriptive only, not in the family."
+      ],
+      "observations": 5957,
+      "p_value": 0.8935170696924368,
+      "partial_r_squared": 2.1926421937872296e-05,
+      "preregistration_fingerprint": "e7f98ea75dd4c2a9b545e71b3f2fd0c9dd1d8dcef42add42987dd1d44861a39a",
+      "report_path": "docs/studies/credit-spread-spx-008.md",
+      "sample": {
+        "first": "2003-01-03T21:00:00Z",
+        "last": "2026-11-17T21:00:00Z",
+        "observations": 5957,
+        "panel_rows": 5960
+      },
+      "source_instrument": "credit:baa-10y-spread",
+      "standard_error": 0.00013483891927392591,
+      "status": "rejected",
+      "t_statistic": 0.13385520874902745,
+      "target_instrument": "index:sp500",
+      "test_type": "lead_lag",
+      "trial_id": "T0016",
+      "trial_record_hash": "5e2ca06ab5c3c417df84dac18f71e435ec10114411c1c867d4beb10d98426170",
+      "verdict_summary": "Hypothesis H0013 REJECTED (trial T0016): this test did not reject (Holm-adjusted p = 0.894); partial R² 2.19264e-05 below the 0.005 threshold; holdout OOS incremental R² +0.00015; cost gate pass (net daily edge +0.0106%).",
+      "version": 1
     }
   ],
   "nodes": [
@@ -2679,6 +2731,7 @@
       "name": "Moody's Seasoned Baa Corporate Bond Yield Relative to 10-Year Treasury (BAA10Y)",
       "short_label": "BAA10Y",
       "studies": [
+        "credit-spread-spx-008",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"
@@ -2753,6 +2806,7 @@
       "name": "S&P 500 Index",
       "short_label": "SPX",
       "studies": [
+        "credit-spread-spx-008",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"
@@ -2779,6 +2833,7 @@
       "name": "CBOE Volatility Index (VIX)",
       "short_label": "VIX",
       "studies": [
+        "credit-spread-spx-008",
         "fomc-event-study-005",
         "move-vix-003",
         "publication-lag-007"

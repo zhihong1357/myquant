@@ -5,7 +5,7 @@ Run from the repo root:
     .venv/bin/python research/review-6d/validate_review.py [--reviewed-at ISO]
 
 Offline and deterministic for a fixed --reviewed-at (the default is the
-current UTC time). Runs the reviewer over all seven studies, builds
+current UTC time). Runs the reviewer over all eight studies, builds
 six adversarial fixtures in tmp dirs — each isolating exactly one
 violation, with a valid hash chain everywhere except the tampered-ledger
 fixture — and writes:
@@ -347,8 +347,8 @@ def render_validation_report(
         "",
         "## What was validated",
         "",
-        "1. **Full-lab review**: the reviewer ran over all seven empirical "
-        "studies and all trial ledgers (15 records: 11 completed, 3 failed, "
+        "1. **Full-lab review**: the reviewer ran over all eight empirical "
+        "studies and all trial ledgers (16 records: 12 completed, 3 failed, "
         "1 reserved). The review itself is in `review_report.md` / "
         "`review_report.json` in this directory.",
         "2. **Adversarial fixtures**: six deliberately broken fixtures in "
@@ -523,15 +523,16 @@ def render_validation_report(
             "not be caught.",
             "- **The primary test is the first Holm-family entry**: the "
             "verdict check re-derives the primary criteria from "
-            "`metrics[\"holm\"][0]`. This holds for all 11 completed "
+            "`metrics[\"holm\"][0]`. This holds for all 12 completed "
             "trials in the lab, and the report check independently "
             "confirms each primary test's identity from the report "
             "tables — but a future trial that orders its family "
             "differently would be misread.",
             "- **PIT coverage depends on retained data**: the check "
             "runs only where parquet batches still exist. The seven "
-            "study caches are gone, so the lab's PIT discipline is "
-            "currently unverified, not verified.",
+            "older study caches are gone, so the lab's PIT discipline "
+            "is verified only for study 008 (the only retained cache) "
+            "and unverified for the rest.",
             "- **Truncation needs anchors**: study 005 has no anchor "
             "file, so a deleted trailing record in its ledger would "
             "pass the chain check; only the trial-ID sequence check "

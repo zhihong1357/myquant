@@ -79,9 +79,10 @@ PRIMARY_EDGES: dict[str, tuple[str, str]] = {
     "T0012": ("E0030", "H0010"),
     "T0013": ("E0032", "H0011"),
     "T0015": ("E0037", "H0012"),
+    "T0016": ("E0040", "H0013"),
 }
 
-# The 6 supported edges (from the registry) and the 9 rejected primary
+# The 6 supported edges (from the registry) and the 10 rejected primary
 # hypotheses (trial_id, hypothesis_id). Both lists are verified against
 # the registry/ledgers at run time.
 SUPPORTED_EDGE_IDS = ("E0023", "E0026", "E0030", "E0031", "E0032", "E0033")
@@ -95,6 +96,7 @@ REJECTED_HYPOTHESES = (
     ("T0009", "H0008"),
     ("T0011", "H0009"),
     ("T0015", "H0012"),
+    ("T0016", "H0013"),
 )
 
 # Ledger test fields copied into evidence, per test type. Only fields
@@ -242,6 +244,18 @@ LIMITATIONS: dict[str, tuple[str, ...]] = {
         "CPIAUCSL is current vintage, not as-released values; the "
         "release-day subsample is hypothesis-generating only.",
     ),
+    "DR-H0013": (
+        "The 2-trading-day BAA10Y publication lag was verified only at "
+        "fetch time and is assumed constant over the historical sample; "
+        "FRED's posting schedule may have changed over 2003-2026.",
+        "FRED revisions are unmodelled; the trial uses the current "
+        "vintage, not as-first-posted values.",
+        "Same-day comovement is strong (see the study report "
+        "descriptives); the rejection is about next-day carryover, not "
+        "about same-day transmission.",
+        "The reverse placebo (SPX->BAA10Y) is nominally significant but "
+        "descriptive only, not in the test family.",
+    ),
 }
 
 
@@ -379,10 +393,10 @@ def cost_gate_evidence(trial: dict) -> dict | None:
 # ---------------------------------------------------------------------------
 
 
-def lab_wide_note(audit_row: dict) -> str:
+def lab_wide_note(audit_row: dict, family_size: int) -> str:
     """Lab-wide reading for one supported edge, from the audit summary."""
     return (
-        f"Lab-wide family correction (36 tested edges): Holm adjusted p "
+        f"Lab-wide family correction ({family_size} tested edges): Holm adjusted p "
         f"{audit_row['holm_adjusted_p_value']:.4g} "
         f"({'significant' if audit_row['holm_significant'] else 'not significant'}), "
         f"BH adjusted p {audit_row['bh_adjusted_p_value']:.4g} "
@@ -522,7 +536,9 @@ def build_supported_edge_record(
     }
     record["evidence"] = evidence
     record["limitations"] = list(LIMITATIONS[record_id])
-    notes = [lab_wide_note(audit_row)]
+    notes = [
+        lab_wide_note(audit_row, audit_summary["lab_wide_audit"]["family_size"])
+    ]
     if "caveat" in audit_row:
         notes.append(f"Known caveat (from the study report): {audit_row['caveat']}")
     power_note = power_note_for_edge(audit_summary, edge["edge_id"])
@@ -589,7 +605,7 @@ def build_rejected_hypothesis_record(
 
 
 def build_records(repo_root: Path) -> dict[str, dict]:
-    """Build all 15 decision records; returns record_id -> record."""
+    """Build all 16 decision records; returns record_id -> record."""
     registry = load_json(repo_root / "research" / "graph" / "registry.json")
     audit_summary = load_json(
         repo_root / "research" / "statistical-audit-2b" / "summary.json"

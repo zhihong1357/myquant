@@ -38,9 +38,16 @@ HORIZON_SECONDS: dict[str, int] = {
 }
 
 #: Bar length in seconds for panel gap invalidation. Monthly bars are
-#: not uniform (28–31 days), so no gap invalidation applies.
+#: not uniform (28–31 days), so no gap invalidation applies. Daily bars
+#: on trading calendars are not uniform either — weekends and holidays
+#: leave 3+ day gaps, so a one-day bar filter would invalidate every
+#: Monday/post-holiday return (study 008's first real use of the
+#: scaffold found exactly that: ~30% of rows). Daily therefore uses no
+#: gap invalidation either (per-trading-day returns, the study-003
+#: convention). Only 1h keeps it: a missing hour in a 24/7 series is a
+#: genuine data gap, not a calendar feature.
 BAR_SECONDS: dict[str, int | None] = {
-    "daily": 86_400,
+    "daily": None,
     "1h": 3_600,
     "monthly": None,
 }
@@ -204,7 +211,7 @@ class StudySpec(StrictContract):
 
     @property
     def bar_seconds(self) -> int | None:
-        """Bar length for panel gap invalidation (None for monthly)."""
+        """Bar length for panel gap invalidation (None for daily/monthly)."""
         return BAR_SECONDS[self.frequency.value]
 
     @property

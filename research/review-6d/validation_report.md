@@ -1,36 +1,36 @@
 # Adversarial reviewer validation (Stage 6d)
 
-Validated at: 2026-11-18T23:30:00+00:00
+Validated at: 2026-11-19T00:36:42+00:00
 
 ## What was validated
 
-1. **Full-lab review**: the reviewer ran over all seven empirical studies and all trial ledgers (15 records: 11 completed, 3 failed, 1 reserved). The review itself is in `review_report.md` / `review_report.json` in this directory.
+1. **Full-lab review**: the reviewer ran over all eight empirical studies and all trial ledgers (16 records: 12 completed, 3 failed, 1 reserved). The review itself is in `review_report.md` / `review_report.json` in this directory.
 2. **Adversarial fixtures**: six deliberately broken fixtures in tmp dirs, each isolating one violation. Every fixture must FAIL with the correct reason — passing only clean studies does not count as validation.
 3. **Rounding-margin diagnostic**: the report check compares numbers within the tolerance implied by the report's stated precision; the diagnostic shows the failures are not rounding noise.
 
 ## Full-lab review summary
 
-- Checks run: 94
-- PASS: 75
+- Checks run: 104
+- PASS: 84
 - FAIL: 0
 - UNVERIFIED: 8
-- NOTE: 11
+- NOTE: 12
 
 ### Per-check breakdown
 
 | check | pass | fail | unverified | note |
 | --- | --- | --- | --- | --- |
-| `hypothesis_state` | 11 | 0 | 0 | 0 |
-| `ledger_anchor` | 6 | 0 | 1 | 0 |
-| `ledger_chain` | 7 | 0 | 0 | 0 |
-| `multiple_testing` | 11 | 0 | 0 | 0 |
-| `pit_spot_check` | 0 | 0 | 7 | 0 |
-| `power_note` | 0 | 0 | 0 | 11 |
-| `prereg_binding` | 14 | 0 | 0 | 0 |
-| `registry_events` | 7 | 0 | 0 | 0 |
-| `report_ledger` | 7 | 0 | 0 | 0 |
+| `hypothesis_state` | 12 | 0 | 0 | 0 |
+| `ledger_anchor` | 7 | 0 | 1 | 0 |
+| `ledger_chain` | 8 | 0 | 0 | 0 |
+| `multiple_testing` | 12 | 0 | 0 | 0 |
+| `pit_spot_check` | 1 | 0 | 7 | 0 |
+| `power_note` | 0 | 0 | 0 | 12 |
+| `prereg_binding` | 15 | 0 | 0 | 0 |
+| `registry_events` | 8 | 0 | 0 | 0 |
+| `report_ledger` | 8 | 0 | 0 | 0 |
 | `trial_sequence` | 1 | 0 | 0 | 0 |
-| `verdict_consistency` | 11 | 0 | 0 | 0 |
+| `verdict_consistency` | 12 | 0 | 0 | 0 |
 
 ### The FAILs
 
@@ -62,8 +62,8 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ### Report coverage
 
-- 52 report rules across the 7 reports; 52 rows verified, 0 rows disagree.
-- 336 numeric cells compared (window-count and bootstrap-CI cells compared separately).
+- 56 report rules across the 7 reports; 56 rows verified, 0 rows disagree.
+- 361 numeric cells compared (window-count and bootstrap-CI cells compared separately).
 
 ## Adversarial fixtures
 
@@ -80,26 +80,26 @@ UNVERIFIED means the check could not be performed — it is not a pass. Each ent
 
 ## Rounding-margin diagnostic
 
-- Numeric cells compared: 336
+- Numeric cells compared: 361
 - Cells outside tolerance: 0
-- Highest passing ratio (|diff| / tolerance): 0.990
+- Highest passing ratio (|diff| / tolerance): 0.999
 - Lowest failing ratio: none (no cell outside tolerance)
 
 The highest passing ratio is a correctly rounded value sitting near its rounding boundary — expected, since rounding residuals spread uniformly in [0, 1]. No cell falls outside tolerance. (The study 004 bootstrap-CI bound is compared through the CI path, not this numeric path, so it does not appear in these counts.)
 
 Largest ratios:
 
+- 0.999: credit-spread-spx-008 T0016 daily_baa10y_spx_naive (raw p)
 - 0.99: fomc-event-study-005 T0009 baa10y_on_dgs10 (slope)
 - 0.987: btc-eth-001 T0001 daily_btc_sol_no_factor (SE)
 - 0.983: btc-eth-001 T0001 daily_btc_sol (incr R²)
 - 0.982: move-vix-003 T0004 daily_tyvix_vix_no_factor (coef)
 - 0.979: lowvol-002 T0002 hourly_btc_eth_interaction_no_factor (coef)
-- 0.979: btc-eth-001 T0001 hourly_btc_eth (incr R²)
 
 ## Limitations
 
 - **Report coverage is table-bound**: only the 52 results-table rows with explicit rules are checked. Prose numbers, descriptive split tables and the verdict-criteria tables are not mechanically compared; a discrepancy there would not be caught.
-- **The primary test is the first Holm-family entry**: the verdict check re-derives the primary criteria from `metrics["holm"][0]`. This holds for all 11 completed trials in the lab, and the report check independently confirms each primary test's identity from the report tables — but a future trial that orders its family differently would be misread.
-- **PIT coverage depends on retained data**: the check runs only where parquet batches still exist. The seven study caches are gone, so the lab's PIT discipline is currently unverified, not verified.
+- **The primary test is the first Holm-family entry**: the verdict check re-derives the primary criteria from `metrics["holm"][0]`. This holds for all 12 completed trials in the lab, and the report check independently confirms each primary test's identity from the report tables — but a future trial that orders its family differently would be misread.
+- **PIT coverage depends on retained data**: the check runs only where parquet batches still exist. The seven older study caches are gone, so the lab's PIT discipline is verified only for study 008 (the only retained cache) and unverified for the rest.
 - **Truncation needs anchors**: study 005 has no anchor file, so a deleted trailing record in its ledger would pass the chain check; only the trial-ID sequence check would notice (and only if the deleted record's ID left a gap).
 - **The reviewer trusts the registry's own verification**: registration and event-log integrity come from the repo's `HypothesisRegistry` code, not from an independent reimplementation. A bug shared by the registry and the reviewer would be invisible to both.

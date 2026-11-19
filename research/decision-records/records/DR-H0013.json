@@ -1,0 +1,77 @@
+{
+  "audit_notes": [
+    "Power: observed partial R^2 0.00002 vs MDE 0.00132 at n=5957 (80% power, alpha 0.05) \u2014 the design was underpowered for an effect of the observed size; the null result rules out large effects, not small ones."
+  ],
+  "conclusion": "REJECTED",
+  "conclusion_scope": "Primary test failed its preregistered criteria (2 of 4 failed; see evidence.verdict_criteria). The rejection is about the preregistered effect at the preregistered threshold, not a claim that no effect of any size exists.",
+  "evidence": {
+    "cost_gate": {
+      "days": 716,
+      "flips": 366,
+      "gross_daily_edge": 0.00020834761451500727,
+      "kind": "cost_gate",
+      "net_daily_edge": 0.00010583364803456034,
+      "net_edge_bootstrap_p_value": 0.7236381809095452,
+      "net_edge_ci_lower": -0.000445843999253563,
+      "net_edge_ci_upper": 0.0007185269032618734,
+      "total_cost": 0.07339999999999999
+    },
+    "family_tests": [
+      {
+        "edge_id": "E0040",
+        "holm_adjusted_p_value": 0.8935170696924368,
+        "raw_p_value": 0.8935170696924368,
+        "reject": false,
+        "test_key": "daily_baa10y_spx"
+      }
+    ],
+    "holdout_oos": {
+      "all_oos_incremental_r_squared": -0.003393294781175671,
+      "holdout_oos_incremental_r_squared": 0.00014643570654560012
+    },
+    "primary_test": {
+      "coefficient": 1.8048891686904616e-05,
+      "observations": 5957,
+      "p_value": 0.8935170696924368,
+      "partial_r_squared": 2.1926421937872296e-05,
+      "standard_error": 0.00013483891927392591,
+      "t_statistic": 0.13385520874902745,
+      "test_key": "daily_baa10y_spx",
+      "test_type": "lead_lag",
+      "within_study_holm_adjusted_p_value": 0.8935170696924368,
+      "within_study_holm_reject": false
+    },
+    "sample": {
+      "first": "2003-01-03T21:00:00Z",
+      "last": "2026-11-17T21:00:00Z",
+      "observations": 5957,
+      "panel_rows": 5960
+    },
+    "verdict_criteria": {
+      "holdout_oos_incremental_r_squared_above_0": true,
+      "holm_adjusted_primary_p_below_0.05": false,
+      "net_daily_edge_after_costs_positive": true,
+      "primary_partial_r_squared_at_least_0.005": false
+    },
+    "verdict_supported": false
+  },
+  "hypothesis_id": "H0013",
+  "hypothesis_version": 1,
+  "ledger_path": "research/credit-spread-spx-008/trials.jsonl",
+  "ledger_test_key": "daily_baa10y_spx",
+  "limitations": [
+    "The 2-trading-day BAA10Y publication lag was verified only at fetch time and is assumed constant over the historical sample; FRED's posting schedule may have changed over 2003-2026.",
+    "FRED revisions are unmodelled; the trial uses the current vintage, not as-first-posted values.",
+    "Same-day comovement is strong (see the study report descriptives); the rejection is about next-day carryover, not about same-day transmission.",
+    "The reverse placebo (SPX->BAA10Y) is nominally significant but descriptive only, not in the test family."
+  ],
+  "preregistration_fingerprint": "e7f98ea75dd4c2a9b545e71b3f2fd0c9dd1d8dcef42add42987dd1d44861a39a",
+  "primary_edge_id": "E0040",
+  "record_id": "DR-H0013",
+  "record_type": "rejected_hypothesis",
+  "report_path": "docs/studies/credit-spread-spx-008.md",
+  "schema_version": 1,
+  "study": "credit-spread-spx-008",
+  "trial_id": "T0016",
+  "trial_record_hash": "5e2ca06ab5c3c417df84dac18f71e435ec10114411c1c867d4beb10d98426170"
+}

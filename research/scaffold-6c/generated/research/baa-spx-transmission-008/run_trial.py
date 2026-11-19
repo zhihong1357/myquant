@@ -60,7 +60,7 @@ SOURCE = "credit:baa-10y-spread"
 TARGET = "index:sp500"
 UNIVERSE = ('credit:baa-10y-spread', 'index:sp500')
 PIT_STORE_NAME = "pit-1d"
-BAR_SECONDS = 86400
+BAR_SECONDS = None
 
 #: Fixed parameters the primary test reads from the registered spec.
 #: main() fails fast when one is missing, before any trial is recorded.
