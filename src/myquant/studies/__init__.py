@@ -1,1 +1,0 @@
-"""Registered quantitative research studies."""
