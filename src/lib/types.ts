@@ -98,6 +98,14 @@ export interface GraphNode {
   studies: string[];
 }
 
+export interface EdgeHygieneInfo {
+  edgeId: string;
+  isMechanicalIdentity: boolean;
+  usesDiscontinuedSeries: boolean;
+  cleanForPlanner: boolean;
+  reason: string | null;
+}
+
 export interface GraphEdge {
   edge_id: string;
   source_instrument: string;
@@ -126,6 +134,7 @@ export interface GraphEdge {
     net_daily_edge?: number;
     note?: string;
   } | null;
+  hygiene?: EdgeHygieneInfo;
 }
 
 export interface RankedCandidate {
@@ -145,6 +154,13 @@ export interface GraphPayload {
   nodes: GraphNode[];
   edges: GraphEdge[];
   candidates: RankedCandidate[];
+  hygiene_summary?: {
+    total_edges: number;
+    clean_edges: number;
+    excluded_edges: number;
+    discontinued_instruments: string[];
+    mechanical_edge_ids: string[];
+  };
 }
 
 export interface StudyListItem {
@@ -276,4 +292,125 @@ export interface SourcesAndPanelsPayload {
     lag_kind: string;
     latest_from: string;
   }>;
+}
+
+export interface LedgerTrialRow {
+  index: number;
+  leafHash: string;
+  chainHash: string;
+  merkleRootAfter: string;
+  trialId: string;
+  strategyId: string;
+  strategyName: string;
+  mode: 'qp_optimized' | 'legacy_sign_rule';
+  recordedAt: string;
+  seed: number;
+  observations: number;
+  netSharpe: number;
+  grossSharpe: number;
+  annualizedVolPct: number;
+  maxDrawdownPct: number;
+  totalNetReturnPct: number;
+  avgDailyTurnover: number;
+  liquidated: boolean;
+  rawPValue: number;
+  deflatedSharpeRatio: number;
+  lordAlphaThreshold: number | null;
+  lordAccepted: boolean;
+}
+
+export interface LedgerOverviewPayload {
+  strategies: Array<{
+    id: 'perp_carry_funding' | 'volume_clock_ofi' | 'macro_event_vrp';
+    name: string;
+    universe: string[];
+    cadence: string;
+    mechanism: string;
+    economicBasis: string;
+  }>;
+  anchor: {
+    count: number;
+    latestChainHash: string;
+    merkleRoot: string;
+    updatedAt: string;
+  };
+  integrity: {
+    valid: boolean;
+    checkedCount: number;
+    error: string | null;
+  };
+  cscvPbo: {
+    numStrategies: number;
+    observations: number;
+    numSubsets: number;
+    combinationsEvaluated: number;
+    pbo: number;
+    meanRelativeOosRank: number;
+    medianLogit: number;
+    degradationSlope: number;
+  } | null;
+  onlineLordRejections: number;
+  latestProof: {
+    index: number;
+    leafHash: string;
+    merkleRoot: string;
+    proofDepth: number;
+    verified: boolean;
+  } | null;
+  entries: LedgerTrialRow[];
+}
+
+export interface ExecutionSimPayload {
+  referenceMid: number;
+  initialTop5Depth: number;
+  childFills: Array<{
+    childIndex: number;
+    requestedContracts: number;
+    filledContracts: number;
+    vwapFillPrice: number;
+    levelsSwept: number;
+    bookWalkSlippageBps: number;
+    permanentImpactBps: number;
+    totalEffectiveCostBps: number;
+    remainingTop5DepthAfter: number;
+  }>;
+  impactCurve: Array<{
+    depthMultiple: number;
+    orderContracts: number;
+    squareRootBps: number;
+    legacyCappedBps: number;
+  }>;
+  passiveMarkout: {
+    queueAheadUsed: number;
+    conservativeFallbackApplied: boolean;
+    filledContracts: number;
+    fillRate: number;
+    touchOnlyFills: number;
+    tradeThroughFills: number;
+    avgFillPrice: number | null;
+    markout1sBps: number | null;
+    markout10sBps: number | null;
+    markout60sBps: number | null;
+    adverseSelectionDetected: boolean;
+  };
+  marginStress: {
+    initialEquity: number;
+    finalEquity: number;
+    liquidated: boolean;
+    liquidationTimestamp: string | null;
+    liquidationPrice: number | null;
+    liquidationFeePaid: number;
+    peakLeverage: number;
+    maxDrawdownPct: number;
+    totalFundingPaid: number;
+    totalFeesPaid: number;
+    naiveNoMarginFinalEquity: number;
+    equityCurve: Array<{
+      timestampIso: string;
+      equity: number;
+      naiveEquity: number;
+      marginRatio: number;
+      liquidated: boolean;
+    }>;
+  };
 }

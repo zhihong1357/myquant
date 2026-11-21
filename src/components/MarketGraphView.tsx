@@ -8,6 +8,7 @@ import {
   shortInstrumentLabel,
   statusTextClass,
 } from '../lib/format';
+import { useI18n } from '../lib/i18n';
 
 interface MarketGraphViewProps {
   data: GraphPayload;
@@ -35,6 +36,7 @@ function extractStudySlug(reportPath: string): string {
 }
 
 export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelectStudy }) => {
+  const { bi } = useI18n();
   const [subTab, setSubTab] = useState<'edges' | 'candidates'>('edges');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
@@ -43,6 +45,19 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
   );
   const [searchQuery, setSearchQuery] = useState('');
   const [candidateFilter, setCandidateFilter] = useState<'all' | 'ranked' | 'templates' | 'unrankable'>('all');
+  const [cleanHygieneOnly, setCleanHygieneOnly] = useState(false);
+
+  function localizedStatus(status: string): string {
+    const map: Record<string, [string, string]> = {
+      all: ['全部关系边', 'All Edges'],
+      supported: ['统计成立', 'Supported'],
+      rejected: ['已证伪', 'Rejected'],
+      descriptive: ['描述性统计', 'Descriptive'],
+      pending_forward: ['待样本外前瞻', 'Pending Forward'],
+    };
+    const item = map[status];
+    return item ? bi(item[0], item[1]) : formatStatusLabel(status);
+  }
 
   // Compute deterministic circular layout grouped by asset class
   const nodePositions = useMemo(() => {
@@ -70,6 +85,7 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
   const filteredEdges = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     return data.edges.filter((e) => {
+      if (cleanHygieneOnly && e.hygiene && !e.hygiene.cleanForPlanner) return false;
       if (statusFilter !== 'all' && e.status !== statusFilter) return false;
       if (
         selectedNodeId &&
@@ -84,16 +100,22 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
       }
       return true;
     });
-  }, [data.edges, statusFilter, selectedNodeId, searchQuery]);
+  }, [data.edges, statusFilter, selectedNodeId, searchQuery, cleanHygieneOnly]);
 
   const selectedEdge: GraphEdge | null = useMemo(
-    () => data.edges.find((e) => e.edge_id === selectedEdgeId) ?? filteredEdges[0] ?? null,
-    [data.edges, selectedEdgeId, filteredEdges],
+    () => filteredEdges.find((e) => e.edge_id === selectedEdgeId) ?? filteredEdges[0] ?? null,
+    [selectedEdgeId, filteredEdges],
   );
 
   const filteredCandidates = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     return data.candidates.filter((c) => {
+      if (
+        cleanHygieneOnly &&
+        (c.source_instrument === 'index:tyvix' || c.target_instrument === 'index:tyvix')
+      ) {
+        return false;
+      }
       if (candidateFilter === 'ranked' && !c.ranked) return false;
       if (candidateFilter === 'templates' && !c.has_template) return false;
       if (candidateFilter === 'unrankable' && c.ranked) return false;
@@ -110,9 +132,8 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
       }
       return true;
     });
-  }, [data.candidates, candidateFilter, selectedNodeId, searchQuery]);
+  }, [data.candidates, candidateFilter, selectedNodeId, searchQuery, cleanHygieneOnly]);
 
-  // Unique directed pairs for clean graph rendering
   const graphLines = useMemo(() => {
     const pairs = new Map<string, GraphEdge[]>();
     for (const e of filteredEdges) {
@@ -137,11 +158,13 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Cross-Market Graph &amp; Edge Registry
+            {bi('跨市场传导图谱与关系边注册库', 'Cross-Market Graph & Edge Registry')}
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            {data.nodes.length} provider-neutral instruments · {data.edges.length} ledger-verified
-            edges · {data.candidates.length} untested planner candidates.
+            {bi(
+              `${data.nodes.length} 个跨市场资产节点 · ${data.edges.length} 条账本已验证关系边 · ${data.candidates.length} 个待测候选组合。点击任意圆圈节点或连线可查看实证明细。`,
+              `${data.nodes.length} provider-neutral instruments · ${data.edges.length} ledger-verified edges · ${data.candidates.length} untested planner candidates.`
+            )}
           </p>
         </div>
         <div className="text-xs font-mono text-slate-500 whitespace-nowrap">
@@ -153,7 +176,7 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-stretch">
         <section className="xl:col-span-8 bg-white border border-slate-200 rounded-lg p-5 flex flex-col">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg">
+            <div className="flex flex-wrap items-center gap-1 p-1 bg-slate-100 rounded-lg">
               {(['all', 'supported', 'rejected', 'descriptive', 'pending_forward'] as const).map(
                 (st) => (
                   <button
@@ -167,21 +190,35 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                         : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    {st === 'all' ? 'All Edges' : formatStatusLabel(st)}
+                    {localizedStatus(st)}
                   </button>
                 ),
               )}
             </div>
 
-            {selectedNodeId && (
-              <button
-                type="button"
-                onClick={() => setSelectedNodeId(null)}
-                className="text-xs font-medium text-blue-700 hover:text-blue-800 whitespace-nowrap"
-              >
-                Clear node filter ({shortInstrumentLabel(selectedNodeId)})
-              </button>
-            )}
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="flex items-center gap-1.5 text-xs text-slate-700 cursor-pointer whitespace-nowrap">
+                <input
+                  type="checkbox"
+                  checked={cleanHygieneOnly}
+                  onChange={(e) => setCleanHygieneOnly(e.target.checked)}
+                />
+                <span>
+                  {bi('仅看干净边（剔除 E0026/TYVIX）', 'Clean Hygiene Only')}
+                  {data.hygiene_summary ? ` (−${data.hygiene_summary.excluded_edges})` : ''}
+                </span>
+              </label>
+
+              {selectedNodeId && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedNodeId(null)}
+                  className="text-xs font-medium text-blue-700 hover:text-blue-800 whitespace-nowrap"
+                >
+                  {bi('清除节点筛选', 'Clear node filter')} ({shortInstrumentLabel(selectedNodeId)})
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="w-full overflow-x-auto flex-1 flex items-center justify-center bg-slate-50/70 rounded-lg border border-slate-100">
@@ -216,7 +253,6 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                 </marker>
               </defs>
 
-              {/* Directed edges */}
               {graphLines.map(({ primary, hasSupported }) => {
                 const src = nodePositions.get(primary.source_instrument);
                 const tgt = nodePositions.get(primary.target_instrument);
@@ -274,7 +310,6 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                 );
               })}
 
-              {/* Instrument nodes */}
               {Array.from(nodePositions.values()).map(({ x, y, node }) => {
                 const palette = ASSET_COLORS[node.asset_class] ?? ASSET_COLORS.rates;
                 const isSelected = selectedNodeId === node.instrument_id;
@@ -333,8 +368,10 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
 
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
             <div>
-              Solid green lines indicate supported edges · Dashed lines indicate rejected or
-              descriptive tests · Click any node to filter connected edges.
+              {bi(
+                '绿色实线 = 统计成立的传导边 · 灰色虚线 = 已证伪或描述性边 · 点击任意节点可按该资产筛选连线。',
+                'Solid green lines indicate supported edges · Dashed lines indicate rejected or descriptive tests · Click any node to filter connected edges.'
+              )}
             </div>
           </div>
         </section>
@@ -349,7 +386,7 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                     {selectedEdge.edge_id}
                   </span>
                   <span className={`text-xs ${statusTextClass(selectedEdge.status)}`}>
-                    {formatStatusLabel(selectedEdge.status)}
+                    {localizedStatus(selectedEdge.status)}
                   </span>
                 </div>
                 <h2 className="text-base font-semibold text-slate-900 mt-1">
@@ -364,37 +401,37 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
 
               <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-200 text-xs">
                 <div>
-                  <div className="text-slate-500">Coefficient</div>
+                  <div className="text-slate-500">{bi('效应系数', 'Coefficient')}</div>
                   <div className="font-mono tabular-nums font-semibold text-slate-900 mt-0.5">
                     {formatNumber(selectedEdge.coefficient, 5)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-slate-500">t-Statistic</div>
+                  <div className="text-slate-500">{bi('t 统计量', 't-Statistic')}</div>
                   <div className="font-mono tabular-nums font-semibold text-slate-900 mt-0.5">
                     {formatNumber(selectedEdge.t_statistic, 3)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-slate-500">Raw p-Value</div>
+                  <div className="text-slate-500">{bi('原始 p 值', 'Raw p-Value')}</div>
                   <div className="font-mono tabular-nums font-semibold text-slate-900 mt-0.5">
                     {formatPValue(selectedEdge.p_value)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-slate-500">Holm adj. p</div>
+                  <div className="text-slate-500">{bi('Holm 校正 p', 'Holm adj. p')}</div>
                   <div className="font-mono tabular-nums font-semibold text-slate-900 mt-0.5">
                     {formatPValue(selectedEdge.holm_adjusted_p_value)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-slate-500">Partial R²</div>
+                  <div className="text-slate-500">{bi('偏 R²', 'Partial R²')}</div>
                   <div className="font-mono tabular-nums font-semibold text-slate-900 mt-0.5">
                     {formatNumber(selectedEdge.partial_r_squared, 5)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-slate-500">Observations (n)</div>
+                  <div className="text-slate-500">{bi('样本量 (n)', 'Observations (n)')}</div>
                   <div className="font-mono tabular-nums font-semibold text-slate-900 mt-0.5">
                     {formatInteger(selectedEdge.observations)}
                   </div>
@@ -403,18 +440,18 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
 
               <div className="pt-3 border-t border-slate-200 space-y-2 text-xs">
                 <div>
-                  <span className="text-slate-500">Method: </span>
+                  <span className="text-slate-500">{bi('检验方法：', 'Method: ')}</span>
                   <span className="text-slate-800">{selectedEdge.method}</span>
                 </div>
                 {selectedEdge.common_factor_control && (
                   <div>
-                    <span className="text-slate-500">Control: </span>
+                    <span className="text-slate-500">{bi('控制变量：', 'Control: ')}</span>
                     <span className="text-slate-800">{selectedEdge.common_factor_control}</span>
                   </div>
                 )}
                 {selectedEdge.cost_gate && (
                   <div>
-                    <span className="text-slate-500">Cost gate: </span>
+                    <span className="text-slate-500">{bi('成本门控：', 'Cost gate: ')}</span>
                     <span className={statusTextClass(selectedEdge.cost_gate.verdict)}>
                       {selectedEdge.cost_gate.verdict.toUpperCase()}
                     </span>
@@ -423,11 +460,19 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                     )}
                   </div>
                 )}
+                {selectedEdge.hygiene && !selectedEdge.hygiene.cleanForPlanner && (
+                  <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-md text-amber-900">
+                    <span className="font-semibold">{bi('卫生审计警告：', 'Hygiene Audit Flag: ')}</span>
+                    {selectedEdge.hygiene.reason}
+                  </div>
+                )}
                 <p className="text-slate-600 leading-relaxed pt-1">{selectedEdge.verdict_summary}</p>
               </div>
             </div>
           ) : (
-            <p className="text-sm text-slate-500">Select an edge to inspect its ledger record.</p>
+            <p className="text-sm text-slate-500">
+              {bi('请从左侧图谱或下方表格点击一条关系边。', 'Select an edge to inspect its ledger record.')}
+            </p>
           )}
 
           {selectedEdge && (
@@ -437,7 +482,7 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                 onClick={() => onSelectStudy(extractStudySlug(selectedEdge.report_path))}
                 className="w-full py-2 px-4 text-xs font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-md transition-colors"
               >
-                Open Study Report ({extractStudySlug(selectedEdge.report_path)})
+                {bi('打开对应研究报告', 'Open Study Report')} ({extractStudySlug(selectedEdge.report_path)})
               </button>
             </div>
           )}
@@ -457,7 +502,7 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Tested Edges ({filteredEdges.length})
+              {bi(`已检验关系边 (${filteredEdges.length})`, `Tested Edges (${filteredEdges.length})`)}
             </button>
             <button
               type="button"
@@ -468,7 +513,10 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Untested Planner Candidates ({filteredCandidates.length})
+              {bi(
+                `待测研究候选池 (${filteredCandidates.length})`,
+                `Untested Planner Candidates (${filteredCandidates.length})`
+              )}
             </button>
           </div>
 
@@ -487,26 +535,26 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                     }`}
                   >
                     {cf === 'all'
-                      ? 'All'
+                      ? bi('全部', 'All')
                       : cf === 'ranked'
-                        ? 'Ranked'
+                        ? bi('已排序', 'Ranked')
                         : cf === 'templates'
-                          ? 'With Template'
-                          : 'Unrankable'}
+                          ? bi('有模板', 'With Template')
+                          : bi('不可排序', 'Unrankable')}
                   </button>
                 ))}
               </div>
             )}
 
             <label className="sr-only" htmlFor="graph-search">
-              Filter instruments or edges
+              {bi('筛选资产或边', 'Filter instruments or edges')}
             </label>
             <input
               id="graph-search"
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Filter edge, instrument, or hypothesis…"
+              placeholder={bi('搜索边编号、标的或假设…', 'Filter edge, instrument, or hypothesis…')}
               className="px-3 py-1.5 text-xs border border-slate-300 rounded-md w-64 focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600"
             />
           </div>
@@ -516,20 +564,20 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
           <div className="overflow-x-auto">
             {filteredEdges.length === 0 ? (
               <div className="p-8 text-center text-sm text-slate-500">
-                No edges match the active filters.
+                {bi('当前筛选条件下没有匹配的关系边。', 'No edges match the active filters.')}
               </div>
             ) : (
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-slate-600">
-                    <th className="py-2.5 px-4 font-semibold">Edge</th>
-                    <th className="py-2.5 px-4 font-semibold">Pair</th>
-                    <th className="py-2.5 px-4 font-semibold">Hypothesis / Test</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Coef</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Raw p</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Holm p</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('边编号', 'Edge')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('传导对', 'Pair')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('假设 / 检验项', 'Hypothesis / Test')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('系数', 'Coef')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('原始 p', 'Raw p')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('Holm p', 'Holm p')}</th>
                     <th className="py-2.5 px-4 font-semibold text-right">n</th>
-                    <th className="py-2.5 px-4 font-semibold">Status</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('状态', 'Status')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -568,7 +616,7 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                           {formatInteger(edge.observations)}
                         </td>
                         <td className={`py-2.5 px-4 whitespace-nowrap ${statusTextClass(edge.status)}`}>
-                          {formatStatusLabel(edge.status)}
+                          {localizedStatus(edge.status)}
                         </td>
                       </tr>
                     );
@@ -581,18 +629,18 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
           <div className="overflow-x-auto">
             {filteredCandidates.length === 0 ? (
               <div className="p-8 text-center text-sm text-slate-500">
-                No planner candidates match the active filters.
+                {bi('当前筛选条件下没有匹配的候选对。', 'No planner candidates match the active filters.')}
               </div>
             ) : (
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-slate-600">
-                    <th className="py-2.5 px-4 font-semibold text-right">Rank</th>
-                    <th className="py-2.5 px-4 font-semibold">Candidate Pair</th>
-                    <th className="py-2.5 px-4 font-semibold">Mechanism</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Planner Score</th>
-                    <th className="py-2.5 px-4 font-semibold">Draft Template</th>
-                    <th className="py-2.5 px-4 font-semibold">Notes</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('排名', 'Rank')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('候选传导对', 'Candidate Pair')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('机制与方法', 'Mechanism')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('规划评分', 'Planner Score')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('实验模板', 'Draft Template')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('说明', 'Notes')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -609,17 +657,17 @@ export const MarketGraphView: React.FC<MarketGraphViewProps> = ({ data, onSelect
                         {c.mechanism} · {c.test_type.replace(/_/g, ' ')}
                       </td>
                       <td className="py-2.5 px-4 font-mono tabular-nums text-right text-slate-900 whitespace-nowrap">
-                        {c.total_score !== null ? c.total_score.toFixed(2) : 'Unrankable'}
+                        {c.total_score !== null ? c.total_score.toFixed(2) : bi('不可排序', 'Unrankable')}
                       </td>
                       <td className="py-2.5 px-4 whitespace-nowrap">
                         {c.has_template ? (
-                          <span className="text-emerald-700 font-medium">Available</span>
+                          <span className="text-emerald-700 font-medium">{bi('可用', 'Available')}</span>
                         ) : (
-                          <span className="text-slate-400">None</span>
+                          <span className="text-slate-400">{bi('无', 'None')}</span>
                         )}
                       </td>
                       <td className="py-2.5 px-4 text-slate-500">
-                        {c.unrankable_reason ?? 'Untested pair (no evidence implied)'}
+                        {c.unrankable_reason ?? bi('尚未验证（不预设存在规律）', 'Untested pair (no evidence implied)')}
                       </td>
                     </tr>
                   ))}

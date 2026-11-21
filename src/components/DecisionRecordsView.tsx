@@ -8,6 +8,7 @@ import {
   shortInstrumentLabel,
   statusTextClass,
 } from '../lib/format';
+import { useI18n } from '../lib/i18n';
 
 interface DecisionRecordsViewProps {
   records: DecisionRecordSummary[];
@@ -20,6 +21,7 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
   sourcesData,
   onSelectStudy,
 }) => {
+  const { bi } = useI18n();
   const [section, setSection] = useState<'records' | 'sources'>('records');
   const [filterType, setFilterType] = useState<'all' | 'supported_edge' | 'rejected_hypothesis'>(
     'all',
@@ -40,8 +42,8 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
   }, [records, filterType, search]);
 
   const activeRecord = useMemo(
-    () => records.find((r) => r.record_id === selectedId) ?? filteredRecords[0] ?? null,
-    [records, selectedId, filteredRecords],
+    () => filteredRecords.find((r) => r.record_id === selectedId) ?? filteredRecords[0] ?? null,
+    [selectedId, filteredRecords],
   );
 
   return (
@@ -49,11 +51,13 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Decision Records &amp; Data Provenance
+            {bi('研究决策档案与外部数据源探针', 'Decision Records & Data Provenance')}
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            {records.length} ledger-verified statistical decision records and{' '}
-            {sourcesData.sources.length} external data-source health probes.
+            {bi(
+              `共 ${records.length} 条账本核验统计决策档案，以及 ${sourcesData.sources.length} 个外部公开数据源的健康探针与发布延迟记录。`,
+              `${records.length} ledger-verified statistical decision records and ${sourcesData.sources.length} external data-source health probes.`
+            )}
           </p>
         </div>
 
@@ -67,7 +71,7 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            Decision Records ({records.length})
+            {bi(`决策档案 (${records.length})`, `Decision Records (${records.length})`)}
           </button>
           <button
             type="button"
@@ -78,7 +82,10 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            Data Sources &amp; Panels ({sourcesData.panels.length})
+            {bi(
+              `数据源与面板时效 (${sourcesData.panels.length})`,
+              `Data Sources & Panels (${sourcesData.panels.length})`
+            )}
           </button>
         </div>
       </div>
@@ -88,22 +95,22 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
           <aside className="lg:col-span-4 bg-white border border-slate-200 rounded-lg overflow-hidden">
             <div className="p-4 border-b border-slate-200 space-y-3">
               <label htmlFor="dr-search" className="sr-only">
-                Search decision records
+                {bi('搜索决策档案', 'Search decision records')}
               </label>
               <input
                 id="dr-search"
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search DR ID, study, or hypothesis…"
+                placeholder={bi('搜索档案号、研究或假设…', 'Search DR ID, study, or hypothesis…')}
                 className="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600"
               />
               <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg">
                 {(
                   [
-                    { id: 'all', label: 'All (21)' },
-                    { id: 'supported_edge', label: 'Supported (6)' },
-                    { id: 'rejected_hypothesis', label: 'Rejected (15)' },
+                    { id: 'all', zh: `全部 (${records.length})`, en: `All (${records.length})` },
+                    { id: 'supported_edge', zh: '成立 (6)', en: 'Supported (6)' },
+                    { id: 'rejected_hypothesis', zh: '证伪 (15)', en: 'Rejected (15)' },
                   ] as const
                 ).map((f) => (
                   <button
@@ -116,7 +123,7 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                         : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    {f.label}
+                    {bi(f.zh, f.en)}
                   </button>
                 ))}
               </div>
@@ -184,29 +191,33 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                     onClick={() => onSelectStudy(activeRecord.study)}
                     className="px-3.5 py-2 text-xs font-medium text-blue-700 border border-blue-200 hover:bg-blue-50 rounded-md whitespace-nowrap shrink-0"
                   >
-                    View Full Study Report
+                    {bi('查看完整研究报告', 'View Full Study Report')}
                   </button>
                 </div>
 
                 {/* Provenance metadata */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                   <div>
-                    <div className="text-slate-500">Preregistration Fingerprint</div>
+                    <div className="text-slate-500">
+                      {bi('预注册规格指纹', 'Preregistration Fingerprint')}
+                    </div>
                     <div className="font-mono text-slate-800 break-all mt-0.5">
                       {activeRecord.preregistration_fingerprint}
                     </div>
                   </div>
                   <div>
-                    <div className="text-slate-500">Trial Ledger Hash ({activeRecord.trial_id})</div>
+                    <div className="text-slate-500">
+                      {bi(`试验账本哈希 (${activeRecord.trial_id})`, `Trial Ledger Hash (${activeRecord.trial_id})`)}
+                    </div>
                     <div className="font-mono text-slate-800 break-all mt-0.5">
                       {activeRecord.trial_record_hash}
                     </div>
                   </div>
                   {activeRecord.evidence.sample && (
                     <div>
-                      <div className="text-slate-500">Sample Period</div>
+                      <div className="text-slate-500">{bi('样本起止区间', 'Sample Period')}</div>
                       <div className="font-mono tabular-nums text-slate-800 mt-0.5">
-                        {formatShortDate(activeRecord.evidence.sample.first)} to{' '}
+                        {formatShortDate(activeRecord.evidence.sample.first)} →{' '}
                         {formatShortDate(activeRecord.evidence.sample.last)} (n ={' '}
                         {formatInteger(activeRecord.evidence.sample.observations)})
                       </div>
@@ -215,7 +226,10 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                   {activeRecord.evidence.lab_wide && (
                     <div>
                       <div className="text-slate-500">
-                        Lab-Wide Multiplicity (m = {activeRecord.evidence.lab_wide.family_size})
+                        {bi(
+                          `全局多重检验 (m = ${activeRecord.evidence.lab_wide.family_size})`,
+                          `Lab-Wide Multiplicity (m = ${activeRecord.evidence.lab_wide.family_size})`
+                        )}
                       </div>
                       <div className="font-mono tabular-nums text-slate-800 mt-0.5">
                         Holm p = {formatPValue(activeRecord.evidence.lab_wide.holm_adjusted_p_value)}{' '}
@@ -230,17 +244,17 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                   activeRecord.evidence.family_tests.length > 0 && (
                     <div>
                       <h3 className="text-xs font-semibold text-slate-900 mb-2">
-                        Within-Study Preregistered Holm Family
+                        {bi('本研究内部预注册 Holm 检验族', 'Within-Study Preregistered Holm Family')}
                       </h3>
                       <div className="overflow-x-auto border border-slate-200 rounded-lg">
                         <table className="w-full text-left border-collapse text-xs">
                           <thead>
                             <tr className="bg-slate-50 border-b border-slate-200 text-slate-600">
-                              <th className="py-2 px-3 font-semibold">Edge</th>
-                              <th className="py-2 px-3 font-semibold">Test Key</th>
-                              <th className="py-2 px-3 font-semibold text-right">Raw p</th>
-                              <th className="py-2 px-3 font-semibold text-right">Holm adj. p</th>
-                              <th className="py-2 px-3 font-semibold">Reject H₀</th>
+                              <th className="py-2 px-3 font-semibold">{bi('边编号', 'Edge')}</th>
+                              <th className="py-2 px-3 font-semibold">{bi('检验键', 'Test Key')}</th>
+                              <th className="py-2 px-3 font-semibold text-right">{bi('原始 p', 'Raw p')}</th>
+                              <th className="py-2 px-3 font-semibold text-right">{bi('Holm p', 'Holm adj. p')}</th>
+                              <th className="py-2 px-3 font-semibold">{bi('拒绝 H₀', 'Reject H₀')}</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100">
@@ -260,9 +274,9 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                                 </td>
                                 <td className="py-2 px-3">
                                   {ft.reject ? (
-                                    <span className="text-emerald-700 font-medium">Yes</span>
+                                    <span className="text-emerald-700 font-medium">{bi('是', 'Yes')}</span>
                                   ) : (
-                                    <span className="text-slate-500">No</span>
+                                    <span className="text-slate-500">{bi('否', 'No')}</span>
                                   )}
                                 </td>
                               </tr>
@@ -276,7 +290,9 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                 {/* Audit notes & limitations */}
                 {activeRecord.audit_notes.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-semibold text-slate-900 mb-2">Audit Notes</h3>
+                    <h3 className="text-xs font-semibold text-slate-900 mb-2">
+                      {bi('审计备注', 'Audit Notes')}
+                    </h3>
                     <ul className="list-disc pl-5 space-y-1.5 text-xs text-slate-700 leading-relaxed">
                       {activeRecord.audit_notes.map((n, i) => (
                         <li key={i}>{n}</li>
@@ -288,7 +304,7 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                 {activeRecord.limitations.length > 0 && (
                   <div>
                     <h3 className="text-xs font-semibold text-slate-900 mb-2">
-                      Documented Limitations
+                      {bi('已知局限与边界条件', 'Documented Limitations')}
                     </h3>
                     <ul className="list-disc pl-5 space-y-1.5 text-xs text-slate-700 leading-relaxed">
                       {activeRecord.limitations.map((l, i) => (
@@ -299,7 +315,9 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
                 )}
               </div>
             ) : (
-              <p className="text-sm text-slate-500">No decision record selected.</p>
+              <p className="text-sm text-slate-500">
+                {bi('未选中任何决策档案。', 'No decision record selected.')}
+              </p>
             )}
           </section>
         </div>
@@ -310,11 +328,13 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
             <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between gap-2">
               <div>
                 <h2 className="text-base font-semibold text-slate-900">
-                  Instrument Panel Freshness (12 Tracked Series)
+                  {bi('12 条核心资产面板数据时效监控', 'Instrument Panel Freshness (12 Tracked Series)')}
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Probed {formatShortDate(sourcesData.probed_at)} · Accounts for verified
-                  publication-lag rules (e.g., 1-trading-day FRED posting lag).
+                  {bi(
+                    `核验时间 ${formatShortDate(sourcesData.probed_at)} · 已内置真实数据源发布滞后规则（如 FRED T+1 发布延迟）。`,
+                    `Probed ${formatShortDate(sourcesData.probed_at)} · Accounts for verified publication-lag rules (e.g., 1-trading-day FRED posting lag).`
+                  )}
                 </p>
               </div>
             </div>
@@ -322,13 +342,13 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-slate-600">
-                    <th className="py-2.5 px-4 font-semibold">Instrument</th>
-                    <th className="py-2.5 px-4 font-semibold">Source</th>
-                    <th className="py-2.5 px-4 font-semibold">Lag Rule</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Panel Last</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Expected Latest</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Days Behind</th>
-                    <th className="py-2.5 px-4 font-semibold">Status</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('标的', 'Instrument')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('数据源', 'Source')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('延迟规则', 'Lag Rule')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('面板最新日', 'Panel Last')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('应达最新日', 'Expected Latest')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('落后天数', 'Days Behind')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('状态', 'Status')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -369,19 +389,22 @@ export const DecisionRecordsView: React.FC<DecisionRecordsViewProps> = ({
           <section className="bg-white border border-slate-200 rounded-lg overflow-hidden">
             <div className="px-6 py-4 border-b border-slate-200">
               <h2 className="text-base font-semibold text-slate-900">
-                Registered Public Data Sources ({sourcesData.sources.length})
+                {bi(
+                  `已注册公开数据源健康清单 (${sourcesData.sources.length})`,
+                  `Registered Public Data Sources (${sourcesData.sources.length})`
+                )}
               </h2>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-slate-600">
-                    <th className="py-2.5 px-4 font-semibold">Source</th>
-                    <th className="py-2.5 px-4 font-semibold">Provider</th>
-                    <th className="py-2.5 px-4 font-semibold">Probe Mode</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Checks (Pass/Fail)</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Documented Quirks</th>
-                    <th className="py-2.5 px-4 font-semibold text-right">Last Verified</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('源 ID', 'Source')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('提供方', 'Provider')}</th>
+                    <th className="py-2.5 px-4 font-semibold">{bi('探测模式', 'Probe Mode')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('探针 (通过/失败)', 'Checks (Pass/Fail)')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('已知坑点数', 'Documented Quirks')}</th>
+                    <th className="py-2.5 px-4 font-semibold text-right">{bi('上次核验', 'Last Verified')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">

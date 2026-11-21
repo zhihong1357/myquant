@@ -8,6 +8,7 @@ import {
   formatStatusLabel,
   statusTextClass,
 } from '../lib/format';
+import { useI18n } from '../lib/i18n';
 import { MarkdownViewer } from './MarkdownViewer';
 
 interface StudiesViewProps {
@@ -16,6 +17,7 @@ interface StudiesViewProps {
 }
 
 export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }) => {
+  const { bi } = useI18n();
   const [selectedSlug, setSelectedSlug] = useState<string>(
     initialSlug && studies.some((s) => s.slug === initialSlug)
       ? initialSlug
@@ -78,11 +80,13 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-          Empirical Studies &amp; Adversarial Reviews
+          {bi('实证研究报告与对抗式独立复核', 'Empirical Studies & Adversarial Reviews')}
         </h1>
         <p className="text-sm text-slate-600 mt-1">
-          All {studies.length} preregistered studies with immutable ledger trials, hypothesis
-          versions, full Markdown reports, and Stage 6D read-only audit checks.
+          {bi(
+            `完整收录全部 ${studies.length} 项预注册实证研究，包含不可篡改实验账本、假设版本号、原始研究报告与 Stage 6D 自动化复核清单。`,
+            `All ${studies.length} preregistered studies with immutable ledger trials, hypothesis versions, full Markdown reports, and Stage 6D read-only audit checks.`
+          )}
         </p>
       </div>
 
@@ -91,14 +95,14 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
         <aside className="lg:col-span-4 bg-white border border-slate-200 rounded-lg overflow-hidden">
           <div className="p-4 border-b border-slate-200 space-y-3">
             <label htmlFor="study-search" className="sr-only">
-              Search studies
+              {bi('搜索研究', 'Search studies')}
             </label>
             <input
               id="study-search"
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search study, hypothesis, or trial…"
+              placeholder={bi('搜索研究代号、假设或试验号…', 'Search study, hypothesis, or trial…')}
               className="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600"
             />
             <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg">
@@ -113,7 +117,11 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  {vf === 'all' ? 'All (13)' : vf === 'supported' ? 'Has Supported' : 'All Rejected'}
+                  {vf === 'all'
+                    ? bi(`全部 (${studies.length})`, `All (${studies.length})`)
+                    : vf === 'supported'
+                      ? bi('含成立结果', 'Has Supported')
+                      : bi('全部证伪', 'All Rejected')}
                 </button>
               ))}
             </div>
@@ -122,7 +130,7 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
           <div className="divide-y divide-slate-100 max-h-[680px] overflow-y-auto">
             {filteredStudies.length === 0 ? (
               <div className="p-6 text-center text-xs text-slate-500">
-                No studies match the current filter.
+                {bi('没有匹配当前筛选条件的研究。', 'No studies match the current filter.')}
               </div>
             ) : (
               filteredStudies.map((s) => {
@@ -152,16 +160,18 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
                         }`}
                       >
                         {s.supported_trials > 0
-                          ? `${s.supported_trials} supported`
-                          : 'Null / Rejected'}
+                          ? bi(`${s.supported_trials} 项成立`, `${s.supported_trials} supported`)
+                          : bi('空结果 / 证伪', 'Null / Rejected')}
                       </span>
                     </div>
                     <div className="mt-1 text-xs text-slate-500 font-mono">
                       {s.hypotheses.join(', ')} · {s.trials.join(', ')}
                     </div>
                     <div className="mt-1 text-[11px] text-slate-500 font-mono tabular-nums">
-                      Audit: {s.review_counts.pass} pass · {s.review_counts.fail} fail ·{' '}
-                      {s.review_counts.unverified} unverified
+                      {bi('审计：', 'Audit: ')}
+                      {s.review_counts.pass} {bi('通过', 'pass')} · {s.review_counts.fail}{' '}
+                      {bi('失败', 'fail')} · {s.review_counts.unverified}{' '}
+                      {bi('未复验', 'unverified')}
                     </div>
                   </button>
                 );
@@ -175,12 +185,12 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
           <div className="px-6 py-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
             <div>
               <div className="font-mono text-sm font-semibold text-slate-900">
-                {selectedSlug || 'Select a study'}
+                {selectedSlug || bi('请选择一项研究', 'Select a study')}
               </div>
               {detail && (
                 <div className="text-xs text-slate-500 font-mono mt-0.5">
-                  {detail.report_path} · {detail.trials.length} trial record(s) ·{' '}
-                  {detail.review_checks.length} audit checks
+                  {detail.report_path} · {detail.trials.length} {bi('条试验记录', 'trial record(s)')} ·{' '}
+                  {detail.review_checks.length} {bi('项审计检查', 'audit checks')}
                 </div>
               )}
             </div>
@@ -188,9 +198,9 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
             <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg">
               {(
                 [
-                  { id: 'report', label: 'Study Report' },
-                  { id: 'trials', label: 'Trials & Hypotheses' },
-                  { id: 'review', label: 'Adversarial Audit' },
+                  { id: 'report', zh: '完整报告', en: 'Study Report' },
+                  { id: 'trials', zh: '试验与假设版本', en: 'Trials & Hypotheses' },
+                  { id: 'review', zh: '对抗式审计', en: 'Adversarial Audit' },
                 ] as const
               ).map((t) => (
                 <button
@@ -203,7 +213,7 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  {t.label}
+                  {bi(t.zh, t.en)}
                 </button>
               ))}
             </div>
@@ -218,9 +228,7 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
               </div>
             )}
 
-            {error && !loading && (
-              <div className="text-sm text-rose-700 py-4">{error}</div>
-            )}
+            {error && !loading && <div className="text-sm text-rose-700 py-4">{error}</div>}
 
             {detail && !loading && detailTab === 'report' && (
               <MarkdownViewer content={detail.markdown} />
@@ -230,19 +238,19 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
               <div className="space-y-6">
                 <div>
                   <h2 className="text-sm font-semibold text-slate-900 mb-3">
-                    Immutable Trial Ledger Records
+                    {bi('不可篡改试验账本记录', 'Immutable Trial Ledger Records')}
                   </h2>
                   <div className="overflow-x-auto border border-slate-200 rounded-lg">
                     <table className="w-full text-left border-collapse text-xs">
                       <thead>
                         <tr className="bg-slate-50 border-b border-slate-200 text-slate-600">
-                          <th className="py-2.5 px-3 font-semibold">Trial</th>
-                          <th className="py-2.5 px-3 font-semibold">Primary Test</th>
-                          <th className="py-2.5 px-3 font-semibold text-right">Effect</th>
-                          <th className="py-2.5 px-3 font-semibold text-right">Raw p</th>
-                          <th className="py-2.5 px-3 font-semibold text-right">Adj. p</th>
+                          <th className="py-2.5 px-3 font-semibold">{bi('试验号', 'Trial')}</th>
+                          <th className="py-2.5 px-3 font-semibold">{bi('主检验项', 'Primary Test')}</th>
+                          <th className="py-2.5 px-3 font-semibold text-right">{bi('效应量', 'Effect')}</th>
+                          <th className="py-2.5 px-3 font-semibold text-right">{bi('原始 p', 'Raw p')}</th>
+                          <th className="py-2.5 px-3 font-semibold text-right">{bi('校正 p', 'Adj. p')}</th>
                           <th className="py-2.5 px-3 font-semibold text-right">n</th>
-                          <th className="py-2.5 px-3 font-semibold">Outcome</th>
+                          <th className="py-2.5 px-3 font-semibold">{bi('结论', 'Outcome')}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
@@ -278,11 +286,11 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
                             </td>
                             <td className="py-2.5 px-3 whitespace-nowrap">
                               {tr.status === 'failed' ? (
-                                <span className="text-rose-700 font-medium">Failed</span>
+                                <span className="text-rose-700 font-medium">{bi('失败', 'Failed')}</span>
                               ) : tr.supported ? (
-                                <span className="text-emerald-700 font-medium">Supported</span>
+                                <span className="text-emerald-700 font-medium">{bi('成立', 'Supported')}</span>
                               ) : (
-                                <span className="text-slate-600 font-medium">Rejected</span>
+                                <span className="text-slate-600 font-medium">{bi('证伪', 'Rejected')}</span>
                               )}
                             </td>
                           </tr>
@@ -294,7 +302,7 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
 
                 <div>
                   <h2 className="text-sm font-semibold text-slate-900 mb-3">
-                    Preregistered Hypothesis Versions
+                    {bi('预注册假设历史版本', 'Preregistered Hypothesis Versions')}
                   </h2>
                   <div className="divide-y divide-slate-200 border border-slate-200 rounded-lg">
                     {detail.hypotheses.map((h) => (
@@ -317,10 +325,14 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
                               <span>·</span>
                               <span>{formatShortDate(v.registered_at)}</span>
                               <span>·</span>
-                              <span>State: {v.state}</span>
+                              <span>
+                                {bi('状态：', 'State: ')}
+                                {v.state}
+                              </span>
                               <span>·</span>
                               <span className="text-slate-500">
-                                Fingerprint: {v.spec_fingerprint.slice(0, 14)}…
+                                {bi('指纹：', 'Fingerprint: ')}
+                                {v.spec_fingerprint.slice(0, 14)}…
                               </span>
                             </div>
                           ))}
@@ -335,9 +347,10 @@ export const StudiesView: React.FC<StudiesViewProps> = ({ studies, initialSlug }
             {detail && !loading && detailTab === 'review' && (
               <div className="space-y-3">
                 <p className="text-xs text-slate-600">
-                  Deterministic Stage 6D audit checks verifying ledger hash-chains, anchors,
-                  preregistration fingerprints, Holm recomputation, report-table alignment, and PIT
-                  timestamps.
+                  {bi(
+                    '确定性 Stage 6D 只读核查：逐项校验哈希链、预注册指纹、Holm 重算、报告表格一致性与 PIT 时间戳。',
+                    'Deterministic Stage 6D audit checks verifying ledger hash-chains, anchors, preregistration fingerprints, Holm recomputation, report-table alignment, and PIT timestamps.'
+                  )}
                 </p>
                 <div className="divide-y divide-slate-200 border border-slate-200 rounded-lg">
                   {detail.review_checks.map((chk, idx) => (

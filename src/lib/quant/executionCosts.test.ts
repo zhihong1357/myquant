@@ -3,55 +3,69 @@ import assert from 'node:assert/strict';
 import {
   estimatePaperExecutionCost,
   fundingSettlementsBetween,
-  impactBps,
+  legacyLinearCappedImpactBps,
   notionalValue,
+  squareRootImpactBps,
 } from './executionCosts.ts';
 
-test('notional value and impact bps handle normal, zero, and missing depth', () => {
+test('notional value and unbounded square-root impact replace legacy 5 bps cap and null=0 bug', () => {
   assert.equal(notionalValue(90000, 10, 0.01), 9000);
-  assert.equal(impactBps(10, 50, 5.0), 1.0);
-  assert.equal(impactBps(100, 50, 5.0), 5.0); // capped at coefficient
-  assert.equal(impactBps(10, 0, 5.0), 5.0);
-  assert.equal(impactBps(10, null, 5.0), null);
+
+  // Legacy capped impact saturates at 5.0 bps even at 10x top-5 depth
+  assert.equal(legacyLinearCappedImpactBps(10, 50, 5.0), 1.0);
+  assert.equal(legacyLinearCappedImpactBps(500, 50, 5.0), 5.0);
+  assert.equal(legacyLinearCappedImpactBps(10, null, 5.0), null);
+
+  // Unbounded convex square-root impact grows sharply above top-5 depth (no 5 bps ceiling!)
+  const small = squareRootImpactBps({ orderQuantity: 10, depth: 50, coefficientBps: 5.0 });
+  const large = squareRootImpactBps({ orderQuantity: 500, depth: 50, coefficientBps: 5.0 });
+  assert.equal(small.failClosedPenaltyApplied, false);
+  assert.equal(large.failClosedPenaltyApplied, false);
+  assert.ok(large.impactBps > 50, `Expected unbounded large-order impact > 50 bps, got ${large.impactBps}`);
+  assert.ok(large.impactBps > small.impactBps * 20);
+
+  // Fail-Closed missing depth NEVER returns 0 bps
+  const missing = squareRootImpactBps({ orderQuantity: 50, depth: null, coefficientBps: 5.0 });
+  assert.equal(missing.failClosedPenaltyApplied, true);
+  assert.ok(missing.impactBps >= 5.0);
 });
 
 test('funding settlements count 00/08/16 UTC boundaries strictly in (start, end]', () => {
   const start = new Date('2026-11-18T00:00:00Z');
   const end = new Date('2026-11-19T00:00:00Z');
   const settlements = fundingSettlementsBetween(start, end);
-  // Crosses 08:00, 16:00 on Nov 18 and 00:00 on Nov 19 (start at 00:00 excluded)
   assert.equal(settlements.length, 3);
+
+  // 10-minute trade spanning 08:00 UTC boundary MUST charge 1 funding settlement
+  const shortCrossing = fundingSettlementsBetween(
+    new Date('2026-11-18T07:55:00Z'),
+    new Date('2026-11-18T08:05:00Z'),
+  );
+  assert.equal(shortCrossing.length, 1);
 });
 
-test('round-trip taker cost breakdown sums all components accurately', () => {
-  const result = estimatePaperExecutionCost({
+test('estimatePaperExecutionCost enforces fail-closed missing depth and exact UTC boundary funding', () => {
+  const missingDepthCost = estimatePaperExecutionCost({
     price: 100000,
-    quantityContracts: 10,
+    quantityContracts: 100,
     contractValue: 0.01,
     side: 'buy',
     executionRole: 'taker',
     spreadBps: 2.0,
     marketSlippageBps: 1.0,
     impactCoefficientBps: 5.0,
-    orderBookDepthContracts: 50,
-    holdingHours: 16,
-    fundingRateBpsPer8h: 1.0,
+    orderBookDepthContracts: null,
+    holdingHours: 0.25,
+    entryTimestampIso: '2026-11-18T07:55:00Z',
+    fundingRateBpsPer8h: 1.5,
     roundTrip: true,
   });
 
-  // Notional = 10,000 USDT
-  assert.equal(result.notionalUsdt, 10000);
-  // Taker fee: 5 bps * 2 = 10 bps
-  assert.equal(result.feeBps, 10);
-  // Spread crossing: 1 bps * 2 = 2 bps
-  assert.equal(result.spreadCrossBps, 2);
-  // Slippage: 1 bps * 2 = 2 bps
-  assert.equal(result.slippageBps, 2);
-  // Impact: (10/50 * 5 = 1 bps) * 2 = 2 bps
-  assert.equal(result.impactBps, 2);
-  // Funding: 2 intervals * 1 bps = 2 bps (long pays positive funding)
-  assert.equal(result.fundingIntervalsCrossed, 2);
-  assert.equal(result.fundingBps, 2);
-  assert.equal(result.totalBps, 18);
-  assert.ok(Math.abs(result.totalUsdt - 18) < 1e-9);
+  assert.equal(missingDepthCost.impactMissingDepthFlag, true);
+  assert.equal(missingDepthCost.failClosedPenaltyApplied, true);
+  assert.ok(missingDepthCost.impactBps >= 10.0);
+  assert.equal(missingDepthCost.fundingExactTimestampUsed, true);
+  assert.equal(missingDepthCost.fundingIntervalsCrossed, 1);
+  assert.equal(missingDepthCost.fundingBps, 1.5);
+  assert.ok(missingDepthCost.totalBps > 25);
 });

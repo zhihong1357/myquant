@@ -1,6 +1,7 @@
 /**
- * Minimum Detectable Effects (MDE) for MyQuant's core study designs.
- * Direct TypeScript port of myquant.stats.power.
+ * Minimum Detectable Effects (MDE) for MyQuant's core study designs,
+ * upgraded with autocorrelation-adjusted Effective Sample Size (N_eff)
+ * to eliminate power overestimation on persistent or step-function predictors.
  */
 
 import { normalPpf } from './normal.ts';
@@ -18,6 +19,10 @@ export interface MinimumDetectableEffect {
     | 'cohens_d'
     | 'mean_ratio';
   minimumDetectableEffect: number;
+  naiveMde?: number;
+  effectiveSampleSize?: number;
+  lag1Autocorrelation?: number;
+  inflationFactor?: number;
   alpha: number;
   power: number;
   oneSided: boolean;
@@ -37,21 +42,54 @@ export function noncentrality(alpha = 0.05, power = 0.8, oneSided = false): numb
   return critical + normalPpf(power);
 }
 
+/**
+ * Computes Newey-West / Bartlett effective sample size under AR(1) autocorrelation rho,
+ * optionally capped by an explicit number of distinct regime/step values (e.g. 69 CPI releases).
+ */
+export function effectiveSampleSize(
+  observations: number,
+  lag1Autocorr = 0,
+  distinctRegimeCount?: number,
+): number {
+  if (!Number.isInteger(observations) || observations < 1) {
+    throw new Error('observations must be a positive integer');
+  }
+  if (!Number.isFinite(lag1Autocorr) || lag1Autocorr <= -1 || lag1Autocorr >= 1) {
+    throw new Error('lag1Autocorr must lie strictly inside (-1, 1)');
+  }
+  // Under positive persistence rho > 0, long-run variance scales by (1 + rho) / (1 - rho)
+  const rhoPos = Math.max(0, lag1Autocorr);
+  const ar1Neff = observations * ((1 - rhoPos) / (1 + rhoPos));
+  const capped =
+    distinctRegimeCount !== undefined && Number.isFinite(distinctRegimeCount) && distinctRegimeCount >= 1
+      ? Math.min(ar1Neff, distinctRegimeCount)
+      : ar1Neff;
+  return Math.max(1, Math.round(capped));
+}
+
 export function mdePartialRSquared(
   observations: number,
   alpha = 0.05,
   power = 0.8,
+  lag1Autocorr = 0,
+  distinctRegimeCount?: number,
 ): MinimumDetectableEffect {
   if (!Number.isInteger(observations) || observations < 1) {
     throw new Error('observations must be a positive integer');
   }
   const lambda = noncentrality(alpha, power, false);
   const lambdaSq = lambda * lambda;
-  const mde = lambdaSq / (lambdaSq + observations);
+  const naiveMde = lambdaSq / (lambdaSq + observations);
+  const nEff = effectiveSampleSize(observations, lag1Autocorr, distinctRegimeCount);
+  const mde = lambdaSq / (lambdaSq + nEff);
   return {
     design: 'lead_lag_ols',
     effectMeasure: 'partial_r_squared',
     minimumDetectableEffect: mde,
+    naiveMde,
+    effectiveSampleSize: nEff,
+    lag1Autocorrelation: lag1Autocorr,
+    inflationFactor: naiveMde > 0 ? mde / naiveMde : 1,
     alpha,
     power,
     oneSided: false,
@@ -91,15 +129,23 @@ export function mdeStandardizedMean(
   alpha = 0.05,
   power = 0.8,
   oneSided = true,
+  lag1Autocorr = 0,
 ): MinimumDetectableEffect {
   if (!Number.isInteger(observations) || observations < 1) {
     throw new Error('observations must be a positive integer');
   }
   const lambda = noncentrality(alpha, power, oneSided);
+  const nEff = effectiveSampleSize(observations, lag1Autocorr);
+  const naiveMde = lambda / Math.sqrt(observations);
+  const mde = lambda / Math.sqrt(nEff);
   return {
     design: 'event_study_car',
     effectMeasure: 'standardized_mean_car',
-    minimumDetectableEffect: lambda / Math.sqrt(observations),
+    minimumDetectableEffect: mde,
+    naiveMde,
+    effectiveSampleSize: nEff,
+    lag1Autocorrelation: lag1Autocorr,
+    inflationFactor: naiveMde > 0 ? mde / naiveMde : 1,
     alpha,
     power,
     oneSided,

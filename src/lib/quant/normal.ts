@@ -1,6 +1,6 @@
 /**
- * Standard normal distribution helpers (CDF and Acklam inverse CDF / PPF).
- * Ported for deterministic inference in MyQuant statistical kernel.
+ * Standard normal and finite-sample Student-t distribution helpers.
+ * Deterministic pure-TypeScript statistical primitives for MyQuant kernel.
  */
 
 function erf(x: number): number {
@@ -30,6 +30,108 @@ export function twoSidedPValueFromZ(z: number): number {
   }
   const tail = 1.0 - normalCdf(Math.abs(z));
   return Math.min(1.0, Math.max(0.0, 2.0 * tail));
+}
+
+/**
+ * Lanczos approximation for ln(Gamma(z)), accurate to ~1e-13 for z > 0.
+ */
+export function logGamma(z: number): number {
+  if (!Number.isFinite(z) || z <= 0) {
+    throw new Error('logGamma requires finite z > 0');
+  }
+  const g = 7;
+  const p = [
+    0.99999999999980993,
+    676.5203681218851,
+    -1259.1392167224028,
+    771.32342877765313,
+    -176.61502916214059,
+    12.507343278686905,
+    -0.13857109526572012,
+    9.9843695780195716e-6,
+    1.5056327351493116e-7,
+  ];
+  if (z < 0.5) {
+    return Math.log(Math.PI / Math.sin(Math.PI * z)) - logGamma(1 - z);
+  }
+  const zm = z - 1;
+  let x = p[0];
+  for (let i = 1; i < g + 2; i++) {
+    x += p[i] / (zm + i);
+  }
+  const t = zm + g + 0.5;
+  return 0.5 * Math.log(2 * Math.PI) + (zm + 0.5) * Math.log(t) - t + Math.log(x);
+}
+
+function betacf(a: number, b: number, x: number): number {
+  const MAXIT = 200;
+  const EPS = 3e-12;
+  const FPMIN = 1e-30;
+  const qab = a + b;
+  const qap = a + 1.0;
+  const qam = a - 1.0;
+  let c = 1.0;
+  let d = 1.0 - (qab * x) / qap;
+  if (Math.abs(d) < FPMIN) d = FPMIN;
+  d = 1.0 / d;
+  let h = d;
+
+  for (let m = 1; m <= MAXIT; m++) {
+    const m2 = 2 * m;
+    let aa = (m * (b - m) * x) / ((qam + m2) * (a + m2));
+    d = 1.0 + aa * d;
+    if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1.0 + aa / c;
+    if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1.0 / d;
+    h *= d * c;
+
+    aa = (-(a + m) * (qab + m) * x) / ((a + m2) * (qap + m2));
+    d = 1.0 + aa * d;
+    if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1.0 + aa / c;
+    if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1.0 / d;
+    const del = d * c;
+    h *= del;
+    if (Math.abs(del - 1.0) < EPS) {
+      break;
+    }
+  }
+  return h;
+}
+
+/**
+ * Regularized incomplete beta function I_x(a, b) via Lentz continued fraction.
+ */
+export function regIncompleteBeta(x: number, a: number, b: number): number {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const bt = Math.exp(
+    logGamma(a + b) - logGamma(a) - logGamma(b) + a * Math.log(x) + b * Math.log(1 - x),
+  );
+  if (x < (a + 1) / (a + b + 2)) {
+    return (bt * betacf(a, b, x)) / a;
+  }
+  return 1.0 - (bt * betacf(b, a, 1 - x)) / b;
+}
+
+/**
+ * Exact finite-sample two-sided Student-t p-value for statistic t with df degrees of freedom.
+ * Eliminates asymptotic normal-tail understatement on small samples / event studies.
+ */
+export function twoSidedPValueFromT(t: number, df: number): number {
+  if (!Number.isFinite(t)) {
+    throw new Error('t must be finite');
+  }
+  if (!Number.isFinite(df) || df <= 0) {
+    throw new Error('df must be positive');
+  }
+  if (t === 0) return 1.0;
+  if (df > 1e6) return twoSidedPValueFromZ(t);
+  const x = df / (df + t * t);
+  const p = regIncompleteBeta(x, df / 2, 0.5);
+  return Math.min(1.0, Math.max(0.0, p));
 }
 
 /**

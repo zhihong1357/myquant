@@ -8,7 +8,7 @@
     "build": "vite build",
     "start": "NODE_ENV=production node server.ts",
     "lint": "tsc --noEmit",
-    "test": "tsx --test src/lib/quant/*.test.ts"
+    "test": "tsx --test src/lib/quant/*.test.ts src/lib/engine/*.test.ts"
   },
   "dependencies": {
     "express": "^4.21.2",
